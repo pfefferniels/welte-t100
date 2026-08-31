@@ -1655,6 +1655,33 @@ paper, and nothing in the punched code records it. Four windows a half of this k
 quarter and a third of the squared error, so a model driven by the code alone cannot be scored
 below about 0.034 and 0.042 on this roll however good it is.
 
+**Three parameterisations of one deficiency, and one real second effect.** Four terms were
+proposed for the residual above and refitted against a common baseline and budget, seventeen
+constants moving with each. Held-out rmse:
+
+| | bass | treble |
+| --- | ---: | ---: |
+| baseline | 0.0365 | 0.0476 |
+| a dead band in the drive | 0.0340 | 0.0436 |
+| a narrowed valve lift band | 0.0338 | 0.0428 |
+| a through-flow load on the blower | 0.0339 | 0.0450 |
+| **valve band and through-flow together** | **0.0312** | **0.0401** |
+| all three | 0.0312 | 0.0391 |
+| a grip at the closed rail | 0.0364 | 0.0455 |
+
+Alone the first three buy nearly the same thing, which is what three descriptions of one
+deficiency look like. The valve band and the through-flow load add to each other, 0.0338 and
+0.0339 apart against 0.0312 together, so those two are separate effects. The dead band adds
+0.0000 (Bass) and 0.0010 (Discant) once the pair is there, and the rail grip buys nothing in
+the Bass and collapses to 0.018 whenever the dead band is free, so it is the same effect
+confined to the rail.
+
+Two cautions on the numbers. They come from one search protocol with the pin faces free, so
+they are comparable within the table and not against the headline fit. And the valve band there
+is the shared form, one band serving both relay valves, which is separately shown to wreck the
+cancel: with the bands separate the pair should gain more and the dead band be more redundant,
+not less.
+
 **One interaction the pooled averages concealed.** §2's event-triggered averages put the model
 0.013 too high 150 ms after a sforzando-on in the Bass, which looks like a small rate error.
 Split by whether the crescendo latch was set at the trip, it is not:
