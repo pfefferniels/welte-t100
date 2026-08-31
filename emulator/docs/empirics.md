@@ -1638,6 +1638,21 @@ only 2 Bass and 4 Discant cancels fall at less than half the model's rate. Two o
 at 273.54 and 144.98 s, and neither is a trace artefact: at 273.5 the printed M.F. gridline
 sits at x = 1905–1909 in every row and the drawn ink is a separate group at 1920–1932.
 
+**With the hook set the two halves are equally well modelled; the difference between them is
+all in one passage.** Splitting the residual by whether the Mezzoforte pin is in the path:
+
+| | 128.8–206.4 s | the rest | hook set | hook released |
+| --- | ---: | ---: | ---: | ---: |
+| bass | 0.0401, 25 % of error on 23 % of rows | 0.0389 | **0.0315** | 0.0452 |
+| treble | **0.0812**, 58 % on 22 % | 0.0387 | **0.0316** | 0.0657 |
+
+The hook-set figures agree to 0.0001 across halves that are otherwise 0.0392 against 0.0521,
+which is as good a check as this roll offers that the stop, with its faces set from measurement,
+is one mechanism described once. Everything by which the Discant is worse than the Bass lies in
+rows where the pin is out of the path, and 58 % of the Discant's whole error lies inside the
+single 78-second stretch where it is released, against a Bass that shows no concentration there
+at all. So the Discant is not generally harder to model. One passage is.
+
 **Two cancels the code cannot account for.** The two events that dominate what is left,
 273.54 s (Bass) and 144.98 s (Discant), have entirely ordinary perforations: both ports open
 fully, as every sforzando-off port on the roll does, with an open area of 80 ms against a
