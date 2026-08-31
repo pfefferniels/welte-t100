@@ -76,10 +76,12 @@ export function limitAtStop(
   }
   if (current >= upper) state.caught = true;
 
-  // The stop yields in the direction it is pushed. A bellows driven down onto it
-  // comes to rest a little below the nominal level, one driven up against it a
-  // little above, so the two arrest levels are a hysteresis and not an excluded
-  // band. Roll 3309 shows both, cleanly separated by direction: the line rests at
+  // The two arrest levels are a hysteresis and not an excluded band: a bellows
+  // driven down onto the hook comes to rest a little below the nominal level, one
+  // driven up against it a little above. The hook itself does not move — the line
+  // rebounds off it rather than sinking into it, which `stopRestitution` in the
+  // model is for — so what takes up the difference is slack in the chain, the
+  // roller and the leaf, not the pin. Roll 3309 shows both, cleanly separated by direction: the line rests at
   // 0.58 having fallen (312 stretches, none arrived from below) and at 0.62 to
   // 0.66 having risen (40 arrivals from below, two from above), and the same 0.06
   // apart in the treble. The falling rest is the lower of the two, which is the

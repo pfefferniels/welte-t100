@@ -68,6 +68,9 @@ import {
 /** How near the closed rail the grip acts, in scale units. */
 const RAIL_BAND = 0.05;
 
+/** Below this the contact is a rest rather than an impact, and nothing rebounds. */
+const REBOUND_FLOOR = 0.5;
+
 const SPEC: readonly ParameterSpec[] = [
   { name: "alpha", lower: 0, upper: 2, unit: "1", note: "flow-law exponent: 0 constant rate, ½ orifice, 1 laminar" },
   { name: "piano", lower: -0.1, upper: 0.15, unit: "scale", note: "fully open rail" },
@@ -105,6 +108,7 @@ const SPEC: readonly ParameterSpec[] = [
   { name: "mfBarrier", lower: 0, upper: 1, unit: "flag", note: "1 = the Mezzoforte pin is in the path at all" },
   { name: "mfTwoSided", lower: 0, upper: 1, unit: "flag", note: "1 = the pin blocks both ways; 0 = a floor only" },
   { name: "mfThickness", lower: 0, upper: 0.3, unit: "scale", note: "extent of the pin; the band it makes unreachable" },
+  { name: "stopRestitution", lower: 0, upper: 0.9, unit: "1", note: "how much of its speed the bellows keeps when it rebounds off the rigid hook; 0 uses the compliant contact instead" },
   { name: "stopStiffness", lower: 0, upper: 90000, unit: "1/s²", note: "springiness of the contact at the hook; the measured 32 ms period implies about 38 500" },
   { name: "stopDamping", lower: 0, upper: 400, unit: "1/s", note: "how fast the rebound at the hook dies away" },
   { name: "sforzandoLatches", lower: 0, upper: 1, unit: "flag", note: "1 = sforzando holds until cancelled" },
@@ -166,6 +170,7 @@ const DEFAULTS: Parameters = {
   mfBarrier: 1,
   mfTwoSided: 1,
   mfThickness: 0.1,
+  stopRestitution: 0,
   stopStiffness: 38500,
   stopDamping: 60,
   sforzandoLatches: 0,
@@ -380,7 +385,26 @@ function run(input: ModelInput, params: Parameters): Float64Array {
     // compliant, and a hook-calibrated spring extrapolated down to rail speeds
     // would overshoot by 0.001, half a traced pixel. Sharing the constants would be
     // assuming what the data cannot show, for no gain.
-    const atHook = stopStiffness > 0 ? penetration(state.stop, engaged, moved, mezzoforte, twoSided, mfThickness) : 0;
+    // The hook does not move. The bellows is stopped dead at its face and what is
+    // left of the momentum sends it back the way it came, the drives then carrying
+    // it down onto the hook again. `held` is already the arrested position, so the
+    // board never passes the face, which is the difference from a spring it
+    // presses into: the line rebounds *upward* off the stop rather than sinking
+    // past it. Over fifteen clean arrivals in the Bass the drawn line rises 0.021
+    // above the level it settles at and falls 0.011 below; a spring gives 0.009 and
+    // 0.032, the wrong way round, and this gives 0.025 and 0.000. The Discant does
+    // not rebound at all, so its coefficient should fit near zero.
+    const restitution = p.stopRestitution!;
+    if (restitution > 0 && held !== moved) {
+      const bounced = clamp(held, piano, forte);
+      state.velocity = Math.abs(state.velocity) > REBOUND_FLOOR ? -restitution * state.velocity : 0;
+      state.x = bounced;
+      return bounced;
+    }
+    const atHook =
+      stopStiffness > 0 && restitution === 0
+        ? penetration(state.stop, engaged, moved, mezzoforte, twoSided, mfThickness)
+        : 0;
     if (atHook > 0) {
       state.velocity += ((held > moved ? 1 : -1) * stopStiffness * atHook - stopDamping * state.velocity) * dt;
       state.x = clamp(moved, piano - OVERRUN, forte + OVERRUN);

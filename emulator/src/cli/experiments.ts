@@ -66,6 +66,8 @@ const VARIANTS: readonly Variant[] = [
   pneumatic("pneumatic, alpha = 1 (laminar)", "exponential approach", { alpha: 1 }),
 
   pneumatic("pneumatic, no inertia", "does the linkage need mass", { inertiaMs: 0 }),
+  pneumatic("pneumatic, the hook as a spring", "the bellows presses into it", { stopRestitution: 0 }),
+  pneumatic("pneumatic, the hook rigid", "the bellows rebounds off it", { stopStiffness: 0, stopDamping: 0 }),
 
   // Each of the four prices itself against the full model by being pinned at the
   // value that removes it. A lift band of 1 is the model before the term existed.
