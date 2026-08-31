@@ -1525,6 +1525,32 @@ error. Instrumenting the model through it shows the reopening assist reaching a 
 arrest a cancel here, and the drawn line's own fall decelerates smoothly as though toward a
 floor near 0.6 rather than meeting a barrier. What arrests it is not known.
 
+**Four structural variants, all refuted.** The height the drawn line reaches on a rise does
+not follow how long the sforzando punch is, r = −0.28 (Bass) and −0.00 (Discant), while the
+model's height does, r = +0.36 and +0.42, and the drawn peak's spread across rises is 0.011
+and 0.013 against the model's 0.023. The line goes to the fortissimo rail whatever the punch,
+because a rail is what stops it, and a valve that opens in proportion to its charge gives an
+excursion in proportion to the punch. That is a clean model-free statement of a structural
+problem, and it is the rising-side mirror of §11b. Four ways of answering it were tried, each
+scored against the published fit at 0.0392 (Bass) and 0.0521 (Discant) overall:
+
+| variant | bass overall | treble overall | mean rise deficit, bass / treble |
+| --- | ---: | ---: | ---: |
+| as fitted, graded opening | 0.0392 | 0.0521 | +0.0128 / +0.0067 |
+| the sforzando latches | 0.2703 | 0.2541 | +0.0102 / +0.0029 |
+| `sforzandoRate` × 2 | 0.1079 | 0.1433 | +0.0102 / +0.0029 |
+| snap-action valve, releases 50 % below trip | 0.1154 | 0.1470 | +0.0102 / +0.0029 |
+| static friction in the linkage, 0.05 | 0.0398 | 0.0554 | — |
+
+The first three all drive the rise deficit down to the same floor and cost three to five times
+the overall error, because each makes *every* rise reach further, not only the short-punched
+ones that fall short. The floor itself is the point: 0.0102 and 0.0029 of the deficit survives
+unlimited drive, because the drawn peak lies above the model's rail. Static friction, a dead
+band below which the net drive moves nothing, is the only one that does not hurt, and it helps
+by 0.0001 to 0.0002 on held-out blocks, consistently in sign across both halves and at the
+rail. That is inside the ±0.002 spread across search seeds, so the roll does not support it
+without a refit that lets it trade against everything else.
+
 **One interaction the pooled averages concealed.** §2's event-triggered averages put the model
 0.013 too high 150 ms after a sforzando-on in the Bass, which looks like a small rate error.
 Split by whether the crescendo latch was set at the trip, it is not:
