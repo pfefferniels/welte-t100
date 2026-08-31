@@ -65,6 +65,9 @@ import {
  * could produce, and a fitted value sitting on a bound is reported rather than
  * hidden, so a bound that turns out to be wrong will show.
  */
+/** How near the closed rail the grip acts, in scale units. */
+const RAIL_BAND = 0.05;
+
 const SPEC: readonly ParameterSpec[] = [
   { name: "alpha", lower: 0, upper: 2, unit: "1", note: "flow-law exponent: 0 constant rate, ½ orifice, 1 laminar" },
   { name: "piano", lower: -0.1, upper: 0.15, unit: "scale", note: "fully open rail" },
@@ -89,6 +92,7 @@ const SPEC: readonly ParameterSpec[] = [
   { name: "leadMezzoforteRows", lower: -80, upper: 80, unit: "scan rows", note: "the two mezzoforte codes, relative to that" },
   { name: "leadPerLevelRows", lower: -60, upper: 60, unit: "scan rows", note: "how much the offset moves between the two rails, as the pen swings" },
   { name: "leadDriftRows", lower: -60, upper: 60, unit: "scan rows", note: "change in that shift from the start of the roll to the end" },
+  { name: "railGrip", lower: 0, upper: 1.0, unit: "scale/s", note: "net drive needed to pull the bellows off its closed rail" },
   { name: "scaleWarp", lower: -2.5, upper: 2.5, unit: "1", note: "curvature of bellows travel against the printed scale; 0 is linear" },
   { name: "regulatorGain", lower: -0.01, upper: 0.01, unit: "scale·s/note", note: "note density added to the trace, the wrong shape for a supply effect but kept to compare" },
   { name: "supplyDroop", lower: 0, upper: 0.06, unit: "s/note", note: "how far the blower sags per note per second sounding, over both halves" },
@@ -145,6 +149,7 @@ const DEFAULTS: Parameters = {
   leadMezzoforteRows: 0,
   leadPerLevelRows: 0,
   leadDriftRows: 0,
+  railGrip: 0,
   scaleWarp: 0,
   regulatorGain: 0,
   supplyDroop: 0,
@@ -187,6 +192,7 @@ function run(input: ModelInput, params: Parameters): Float64Array {
   const p = params as Record<string, number>;
   // Every parameter is read once here: the step below runs a couple of hundred
   // thousand times per evaluation and a property lookup per read is not free.
+  const railGrip = p.railGrip!;
   const alpha = p.alpha!;
   const piano = p.piano!;
   const forte = p.forte!;
@@ -295,7 +301,15 @@ function run(input: ModelInput, params: Parameters): Float64Array {
       : graded(state.assistCharge) * (1 - assistYields * Math.min(opening, 1));
     const assist = cancelling > 0 ? assistRate * cancelling * drive(releaseTarget, state.x, alpha) : 0;
 
-    const target = conduit39 + conduit23 + assist;
+    let target = conduit39 + conduit23 + assist;
+    // Held against its closed rail, the bellows takes a threshold of net drive to
+    // pull away again: leather on a seat does not release at the first breath.
+    // The band is deliberately narrow, so this is inert everywhere the bellows is
+    // travelling and acts only where the line rests at the fortissimo stop. Above
+    // about 1.2 the restoring drive near the rail can never win and the bellows
+    // is trapped there for the rest of the roll, which the roll excludes, so the
+    // range stops short of it.
+    if (railGrip > 0 && target < 0 && -target < railGrip && state.x > forte - RAIL_BAND) target = 0;
     const smoothing = inertiaMs > 0 ? Math.exp((-dt * 1000) / inertiaMs) : 0;
     state.velocity = target + (state.velocity - target) * smoothing;
 

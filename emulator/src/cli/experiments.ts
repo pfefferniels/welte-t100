@@ -56,6 +56,7 @@ const VARIANTS: readonly Variant[] = [
     windRateGain: 1,
     windTargetShift: 0,
     assistYields: 0,
+    railGrip: 0,
     sforzandoLatches: 0,
     sforzandoSetsCrescendo: 0,
     mfBarrier: 1,
@@ -65,6 +66,18 @@ const VARIANTS: readonly Variant[] = [
   pneumatic("pneumatic, alpha = 1 (laminar)", "exponential approach", { alpha: 1 }),
 
   pneumatic("pneumatic, no inertia", "does the linkage need mass", { inertiaMs: 0 }),
+  // The lean model pins railGrip to 0, so the pairing prices it: everything the
+  // lean model pins, with the grip free against the grip held shut.
+  pneumatic("pneumatic, lean plus a grip at the closed rail", "does a bellows need pulling off its stop", {
+    regulatorGain: 0,
+    supplyDroop: 0,
+    windRateGain: 1,
+    windTargetShift: 0,
+    assistYields: 0,
+    sforzandoLatches: 0,
+    sforzandoSetsCrescendo: 0,
+    mfBarrier: 1,
+  }),
   pneumatic("pneumatic, no lead", "is the drawn line offset from the punches", { leadRows: 0 }),
   pneumatic("pneumatic, M.F. pinned to 0.5", "is the hook at the printed gridline", { mezzoforte: 0.5 }),
   pneumatic("pneumatic, no M.F. stop", "does the hook do anything", { mfBarrier: 0 }),

@@ -53,6 +53,7 @@ const SETTLED: Parameters = {
   sforzandoLatches: 0,
   sforzandoSetsCrescendo: 0,
   mfBarrier: 1,
+  railGrip: 0,
 };
 
 const MEASURED: Record<Half, Parameters> = {
