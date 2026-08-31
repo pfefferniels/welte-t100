@@ -1665,9 +1665,12 @@ before the cancel at r = 0.17 and 0.26, and positively, which is the wrong sign.
 So the same punch, in the same state, produced a quite different result once. The trace is not
 the explanation: at 273.5 the printed gridline sits at x = 1905–1909 in every row and the drawn
 ink is a separate group at 1920–1932. Whatever happened there was in the mechanism or on the
-paper, and nothing in the punched code records it. Four windows a half of this kind carry a
-quarter and a third of the squared error, so a model driven by the code alone cannot be scored
-below about 0.034 and 0.042 on this roll however good it is.
+paper, and nothing in the punched code records it. Four windows a half of this kind carry
+25.7 % and 35.9 % of the squared error. If they are irreducible and a model were perfect on
+every other row it would still score 0.0199 and 0.0312, and that is the floor they impose. It
+is not 0.0340 and 0.0421: those are the present model's error on the rest of the roll, which is
+a different quantity. The first says how good a code-driven model could ever be here, the
+second how good this one already is away from these windows.
 
 **Three parameterisations of one deficiency, and one real second effect.** Four terms were
 proposed for the residual above and refitted against a common baseline and budget, seventeen
