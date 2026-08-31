@@ -41,6 +41,7 @@ function fitHalf(
   ports: PortModel,
   generations: number,
   seed: number,
+  settled: Parameters,
 ) {
   const input = loaded.inputFor(half, ports);
   const truth = halfOf(loaded.curves, half);
@@ -53,7 +54,7 @@ function fitHalf(
   // level the hook arrests at, the offset from the punches. Making the search
   // rediscover them wastes most of its effort, so the first stage holds them and
   // fits only what is not measured, and the second releases everything from there.
-  const lean = model.name === pneumaticModel.name ? withFixed(model, SETTLED, model.name) : model;
+  const lean = model.name === pneumaticModel.name ? withFixed(model, settled, model.name) : model;
   const measured = MEASURED[half];
   const first = fitModel(withFixed(lean, measured), input, truth, masks, {
     generations: Math.round(generations * 0.6),
@@ -83,7 +84,25 @@ function main(): void {
   const loaded = loadRoll(druid);
   console.error(`fitting ${model.name} on ${druid} (${ports} ports, ${generations} generations)`);
 
-  const results = HALVES.map((half) => fitHalf(model, loaded, half, ports, generations, seed));
+  // `--settle a,b` pins further parameters at their defaults, which is how a
+  // control run is made: the same model and budget with a candidate term held
+  // shut, against a run that lets it move.
+  const extra = option("settle", "").split(",").filter(Boolean);
+  const settled: Parameters = {
+    ...SETTLED,
+    ...Object.fromEntries(extra.map((name) => [name, pneumaticModel.defaults[name] ?? 0])),
+  };
+  if (extra.length) console.error(`also pinned: ${extra.join(", ")}`);
+
+  const results = HALVES.map((half) => fitHalf(model, loaded, half, ports, generations, seed, settled));
+
+  // Write before printing anything. Four completed fits were once lost to a
+  // TypeError in the summary table below, which ran first.
+  if (out) {
+    mkdirSync(dirname(out), { recursive: true });
+    writeFileSync(out, JSON.stringify({ model: model.name, druid, ports, generations, seed, results }, null, 2));
+    console.error(`wrote ${out}`);
+  }
 
   console.table(
     results.map((result) => ({
@@ -102,8 +121,10 @@ function main(): void {
     model.spec.map((entry) => ({
       parameter: entry.name,
       unit: entry.unit,
-      bass: results[0]!.params[entry.name]!.toPrecision(4),
-      treble: results[1]!.params[entry.name]!.toPrecision(4),
+      // `withFixed` drops the pinned entries from the spec it fits, so they are
+      // absent from the result. Show what they were pinned at.
+      bass: (results[0]!.params[entry.name] ?? SETTLED[entry.name])?.toPrecision(4) ?? "pinned",
+      treble: (results[1]!.params[entry.name] ?? SETTLED[entry.name])?.toPrecision(4) ?? "pinned",
       default: (model.defaults[entry.name] ?? 0).toPrecision(4),
     })),
   );
@@ -115,11 +136,6 @@ function main(): void {
     });
   }
 
-  if (out) {
-    mkdirSync(dirname(out), { recursive: true });
-    writeFileSync(out, JSON.stringify({ model: model.name, druid, ports, generations, seed, results }, null, 2));
-    console.error(`wrote ${out}`);
-  }
 }
 
 // Only when run as a command. These modules hold constants other code imports,
