@@ -66,6 +66,13 @@ const VARIANTS: readonly Variant[] = [
   pneumatic("pneumatic, alpha = 1 (laminar)", "exponential approach", { alpha: 1 }),
 
   pneumatic("pneumatic, no inertia", "does the linkage need mass", { inertiaMs: 0 }),
+
+  // Each of the four prices itself against the full model by being pinned at the
+  // value that removes it. A lift band of 1 is the model before the term existed.
+  pneumatic("pneumatic, valve lifts over the whole charge", "does the relay valve snap or ramp", { valveBand: 1, assistBand: 1 }),
+  pneumatic("pneumatic, one lift band for the sforzando only", "does the cancelling valve want its own", { assistBand: 1 }),
+  pneumatic("pneumatic, no through-flow load", "does the nuancing system load its own blower", { throughFlowLoad: 0 }),
+  pneumatic("pneumatic, no drag threshold", "does the linkage have friction to overcome", { dragThreshold: 0 }),
   // The lean model pins railGrip to 0, so the pairing prices it: everything the
   // lean model pins, with the grip free against the grip held shut.
   pneumatic("pneumatic, lean plus a grip at the closed rail", "does a bellows need pulling off its stop", {
