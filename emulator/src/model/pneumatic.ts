@@ -298,6 +298,7 @@ function run(input: ModelInput, params: Parameters): Float64Array {
     state.assistCharge = charge(state.assistCharge, sforzandoOffPort[index]!, assistFillMs);
 
     const opening = holdsSforzando ? sforzando : graded(state.sforzandoCharge);
+
     // The blower feeds the relay's vacuum chamber as well as the note pneumatics,
     // so anything that loads it changes how hard the bellows is pulled closed:
     // the Widerstand by design, and the notes sounding by sagging the supply.
@@ -305,14 +306,17 @@ function run(input: ModelInput, params: Parameters): Float64Array {
     // one factor scales the conductance and pulls the target back towards the
     // open end. Reopening runs off atmosphere and the bellows spring, and is
     // left alone by both.
-    // With the crescendo relay off, conduit 39 stands open to atmosphere while the
-    // sforzando valve draws on wind chamber 15, so air runs straight through the
-    // bellows and out through 23 without moving it. That through-flow loads the
-    // blower on top of the note pneumatics, and it grows with how far the bellows
-    // sits from its open rest, which is the shape §2 of the empirics reports when
-    // it finds additive conductance explains only two thirds of the gap between a
-    // sforzando with the crescendo set and one without, and that the shortfall
-    // widens with position.
+    //
+    // The nuancing system loads that supply itself. With the crescendo relay off,
+    // conduit 39 stands open to atmosphere while the sforzando valve draws on
+    // wind chamber 15, so air runs straight through the bellows and out through
+    // 23 without moving it, and the draw grows with how far the bellows sits from
+    // its open rest. That is the shape §4 wants: additive conductance accounts
+    // for only about two thirds of the gap between a sforzando with the crescendo
+    // set and one without, and the observed gap widens with position faster than
+    // the prediction, +0.79 to +1.41 units/s where the prediction moves +0.70 to
+    // +0.82. Section 4's comparison rests on 9 and 15 episodes, so it motivates
+    // the term rather than settling it.
     const throughFlow =
       !crescendo && opening > 0 ? opening * releaseRate * Math.abs(drive(releaseTarget, state.x, alpha)) : 0;
     const supply = 1 / (1 + supplyDroop * load[index]! + throughFlowLoad * throughFlow);
