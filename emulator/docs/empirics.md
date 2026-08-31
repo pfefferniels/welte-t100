@@ -1683,8 +1683,22 @@ So letting four events into the objective costs 0.0028 everywhere else, which is
 structural term proposed for the transits is worth together. The Bass is unmoved, 0.0353 either
 way, as it should be with no such episodes in it.
 
-Whether to exclude them is a modelling decision and not a measurement, so it is recorded here
-rather than taken. The case for it is that §14 has already excluded the trace, the tracker port,
+Charging them linearly rather than naming them settles it. Fitting on a loss that charges
+residuals past 0.06 linearly instead of squared, and scoring as always on plain rmse:
+
+| held out, plain rmse | bass | treble |
+| --- | ---: | ---: |
+| squared loss | 0.0302 | 0.0393 |
+| **robust loss, δ = 0.06** | 0.0308 | **0.0351** |
+
+The Discant gains 0.0042, eleven per cent, against a spread across seeds of 0.0003. The Bass
+pays 0.0006, which is what discarding a little good information costs a half with no such
+episodes in it. So the distortion is real and it is worth about as much as every structural
+term proposed for the transits together, and it can be removed by an estimator that weighs a
+row by how far the model misses rather than by whether the modeller recognises it.
+
+Whether to exclude them by name is a modelling decision and not a measurement, so it is
+recorded here rather than taken. The case for it is that §14 has already excluded the trace, the tracker port,
 anything shared between the halves, the bellows and its linkage, a stuck hook and the flow law,
 so these are rows the punched code cannot explain even in principle. The case against is that
 dropping rows a model fits badly is circular unless that argument is independent, and a robust
