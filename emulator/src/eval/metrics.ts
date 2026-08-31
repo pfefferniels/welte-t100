@@ -33,6 +33,35 @@ function forEachMasked(
   return n;
 }
 
+/**
+ * The same, with residuals past `delta` charged linearly instead of squared.
+ *
+ * Roll 3309 has a handful of rows the punched code cannot account for: four
+ * Discant episodes on 2.3 % of the rows carry 36 % of that half's squared error,
+ * and §14 has excluded the trace, the tracker port, the linkage, the hook and
+ * anything shared with the Bass as their cause. Under a squared loss those rows
+ * pull the constants around, and letting them do so costs 0.0028 on every other
+ * held-out row, which is about what every structural term proposed for the
+ * transits is worth together.
+ *
+ * Charging them linearly is the less question-begging way to stop that than
+ * naming them: it weighs a row by how far the model misses, not by whether the
+ * modeller recognises it. Reporting stays on plain rmse; this is only ever the
+ * objective. `delta` at 0 restores it.
+ */
+export function maskedRobust(model: Float64Array, truth: Float64Array, mask: Mask, delta: number): number {
+  if (delta <= 0) return maskedRmse(model, truth, mask);
+  let sum = 0;
+  let n = 0;
+  for (let index = 0; index < mask.length; index += 1) {
+    if (mask[index] === 0) continue;
+    const error = Math.abs(model[index]! - truth[index]!);
+    sum += error <= delta ? error * error : delta * (2 * error - delta);
+    n += 1;
+  }
+  return Math.sqrt(sum / Math.max(n, 1));
+}
+
 /** The fitter's inner loop, so written out rather than routed through a callback. */
 export function maskedRmse(model: Float64Array, truth: Float64Array, mask: Mask): number {
   let sum = 0;

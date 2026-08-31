@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import { coordinateDescent, nelderMead } from "./optimise.ts";
+import { maskedRmse, maskedRobust } from "./metrics.ts";
 
 test("coordinate descent improves where a converged simplex has stopped", () => {
   // Axis-aligned and badly scaled, which is the case the sweep is there for: the
@@ -26,4 +27,21 @@ test("coordinate descent respects the bounds it is given", () => {
   vector.forEach((value, axis) => {
     assert.ok(value >= bounds.lower[axis]! && value <= bounds.upper[axis]!, `axis ${axis} stayed in bounds`);
   });
+});
+
+test("the robust loss charges far residuals linearly and near ones squared", () => {
+  const truth = Float64Array.from([0, 0, 0, 0]);
+  const mask = Uint8Array.from([1, 1, 1, 1]);
+  const near = Float64Array.from([0.1, 0.1, 0.1, 0.1]);
+  const far = Float64Array.from([0, 0, 0, 1]);
+
+  // below delta it is exactly the squared loss
+  assert.ok(
+    Math.abs(maskedRobust(near, truth, mask, 0.5) - maskedRmse(near, truth, mask)) < 1e-12,
+    "residuals inside delta are untouched",
+  );
+  // above it the outlier counts for less than squaring would charge
+  assert.ok(maskedRobust(far, truth, mask, 0.2) < maskedRmse(far, truth, mask), "the outlier is discounted");
+  // and delta zero restores the plain loss
+  assert.equal(maskedRobust(far, truth, mask, 0), maskedRmse(far, truth, mask));
 });

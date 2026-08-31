@@ -2,7 +2,7 @@
  * Fitting one model to one keyboard half, scored on blocks it never saw.
  */
 
-import { agreement, maskedRmse, type Agreement, type Mask } from "./metrics.ts";
+import { agreement, maskedRobust, type Agreement, type Mask } from "./metrics.ts";
 import { coordinateDescent, differentialEvolution, nelderMead, type Bounds } from "./optimise.ts";
 import { parametersFrom, parameterVector, type Model, type ModelInput, type Parameters } from "../model/types.ts";
 import type { TracedCurve } from "../truth/curves.ts";
@@ -11,6 +11,8 @@ export type FitOptions = {
   readonly generations?: number;
   readonly seed?: number;
   readonly polish?: boolean;
+  /** Residuals past this are charged linearly. 0 is a plain squared loss. */
+  readonly huber?: number;
   readonly report?: (line: string) => void;
   /** Centre the initial population here instead of on the model's defaults. */
   readonly startFrom?: Parameters;
@@ -72,8 +74,9 @@ export function fitModel(
   options: FitOptions = {},
 ): FitResult {
   const started = performance.now();
+  // Fitted on a robust loss when asked, but always scored on plain rmse below.
   const objective = (vector: readonly number[]): number =>
-    maskedRmse(model.run(input, parametersFrom(model.spec, vector)), truth.value, masks.train);
+    maskedRobust(model.run(input, parametersFrom(model.spec, vector)), truth.value, masks.train, options.huber ?? 0);
 
   const coarse = differentialEvolution(objective, boundsOf(model), {
     generations: options.generations ?? 160,
