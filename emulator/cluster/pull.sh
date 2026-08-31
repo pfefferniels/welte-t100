@@ -39,6 +39,10 @@ if [ ${#seeds[@]} -gt 0 ]; then
   ' "${seeds[@]}"
 fi
 
+# The cluster may be running source older than the coordinate sweep in fitModel,
+# so apply it here. It is idempotent: on a fit that already had it, nothing moves.
+node src/cli/polish.ts --fit docs/fit-pneumatic.json
+
 node src/cli/export-view.ts --fit docs/fit-pneumatic.json --out view/data.js
 node view/build-artifact.mjs
 node src/cli/residuals.ts --fit docs/fit-pneumatic.json > docs/residuals.txt
