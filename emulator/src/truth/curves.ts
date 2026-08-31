@@ -44,8 +44,34 @@ function emptyCurve(length: number): { value: Float64Array; x: Float64Array; fla
   return { value: new Float64Array(length), x: new Float64Array(length), flag: new Uint8Array(length) };
 }
 
+/**
+ * Rows the tracer saw, with sightings stranded inside unreadable stretches
+ * dropped.
+ *
+ * A single `ink` row in the middle of a long `gap` is not a sighting of the
+ * line. In the run-out of roll 3309, past the last expression code, the flags
+ * are 54 % `gap` and 17 % `rule`, and the handful still marked `ink` or `faint`
+ * are scattered isolated dots ranging over 0.3 scale units with no line between
+ * them. Kept, they are 2 % of the scored rows and carry 8 % (Bass) and 13 %
+ * (Discant) of the squared error, all of it against marks that are not the
+ * drawn line.
+ *
+ * The rule is local rather than a hand-placed boundary on this roll: a sighting
+ * counts only if its own neighbourhood was mostly readable.
+ */
+const CONTEXT_ROWS = 150;
+const CONTEXT_SHARE = 0.5;
+
 function withObserved(curve: { value: Float64Array; x: Float64Array; flag: Uint8Array }): TracedCurve {
-  return { ...curve, observed: Uint8Array.from(curve.flag, (code) => (OBSERVED.has(code) ? 1 : 0)) };
+  const seen = Uint8Array.from(curve.flag, (code) => (OBSERVED.has(code) ? 1 : 0));
+  const running = new Int32Array(seen.length + 1);
+  seen.forEach((v, i) => { running[i + 1] = running[i]! + v; });
+  const near = (index: number): number => {
+    const from = Math.max(0, index - CONTEXT_ROWS);
+    const to = Math.min(seen.length, index + CONTEXT_ROWS + 1);
+    return (running[to]! - running[from]!) / (to - from);
+  };
+  return { ...curve, observed: Uint8Array.from(seen, (v, i) => (v && near(i) >= CONTEXT_SHARE ? 1 : 0)) };
 }
 
 export function readTracedCurves(path: string): TracedCurves {
