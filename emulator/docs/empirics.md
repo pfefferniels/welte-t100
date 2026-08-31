@@ -1666,6 +1666,27 @@ of the passage around them would take the Discant from 0.0521 to about 0.0426, w
 than every structural term proposed for the transits is worth together. They are 2.3 % of the
 rows.
 
+They also distort the fit. Sweeping the constants on the training blocks and scoring on
+held-out rows *away from* the episodes:
+
+| Discant | held-out, episodes excluded from the score |
+| --- | ---: |
+| the published fit | 0.0443 |
+| swept on all training rows | 0.0423 |
+| swept with the episodes left out of the training rows too | **0.0395** |
+
+So letting four events into the objective costs 0.0028 everywhere else, which is about what every
+structural term proposed for the transits is worth together. The Bass is unmoved, 0.0353 either
+way, as it should be with no such episodes in it.
+
+Whether to exclude them is a modelling decision and not a measurement, so it is recorded here
+rather than taken. The case for it is that §14 has already excluded the trace, the tracker port,
+anything shared between the halves, the bellows and its linkage, a stuck hook and the flow law,
+so these are rows the punched code cannot explain even in principle. The case against is that
+dropping rows a model fits badly is circular unless that argument is independent, and a robust
+loss that down-weights large residuals by size rather than by name would be the less
+question-begging way to get the same effect.
+
 **Two cancels the code cannot account for.** The two events that dominate what is left,
 273.54 s (Bass) and 144.98 s (Discant), have entirely ordinary perforations: both ports open
 fully, as every sforzando-off port on the roll does, with an open area of 80 ms against a
