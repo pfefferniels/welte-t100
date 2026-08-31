@@ -1498,7 +1498,9 @@ controlling anything, because later codes have arrived, and the apparent spread 
 0.13 is not a floor. Within the window that is controlled the model sits two to three times
 above the roll's own repeatability, so there is real headroom, and below roughly 0.02 the roll
 cannot distinguish one model from another. The grouping is coarse, so 0.02 is an upper bound
-on the floor rather than the floor.
+on the floor rather than the floor. It is also a floor on *these rows*, the first 150 ms after
+a sforzando trips, and not on the roll: a whole-roll figure would have to weigh it against
+every other kind of row, and against the separate floor the unaccountable windows impose.
 
 **The residual is not a simple missing term.** Regressing it on model velocity, acceleration,
 level, distance below the forte stop, note density, time since the last trip and |velocity|,
