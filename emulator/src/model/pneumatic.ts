@@ -92,7 +92,7 @@ const SPEC: readonly ParameterSpec[] = [
   { name: "leadMezzoforteRows", lower: -80, upper: 80, unit: "scan rows", note: "the two mezzoforte codes, relative to that" },
   { name: "leadPerLevelRows", lower: -60, upper: 60, unit: "scan rows", note: "how much the offset moves between the two rails, as the pen swings" },
   { name: "leadDriftRows", lower: -60, upper: 60, unit: "scan rows", note: "change in that shift from the start of the roll to the end" },
-  { name: "valveBand", lower: 0.05, upper: 1, unit: "1", note: "share of the charge above the trip threshold over which the sforzando valve lifts; 1 is the whole of it" },
+  { name: "valveBand", lower: 0.01, upper: 1, unit: "1", note: "share of the charge above the trip threshold over which the sforzando valve lifts; 1 is the whole of it" },
   { name: "assistBand", lower: 0.05, upper: 1, unit: "1", note: "the same for the cancelling valve, which Welte adjusts at its own bore 29" },
   { name: "throughFlowLoad", lower: 0, upper: 2, unit: "s", note: "how far the supply sags under the air that runs straight through the bellows while conduit 39 stands open to atmosphere and the sforzando valve draws" },
   { name: "dragThreshold", lower: 0, upper: 3, unit: "scale/s", note: "net drive the board needs anywhere before it moves at all; static friction in the chain and the cone-valve linkage" },

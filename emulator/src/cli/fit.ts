@@ -42,6 +42,7 @@ function fitHalf(
   generations: number,
   seed: number,
   settled: Parameters,
+  huber: number,
 ) {
   const input = loaded.inputFor(half, ports);
   const truth = halfOf(loaded.curves, half);
@@ -59,11 +60,13 @@ function fitHalf(
   const first = fitModel(withFixed(lean, measured), input, truth, masks, {
     generations: Math.round(generations * 0.6),
     seed,
+    huber,
     report: (line) => report(`stage 1 ${line}`),
   });
   const result = fitModel(lean, input, truth, masks, {
     generations,
     seed,
+    huber,
     startFrom: { ...measured, ...first.params },
     report: (line) => report(`stage 2 ${line}`),
   });
@@ -94,7 +97,11 @@ function main(): void {
   };
   if (extra.length) console.error(`also pinned: ${extra.join(", ")}`);
 
-  const results = HALVES.map((half) => fitHalf(model, loaded, half, ports, generations, seed, settled));
+  // Residuals past this are charged linearly while fitting; scoring stays plain.
+  const huber = Number(option("huber", "0"));
+  if (huber > 0) console.error(`robust objective, residuals past ${huber} charged linearly`);
+
+  const results = HALVES.map((half) => fitHalf(model, loaded, half, ports, generations, seed, settled, huber));
 
   // Write before printing anything. Four completed fits were once lost to a
   // TypeError in the summary table below, which ran first.
