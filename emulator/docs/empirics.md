@@ -420,6 +420,43 @@ that drew the line, which is not known here, so no thickness in millimetres is q
 two halves would in any case need pins of noticeably different extent for both printed
 gridlines to be centred, which is a strain on the reading rather than a refutation of it.
 
+### The question reopened, with the rails set aside
+
+The test above asks for the direction over the 100 ms before the line settles, with a
+threshold of 0.010 scale units. Repeating it over 250 ms with a threshold of 0.020, and
+setting aside the stretches that come to rest at a rail, gives a different answer. Setting
+the rails aside matters: 53 of the 177 settled stretches inside a Bass hold, and 37 of 159
+in the Discant, rest at the fortissimo rail rather than at the hook, and every one of them
+was reached from below. Counted among the arrivals from below they swamp the question.
+
+Away from both rails, and counting each stretch once:
+
+| | bass | treble |
+| --- | ---: | ---: |
+| settled stretches away from the rails | 124 | 122 |
+| arrived from above | 70, median 0.5813, range 0.569 to 0.776 | 80, median 0.6270, range 0.606 to 0.638 |
+| arrived from below | 13, median 0.6398, range 0.615 to 0.672 | 7, median 0.6694, range 0.666 to 0.693 |
+| arrived level | 38, median 0.5849 | 32, median 0.6260 |
+
+The separation is 0.059 in the Bass and 0.042 in the Discant. In the Discant the two groups
+do not overlap at all: every one of the 80 arrivals from above rests between 0.606 and 0.638,
+and every one of the 7 arrivals from below between 0.666 and 0.693.
+
+Two cautions. The samples arriving from below are 13 and 7, so the second level rests on
+little. And the result is sensitive to the direction window, which is why the stricter test
+above finds almost nothing: those 4 Bass and 1 Discant stretches are the subset of these that
+also show 0.010 of travel in the last 100 ms.
+
+What the two tests agree on is the sign. Every stretch that arrives from below rests *above*
+the level that arrivals from above rest at, in both halves and under both criteria. The
+stricter test recorded this as a puzzle, since a pin that excludes a band should put the
+rising rest below the falling one. A stop that yields elastically in the direction it is
+pushed puts it above, which is what is seen. The model follows that reading, and it is worth
+saying plainly that the reading is what a score-neutral change was adopted on: fixing both
+faces from these levels leaves the fit at 0.0406 and 0.0557, exactly where it was. What it
+buys is not accuracy but determinacy. The extent had been a free parameter that ran to its
+bound at 0.229 in the Bass; measured, it is 0.050 and 0.041, and the two halves agree.
+
 ### What moves the stop between holds
 
 The per-hold medians drift by more than the within-hold scatter, 0.019 in the Bass and 0.026

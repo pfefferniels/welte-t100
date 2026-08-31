@@ -99,10 +99,11 @@ That is what lets six short perforations give six steps while six shorter ones g
 (control 4d). Welte adjusts the two valves at separate bores, 20 and 29, so they have
 separate time constants here.
 
-**From the drawn line itself.** The Mezzoforte stop is a physical finger of some thickness
-meeting a pin, so it arrests the bellows at two levels a thickness apart depending on which
-side it approached from, and its position is a regulated setting rather than the printed
-gridline. Every stop is compliant rather than rigid, so the bellows rebounds off it — visible
+**From the drawn line itself.** The Mezzoforte stop arrests the bellows at two levels a
+thickness apart depending on which side it approached from, and its position is a regulated
+setting rather than the printed gridline. The stop yields in the direction it is pushed, so
+the rising rest is the higher of the two, which is the opposite of what an inelastic barrier
+would give; both faces are set from the levels the line rests at rather than fitted. Every stop is compliant rather than rigid, so the bellows rebounds off it — visible
 in the drawn line after a fast collapse. The offset between line and punches differs by code,
 drifts along the roll, and varies with the line's own level, which is the pen swinging on an
 arm; the same arc bends the printed scale, which `scaleWarp` carries.
