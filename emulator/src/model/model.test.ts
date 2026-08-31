@@ -169,3 +169,45 @@ test("travel times invert the flow law", () => {
   const expected = Math.log(2) * 1000;
   assert.ok(Math.abs(times["slow crescendo, P to M.F."]!.milliseconds - expected) < 5);
 });
+
+test("the terms added for the transits are inert at their defaults", () => {
+  // Each nests the model that was there before it: a lift band covering the whole
+  // charge above the threshold, and no load, drag or grip. The comparisons that
+  // price them are only meaningful while this holds, so it is pinned here rather
+  // than left to be noticed.
+  const ports = {
+    [portKey("bass", "crescendo", "on")]: [[10, 40]] as [number, number][],
+    // cancelled again before the sforzando, so the through-flow gate opens: it
+    // acts only while conduit 39 stands open to atmosphere and the valve draws
+    [portKey("bass", "crescendo", "off")]: [[50, 70]] as [number, number][],
+    [portKey("bass", "sforzando", "on")]: [[80, 110]] as [number, number][],
+    [portKey("bass", "sforzando", "off")]: [[140, 170]] as [number, number][],
+    [portKey("bass", "mezzoforte", "on")]: [[190, 220]] as [number, number][],
+  };
+  const neutral: Parameters = {
+    ...pneumaticModel.defaults,
+    leadRows: 0,
+    valveBand: 1,
+    assistBand: 1,
+    throughFlowLoad: 0,
+    dragThreshold: 0,
+    railGrip: 0,
+  };
+  const asDefaulted = pneumaticModel.run(input(ports), { ...pneumaticModel.defaults, leadRows: 0 });
+  const asNeutral = pneumaticModel.run(input(ports), neutral);
+
+  assert.equal(asDefaulted.length, asNeutral.length);
+  asDefaulted.forEach((value, index) => {
+    assert.ok(
+      Math.abs(value - asNeutral[index]!) < 1e-12,
+      `row ${index} differs: ${value} against ${asNeutral[index]}`,
+    );
+  });
+
+  // and each of them does something once it is off its neutral value
+  for (const [name, value] of [["valveBand", 0.2], ["throughFlowLoad", 0.5], ["dragThreshold", 0.4]] as const) {
+    const moved = pneumaticModel.run(input(ports), { ...neutral, [name]: value });
+    const changed = moved.some((v, i) => Math.abs(v - asNeutral[i]!) > 1e-9);
+    assert.ok(changed, `${name} did nothing when moved to ${value}`);
+  }
+});
