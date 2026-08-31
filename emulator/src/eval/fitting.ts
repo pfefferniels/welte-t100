@@ -3,7 +3,7 @@
  */
 
 import { agreement, maskedRmse, type Agreement, type Mask } from "./metrics.ts";
-import { differentialEvolution, nelderMead, type Bounds } from "./optimise.ts";
+import { coordinateDescent, differentialEvolution, nelderMead, type Bounds } from "./optimise.ts";
 import { parametersFrom, parameterVector, type Model, type ModelInput, type Parameters } from "../model/types.ts";
 import type { TracedCurve } from "../truth/curves.ts";
 
@@ -89,7 +89,10 @@ export function fitModel(
     options.polish === false
       ? coarse
       : nelderMead(objective, coarse.vector, boundsOf(model), { iterations: 120 * model.spec.length });
-  const best = polished.value <= coarse.value ? polished : coarse;
+  const afterSimplex = polished.value <= coarse.value ? polished : coarse;
+  const swept =
+    options.polish === false ? afterSimplex : coordinateDescent(objective, afterSimplex.vector, boundsOf(model));
+  const best = swept.value <= afterSimplex.value ? swept : afterSimplex;
 
   const params = parametersFrom(model.spec, best.vector);
   const output = model.run(input, params);
@@ -98,7 +101,7 @@ export function fitModel(
     train: agreement(output, truth.value, masks.train),
     test: agreement(output, truth.value, masks.test),
     output,
-    evaluations: coarse.evaluations + polished.evaluations,
+    evaluations: coarse.evaluations + polished.evaluations + swept.evaluations,
     seconds: (performance.now() - started) / 1000,
   };
 }
