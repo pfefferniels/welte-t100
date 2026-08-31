@@ -1,0 +1,73 @@
+{
+  "druid": "jq774vx6544",
+  "generations": 220,
+  "rows": [
+    {
+      "variant": "pneumatic, crescendo pair symmetric",
+      "question": "Welte regulates open and close to the same time",
+      "half": "bass",
+      "params": {
+        "alpha": 0.9000083447633048,
+        "piano": -0.0025729044080239037,
+        "forte": 0.8916644025337958,
+        "mezzoforte": 0.7279607766388385,
+        "crescendoRate": 1.233887834640301,
+        "crescendoTarget": 0.7866154243727945,
+        "releaseTarget": 0.03498086536840307,
+        "sforzandoRate": 2.8991780325788596,
+        "sforzandoTarget": 1.8477370652028364,
+        "sforzandoAssistRate": 22.078583726725924,
+        "assistYields": 0.06824659249552899,
+        "tripThreshold": 0.25003387527255644,
+        "membraneFillMs": 0.18229681506476114,
+        "assistFillMs": 0.9239518741202799,
+        "valveTailMs": 83.39766070473601,
+        "inertiaMs": 14.482095504153026,
+        "leadRows": -66.56538180261482,
+        "leadSforzandoOnRows": -5.45993585105445,
+        "leadCrescendoRows": 3.028463565665428,
+        "leadMezzoforteRows": -79.95784649944119,
+        "leadPerLevelRows": 1.6570549661026936,
+        "leadDriftRows": 1.1568351907783063,
+        "valveBand": 0.39893719486016765,
+        "assistBand": 0.961042896609913,
+        "throughFlowLoad": 0.15916391034331917,
+        "dragThreshold": 0.05681263371986055,
+        "railGrip": 0.9145825451023886,
+        "scaleWarp": 1.249643233844388,
+        "regulatorGain": 0.00009769299462358263,
+        "supplyDroop": 0.0000014434758230015025,
+        "windRateGain": 1.0697489981112966,
+        "windTargetShift": -0.010293812631900353,
+        "mfBarrier": 0.9480244347668401,
+        "mfTwoSided": 0.8001261534676734,
+        "mfThickness": 0.0806054271149588,
+        "stopStiffness": 74344.7519398095,
+        "stopDamping": 97.85830238647222,
+        "sforzandoLatches": 0.21860202079208196,
+        "assistLatches": 0.033128201490095266,
+        "sforzandoSetsCrescendo": 0.09014884780261187
+      },
+      "train": {
+        "n": 93343,
+        "rmse": 0.03379862412501641,
+        "mae": 0.01812886548384011,
+        "medianAbs": 0.011939228579473271,
+        "p90Abs": 0.03660851619523678,
+        "bias": -0.0008232010782929302,
+        "correlation": 0.9895700937490264
+      },
+      "test": {
+        "n": 91902,
+        "rmse": 0.03268355827349076,
+        "mae": 0.02040880739716313,
+        "medianAbs": 0.012616701808860015,
+        "p90Abs": 0.04625174226100117,
+        "bias": -0.00512858504555741,
+        "correlation": 0.9920251285819309
+      },
+      "evaluations": 41816,
+      "seconds": 2557.355277739
+    }
+  ]
+}

@@ -10,7 +10,7 @@
  * one file to read.
  */
 
-import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname } from "node:path";
 
 import type { Agreement } from "../eval/metrics.ts";
@@ -157,7 +157,16 @@ function main(): void {
   const full = rows.filter((row) => row.variant === FULL).length > 0
     ? rows.filter((row) => row.variant === FULL)
     : rows.filter((row) => row.variant === FALLBACK);
-  if (full.length > 0) {
+  // The ablation fits each variant once on a shorter budget, so its row is often
+  // worse than a headline fit already sitting there. Only replace what it beats:
+  // collecting an ablation should not quietly undo a better fit.
+  const standing = existsSync("docs/fit-pneumatic.json")
+    ? (JSON.parse(readFileSync("docs/fit-pneumatic.json", "utf8")).results as { test?: { rmse: number } }[])
+    : [];
+  const score = (rs: { test?: { rmse: number } }[]): number =>
+    rs.length ? rs.reduce((total, r) => total + (r.test?.rmse ?? Infinity), 0) : Infinity;
+
+  if (full.length > 0 && score(full) < score(standing)) {
     writeFileSync(
       "docs/fit-pneumatic.json",
       JSON.stringify(
@@ -166,10 +175,15 @@ function main(): void {
         2,
       ),
     );
+    console.log("  the ablation's own fit beat what was there, so it is now the headline fit");
+  } else if (full.length > 0) {
+    console.log(
+      `  keeping the fit already in docs/fit-pneumatic.json: ${score(standing).toFixed(4)} against the ablation's ${score(full).toFixed(4)}`,
+    );
   }
 
   console.log(`${rows.length} rows over ${new Set(rows.map((row) => row.variant)).size} variants`);
-  console.log("wrote docs/experiments.json, docs/experiments.md, docs/fit-pneumatic.json");
+  console.log("wrote docs/experiments.json and docs/experiments.md");
 }
 
 // Only when run as a command. These modules hold constants other code imports,
