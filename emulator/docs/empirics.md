@@ -1682,6 +1682,25 @@ is the shared form, one band serving both relay valves, which is separately show
 cancel: with the bands separate the pair should gain more and the dead band be more redundant,
 not less.
 
+Repeating it with the bands separate, on the model as it now stands, same optimiser and start
+and budget for every row, held-out rmse:
+
+| | bass | treble |
+| --- | ---: | ---: |
+| control, refitted as it is | 0.0380 | 0.0487 |
+| a narrowed sforzando band | 0.0349 | 0.0479 |
+| both bands narrowed | 0.0364 | 0.0468 |
+| a through-flow load | 0.0362 | 0.0484 |
+| **band and through-flow** | **0.0331** | 0.0472 |
+
+The pair adds as the earlier table said, and gains more with the bands separate: 0.0031 and
+0.0018 apart against 0.0049 together. Freeing the *cancelling* valve's band, though, helps the
+Discant and hurts the Bass, 0.0468 against 0.0479 and 0.0364 against 0.0349, which is not a
+term the roll supports. A flat multiplier on conduit 23 while the crescendo is set — the same
+gap read as a gain rather than a load — was tried as a control: it wins by 0.0006 and 0.0011,
+inside what a single start can distinguish, leaves the Bass cancel transit worse, and the two
+halves disagree on its size, 1.28 against 1.11.
+
 **One interaction the pooled averages concealed.** §2's event-triggered averages put the model
 0.013 too high 150 ms after a sforzando-on in the Bass, which looks like a small rate error.
 Split by whether the crescendo latch was set at the trip, it is not:
