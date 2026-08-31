@@ -1041,6 +1041,20 @@ the sforzando would give one rate, not two.
 
 ## 11. Does the sforzando latch? The roll cannot say, and what it does say favours the momentary reading
 
+*Amendment.* What follows prices a momentary drive against a plain latch and does not price a
+third option, a momentary drive strong enough to saturate. §14 shows that on rises reaching the
+fortissimo stop the height is set by the stop and carries no information about the perforation,
+which a latch and a saturating momentary drive predict alike. The test that separates them is
+whether the line still rises after the port has closed, and it does not: over 100 (Bass) and
+105 (Discant) clean rises the median travel occurring after the port closed is 3.2 % and 1.3 %,
+not one finishes more than 200 ms after the port closed, and the rate a momentary drive would
+need, 2.15 and 2.24 units/s at the median, sits at or below the fast-crescendo plateau §4
+measures at 4.24 and 3.62. So the roll's evidence is against a *latch* rather than for a drive
+that stops with its punch, and the section's conclusion stands as stated. The whole-roll
+argument below, that a latch would pin the bellows at the stop for about 60 % of the roll
+against a line that is within 0.02 of it only 14 % and 17 % of the time, remains the strongest
+leg and is untouched.
+
 midi2exp treats the sforzando as active only while its perforation is under the
 tracker bar. Hagmann has it latch until cancelled. The roll carries 225 (Bass) and
 273 (Discant) sforzando-off perforations, and the interval from an on-punch to the
@@ -1529,10 +1543,18 @@ floor near 0.6 rather than meeting a barrier. What arrests it is not known.
 not follow how long the sforzando punch is, r = −0.28 (Bass) and −0.00 (Discant), while the
 model's height does, r = +0.36 and +0.42, and the drawn peak's spread across rises is 0.011
 and 0.013 against the model's 0.023. The line goes to the fortissimo rail whatever the punch,
-because a rail is what stops it, and a valve that opens in proportion to its charge gives an
-excursion in proportion to the punch. That is a clean model-free statement of a structural
-problem, and it is the rising-side mirror of §11b. Four ways of answering it were tried, each
-scored against the published fit at 0.0392 (Bass) and 0.0521 (Discant) overall:
+because a rail is what stops it, and it is the rising-side mirror of §11b.
+
+Two cautions on reading that as a defect. The comparison is conditional: these rises were
+selected by requiring the drawn line to reach 0.88, so its peak is bounded below by the
+selection and above by the rail, and the model is merely scored on the same events. And the
+Bass figure of −0.28 is a negative correlation rather than a null, most likely the same
+confound §11b found on the falling side, that longer punches start where the line is already
+high. The safe statement is that the height reached carries no positive information about
+punch length in either half, and that the model's height does because it does not always reach
+the rail. Whether that is a fault in the valve law or in what stops the excursion is exactly
+what the repairs below test. Four were tried, each scored against the published fit at 0.0392
+(Bass) and 0.0521 (Discant) overall:
 
 | variant | bass overall | treble overall | mean rise deficit, bass / treble |
 | --- | ---: | ---: | ---: |
