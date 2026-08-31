@@ -56,8 +56,10 @@ const SETTLED: Parameters = {
 };
 
 const MEASURED: Record<Half, Parameters> = {
-  bass: { piano: 0.017, forte: 0.912, mezzoforte: 0.5752 - 0.05, mfThickness: 0.1, leadRows: -65 },
-  treble: { piano: 0.022, forte: 0.952, mezzoforte: 0.6169 - 0.05, mfThickness: 0.1, leadRows: -46 },
+  // The measured level is where the line comes to rest having fallen, which is
+  // the lower of the pin's two faces, and the two faces lie 0.06 apart.
+  bass: { piano: 0.017, forte: 0.912, mezzoforte: 0.5752 + 0.03, mfThickness: 0.06, leadRows: -65 },
+  treble: { piano: 0.022, forte: 0.952, mezzoforte: 0.6169 + 0.03, mfThickness: 0.06, leadRows: -46 },
 };
 
 function option(name: string, fallback: string): string {
