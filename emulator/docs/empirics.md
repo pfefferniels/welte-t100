@@ -1594,6 +1594,29 @@ of tail constants from 8 to 40 ms and assist rates up to three times, nothing be
 tail on held-out blocks, and the variant that does reproduce the observed peak speed costs
 0.011. What sets the real cancel's rate is not known.
 
+**The error is concentrated in a handful of windows.** Four windows in each half, 1.2 % and
+1.8 % of the scored rows, carry **25.8 %** and **36.1 %** of the squared error; without them
+the whole-roll figures fall from 0.0392 to 0.0340 and from 0.0521 to 0.0421. One bass stretch
+of 378 rows at 273.4–274.0 s carries 16.3 % of the Bass roll on its own, and one Discant
+episode at 144.2 s carries 7.3 % of its roll.
+
+**There is no population of holds at arbitrary levels.** This began as the most conspicuous
+qualitative failure: the line descends part-way and stops while the model runs on. Inventoried,
+it is 17 episodes a half, 5.5 % and 2.4 % of squared error, and the levels are not arbitrary.
+Of the intermediate rows 4581 of 5303 (Bass) and 1967 of 3121 (Discant) lie between 0.70 and
+0.85, which is the crescendo's own asymptote, measured at 0.766 and 1.154 in §4. Demanding a
+contiguous stretch of 0.15 s, still to 0.03 units/s, under a latched crescendo alone, clear of
+both rails and 300 ms clear of any sforzando port, leaves eight stretches in the Bass and one
+in the Discant. Three windows that looked like one phenomenon are three: 197.5 s is a
+rise-amplitude error against that asymptote and not an arrest at all, 278.2 s a fall the model
+overshoots, and only 272.8 s a genuinely arrested fall.
+
+Over the whole population of cancels the model is right: the ratio of drawn to model peak fall
+rate has a median of 1.10 and 1.22 and a 10th-to-90th range of 0.88–1.55 and 1.06–1.65, and
+only 2 Bass and 4 Discant cancels fall at less than half the model's rate. Two of those matter,
+at 273.54 and 144.98 s, and neither is a trace artefact: at 273.5 the printed M.F. gridline
+sits at x = 1905–1909 in every row and the drawn ink is a separate group at 1920–1932.
+
 **One interaction the pooled averages concealed.** §2's event-triggered averages put the model
 0.013 too high 150 ms after a sforzando-on in the Bass, which looks like a small rate error.
 Split by whether the crescendo latch was set at the trip, it is not:
