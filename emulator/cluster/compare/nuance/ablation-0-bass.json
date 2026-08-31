@@ -1,0 +1,34 @@
+{
+  "druid": "jq774vx6544",
+  "generations": 280,
+  "rows": [
+    {
+      "variant": "constant level",
+      "question": "the floor: what one number achieves",
+      "half": "bass",
+      "params": {
+        "level": 0.6140747102340277
+      },
+      "train": {
+        "n": 94347,
+        "rmse": 0.2389723758978422,
+        "mae": 0.18298356040455138,
+        "medianAbs": 0.1650647102340277,
+        "p90Abs": 0.3484427102340279,
+        "bias": -1.9540103874440612e-8,
+        "correlation": 0.000002691301468442421
+      },
+      "test": {
+        "n": 92169,
+        "rmse": 0.2758217654340787,
+        "mae": 0.22798700185099652,
+        "medianAbs": 0.25225528976597233,
+        "p90Abs": 0.4341147102340276,
+        "bias": 0.10081033707168424,
+        "correlation": 0.00000214512939020291
+      },
+      "evaluations": 5646,
+      "seconds": 2.9340755709999997
+    }
+  ]
+}

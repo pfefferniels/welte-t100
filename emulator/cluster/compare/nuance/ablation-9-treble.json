@@ -1,0 +1,67 @@
+{
+  "druid": "jq774vx6544",
+  "generations": 280,
+  "rows": [
+    {
+      "variant": "pneumatic, no inertia",
+      "question": "does the linkage need mass",
+      "half": "treble",
+      "params": {
+        "alpha": 1.0397192188429338,
+        "piano": 0.05651433907235394,
+        "forte": 0.9370484383611368,
+        "mezzoforte": 0.5645550489036938,
+        "crescendoRate": 0.5140195959963905,
+        "crescendoTarget": 0.9324977116088453,
+        "releaseRate": 1.0480676736557828,
+        "releaseTarget": -0.12169644562818338,
+        "sforzandoRate": 3.284174015991469,
+        "sforzandoTarget": 2.0999027897427665,
+        "sforzandoAssistRate": 33.78376305140297,
+        "assistYields": 0.29024719023748047,
+        "tripThreshold": 0.20294763938971783,
+        "membraneFillMs": 0.3482143562247495,
+        "assistFillMs": 11.997290461264956,
+        "valveTailMs": 89.80786221040393,
+        "leadRows": -52.098707198517985,
+        "leadSforzandoOnRows": 3.8226944623793795,
+        "leadCrescendoRows": 10.496835070192427,
+        "leadMezzoforteRows": 13.81821115249912,
+        "leadPerLevelRows": -2.4636489377983386,
+        "leadDriftRows": 12.250461987476408,
+        "scaleWarp": 0.41383513574313113,
+        "regulatorGain": 0.00009681701314349263,
+        "supplyDroop": 0.0013248881362851236,
+        "windRateGain": 1.4720555193128217,
+        "windTargetShift": -0.23413611552645167,
+        "mfBarrier": 0.7627468615066959,
+        "mfTwoSided": 0.9864882586536119,
+        "mfThickness": 0.1865002420153694,
+        "stopStiffness": 0,
+        "stopDamping": 62.06452469774183,
+        "sforzandoLatches": 0.020352722886721325,
+        "sforzandoSetsCrescendo": 0.1388888335371956
+      },
+      "train": {
+        "n": 94145,
+        "rmse": 0.06091802126075707,
+        "mae": 0.030607355533507186,
+        "medianAbs": 0.01349687304358893,
+        "p90Abs": 0.07366400221110503,
+        "bias": -0.0008841692739195453,
+        "correlation": 0.9745858052784736
+      },
+      "test": {
+        "n": 91656,
+        "rmse": 0.04824572077224172,
+        "mae": 0.03193673418295915,
+        "medianAbs": 0.019936098691116122,
+        "p90Abs": 0.07613589679573296,
+        "bias": 0.005649930080809833,
+        "correlation": 0.9831676089965833
+      },
+      "evaluations": 43316,
+      "seconds": 2411.319336329
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "druid": "jq774vx6544",
+  "generations": 280,
+  "rows": [
+    {
+      "variant": "pneumatic, one offset for every code",
+      "question": "do the codes sit at different offsets",
+      "half": "bass",
+      "params": {
+        "alpha": 1.2097133282379648,
+        "piano": 0.051411572749052746,
+        "forte": 0.8969803315529813,
+        "mezzoforte": 0.5358314908956285,
+        "crescendoRate": 0.8560170979623226,
+        "crescendoTarget": 0.9085660595687187,
+        "releaseRate": 1.3395860111099507,
+        "releaseTarget": -0.12361081121913889,
+        "sforzandoRate": 1.5826726437618794,
+        "sforzandoTarget": 2.9171139910841215,
+        "sforzandoAssistRate": 21.73394810104273,
+        "assistYields": 0.42411118329089065,
+        "tripThreshold": 0.14881108921042333,
+        "membraneFillMs": 0.9872532169178038,
+        "assistFillMs": 3.9993596240741005,
+        "valveTailMs": 77.43720001374788,
+        "inertiaMs": 23.096266427493227,
+        "leadRows": -73.58537238758015,
+        "leadPerLevelRows": 7.134446299118351,
+        "leadDriftRows": 2.932435994861857,
+        "scaleWarp": 0.50327726431228,
+        "regulatorGain": -0.00005960609735670743,
+        "supplyDroop": 0.0000014448032876558636,
+        "windRateGain": 1.0967926617842525,
+        "windTargetShift": -0.1067537685737809,
+        "mfBarrier": 0.5048605858273293,
+        "mfTwoSided": 0.4421198762200184,
+        "mfThickness": 0.18764570628282362,
+        "stopStiffness": 51403.67901923096,
+        "stopDamping": 247.0075237087052,
+        "sforzandoLatches": 0.09874984316881875,
+        "sforzandoSetsCrescendo": 0.020653942629234777
+      },
+      "train": {
+        "n": 94347,
+        "rmse": 0.04209411290381264,
+        "mae": 0.023953297156658403,
+        "medianAbs": 0.013586631750895917,
+        "p90Abs": 0.0577524020367826,
+        "bias": 0.0003008475978097846,
+        "correlation": 0.9843676156550134
+      },
+      "test": {
+        "n": 92169,
+        "rmse": 0.040216552068480724,
+        "mae": 0.026669304936674885,
+        "medianAbs": 0.016843024269062923,
+        "p90Abs": 0.06274941039301689,
+        "bias": -0.008540542225503458,
+        "correlation": 0.9882230392666439
+      },
+      "evaluations": 40788,
+      "seconds": 2507.864218381
+    }
+  ]
+}
