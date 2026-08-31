@@ -92,8 +92,9 @@ const SPEC: readonly ParameterSpec[] = [
   { name: "leadMezzoforteRows", lower: -80, upper: 80, unit: "scan rows", note: "the two mezzoforte codes, relative to that" },
   { name: "leadPerLevelRows", lower: -60, upper: 60, unit: "scan rows", note: "how much the offset moves between the two rails, as the pen swings" },
   { name: "leadDriftRows", lower: -60, upper: 60, unit: "scan rows", note: "change in that shift from the start of the roll to the end" },
-  { name: "valveBand", lower: 0.05, upper: 1, unit: "1", note: "share of the charge above the trip threshold over which the valve lifts; 1 is the whole of it" },
-  { name: "stiction", lower: 0, upper: 0.5, unit: "scale/s", note: "net drive below which the linkage does not move at all" },
+  { name: "valveBand", lower: 0.05, upper: 1, unit: "1", note: "share of the charge above the trip threshold over which the sforzando valve lifts; 1 is the whole of it" },
+  { name: "assistBand", lower: 0.05, upper: 1, unit: "1", note: "the same for the cancelling valve, which Welte adjusts at its own bore 29" },
+  { name: "dragThreshold", lower: 0, upper: 1.0, unit: "scale/s", note: "net drive the board needs anywhere before it moves at all; static friction in the chain and the cone-valve linkage" },
   { name: "railGrip", lower: 0, upper: 1.0, unit: "scale/s", note: "net drive needed to pull the bellows off its closed rail" },
   { name: "scaleWarp", lower: -2.5, upper: 2.5, unit: "1", note: "curvature of bellows travel against the printed scale; 0 is linear" },
   { name: "regulatorGain", lower: -0.01, upper: 0.01, unit: "scale·s/note", note: "note density added to the trace, the wrong shape for a supply effect but kept to compare" },
@@ -152,7 +153,8 @@ const DEFAULTS: Parameters = {
   leadPerLevelRows: 0,
   leadDriftRows: 0,
   valveBand: 1,
-  stiction: 0,
+  assistBand: 1,
+  dragThreshold: 0,
   railGrip: 0,
   scaleWarp: 0,
   regulatorGain: 0,
@@ -197,7 +199,7 @@ function run(input: ModelInput, params: Parameters): Float64Array {
   // Every parameter is read once here: the step below runs a couple of hundred
   // thousand times per evaluation and a property lookup per read is not free.
   const railGrip = p.railGrip!;
-  const stiction = p.stiction!;
+  const dragThreshold = p.dragThreshold!;
   const alpha = p.alpha!;
   const piano = p.piano!;
   const forte = p.forte!;
@@ -219,12 +221,21 @@ function run(input: ModelInput, params: Parameters): Float64Array {
   const assistFillMs = p.assistFillMs!;
   const valveTailMs = p.valveTailMs!;
   // How far past the trip threshold the membrane chamber must charge before the
-  // valve is fully lifted, as a fraction of the range that remains. The present
-  // model lifts it in proportion to the whole of that range, which is 1 here, so
-  // the parameter nests it and the search can walk down from it continuously.
-  const band = (1 - trip) * p.valveBand!;
-  const graded = (open: number): number =>
-    open <= trip ? 0 : Math.min((open - trip) / band, 1);
+  // valve is fully lifted, as a share of the range that remains. The present
+  // model lifts it over the whole of that range, which is 1 here, so the
+  // parameter nests it and the search can walk down from it continuously.
+  //
+  // The band belongs to the valve, not to the pair. Welte adjusts the two at
+  // separate bores, 20 and 29, and the model already gives them separate fill
+  // constants. Sharing one band costs far more than the term gains, all of it on
+  // the cancel: it makes a subito piano reach full conductance almost at once,
+  // which is what controls 4c and 4d forbid.
+  const lift = (share: number) => {
+    const band = (1 - trip) * share;
+    return (open: number): number => (open <= trip ? 0 : Math.min((open - trip) / band, 1));
+  };
+  const graded = lift(p.valveBand!);
+  const gradedAssist = lift(p.assistBand!);
   const twoSided = p.mfTwoSided! >= 0.5;
   const stopStiffness = p.stopStiffness!;
   const stopDamping = p.stopDamping!;
@@ -309,7 +320,7 @@ function run(input: ModelInput, params: Parameters): Float64Array {
     // bass error and two fifths of the treble's.
     const cancelling = heldCancel
       ? heldCancel[index]!
-      : graded(state.assistCharge) * (1 - assistYields * Math.min(opening, 1));
+      : gradedAssist(state.assistCharge) * (1 - assistYields * Math.min(opening, 1));
     const assist = cancelling > 0 ? assistRate * cancelling * drive(releaseTarget, state.x, alpha) : 0;
 
     let target = conduit39 + conduit23 + assist;
@@ -323,7 +334,7 @@ function run(input: ModelInput, params: Parameters): Float64Array {
     if (railGrip > 0 && target < 0 && -target < railGrip && state.x > forte - RAIL_BAND) target = 0;
     // Static friction in the chain and cone-valve linkage: below a threshold of
     // net drive the board does not move at all, anywhere in the travel.
-    if (stiction > 0 && Math.abs(target) < stiction) target = 0;
+    if (dragThreshold > 0 && Math.abs(target) < dragThreshold) target = 0;
     const smoothing = inertiaMs > 0 ? Math.exp((-dt * 1000) / inertiaMs) : 0;
     state.velocity = target + (state.velocity - target) * smoothing;
 
