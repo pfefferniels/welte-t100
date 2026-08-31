@@ -1617,6 +1617,25 @@ only 2 Bass and 4 Discant cancels fall at less than half the model's rate. Two o
 at 273.54 and 144.98 s, and neither is a trace artefact: at 273.5 the printed M.F. gridline
 sits at x = 1905–1909 in every row and the drawn ink is a separate group at 1920–1932.
 
+**Two cancels the code cannot account for.** The two events that dominate what is left,
+273.54 s (Bass) and 144.98 s (Discant), have entirely ordinary perforations: both ports open
+fully, as every sforzando-off port on the roll does, with an open area of 80 ms against a
+population median of 82 and 80, at the 42nd and 53rd percentile, and a length of 105 ms. The
+code does not distinguish them from the cancels the model gets right.
+
+Nor is the mechanism generally variable. Taking cancels alike in everything the code records —
+punch length 80 to 130 ms, starting above 0.85, hook released — the Bass gives 17 events whose
+peak fall rate runs from 18.0 to 27.2 units/s between the 5th and 95th percentiles and whose
+depth runs from 0.82 to 0.88, a tight distribution. The Discant gives seven, of which **six
+fall 0.92 to 0.93 at 20.7 to 22.7 units/s and one, at 145.0 s, falls 0.34 at 7.2 units/s**.
+
+So the same punch, in the same state, produced a quite different result once. The trace is not
+the explanation: at 273.5 the printed gridline sits at x = 1905–1909 in every row and the drawn
+ink is a separate group at 1920–1932. Whatever happened there was in the mechanism or on the
+paper, and nothing in the punched code records it. Four windows a half of this kind carry a
+quarter and a third of the squared error, so a model driven by the code alone cannot be scored
+below about 0.034 and 0.042 on this roll however good it is.
+
 **One interaction the pooled averages concealed.** §2's event-triggered averages put the model
 0.013 too high 150 ms after a sforzando-on in the Bass, which looks like a small rate error.
 Split by whether the crescendo latch was set at the trip, it is not:
