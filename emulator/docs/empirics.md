@@ -1648,6 +1648,20 @@ peak fall rate runs from 18.0 to 27.2 units/s between the 5th and 95th percentil
 depth runs from 0.82 to 0.88, a tight distribution. The Discant gives seven, of which **six
 fall 0.92 to 0.93 at 20.7 to 22.7 units/s and one, at 145.0 s, falls 0.34 at 7.2 units/s**.
 
+The Discant has more of these than the Bass, and that is a real difference between the halves.
+Ranking cancels from above 0.75 by the peak rate the line reaches, the Bass gives two outliers,
+3.4 and 4.6 units/s, and then jumps to a cluster at 12; the Discant tails off smoothly, 3.3,
+4.9, 7.2, 7.5, 9.7, 9.9, against a median near 22 in both.
+
+They are not, however, episodes. The feeblest Discant cancels look grouped — 2.4 and 4.4 s,
+then 37.5, 38.7 and 39.2, then 47.6 and 48.1 — and the eight feeblest are more tightly spaced
+than 99 % of random draws of eight. That does not survive the choice of eight: the same test at
+four, five, six, ten, twelve and sixteen gives 17 %, 10 %, 5 %, 86 %, 81 % and 70 %. Significant
+in a narrow window and gone outside it is what a chance pattern looks like when the threshold is
+chosen after seeing the data, and the Bass never approaches significance at any of them. Nor
+does a valve stuck by disuse explain them: the peak fall rate correlates with the idle time
+before the cancel at r = 0.17 and 0.26, and positively, which is the wrong sign.
+
 So the same punch, in the same state, produced a quite different result once. The trace is not
 the explanation: at 273.5 the printed gridline sits at x = 1905–1909 in every row and the drawn
 ink is a separate group at 1920–1932. Whatever happened there was in the mechanism or on the
