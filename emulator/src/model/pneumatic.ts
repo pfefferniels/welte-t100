@@ -92,6 +92,8 @@ const SPEC: readonly ParameterSpec[] = [
   { name: "leadMezzoforteRows", lower: -80, upper: 80, unit: "scan rows", note: "the two mezzoforte codes, relative to that" },
   { name: "leadPerLevelRows", lower: -60, upper: 60, unit: "scan rows", note: "how much the offset moves between the two rails, as the pen swings" },
   { name: "leadDriftRows", lower: -60, upper: 60, unit: "scan rows", note: "change in that shift from the start of the roll to the end" },
+  { name: "valveBand", lower: 0.05, upper: 1, unit: "1", note: "share of the charge above the trip threshold over which the valve lifts; 1 is the whole of it" },
+  { name: "stiction", lower: 0, upper: 0.5, unit: "scale/s", note: "net drive below which the linkage does not move at all" },
   { name: "railGrip", lower: 0, upper: 1.0, unit: "scale/s", note: "net drive needed to pull the bellows off its closed rail" },
   { name: "scaleWarp", lower: -2.5, upper: 2.5, unit: "1", note: "curvature of bellows travel against the printed scale; 0 is linear" },
   { name: "regulatorGain", lower: -0.01, upper: 0.01, unit: "scale·s/note", note: "note density added to the trace, the wrong shape for a supply effect but kept to compare" },
@@ -149,6 +151,8 @@ const DEFAULTS: Parameters = {
   leadMezzoforteRows: 0,
   leadPerLevelRows: 0,
   leadDriftRows: 0,
+  valveBand: 1,
+  stiction: 0,
   railGrip: 0,
   scaleWarp: 0,
   regulatorGain: 0,
@@ -193,6 +197,7 @@ function run(input: ModelInput, params: Parameters): Float64Array {
   // Every parameter is read once here: the step below runs a couple of hundred
   // thousand times per evaluation and a property lookup per read is not free.
   const railGrip = p.railGrip!;
+  const stiction = p.stiction!;
   const alpha = p.alpha!;
   const piano = p.piano!;
   const forte = p.forte!;
@@ -213,7 +218,13 @@ function run(input: ModelInput, params: Parameters): Float64Array {
   const membraneFillMs = p.membraneFillMs!;
   const assistFillMs = p.assistFillMs!;
   const valveTailMs = p.valveTailMs!;
-  const graded = (open: number): number => (open <= trip ? 0 : (open - trip) / (1 - trip));
+  // How far past the trip threshold the membrane chamber must charge before the
+  // valve is fully lifted, as a fraction of the range that remains. The present
+  // model lifts it in proportion to the whole of that range, which is 1 here, so
+  // the parameter nests it and the search can walk down from it continuously.
+  const band = (1 - trip) * p.valveBand!;
+  const graded = (open: number): number =>
+    open <= trip ? 0 : Math.min((open - trip) / band, 1);
   const twoSided = p.mfTwoSided! >= 0.5;
   const stopStiffness = p.stopStiffness!;
   const stopDamping = p.stopDamping!;
@@ -310,6 +321,9 @@ function run(input: ModelInput, params: Parameters): Float64Array {
     // is trapped there for the rest of the roll, which the roll excludes, so the
     // range stops short of it.
     if (railGrip > 0 && target < 0 && -target < railGrip && state.x > forte - RAIL_BAND) target = 0;
+    // Static friction in the chain and cone-valve linkage: below a threshold of
+    // net drive the board does not move at all, anywhere in the travel.
+    if (stiction > 0 && Math.abs(target) < stiction) target = 0;
     const smoothing = inertiaMs > 0 ? Math.exp((-dt * 1000) / inertiaMs) : 0;
     state.velocity = target + (state.velocity - target) * smoothing;
 
