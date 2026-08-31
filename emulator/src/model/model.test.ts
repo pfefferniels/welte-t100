@@ -91,7 +91,7 @@ test("a sforzando closes the bellows faster than a crescendo does", () => {
   assert.ok(sforzando[200]! > crescendo[200]!);
 });
 
-test("a rigid Mezzoforte hook stops a rising line at its level", () => {
+test("the Mezzoforte hook stops a rising line at its upper face", () => {
   const settings: Parameters = { ...pneumaticModel.defaults, leadRows: 0, mfTwoSided: 1, stopStiffness: 0 };
   const out = pneumaticModel.run(
     input({
@@ -100,7 +100,7 @@ test("a rigid Mezzoforte hook stops a rising line at its level", () => {
     }),
     settings,
   );
-  assert.ok(Math.max(...out) <= settings.mezzoforte! + 1e-9);
+  assert.ok(Math.max(...out) <= settings.mezzoforte! + settings.mfThickness! / 2 + 1e-9);
 });
 
 test("a compliant hook lets the line overshoot and spring back", () => {
@@ -111,7 +111,7 @@ test("a compliant hook lets the line overshoot and spring back", () => {
     [portKey("bass", "sforzando", "on")]: [[40, 90]] as [number, number][],
   };
   const settings: Parameters = { ...pneumaticModel.defaults, leadRows: 0, mfTwoSided: 1, sforzandoLatches: 1 };
-  const level = settings.mezzoforte! - settings.mfThickness! / 2;
+  const level = settings.mezzoforte! + settings.mfThickness! / 2;
 
   const rigid = pneumaticModel.run(input(ports), { ...settings, stopStiffness: 0 });
   const springy = pneumaticModel.run(input(ports), { ...settings, stopStiffness: 20000, stopDamping: 30 });

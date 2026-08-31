@@ -48,8 +48,8 @@ export function penetration(
   if (!state.engaged || !engaged) return 0;
   const upper = level + thickness / 2;
   const lower = level - thickness / 2;
-  if (state.trappedAbove || state.caught) return moved < upper ? upper - moved : 0;
-  return twoSided && moved > lower ? moved - lower : 0;
+  if (state.trappedAbove || state.caught) return moved < lower ? lower - moved : 0;
+  return twoSided && moved > upper ? moved - upper : 0;
 }
 
 export function limitAtStop(
@@ -76,6 +76,14 @@ export function limitAtStop(
   }
   if (current >= upper) state.caught = true;
 
-  if (twoSided) return state.trappedAbove ? Math.max(moved, upper) : Math.min(moved, lower);
-  return state.caught ? Math.max(moved, upper) : moved;
+  // The stop yields in the direction it is pushed. A bellows driven down onto it
+  // comes to rest a little below the nominal level, one driven up against it a
+  // little above, so the two arrest levels are a hysteresis and not an excluded
+  // band. Roll 3309 shows both, cleanly separated by direction: the line rests at
+  // 0.58 having fallen (312 stretches, none arrived from below) and at 0.62 to
+  // 0.66 having risen (40 arrivals from below, two from above), and the same 0.06
+  // apart in the treble. The falling rest is the lower of the two, which is the
+  // opposite of what an inelastic barrier at a fixed level would give.
+  if (twoSided) return state.trappedAbove ? Math.max(moved, lower) : Math.min(moved, upper);
+  return state.caught ? Math.max(moved, lower) : moved;
 }
