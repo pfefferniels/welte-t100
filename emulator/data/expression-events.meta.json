@@ -1,0 +1,63 @@
+{
+ "druid": "jq774vx6544",
+ "label": "Welte-Mignon 3309",
+ "performer": "Backhaus, Wilhelm (1884-1969)",
+ "composer": "Schubert, Franz (1797-1828)",
+ "rollType": "welte-red",
+ "source": "SUPRA raw MIDI, cache/jq774vx6544/jq774vx6544_raw.mid",
+ "firstHole": 16482,
+ "lastHole": 213106,
+ "division": 570,
+ "lengthDpi": "300.25ppi",
+ "tempoMap": {
+  "count": 54,
+  "spacingTicks": 3600,
+  "firstRow": 16482,
+  "lastRow": 207282,
+  "rowsPerSecondFirst": 570.0,
+  "rowsPerSecondLast": 640.4098623118796,
+  "secondsAtLastTempo": 316.32573473684215,
+  "note": "One MIDI tick is one pixel row; y_px = tick + first_hole. Seconds follow this tempo map, which models the take-up spool accelerating."
+ },
+ "codes": {
+  "bass": {
+   "14": "mf_off",
+   "15": "mf_on",
+   "16": "cresc_off",
+   "17": "cresc_on",
+   "18": "sforz_off",
+   "19": "sforz_on",
+   "20": "soft_pedal_off",
+   "21": "soft_pedal_on",
+   "22": "motor_off",
+   "23": "motor_on"
+  },
+  "treble": {
+   "104": "rewind",
+   "105": "electric_cutoff",
+   "106": "sustain_on",
+   "107": "sustain_off",
+   "108": "sforz_on",
+   "109": "sforz_off",
+   "110": "cresc_on",
+   "111": "cresc_off",
+   "112": "mf_on",
+   "113": "mf_off"
+  }
+ },
+ "eventCount": 2763,
+ "nearest": "Per event, the nearest event of every other code in the same half: `index` into this array and `rowOffset`, the other event's leading edge minus this one's, in scan rows (positive means the other code comes later).",
+ "curveSource": "out/jq774vx6544/curves.csv",
+ "curveScale": "0.0 = P.P. gridline of the half, 0.5 = M.F., 1.0 = shared F.F.; higher is louder",
+ "curveFlags": {
+  "observed": [
+   "ink",
+   "faint"
+  ],
+  "interpolated": [
+   "hole",
+   "rule",
+   "gap"
+  ]
+ }
+}

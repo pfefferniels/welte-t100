@@ -1,0 +1,20 @@
+{
+  "name": "welte-nuance-emulator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Derives the Nuancierbalg travel of a Welte-Mignon T-100 from the punched expression code, for comparison with the hand-drawn Nuancierungslinien of roll 3309.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "test": "node --test",
+    "eval": "node src/cli/evaluate.ts",
+    "fit": "node src/cli/fit.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.0"
+  }
+}

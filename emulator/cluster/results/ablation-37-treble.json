@@ -1,0 +1,40 @@
+{
+  "druid": "jq774vx6544",
+  "generations": 280,
+  "rows": [
+    {
+      "variant": "velocity field, no flow law",
+      "question": "upper bound on any model with this state",
+      "half": "treble",
+      "params": {
+        "start": -0.030718592149180206,
+        "piano": -0.20596045635287513,
+        "forte": 0.8,
+        "mezzoforte": 0.7144774612281978,
+        "inertiaMs": 149.577715513312,
+        "leadRows": 82.0021031591362,
+        "gain": 0.7584514768957458
+      },
+      "train": {
+        "n": 94145,
+        "rmse": 0.24611672759404257,
+        "mae": 0.19690845359221268,
+        "medianAbs": 0.1527099999999999,
+        "p90Abs": 0.4539536460861432,
+        "bias": 0.0006779061517327165,
+        "correlation": 0.448461356010855
+      },
+      "test": {
+        "n": 91656,
+        "rmse": 0.25785897748236397,
+        "mae": 0.20600399232912087,
+        "medianAbs": 0.1552199999999999,
+        "p90Abs": 0.4511928602037837,
+        "bias": 0.057972636697883495,
+        "correlation": 0.3632311720828618
+      },
+      "evaluations": 8173,
+      "seconds": 307.63887437
+    }
+  ]
+}

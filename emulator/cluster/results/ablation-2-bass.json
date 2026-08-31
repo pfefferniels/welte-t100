@@ -1,0 +1,41 @@
+{
+  "druid": "jq774vx6544",
+  "generations": 280,
+  "rows": [
+    {
+      "variant": "midi2exp, refitted",
+      "question": "how much of its error is bad constants",
+      "half": "bass",
+      "params": {
+        "piano": 0.08547189568491588,
+        "mezzoforte": 0.6008898865811225,
+        "forte": 0.7612890969761514,
+        "loud": 0.5143677227295911,
+        "slowMs": 702.6107779528572,
+        "fastCrescendoMs": 105.7573662380255,
+        "fastDecrescendoMs": 30,
+        "sforzandoLatches": 0.3698397422979072
+      },
+      "train": {
+        "n": 94347,
+        "rmse": 0.14489395494764645,
+        "mae": 0.10792286511207744,
+        "medianAbs": 0.10117189568491589,
+        "p90Abs": 0.1825725787043315,
+        "bias": 0.000008472842937374027,
+        "correlation": 0.7952200464959062
+      },
+      "test": {
+        "n": 92169,
+        "rmse": 0.14199944879019344,
+        "mae": 0.10240780473232458,
+        "medianAbs": 0.08452909697615141,
+        "p90Abs": 0.17697212192885559,
+        "bias": 0.0061606449080986204,
+        "correlation": 0.8345367914233949
+      },
+      "evaluations": 9247,
+      "seconds": 308.32242312399995
+    }
+  ]
+}

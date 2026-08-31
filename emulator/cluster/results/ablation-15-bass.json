@@ -1,0 +1,67 @@
+{
+  "druid": "jq774vx6544",
+  "generations": 280,
+  "rows": [
+    {
+      "variant": "pneumatic, sforzando momentary",
+      "question": "midi2exp's reading of the sforzando",
+      "half": "bass",
+      "params": {
+        "alpha": 1.2440455036391205,
+        "piano": 0.044153393133724586,
+        "forte": 0.8895185151911589,
+        "mezzoforte": 0.6120088830325958,
+        "crescendoRate": 1.1715226996785209,
+        "crescendoTarget": 0.8565541639741157,
+        "releaseRate": 1.4261247063857243,
+        "releaseTarget": -0.01297423717396521,
+        "sforzandoRate": 2.4082277889654136,
+        "sforzandoTarget": 2.2465767339057487,
+        "sforzandoAssistRate": 31.369458107440977,
+        "assistYields": 0.17664187436021503,
+        "tripThreshold": 0.31977798829859816,
+        "membraneFillMs": 1.257847110425772,
+        "assistFillMs": 11.823801151148627,
+        "valveTailMs": 108.45632663243694,
+        "inertiaMs": 27.297511122704584,
+        "leadRows": -74.23737507620818,
+        "leadSforzandoOnRows": 1.6943275100665431,
+        "leadCrescendoRows": 12.02385472907374,
+        "leadMezzoforteRows": -15.985297503268932,
+        "leadPerLevelRows": 3.493990607005655,
+        "leadDriftRows": 0.7764140856382584,
+        "scaleWarp": 1.081936130065824,
+        "regulatorGain": 0.00025816026020231267,
+        "supplyDroop": 0.0002642779986639874,
+        "windRateGain": 1.042387393280387,
+        "windTargetShift": -0.03729498674857032,
+        "mfBarrier": 0.9884299087962543,
+        "mfTwoSided": 1,
+        "mfThickness": 0.11812441311185928,
+        "stopStiffness": 40943.97644794437,
+        "stopDamping": 221.18064728105605,
+        "sforzandoSetsCrescendo": 0.038966472422620045
+      },
+      "train": {
+        "n": 94347,
+        "rmse": 0.04258005937113132,
+        "mae": 0.02501636237009857,
+        "medianAbs": 0.015205641407235015,
+        "p90Abs": 0.05901432341742291,
+        "bias": 0.0006321225236799293,
+        "correlation": 0.9840015587639607
+      },
+      "test": {
+        "n": 92169,
+        "rmse": 0.03868009761640729,
+        "mae": 0.0247847636275705,
+        "medianAbs": 0.015070623272376182,
+        "p90Abs": 0.05810536715188244,
+        "bias": -0.0035212764693431345,
+        "correlation": 0.9888476397056067
+      },
+      "evaluations": 43479,
+      "seconds": 2504.4615378529998
+    }
+  ]
+}

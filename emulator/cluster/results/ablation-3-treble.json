@@ -1,0 +1,41 @@
+{
+  "druid": "jq774vx6544",
+  "generations": 280,
+  "rows": [
+    {
+      "variant": "midi2exp, refitted, aperture ports",
+      "question": "does the round port help a linear model",
+      "half": "treble",
+      "params": {
+        "piano": 0.059934148780321106,
+        "mezzoforte": 0.621457367776811,
+        "forte": 0.8431745973847842,
+        "loud": 0.517006735255946,
+        "slowMs": 1136.0688636539958,
+        "fastCrescendoMs": 106.31780391866928,
+        "fastDecrescendoMs": 30.000355954686526,
+        "sforzandoLatches": 0.0007294743668790722
+      },
+      "train": {
+        "n": 94145,
+        "rmse": 0.1254496524800687,
+        "mae": 0.08778654307653591,
+        "medianAbs": 0.0838154026152158,
+        "p90Abs": 0.1798623859595142,
+        "bias": 0.00016095110898957588,
+        "correlation": 0.8872035335794903
+      },
+      "test": {
+        "n": 91656,
+        "rmse": 0.15130547784861823,
+        "mae": 0.1103422614650961,
+        "medianAbs": 0.09631509504907743,
+        "p90Abs": 0.23366459738478418,
+        "bias": 0.05921220679166022,
+        "correlation": 0.8497949860567734
+      },
+      "evaluations": 9422,
+      "seconds": 313.377061974
+    }
+  ]
+}

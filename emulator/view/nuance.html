@@ -1,0 +1,855 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handnuancierung Overlay</title>
+<style>
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --sunken: #f3f4f6;
+  --line: #e5e7eb;
+  --line-strong: #d1d5db;
+  --grid: #eceef1;
+  --text: #111111;
+  --text-dim: #6b7280;
+  --drawn: #111111;
+  --drawn-faint: #b0b4ba;
+  --model: #2563eb;
+  --flag-hole: #9ca3af;
+  --flag-rule: #d8dbdf;
+  --flag-gap: #6b7280;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0c0e11;
+    --surface: #111418;
+    --sunken: #171b21;
+    --line: #262b33;
+    --line-strong: #39404a;
+    --grid: #1d222a;
+    --text: #e6e8eb;
+    --text-dim: #9aa1ab;
+    --drawn: #e6e8eb;
+    --drawn-faint: #565d67;
+    --model: #7aa2f7;
+    --flag-hole: #6b7280;
+    --flag-rule: #4e5561;
+    --flag-gap: #98a0ab;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0c0e11;
+  --surface: #111418;
+  --sunken: #171b21;
+  --line: #262b33;
+  --line-strong: #39404a;
+  --grid: #1d222a;
+  --text: #e6e8eb;
+  --text-dim: #9aa1ab;
+  --drawn: #e6e8eb;
+  --drawn-faint: #565d67;
+  --model: #7aa2f7;
+  --flag-hole: #6b7280;
+  --flag-rule: #4e5561;
+  --flag-gap: #98a0ab;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { overflow-x: hidden; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+h1 { font-size: 14px; font-weight: 600; margin: 0; }
+h2 {
+  font-size: 11px;
+  font-weight: 600;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text-dim);
+}
+.dim { color: var(--text-dim); }
+.spacer { flex: 1 1 auto; }
+
+button {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+button:hover { background: var(--sunken); }
+
+main { display: grid; grid-template-columns: minmax(0, 1fr) 21rem; align-items: start; }
+@media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); } }
+
+.plot { min-width: 0; padding: 10px 16px 20px; }
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 16px;
+  margin-bottom: 8px;
+}
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+#stage { position: relative; width: 100%; min-width: 0; }
+canvas { display: block; width: 100%; touch-action: none; cursor: crosshair; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; color: var(--text-dim); font-size: 12px; }
+.key { display: inline-flex; align-items: center; gap: 6px; }
+.swatch { width: 14px; height: 3px; border-radius: 1px; }
+.swatch.block { height: 9px; width: 9px; }
+.swatch.hollow { background: none; border: 1px solid var(--text); }
+
+aside { border-left: 1px solid var(--line); padding: 12px 16px 28px; min-width: 0; }
+@media (max-width: 900px) { aside { border-left: none; border-top: 1px solid var(--line); } }
+aside section { margin-bottom: 18px; }
+
+table { border-collapse: collapse; width: 100%; table-layout: fixed; font-size: 12px; }
+th, td { text-align: right; padding: 2px 4px; border-bottom: 1px solid var(--line); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+thead th { color: var(--text-dim); font-weight: 600; }
+tbody tr:hover { background: var(--sunken); }
+td.num { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.substituted td:first-child::after { content: " ·"; color: var(--text-dim); }
+p.note { margin: 6px 0 0; color: var(--text-dim); font-size: 12px; }
+#failure { padding: 24px 16px; color: var(--text-dim); }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+</style>
+</head>
+<body>
+
+<!-- INLINE: replace this one line with <script> … the contents of data.js … </script> -->
+<script src="data.js"></script>
+
+<header>
+  <h1 id="title">Handnuancierung against the emulator</h1>
+  <span class="dim" id="subtitle"></span>
+  <span class="spacer"></span>
+  <button id="theme" type="button">theme: auto</button>
+</header>
+
+<main id="app" hidden>
+  <div class="plot">
+    <div class="toolbar">
+      <span class="mono" id="window"></span>
+      <span class="mono dim" id="cursor"></span>
+      <span class="spacer"></span>
+      <span class="dim">drag to pan · wheel to zoom · double-click to reset</span>
+      <button id="reset" type="button">reset</button>
+    </div>
+    <div id="stage"><canvas id="chart"></canvas></div>
+    <div class="legend">
+      <span class="key"><span class="swatch" style="background:var(--drawn)"></span>drawn line</span>
+      <span class="key"><span class="swatch" style="background:var(--model)"></span>emulator</span>
+      <span class="key"><span class="swatch" style="background:var(--drawn-faint)"></span>interpolated, not a sighting</span>
+      <span class="key"><span class="swatch block" style="background:var(--flag-hole)"></span>under a punch</span>
+      <span class="key"><span class="swatch block" style="background:var(--flag-rule)"></span>on a printed rule</span>
+      <span class="key"><span class="swatch block" style="background:var(--flag-gap)"></span>nothing visible</span>
+      <span class="key"><span class="swatch block" style="background:var(--text)"></span>punch on</span>
+      <span class="key"><span class="swatch block hollow"></span>punch off</span>
+    </div>
+    <p class="note" id="stripNote"></p>
+  </div>
+
+  <aside>
+    <section>
+      <h2>Roll</h2>
+      <table><tbody id="rollFacts"></tbody></table>
+    </section>
+    <section>
+      <h2>Held-out agreement</h2>
+      <table>
+        <thead><tr><th></th><th>bass</th><th>treble</th></tr></thead>
+        <tbody id="scores"></tbody>
+      </table>
+      <p class="note" id="scoreNote"></p>
+    </section>
+    <section>
+      <h2>Parameters</h2>
+      <table>
+        <colgroup><col style="width:44%"><col style="width:21%"><col style="width:21%"><col style="width:14%"></colgroup>
+        <thead><tr><th>name</th><th>bass</th><th>treble</th><th>unit</th></tr></thead>
+        <tbody id="params"></tbody>
+      </table>
+      <p class="note" id="paramNote"></p>
+    </section>
+  </aside>
+</main>
+
+<div id="failure" hidden>
+  No bundle loaded. Run <code>node src/cli/export-view.ts --out view/data.js</code> from <code>emulator/</code>.
+</div>
+
+<script>
+"use strict";
+
+const GUTTER = 46;
+const RIGHT = 24;
+const BAND = 6;
+const VALUE_LOW = -0.13;
+const VALUE_HIGH = 1.13;
+const LANES = ["mezzoforte", "crescendo", "sforzando", "windResistance"];
+const LANE_LABELS = { mezzoforte: "MF", crescendo: "Cresc", sforzando: "Sforz", windResistance: "Wid" };
+const RESIDUAL_LIMITS = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.75, 1, 1.5];
+const TICK_STEPS = [0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 15, 30, 60, 120, 300, 600];
+/** Why a row is not a sighting, weakest evidence first; the strongest reason colours the band. */
+const FLAG_RANK = { rule: 1, hole: 2, gap: 3 };
+
+/* ---------- the bundle ---------- */
+
+function decodeBase64(text) {
+  const binary = atob(text);
+  return Uint8Array.from(binary, (character) => character.charCodeAt(0));
+}
+
+function inflate(data) {
+  const bytes = decodeBase64(data.buffer);
+  const codesAt = (offset) => new Uint16Array(bytes.buffer, offset, data.rows);
+  const series = (descriptor) =>
+    Float32Array.from(codesAt(descriptor.bytes), (code) => descriptor.min + descriptor.step * code);
+
+  const seconds = Float64Array.from(codesAt(data.seconds.bytes), (code, index) =>
+    data.seconds.base + data.seconds.slope * index + data.seconds.min + data.seconds.step * code);
+
+  const sightings = new Set(data.observedFlags.map((name) => data.flagNames.indexOf(name)));
+  const half = (name) => {
+    const flag = new Uint8Array(bytes.buffer, data.flags[name], data.rows);
+    const drawn = series(data.halves[name].drawn);
+    const model = series(data.halves[name].model);
+    return {
+      name,
+      drawn,
+      model,
+      flag,
+      observed: Uint8Array.from(flag, (code) => (sightings.has(code) ? 1 : 0)),
+      residual: Float32Array.from(drawn, (value, index) => model[index] - value),
+    };
+  };
+  return { seconds, bass: half("bass"), treble: half("treble") };
+}
+
+/**
+ * Punches on the grid's own seconds rather than on the MIDI's, so that the
+ * strips and the curves cannot drift apart. Only the four nuance controls get a
+ * lane; the pedal, hammer rail and rewind punches are left out.
+ */
+function groupPunches(data, seconds) {
+  const table = data.punches;
+  const secondAt = (row) => seconds[clamp(row - data.startRow, 0, data.rows - 1)];
+  const grouped = { bass: {}, treble: {} };
+  LANES.forEach((control) => {
+    grouped.bass[control] = [];
+    grouped.treble[control] = [];
+  });
+  table.rowOn.forEach((rowOn, index) => {
+    const control = table.controls[table.control[index]];
+    if (!LANES.includes(control)) return;
+    grouped[table.halves[table.half[index]]][control].push({
+      start: secondAt(rowOn),
+      end: secondAt(table.rowOff[index]),
+      on: table.actions[table.action[index]] === "on",
+    });
+  });
+  return grouped;
+}
+
+/* ---------- small numerics ---------- */
+
+function clamp(value, low, high) {
+  return Math.min(Math.max(value, low), high);
+}
+
+/** First index whose value is at least `target`, in an increasing array. */
+function lowerBound(values, target) {
+  let low = 0;
+  let high = values.length;
+  while (low < high) {
+    const middle = (low + high) >> 1;
+    if (values[middle] < target) low = middle + 1;
+    else high = middle;
+  }
+  return low;
+}
+
+function quantileOfAbs(values, mask, fraction) {
+  const kept = new Float64Array(values.length);
+  let count = 0;
+  for (let index = 0; index < values.length; index += 1) {
+    if (mask[index]) {
+      kept[count] = Math.abs(values[index]);
+      count += 1;
+    }
+  }
+  if (count === 0) return 0;
+  const sorted = kept.subarray(0, count).sort();
+  return sorted[Math.round(fraction * (count - 1))];
+}
+
+function timeTicks(range, width) {
+  const span = range[1] - range[0];
+  const wanted = span / Math.max(Math.floor(width / 95), 2);
+  const step = TICK_STEPS.find((candidate) => candidate >= wanted) ?? TICK_STEPS[TICK_STEPS.length - 1];
+  const firstTick = Math.ceil(range[0] / step);
+  const count = Math.max(Math.floor(range[1] / step) - firstTick + 1, 0);
+  const values = Array.from({ length: count }, (unused, index) => (firstTick + index) * step);
+  return { step, values };
+}
+
+/* ---------- formatting ---------- */
+
+function formatSeconds(value) {
+  const minutes = Math.floor(Math.abs(value) / 60);
+  const seconds = Math.abs(value) - minutes * 60;
+  return `${value < 0 ? "−" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds.toFixed(2)}`;
+}
+
+function formatTick(value, step) {
+  if (step < 1) return `${value.toFixed(step >= 0.1 ? 1 : 2)}s`;
+  const minutes = Math.floor(Math.abs(value) / 60);
+  const seconds = Math.round(Math.abs(value) - minutes * 60);
+  return `${value < 0 ? "−" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
+
+function formatNumber(value, places = 4) {
+  return Number.isFinite(value) ? value.toFixed(places) : "—";
+}
+
+function formatSignificant(value) {
+  if (!Number.isFinite(value)) return "—";
+  if (value === 0) return "0";
+  const magnitude = Math.abs(value);
+  return magnitude >= 0.001 && magnitude < 1e4 ? String(Number(value.toPrecision(4))) : value.toExponential(2);
+}
+
+function escapeHtml(text) {
+  return String(text).replace(/[&<>"]/g, (character) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[character]);
+}
+
+/* ---------- layout ---------- */
+
+function layout(width) {
+  const compact = width < 620;
+  const curveHeight = compact ? 132 : 188;
+  const laneHeight = compact ? 9 : 11;
+  const stripHeight = LANES.length * laneHeight + 6;
+  const residualHeight = compact ? 44 : 62;
+  const panes = [];
+  let y = 8;
+  ["bass", "treble"].forEach((half, index) => {
+    if (index > 0) y += 20;
+    panes.push({ half, kind: "curve", top: y, height: curveHeight });
+    y += curveHeight + 5;
+    panes.push({ half, kind: "strip", top: y, height: stripHeight, laneHeight });
+    y += stripHeight + 5;
+    panes.push({ half, kind: "residual", top: y, height: residualHeight });
+    y += residualHeight;
+  });
+  return {
+    panes,
+    axis: y + 4,
+    height: y + 28,
+    plotLeft: GUTTER,
+    plotWidth: Math.max(Math.round(width - GUTTER - RIGHT), 60),
+  };
+}
+
+/* ---------- decimation ---------- */
+
+/**
+ * One min–max envelope per pixel column, so a single-row sforzando spike
+ * survives being zoomed out. `sighted` stays set only where every sample in the
+ * column is a sighting of the drawn line, and `evidence` records the strongest
+ * reason a column is not one.
+ */
+function columns(values, observed, flag, flagRanks, seconds, first, last, range, width) {
+  const low = new Float32Array(width).fill(Infinity);
+  const high = new Float32Array(width).fill(-Infinity);
+  const seen = new Uint8Array(width);
+  const sighted = new Uint8Array(width).fill(1);
+  const evidence = new Uint8Array(width);
+  const scale = width / (range[1] - range[0]);
+
+  for (let index = first; index <= last; index += 1) {
+    const column = clamp(Math.floor((seconds[index] - range[0]) * scale), 0, width - 1);
+    const value = values[index];
+    if (value < low[column]) low[column] = value;
+    if (value > high[column]) high[column] = value;
+    seen[column] = 1;
+    if (!observed[index]) {
+      sighted[column] = 0;
+      const rank = flagRanks[flag[index]];
+      if (rank > evidence[column]) evidence[column] = rank;
+    }
+  }
+  return { low, high, seen, sighted, evidence, width };
+}
+
+/**
+ * The envelope as one stroked path. Columns with no sample are stepped over so
+ * that a zoomed-in line stays continuous; columns the caller rejects break it,
+ * which is how the interpolated stretches are kept out of the solid line.
+ */
+function strokeColumns(context, cols, project, accept) {
+  context.beginPath();
+  let open = false;
+  for (let column = 0; column < cols.width; column += 1) {
+    if (!cols.seen[column]) continue;
+    if (accept && !accept(column)) {
+      open = false;
+      continue;
+    }
+    const x = column + 0.5;
+    const top = project(cols.high[column]);
+    if (open) context.lineTo(x, top);
+    else context.moveTo(x, top);
+    context.lineTo(x, project(cols.low[column]));
+    open = true;
+  }
+  context.stroke();
+}
+
+/* ---------- palette ---------- */
+
+function readPalette() {
+  const style = getComputedStyle(document.documentElement);
+  const token = (name) => style.getPropertyValue(name).trim();
+  return {
+    bg: token("--bg"),
+    line: token("--line"),
+    lineStrong: token("--line-strong"),
+    grid: token("--grid"),
+    text: token("--text"),
+    dim: token("--text-dim"),
+    drawn: token("--drawn"),
+    drawnFaint: token("--drawn-faint"),
+    model: token("--model"),
+    flags: [null, token("--flag-rule"), token("--flag-hole"), token("--flag-gap")],
+  };
+}
+
+/* ---------- the page ---------- */
+
+function start(data) {
+  const bundle = inflate(data);
+  const halves = [bundle.bass, bundle.treble];
+  const punches = groupPunches(data, bundle.seconds);
+  const flagRanks = Uint8Array.from(data.flagNames, (name) => FLAG_RANK[name] ?? 0);
+  const residualLimit = {};
+  halves.forEach((half) => {
+    const spread = quantileOfAbs(half.residual, half.observed, 0.99);
+    residualLimit[half.name] = RESIDUAL_LIMITS.find((limit) => limit >= spread) ?? RESIDUAL_LIMITS.at(-1);
+  });
+
+  const extent = [bundle.seconds[0], bundle.seconds[data.rows - 1]];
+  const minimumSpan = 0.05;
+  let range = extent.slice();
+  let cursorX = null;
+  let cssWidth = 0;
+  let plan = layout(600);
+  let palette = readPalette();
+  let pending = 0;
+
+  const stage = document.getElementById("stage");
+  const canvas = document.getElementById("chart");
+  const context = canvas.getContext("2d");
+
+  function schedule() {
+    if (pending) return;
+    pending = requestAnimationFrame(() => {
+      pending = 0;
+      draw();
+    });
+  }
+
+  function resize() {
+    palette = readPalette();
+    cssWidth = Math.max(Math.round(stage.clientWidth), 240);
+    plan = layout(cssWidth);
+    const ratio = self.devicePixelRatio || 1;
+    canvas.style.height = `${plan.height}px`;
+    canvas.width = Math.round(cssWidth * ratio);
+    canvas.height = Math.round(plan.height * ratio);
+    context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    draw();
+  }
+
+  function draw() {
+    context.save();
+    context.fillStyle = palette.bg;
+    context.fillRect(0, 0, cssWidth, plan.height);
+
+    const first = Math.max(lowerBound(bundle.seconds, range[0]) - 1, 0);
+    const last = Math.min(lowerBound(bundle.seconds, range[1]) + 1, data.rows - 1);
+    const ticks = timeTicks(range, plan.plotWidth);
+    const toX = (second) => plan.plotLeft + ((second - range[0]) / (range[1] - range[0])) * plan.plotWidth;
+
+    drawTimeGrid(ticks, toX);
+    plan.panes.forEach((pane) => {
+      const half = pane.half === "bass" ? bundle.bass : bundle.treble;
+      context.save();
+      context.beginPath();
+      context.rect(plan.plotLeft, pane.top - 1, plan.plotWidth, pane.height + 2);
+      context.clip();
+      if (pane.kind === "curve") drawCurve(pane, half, first, last);
+      if (pane.kind === "strip") drawStrip(pane, toX);
+      if (pane.kind === "residual") drawResidual(pane, half, first, last);
+      context.restore();
+      drawGutter(pane);
+      context.strokeStyle = palette.line;
+      context.lineWidth = 1;
+      context.strokeRect(plan.plotLeft + 0.5, pane.top + 0.5, plan.plotWidth - 1, pane.height - 1);
+    });
+    drawTimeAxis(ticks, toX);
+    if (cursorX !== null) drawCursor(cursorX);
+    context.restore();
+    report();
+  }
+
+  function valueProjector(pane) {
+    const usable = pane.height - BAND;
+    return (value) => pane.top + usable - ((value - VALUE_LOW) / (VALUE_HIGH - VALUE_LOW)) * usable;
+  }
+
+  function residualProjector(pane, limit) {
+    const middle = pane.top + pane.height / 2;
+    const reach = pane.height / 2 - 3;
+    return (value) => middle - (clamp(value, -limit, limit) / limit) * reach;
+  }
+
+  function drawTimeGrid(ticks, toX) {
+    context.strokeStyle = palette.grid;
+    context.lineWidth = 1;
+    context.beginPath();
+    ticks.values.forEach((second) => {
+      const x = Math.round(toX(second)) + 0.5;
+      if (x < plan.plotLeft || x > plan.plotLeft + plan.plotWidth) return;
+      plan.panes.forEach((pane) => {
+        context.moveTo(x, pane.top);
+        context.lineTo(x, pane.top + pane.height);
+      });
+    });
+    context.stroke();
+  }
+
+  function drawTimeAxis(ticks, toX) {
+    context.fillStyle = palette.dim;
+    context.font = "11px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+    context.textBaseline = "top";
+    context.textAlign = "center";
+    ticks.values.forEach((second) => {
+      const x = toX(second);
+      if (x < plan.plotLeft || x > plan.plotLeft + plan.plotWidth) return;
+      const label = formatTick(second, ticks.step);
+      const reach = context.measureText(label).width / 2;
+      context.fillText(label, clamp(x, reach + 2, cssWidth - reach - 2), plan.axis + 4);
+    });
+  }
+
+  function drawCurve(pane, half, first, last) {
+    const project = valueProjector(pane);
+    [0, 0.5, 1].forEach((level) => {
+      const y = Math.round(project(level)) + 0.5;
+      context.strokeStyle = level === 0.5 ? palette.line : palette.lineStrong;
+      context.setLineDash(level === 0.5 ? [3, 3] : []);
+      context.beginPath();
+      context.moveTo(plan.plotLeft, y);
+      context.lineTo(plan.plotLeft + plan.plotWidth, y);
+      context.stroke();
+    });
+    context.setLineDash([]);
+
+    context.save();
+    context.translate(plan.plotLeft, 0);
+    const width = plan.plotWidth;
+    const drawn = columns(half.drawn, half.observed, half.flag, flagRanks, bundle.seconds, first, last, range, width);
+    const model = columns(half.model, half.observed, half.flag, flagRanks, bundle.seconds, first, last, range, width);
+
+    const bandTop = pane.top + pane.height - BAND + 1;
+    for (let column = 0; column < width; column += 1) {
+      const colour = palette.flags[drawn.evidence[column]];
+      if (!colour) continue;
+      context.fillStyle = colour;
+      context.fillRect(column, bandTop, 1, BAND - 2);
+    }
+
+    // The model goes down first: where the two agree the drawn line covers it,
+    // and what is left showing is exactly where the emulator departs from it.
+    context.lineWidth = 1.1;
+    context.strokeStyle = palette.model;
+    strokeColumns(context, model, project, null);
+
+    context.lineWidth = 1;
+    context.strokeStyle = palette.drawnFaint;
+    context.setLineDash([2, 2]);
+    strokeColumns(context, drawn, project, null);
+    context.setLineDash([]);
+
+    context.lineWidth = 1.4;
+    context.strokeStyle = palette.drawn;
+    strokeColumns(context, drawn, project, (column) => drawn.sighted[column] === 1);
+    context.restore();
+
+    context.fillStyle = palette.text;
+    context.font = "11px ui-sans-serif, system-ui, sans-serif";
+    context.textAlign = "left";
+    context.textBaseline = "top";
+    context.fillText(pane.half, plan.plotLeft + 6, pane.top + 4);
+  }
+
+  function drawResidual(pane, half, first, last) {
+    const limit = residualLimit[half.name];
+    const project = residualProjector(pane, limit);
+    const zero = Math.round(project(0)) + 0.5;
+    context.strokeStyle = palette.lineStrong;
+    context.lineWidth = 1;
+    context.beginPath();
+    context.moveTo(plan.plotLeft, zero);
+    context.lineTo(plan.plotLeft + plan.plotWidth, zero);
+    context.stroke();
+
+    context.save();
+    context.translate(plan.plotLeft, 0);
+    const cols = columns(half.residual, half.observed, half.flag, flagRanks, bundle.seconds, first, last, range, plan.plotWidth);
+    context.strokeStyle = palette.drawnFaint;
+    strokeColumns(context, cols, project, (column) => cols.sighted[column] === 0);
+    context.strokeStyle = palette.model;
+    strokeColumns(context, cols, project, (column) => cols.sighted[column] === 1);
+    context.restore();
+
+    context.fillStyle = palette.dim;
+    context.font = "10px ui-sans-serif, system-ui, sans-serif";
+    context.textAlign = "left";
+    context.textBaseline = "top";
+    context.fillText("model − drawn", plan.plotLeft + 6, pane.top + 3);
+  }
+
+  function drawStrip(pane, toX) {
+    const lanes = punches[pane.half];
+    LANES.forEach((control, index) => {
+      const top = pane.top + 3 + index * pane.laneHeight;
+      const middle = top + pane.laneHeight / 2;
+      const height = pane.laneHeight / 2 - 1.5;
+      // Alternate lanes are tinted: the cancelling punches sit below their own
+      // lane's line and would otherwise read as the next lane's setting punches.
+      if (index % 2 === 1) {
+        context.fillStyle = palette.grid;
+        context.fillRect(plan.plotLeft, top, plan.plotWidth, pane.laneHeight);
+      }
+      context.strokeStyle = palette.line;
+      context.lineWidth = 1;
+      context.beginPath();
+      context.moveTo(plan.plotLeft, Math.round(middle) + 0.5);
+      context.lineTo(plan.plotLeft + plan.plotWidth, Math.round(middle) + 0.5);
+      context.stroke();
+
+      lanes[control].forEach((punch) => {
+        if (punch.end < range[0] || punch.start > range[1]) return;
+        const x = toX(punch.start);
+        const width = Math.max(toX(punch.end) - x, 1.2);
+        if (punch.on) {
+          context.fillStyle = palette.text;
+          context.fillRect(x, top + 0.5, width, height);
+        } else {
+          context.strokeStyle = palette.text;
+          context.strokeRect(Math.round(x) + 0.5, Math.round(middle) + 1.5, Math.max(Math.round(width), 1), Math.round(height));
+        }
+      });
+    });
+  }
+
+  function drawGutter(pane) {
+    context.fillStyle = palette.dim;
+    context.textAlign = "right";
+    context.textBaseline = "middle";
+    if (pane.kind === "curve") {
+      const project = valueProjector(pane);
+      context.font = "10px ui-sans-serif, system-ui, sans-serif";
+      [[1, "F.F."], [0.5, "M.F."], [0, "P.P."]].forEach(([level, label]) =>
+        context.fillText(label, plan.plotLeft - 5, project(level)));
+    }
+    if (pane.kind === "residual") {
+      const limit = residualLimit[pane.half];
+      const project = residualProjector(pane, limit);
+      context.font = "10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace";
+      context.fillText(`+${limit}`, plan.plotLeft - 5, project(limit) + 4);
+      context.fillText("0", plan.plotLeft - 5, project(0));
+      context.fillText(`−${limit}`, plan.plotLeft - 5, project(-limit) - 4);
+    }
+    if (pane.kind === "strip") {
+      context.font = "9px ui-sans-serif, system-ui, sans-serif";
+      LANES.forEach((control, index) =>
+        context.fillText(LANE_LABELS[control], plan.plotLeft - 5, pane.top + 3 + (index + 0.5) * pane.laneHeight));
+    }
+  }
+
+  function drawCursor(x) {
+    if (x < plan.plotLeft || x > plan.plotLeft + plan.plotWidth) return;
+    const last = plan.panes[plan.panes.length - 1];
+    context.strokeStyle = palette.lineStrong;
+    context.lineWidth = 1;
+    context.beginPath();
+    context.moveTo(Math.round(x) + 0.5, plan.panes[0].top);
+    context.lineTo(Math.round(x) + 0.5, last.top + last.height);
+    context.stroke();
+  }
+
+  function report() {
+    const span = range[1] - range[0];
+    document.getElementById("window").textContent =
+      `${formatSeconds(range[0])} – ${formatSeconds(range[1])}   ${span.toFixed(span < 10 ? 2 : 1)} s of ${(extent[1] - extent[0]).toFixed(0)} s`;
+
+    const readout = document.getElementById("cursor");
+    if (cursorX === null) {
+      readout.textContent = "";
+      return;
+    }
+    const second = range[0] + ((cursorX - plan.plotLeft) / plan.plotWidth) * span;
+    const index = clamp(lowerBound(bundle.seconds, second), 0, data.rows - 1);
+    readout.textContent = halves
+      .map((half) => `${half.name} ${half.drawn[index].toFixed(3)}/${half.model[index].toFixed(3)}`)
+      .join("  ");
+  }
+
+  /* ---------- interaction ---------- */
+
+  function setRange(low, high) {
+    const span = clamp(high - low, minimumSpan, extent[1] - extent[0]);
+    const start = clamp(low, extent[0], extent[1] - span);
+    range = [start, start + span];
+    schedule();
+  }
+
+  let dragging = null;
+  canvas.addEventListener("pointerdown", (event) => {
+    canvas.setPointerCapture(event.pointerId);
+    dragging = { x: event.offsetX, range: range.slice() };
+  });
+  canvas.addEventListener("pointermove", (event) => {
+    cursorX = event.offsetX;
+    if (dragging) {
+      const span = dragging.range[1] - dragging.range[0];
+      const shift = ((dragging.x - event.offsetX) / plan.plotWidth) * span;
+      setRange(dragging.range[0] + shift, dragging.range[1] + shift);
+    } else {
+      schedule();
+    }
+  });
+  const release = () => { dragging = null; };
+  canvas.addEventListener("pointerup", release);
+  canvas.addEventListener("pointercancel", release);
+  canvas.addEventListener("pointerleave", () => {
+    cursorX = null;
+    schedule();
+  });
+  canvas.addEventListener("wheel", (event) => {
+    event.preventDefault();
+    const span = range[1] - range[0];
+    const anchor = range[0] + (clamp(event.offsetX - plan.plotLeft, 0, plan.plotWidth) / plan.plotWidth) * span;
+    const wanted = clamp(span * Math.exp(event.deltaY * 0.0015), minimumSpan, extent[1] - extent[0]);
+    const factor = wanted / span;
+    setRange(anchor - (anchor - range[0]) * factor, anchor + (range[1] - anchor) * factor);
+  }, { passive: false });
+  canvas.addEventListener("dblclick", () => setRange(extent[0], extent[1]));
+  document.getElementById("reset").addEventListener("click", () => setRange(extent[0], extent[1]));
+  document.getElementById("theme").addEventListener("click", (event) => {
+    const order = ["auto", "light", "dark"];
+    const next = order[(order.indexOf(document.documentElement.dataset.theme || "auto") + 1) % order.length];
+    if (next === "auto") delete document.documentElement.dataset.theme;
+    else document.documentElement.dataset.theme = next;
+    event.currentTarget.textContent = `theme: ${next}`;
+    resize();
+  });
+
+  new ResizeObserver(resize).observe(stage);
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", resize);
+
+  describe(data);
+  document.getElementById("app").hidden = false;
+  resize();
+  self.NUANCE_VIEW = { bundle, punches, plan: () => plan, range: () => range, setRange, draw, canvas };
+}
+
+/* ---------- side panel ---------- */
+
+function describe(data) {
+  document.getElementById("subtitle").textContent =
+    [data.label, data.composer, data.performer].filter(Boolean).join(" · ");
+  document.title = `${data.label} — drawn line against the ${data.model} model`;
+
+  const facts = [
+    ["druid", data.druid],
+    ["rows", data.rows.toLocaleString("en")],
+    ["model", data.model],
+    ["ports", data.ports],
+    ["fit", data.fit ? data.fit.split("/").pop() : "model defaults", data.fit],
+    ["time axis", `±${(data.seconds.maxError * 1000).toFixed(3)} ms`],
+    ["value steps", `±${(data.halves.bass.drawn.step * 0.5).toExponential(1)}`],
+  ];
+  document.getElementById("rollFacts").innerHTML = facts
+    .map(([name, value, full]) =>
+      `<tr title="${escapeHtml(full ?? value)}"><td>${escapeHtml(name)}</td><td class="num">${escapeHtml(value)}</td></tr>`)
+    .join("");
+
+  const scores = [
+    ["n", (half) => half.agreement.test.n.toLocaleString("en")],
+    ["rmse", (half) => formatNumber(half.agreement.test.rmse)],
+    ["mae", (half) => formatNumber(half.agreement.test.mae)],
+    ["median |e|", (half) => formatNumber(half.agreement.test.medianAbs)],
+    ["p90 |e|", (half) => formatNumber(half.agreement.test.p90Abs)],
+    ["bias", (half) => formatNumber(half.agreement.test.bias)],
+    ["r", (half) => formatNumber(half.agreement.test.correlation, 3)],
+    ["rmse (fitted)", (half) => formatNumber(half.agreement.train.rmse)],
+  ];
+  document.getElementById("scores").innerHTML = scores
+    .map(([name, read]) =>
+      `<tr><td>${escapeHtml(name)}</td><td class="num">${read(data.halves.bass)}</td><td class="num">${read(data.halves.treble)}</td></tr>`)
+    .join("");
+  document.getElementById("scoreNote").textContent =
+    "Alternating eight-second blocks, scored on the ones left out. Rows without a sighting of the drawn line are excluded throughout. Errors are in units of the printed scale, on which 1.0 is the whole P.P.–F.F. span.";
+
+  const substituted = new Set([...data.halves.bass.fromDefaults, ...data.halves.treble.fromDefaults]);
+  document.getElementById("params").innerHTML = data.spec
+    .map((entry) => {
+      const cells = ["bass", "treble"]
+        .map((half) => `<td class="num">${formatSignificant(data.halves[half].params[entry.name])}</td>`)
+        .join("");
+      return `<tr class="${substituted.has(entry.name) ? "substituted" : ""}" title="${escapeHtml(entry.note)}">` +
+        `<td>${escapeHtml(entry.name)}</td>${cells}<td class="dim">${escapeHtml(entry.unit)}</td></tr>`;
+    })
+    .join("");
+  document.getElementById("paramNote").textContent = substituted.size > 0
+    ? `Marked ·: absent from the fit file, so the model's own default stands in (${[...substituted].join(", ")}). Those columns are then not a fitted value.`
+    : data.modelSummary;
+
+  document.getElementById("stripNote").textContent =
+    "Punched code, one lane per control, filled above the line for the setting punch and outlined below it for the cancelling one. Sustain pedal, hammer rail and rewind punches are on the roll but are not nuance controls and are not drawn.";
+}
+
+if (self.NUANCE_DATA) start(self.NUANCE_DATA);
+else document.getElementById("failure").hidden = false;
+</script>
+</body>
+</html>

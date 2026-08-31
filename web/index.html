@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handnuancierung — correction</title>
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="minimap">
+    <canvas id="minimap"></canvas>
+  </aside>
+
+  <main class="viewer">
+    <div id="scroll" class="scroll"><div id="content"></div></div>
+    <canvas id="overlay"></canvas>
+    <div id="status" class="status">loading…</div>
+  </main>
+
+  <aside class="panel">
+    <h1 id="title">roll</h1>
+
+    <section>
+      <h2>Half</h2>
+      <div class="choices" id="halves">
+        <button data-half="bass" class="on"><i class="swatch bass"></i>Bass<kbd>1</kbd></button>
+        <button data-half="treble"><i class="swatch treble"></i>Discant<kbd>2</kbd></button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Tool</h2>
+      <div class="choices" id="tools">
+        <button data-tool="anchor" class="on">Anchor<kbd>a</kbd></button>
+        <button data-tool="draw">Draw<kbd>d</kbd></button>
+        <button data-tool="lacuna">Not visible<kbd>v</kbd></button>
+        <button data-tool="faded">Faded<kbd>f</kbd></button>
+        <button data-tool="erase">Erase<kbd>e</kbd></button>
+      </div>
+      <p class="hint" id="hint">Click a point the curve must pass through. The stretch is traced again with it in force.</p>
+    </section>
+
+    <section>
+      <h2>Zoom <kbd>z</kbd></h2>
+      <div class="choices" id="zooms">
+        <button data-zoom="1" class="on">1:1</button>
+        <button data-zoom="2">1:2</button>
+        <button data-zoom="4">1:4</button>
+        <button data-zoom="8">1:8</button>
+      </div>
+    </section>
+
+    <section class="grow">
+      <h2>Difficult spots <kbd>n</kbd> <kbd>p</kbd></h2>
+      <ul id="suspects" class="list"></ul>
+    </section>
+
+    <section class="grow">
+      <h2>Corrections</h2>
+      <ul id="edits" class="list"></ul>
+    </section>
+
+    <section>
+      <button id="save" class="save">Save</button>
+      <p class="hint" id="saved"></p>
+    </section>
+  </aside>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

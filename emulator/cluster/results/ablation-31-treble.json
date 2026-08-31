@@ -1,0 +1,67 @@
+{
+  "druid": "jq774vx6544",
+  "generations": 280,
+  "rows": [
+    {
+      "variant": "pneumatic, rigid stops",
+      "question": "do the stops rebound",
+      "half": "treble",
+      "params": {
+        "alpha": 1.2789511896651058,
+        "piano": 0.05525815767421868,
+        "forte": 0.9435879120327987,
+        "mezzoforte": 0.5925024878116243,
+        "crescendoRate": 0.6540198270734736,
+        "crescendoTarget": 0.9407876005468286,
+        "releaseRate": 0.8742082564149132,
+        "releaseTarget": -0.2258328491788101,
+        "sforzandoRate": 2.7803892699651844,
+        "sforzandoTarget": 2.038724008243068,
+        "sforzandoAssistRate": 55.160183914703985,
+        "assistYields": 0.22327136267602035,
+        "tripThreshold": 0.437989675733499,
+        "membraneFillMs": 0.002082037232946068,
+        "assistFillMs": 30.198717649178406,
+        "valveTailMs": 161.02709434062282,
+        "inertiaMs": 37.40476318882391,
+        "leadRows": -68.51187506863039,
+        "leadSforzandoOnRows": 0.298399243477529,
+        "leadCrescendoRows": 8.975282829921182,
+        "leadMezzoforteRows": 25.84967275000689,
+        "leadPerLevelRows": -3.02511760598263,
+        "leadDriftRows": 12.067497955801171,
+        "scaleWarp": 0.6876974719324715,
+        "regulatorGain": -0.0000493934800556403,
+        "supplyDroop": 0.0009524281416108651,
+        "windRateGain": 0.5899573480074757,
+        "windTargetShift": 0.10598137589784164,
+        "mfBarrier": 0.9235339877031601,
+        "mfTwoSided": 0.954579712603359,
+        "mfThickness": 0.19013650176099223,
+        "stopDamping": 251.35914446959904,
+        "sforzandoLatches": 0.04565469275239596,
+        "sforzandoSetsCrescendo": 0.08037698571076897
+      },
+      "train": {
+        "n": 94145,
+        "rmse": 0.05981743259420468,
+        "mae": 0.02910409331599425,
+        "medianAbs": 0.01274049419233969,
+        "p90Abs": 0.06807893822158538,
+        "bias": 0.0002505374131942763,
+        "correlation": 0.9755027364009939
+      },
+      "test": {
+        "n": 91656,
+        "rmse": 0.0460085907883004,
+        "mae": 0.02934361515216164,
+        "medianAbs": 0.01742901537405095,
+        "p90Abs": 0.07290920787498839,
+        "bias": 0.00602082714483036,
+        "correlation": 0.9847797629044682
+      },
+      "evaluations": 43607,
+      "seconds": 2342.520585697
+    }
+  ]
+}

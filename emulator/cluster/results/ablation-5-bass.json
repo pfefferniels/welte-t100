@@ -1,0 +1,60 @@
+{
+  "druid": "jq774vx6544",
+  "generations": 280,
+  "rows": [
+    {
+      "variant": "pneumatic, lean",
+      "question": "the null terms pinned, as the headline fit does",
+      "half": "bass",
+      "params": {
+        "alpha": 1.2850280299843102,
+        "piano": 0.03055250481374173,
+        "forte": 0.8966138041048661,
+        "mezzoforte": 0.5362090757901469,
+        "crescendoRate": 1.229272224681832,
+        "crescendoTarget": 0.8208899066687984,
+        "releaseRate": 1.1291400480629734,
+        "releaseTarget": -0.17617554226351279,
+        "sforzandoRate": 2.6914198785586994,
+        "sforzandoTarget": 2.0837521260279126,
+        "sforzandoAssistRate": 20.798310414358806,
+        "tripThreshold": 0.1745735093650291,
+        "membraneFillMs": 0.5528862885558897,
+        "assistFillMs": 9.528605191001493,
+        "valveTailMs": 70.20341632410499,
+        "inertiaMs": 33.251053604503646,
+        "leadRows": -76.97743854251182,
+        "leadSforzandoOnRows": 0.4062499687597783,
+        "leadCrescendoRows": 9.439846850481302,
+        "leadMezzoforteRows": 5.355286764157682,
+        "leadPerLevelRows": 9.300286224125225,
+        "leadDriftRows": 1.938647877086534,
+        "scaleWarp": 0.7734065782757242,
+        "mfTwoSided": 0.939473474426093,
+        "mfThickness": 0.22894986507184262,
+        "stopStiffness": 33553.88612454819,
+        "stopDamping": 195.90726298185314
+      },
+      "train": {
+        "n": 94347,
+        "rmse": 0.04241492719357319,
+        "mae": 0.02421289437201278,
+        "medianAbs": 0.013746787930839055,
+        "p90Abs": 0.055915212632383283,
+        "bias": -0.0010941575732523695,
+        "correlation": 0.9841404519273493
+      },
+      "test": {
+        "n": 92169,
+        "rmse": 0.038749448558400915,
+        "mae": 0.02478959929517635,
+        "medianAbs": 0.015256888614956221,
+        "p90Abs": 0.05547601278487215,
+        "bias": -0.008595647464914914,
+        "correlation": 0.9891120376897221
+      },
+      "evaluations": 35066,
+      "seconds": 1899.9964942939998
+    }
+  ]
+}
