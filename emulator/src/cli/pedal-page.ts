@@ -789,4 +789,7 @@ function main(): void {
   console.log(`${(html.length / 1024).toFixed(0)} KB -> ${outPath}`);
 }
 
-main();
+// Only when run as a command. These modules hold constants other code imports,
+// and several of them start a fit or an ablation, so an import that ran them
+// would quietly spend an hour of a machine.
+if (import.meta.main) main();
