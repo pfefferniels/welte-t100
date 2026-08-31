@@ -103,24 +103,26 @@ test("the Mezzoforte hook stops a rising line at its upper face", () => {
   assert.ok(Math.max(...out) <= settings.mezzoforte! + settings.mfThickness! / 2 + 1e-9);
 });
 
-test("a compliant hook lets the line overshoot and spring back", () => {
-  // The bellows is driven hard onto the stop from below, so it arrives with
-  // momentum. A springy contact must let it past and then return it.
+test("the bellows rebounds off the hook and does not pass it", () => {
+  // Driven hard onto the stop from below, the board arrives with momentum. The
+  // hook does not move: the board is stopped at its face and what is left of the
+  // momentum sends it back the way it came. So it overshoots *away* from the
+  // stop, never through it, which is the opposite of a spring it presses into.
   const ports = {
     [portKey("bass", "mezzoforte", "on")]: [[10, 30]] as [number, number][],
     [portKey("bass", "sforzando", "on")]: [[40, 90]] as [number, number][],
   };
   const settings: Parameters = { ...pneumaticModel.defaults, leadRows: 0, mfTwoSided: 1, sforzandoLatches: 1 };
-  const level = settings.mezzoforte! + settings.mfThickness! / 2;
+  const face = settings.mezzoforte! + settings.mfThickness! / 2;
 
-  const rigid = pneumaticModel.run(input(ports), { ...settings, stopStiffness: 0 });
-  const springy = pneumaticModel.run(input(ports), { ...settings, stopStiffness: 20000, stopDamping: 30 });
+  const rigid = pneumaticModel.run(input(ports), { ...settings, stopRestitution: 0.5 });
+  const dead = pneumaticModel.run(input(ports), { ...settings, stopRestitution: 0 });
 
-  assert.ok(Math.max(...rigid) <= level + 1e-9, "a wall holds it exactly");
-  const overshoot = Math.max(...springy) - level;
-  assert.ok(overshoot > 0.002, `a spring lets it past, overshoot ${overshoot.toFixed(4)}`);
-  assert.ok(overshoot < 0.2, "but not without limit");
-  assert.ok(Math.abs(springy.at(-1)! - level) < 0.05, "and it settles back at the stop");
+  assert.ok(Math.max(...rigid) <= face + 1e-9, "it never passes the face");
+  const settled = rigid.at(-1)!;
+  const back = settled - Math.min(...rigid.slice(60));
+  assert.ok(back > 0, `and having reached the face it comes back off it, by ${back.toFixed(4)}`);
+  assert.ok(Math.min(...rigid.slice(60)) >= Math.min(...dead.slice(60)) - 1e-9, "a rebound does not drive it lower");
 });
 
 test("a long cancel returns the bellows further than a short one", () => {

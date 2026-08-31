@@ -45,6 +45,13 @@ export const SETTLED: Parameters = {
   // return the bellows only part of the way.
   assistBand: 1,
   dragThreshold: 0,
+  // The hook does not move: the bellows rebounds off it rather than pressing
+  // into it. Priced against the spring on the same budget, the two are level in
+  // the bass, 0.0306 against 0.0310, and the rigid reading is much better in the
+  // treble, 0.0408 against 0.0489, because a spring lets the model sink 0.025
+  // below the level the line rests at where the line itself goes 0.017.
+  stopStiffness: 0,
+  stopDamping: 0,
 };
 
 export const MEASURED: Record<Half, Parameters> = {
