@@ -94,6 +94,7 @@ const SPEC: readonly ParameterSpec[] = [
   { name: "leadDriftRows", lower: -60, upper: 60, unit: "scan rows", note: "change in that shift from the start of the roll to the end" },
   { name: "valveBand", lower: 0.05, upper: 1, unit: "1", note: "share of the charge above the trip threshold over which the sforzando valve lifts; 1 is the whole of it" },
   { name: "assistBand", lower: 0.05, upper: 1, unit: "1", note: "the same for the cancelling valve, which Welte adjusts at its own bore 29" },
+  { name: "throughFlowLoad", lower: 0, upper: 2, unit: "s", note: "how far the supply sags under the air that runs straight through the bellows while conduit 39 stands open to atmosphere and the sforzando valve draws" },
   { name: "dragThreshold", lower: 0, upper: 1.0, unit: "scale/s", note: "net drive the board needs anywhere before it moves at all; static friction in the chain and the cone-valve linkage" },
   { name: "railGrip", lower: 0, upper: 1.0, unit: "scale/s", note: "net drive needed to pull the bellows off its closed rail" },
   { name: "scaleWarp", lower: -2.5, upper: 2.5, unit: "1", note: "curvature of bellows travel against the printed scale; 0 is linear" },
@@ -154,6 +155,7 @@ const DEFAULTS: Parameters = {
   leadDriftRows: 0,
   valveBand: 1,
   assistBand: 1,
+  throughFlowLoad: 0,
   dragThreshold: 0,
   railGrip: 0,
   scaleWarp: 0,
@@ -216,6 +218,7 @@ function run(input: ModelInput, params: Parameters): Float64Array {
   const windRateGain = p.windRateGain!;
   const windTargetShift = p.windTargetShift!;
   const supplyDroop = p.supplyDroop!;
+  const throughFlowLoad = p.throughFlowLoad!;
   const trip = p.tripThreshold!;
   const membraneFillMs = p.membraneFillMs!;
   const assistFillMs = p.assistFillMs!;
@@ -275,22 +278,6 @@ function run(input: ModelInput, params: Parameters): Float64Array {
     const sforzando = isSforzando[index]!;
     const crescendo = crescendoRelay[index]! || (couples && sforzando === 1);
 
-    // The blower feeds the relay's vacuum chamber as well as the note pneumatics,
-    // so anything that loads it changes how hard the bellows is pulled closed:
-    // the Widerstand by design, and the notes sounding by sagging the supply.
-    // Less vacuum both slows the closing and lowers the level it can reach, so
-    // one factor scales the conductance and pulls the target back towards the
-    // open end. Reopening runs off atmosphere and the bellows spring, and is
-    // left alone by both.
-    const supply = 1 / (1 + supplyDroop * load[index]!);
-    const boosted = wind[index] === 1;
-    const boost = (boosted ? windRateGain : 1) * supply;
-    const shift = boosted ? windTargetShift : 0;
-    const sag = (target: number): number => releaseTarget + (target + shift - releaseTarget) * supply;
-
-    const conduit39 = crescendo
-      ? boost * crescendoRate * drive(sag(crescendoTarget), state.x, alpha)
-      : releaseRate * drive(releaseTarget, state.x, alpha);
     // The relay valve does not follow its port. Air enters the membrane chamber
     // through the port and leaves through a bleed, and the valve lifts only once
     // the chamber has charged past the membrane's threshold. That is why Welte's
@@ -311,6 +298,32 @@ function run(input: ModelInput, params: Parameters): Float64Array {
     state.assistCharge = charge(state.assistCharge, sforzandoOffPort[index]!, assistFillMs);
 
     const opening = holdsSforzando ? sforzando : graded(state.sforzandoCharge);
+    // The blower feeds the relay's vacuum chamber as well as the note pneumatics,
+    // so anything that loads it changes how hard the bellows is pulled closed:
+    // the Widerstand by design, and the notes sounding by sagging the supply.
+    // Less vacuum both slows the closing and lowers the level it can reach, so
+    // one factor scales the conductance and pulls the target back towards the
+    // open end. Reopening runs off atmosphere and the bellows spring, and is
+    // left alone by both.
+    // With the crescendo relay off, conduit 39 stands open to atmosphere while the
+    // sforzando valve draws on wind chamber 15, so air runs straight through the
+    // bellows and out through 23 without moving it. That through-flow loads the
+    // blower on top of the note pneumatics, and it grows with how far the bellows
+    // sits from its open rest, which is the shape §2 of the empirics reports when
+    // it finds additive conductance explains only two thirds of the gap between a
+    // sforzando with the crescendo set and one without, and that the shortfall
+    // widens with position.
+    const throughFlow =
+      !crescendo && opening > 0 ? opening * releaseRate * Math.abs(drive(releaseTarget, state.x, alpha)) : 0;
+    const supply = 1 / (1 + supplyDroop * load[index]! + throughFlowLoad * throughFlow);
+    const boosted = wind[index] === 1;
+    const boost = (boosted ? windRateGain : 1) * supply;
+    const shift = boosted ? windTargetShift : 0;
+    const sag = (target: number): number => releaseTarget + (target + shift - releaseTarget) * supply;
+
+    const conduit39 = crescendo
+      ? boost * crescendoRate * drive(sag(crescendoTarget), state.x, alpha)
+      : releaseRate * drive(releaseTarget, state.x, alpha);
     const conduit23 = opening > 0 ? boost * sforzandoRate * opening * drive(sag(sforzandoTarget), state.x, alpha) : 0;
     // A sforzando-on arriving while the reopening assist is still acting lifts
     // valve 22 and reconnects the bellows to the vacuum through conduit 23, which
