@@ -1648,7 +1648,11 @@ all in one passage.** Splitting the residual by whether the Mezzoforte pin is in
 
 The hook-set figures agree to 0.0001 across halves that are otherwise 0.0392 against 0.0521,
 which is as good a check as this roll offers that the stop, with its faces set from measurement,
-is one mechanism described once. Everything by which the Discant is worse than the Bass lies in
+is one mechanism described once. It survives refitting: on an independent fit scoring 0.0368 and
+0.0478 held out, the hook-set rows give 0.0299 and 0.0295, and outside the 128.8–206.4 s stretch
+the Discant is the *better* half, 0.0373 against 0.0381. On that fit the four episodes carry
+39.1 % of the Discant's error rather than 35.6 %, their share growing as the model improves
+around them, which is what an irreducible term does. Everything by which the Discant is worse than the Bass lies in
 rows where the pin is out of the path, and 58 % of the Discant's whole error lies inside the
 single 78-second stretch where it is released, against a Bass that shows no concentration there
 at all. So the Discant is not generally harder to model. One passage is, and within that passage four
