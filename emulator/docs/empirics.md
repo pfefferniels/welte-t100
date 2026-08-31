@@ -1651,7 +1651,20 @@ which is as good a check as this roll offers that the stop, with its faces set f
 is one mechanism described once. Everything by which the Discant is worse than the Bass lies in
 rows where the pin is out of the path, and 58 % of the Discant's whole error lies inside the
 single 78-second stretch where it is released, against a Bass that shows no concentration there
-at all. So the Discant is not generally harder to model. One passage is.
+at all. So the Discant is not generally harder to model. One passage is, and within that passage four
+episodes are:
+
+| Discant | rmse | of the error | of the rows |
+| --- | ---: | ---: | ---: |
+| the four episodes, 141.1, 144.2, 145.4 and 158.3 s | **0.1963** | **35.6 %** | 2.3 % |
+| the passage without them | 0.0533 | 22.4 % | 20 % |
+| everything outside the passage | 0.0387 | 42.0 % | 71 % |
+
+The same four windows score 0.0308 in the Bass, better than its own average, so this is not a
+stretch of roll that is hard for both halves. Bringing those episodes down merely to the level
+of the passage around them would take the Discant from 0.0521 to about 0.0426, which is more
+than every structural term proposed for the transits is worth together. They are 2.3 % of the
+rows.
 
 **Two cancels the code cannot account for.** The two events that dominate what is left,
 273.54 s (Bass) and 144.98 s (Discant), have entirely ordinary perforations: both ports open
