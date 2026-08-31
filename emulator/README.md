@@ -135,7 +135,13 @@ laptop run the same source with no build step, and reproduce each other to four 
 - One roll, one performance, one instrument. Nothing here shows the constants transfer.
 - Bass and treble disagree on several numbers that ought to match if the two halves share a
   mechanism. Some of that may be the calibration of the printed scale, whose F.F. gridline is
-  shared between the halves, and some may be real. It has not been separated.
+  shared between the halves, and some may be real. It has not been separated, and correcting
+  the trace mask and the stop's faces did not settle it: across the fourteen constants that
+  describe the mechanism rather than the scale, eight agree better and the mean gap is slightly
+  worse. The Mezzoforte stop is the exception that suggests the rest is search rather than
+  physics — where the pin is in the path the two halves score 0.0299 and 0.0295, and its
+  thickness measured off the roll comes out at 0.050 and 0.041, but a fit free to move the
+  faces pulls them four times further apart than that.
 - The models are fitted on alternating blocks of the same roll and scored on the blocks left
   out. That guards against a model memorising the roll; it does not make the constants
   general.
