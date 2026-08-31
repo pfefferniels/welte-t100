@@ -1564,6 +1564,18 @@ what the repairs below test. Four were tried, each scored against the published 
 | snap-action valve, releases 50 % below trip | 0.1154 | 0.1470 | +0.0102 / +0.0029 |
 | static friction in the linkage, 0.05 | 0.0398 | 0.0554 | — |
 
+*These were all run at fixed constants, and that is now known to be the wrong test.* Every
+figure in the table changes one thing and leaves the other twenty-four where the published fit
+put them. A term whose value only pays once the drive is reshaped around it cannot show up that
+way, and on this model the compensating moves are large: refitting around a narrowed valve band
+halves `sforzandoRate` while `sforzandoTarget` moves from 2.08 to 2.82, so the drive changes
+shape rather than scale, and no impulse-neutral rescaling reaches that basin. Seeding the band
+at a quarter of its width and letting a coordinate sweep refit everything else still lands at
+0.0404, worse than sweeping the published fit, because a local sweep cannot travel that far
+either. Two of the variants below were subsequently refit properly by other means and both
+improve on the published fit; what follows should be read as showing what these terms do *at
+the published constants*, which is not what they are worth.
+
 The first three all drive the rise deficit down to the same floor and cost three to five times
 the overall error, because each makes *every* rise reach further, not only the short-punched
 ones that fall short. The floor itself is the point: 0.0102 and 0.0029 of the deficit survives
@@ -1589,10 +1601,17 @@ ceiling. This is not the pen failing to follow, which was the obvious reading: t
 twice what the model does. Taken with the cancel census above, where the model's collapses go
 too deep, the real cancel is a briefer and more violent dump than the model's, and the model
 compensates for a rate it cannot reach by staying open longer. Giving the cancelling valve its
-own bleed, which Welte's separate bores 20 and 29 would permit, does not repair it: over a grid
-of tail constants from 8 to 40 ms and assist rates up to three times, nothing beats the shared
-tail on held-out blocks, and the variant that does reproduce the observed peak speed costs
-0.011. What sets the real cancel's rate is not known.
+own bleed, which Welte's separate bores 20 and 29 would permit, does not repair it at the
+published constants: over a grid of tail constants from 8 to 40 ms and assist rates up to three
+times, nothing beats the shared tail on held-out blocks, and the variant that does reproduce
+the observed peak speed costs 0.011. That grid also had the wrong parameter under it. The
+ceiling is not the cancelling valve, which opens fully — the peak of the cancelling term has a
+median of 0.999 and 0.970 and 219 of 219 Bass episodes exceed 0.9 — and the drive available at
+x = 0.90 is 22.9 and 30.5 units/s against the 16.5 and 16.0 actually reached. It is `inertiaMs`
+at 33.3 and 38.5 ms: the velocity relaxes towards the flow-driven velocity with that time
+constant, and a collapse whose median duration §3 puts at 33 ms never gets there. Removing the
+inertia takes the Bass ceiling to 23.4, which is the 22.9 the drive was already offering, at a
+cost of 0.22 in overall rmse.
 
 **The error is concentrated in a handful of windows.** Four windows in each half, 1.2 % and
 1.8 % of the scored rows, carry **25.8 %** and **36.1 %** of the squared error; without them
