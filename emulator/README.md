@@ -27,6 +27,7 @@ npm run eval         # every model against the drawn line, published constants
 node src/cli/fit.ts pneumatic --generations 120 --out docs/fit-pneumatic.json
 node src/cli/experiments.ts --out docs/experiments.json
 node src/cli/residuals.ts --fit docs/fit-pneumatic.json
+node src/cli/polish.ts --fit docs/fit-pneumatic.json    # sweep a fit that predates the sweep
 ```
 
 The ablation is the slow part, tens of minutes per variant. `--slice i/n` splits the
@@ -51,7 +52,7 @@ It expects the tracer's output at `../out/{druid}/curves.csv` and the SUPRA raw 
 | `src/truth/` | the traced curves, with the flags that say which rows are evidence |
 | `src/model/` | the models, and the Mezzoforte stop they share |
 | `src/eval/` | masked metrics, the train/test split, and the fitting |
-| `src/cli/` | evaluate, fit, ablate, and inspect the residuals |
+| `src/cli/` | evaluate, fit, polish, ablate, and inspect the residuals |
 | `docs/pneumatics.md` | the mechanism after Hagmann 1984, with the German where it is load-bearing |
 | `docs/prior-art.md` | `midi2exp` and `pianolatron`, stated precisely enough to port |
 | `docs/empirics.md` | what the drawn line does when the punched code changes, measured |
