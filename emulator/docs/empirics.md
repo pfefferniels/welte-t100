@@ -1509,6 +1509,22 @@ rails the worst. The rail level does drift along the roll, r = −0.36 (Bass) an
 worse in the Bass, 0.0390 against 0.0386, and does nothing in the Discant. So the correlation
 is not a scale drift.
 
+**The model's collapses are almost all correct.** A sforzando cancel from high up sometimes
+takes the model all the way to the piano rail, which looked like the model's most conspicuous
+failure. It is not. Of cancels starting above 0.85 the model runs to the floor on 16 of 121
+(Bass) and 18 of 164 (Discant), and in all 16 and in 17 of the 18 the drawn line goes to the
+floor as well, stopping at 0.02 to 0.07. Where the model does not collapse, the Mezzoforte
+latch is set in 99 to 100 % of cases and the line stops within 0.05 of the measured face. So
+the hook accounts for the arrested falls and the model has that right.
+
+What is left is one Discant cancel, at 145.0 s, where the line falls from 0.924 and stops near
+0.60 with no hook latched and no code active. With its neighbour at 143.9 s it is the largest
+single block of error on the roll; one episode at 144.2 s carries 7.3 % of the total squared
+error. Instrumenting the model through it shows the reopening assist reaching a drive of
+-23.1 against the crescendo conduit's +0.03 to +0.39, so no plausible crescendo rate could
+arrest a cancel here, and the drawn line's own fall decelerates smoothly as though toward a
+floor near 0.6 rather than meeting a barrier. What arrests it is not known.
+
 **One interaction the pooled averages concealed.** §2's event-triggered averages put the model
 0.013 too high 150 ms after a sforzando-on in the Bass, which looks like a small rate error.
 Split by whether the crescendo latch was set at the trip, it is not:
