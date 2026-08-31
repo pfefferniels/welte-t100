@@ -845,7 +845,8 @@ footer {
         <tr><td class="name">Punches slid 30 s along the roll <span class="mono">control</span></td><td class="num">0.2770</td><td class="num">0.2806</td></tr>
         <tr><td class="name"><code>midi2exp</code>, published constants</td><td class="num">0.3862</td><td class="num">0.3589</td></tr>
         <tr><td class="name"><code>midi2exp</code>, refitted</td><td class="num">0.1420</td><td class="num">0.1576</td></tr>
-        <tr class="best"><td class="name">This model</td><td class="num">0.0387</td><td class="num">0.0490</td></tr>
+        <tr><td class="name">This model, before the transit terms</td><td class="num">0.0368</td><td class="num">0.0478</td></tr>
+        <tr class="best"><td class="name">This model</td><td class="num">0.0302</td><td class="num">0.0394</td></tr>
       </tbody>
     </table>
   </div>
@@ -892,6 +893,42 @@ footer {
     <code>midi2exp</code> from 0.142 to 0.079 while still integrating a constant rate. Getting the flow
     law right takes it from 0.079 to 0.045. The remaining terms, most of them from Welte's own
     regulation procedure, take it to 0.039.
+  </p>
+
+  <h3>Two things the transits demanded</h3>
+
+  <p>
+    The relay valve does not open in proportion to the tracker port's area. Air enters its
+    membrane chamber through the port and lifts the valve once the chamber has charged past a
+    threshold, and the model had been letting the valve follow the port's own opening, which takes
+    about 25 milliseconds to slide across the bore. That was the whole of its remaining sluggishness
+    on the closing side: averaged over every sforzando, the drawn line reaches its greatest speed at
+    50 ms and the model at 67 to 83, with the peak heights agreeing. Letting the valve lift over
+    about a sixth of the charge above its threshold instead of the whole of it removes most of the
+    gap. Collapsing it further, to a valve that snaps open, is far worse: the graded opening is
+    load-bearing across the four fifths of the roll that are not transits, and only its last three
+    quarters are not.
+  </p>
+
+  <p>
+    The second is a load the nuancing system places on its own blower. With the crescendo relay off,
+    conduit 39 stands open to atmosphere while the sforzando valve draws on wind chamber 15, so air
+    runs straight through the bellows and out again without moving it. That draw grows with how far
+    the bellows sits from its open rest, and it acts on only five to nine per cent of rows, those
+    where a sforzando draws with the crescendo cancelled. It is what makes the model over-drive a
+    sforzando by about a quarter of its excursion when the crescendo is off while being close to
+    right when it is on, an asymmetry the pooled averages hid entirely, because the pooled figure is
+    the mean of a large positive and a small negative.
+  </p>
+
+  <p>
+    Both were priced against a control fitted on the same budget, with the terms held at the values
+    that reproduce the model without them, two searches each from different seeds. Held out, the
+    pair is worth 0.0368 to 0.0302 in the bass and 0.0478 to 0.0393 in the treble, against seed
+    spreads of 0.0001 to 0.0028. Two further candidates were tried the same way and rejected: a lift
+    band of its own for the cancelling valve, which loses in the bass and is undecided in the
+    treble, and dry friction in the linkage, which loses in the bass and gains inside the noise in
+    the treble.
   </p>
 
   <h3>What it does not need</h3>
