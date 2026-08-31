@@ -36,6 +36,15 @@ export const SETTLED: Parameters = {
   sforzandoSetsCrescendo: 0,
   mfBarrier: 1,
   railGrip: 0,
+  // Both were tried against a control on the same budget, two seeds each, and
+  // neither beat the pair that did earn its place in both halves. A band of its
+  // own for the cancelling valve costs 0.0011 in the Bass and is undecided in
+  // the Discant; dry friction costs 0.0013 in the Bass and gains 0.0006 in the
+  // Discant, inside a spread of 0.0028. A narrow band on the cancelling valve
+  // would in any case defeat controls 4c and 4d, which want a short cancel to
+  // return the bellows only part of the way.
+  assistBand: 1,
+  dragThreshold: 0,
 };
 
 export const MEASURED: Record<Half, Parameters> = {

@@ -92,6 +92,17 @@ one path with two targets — which makes `midi2exp`'s separate rule that a slow
 always runs simply the state of that conduit when the crescendo latch is off. Conduit 23 is
 wider and belongs to the sforzando. Throttle 96 assists the reopening after a cancel.
 
+**Two terms the transits demanded.** The relay valve does not lift in proportion to the whole
+charge above its threshold but over about a sixth of it, `valveBand` at 0.171 and 0.065, so the
+conductance of conduit 23 stops following the tracker port's open area, which takes 25 ms to
+slide across the bore and was the model's whole remaining sluggishness on the set side. And
+with the crescendo relay off, conduit 39 stands open to atmosphere while the sforzando valve
+draws on wind chamber 15, so air runs straight through the bellows without moving it and loads
+the blower: `throughFlowLoad`, 0.153 and 0.112, on 4.6 % and 8.6 % of rows. Together they are
+worth 0.0368 to 0.0302 in the bass and 0.0478 to 0.0393 in the treble against a control fitted
+on the same budget. A band of its own for the cancelling valve and a dry-friction term were
+tried the same way and rejected.
+
 **From Welte's regulation procedure**, Anhang 12, which is the T-100's own acceptance test.
 A relay valve does not follow its port: air enters its membrane chamber through the port and
 leaves through a bleed, and the valve lifts only once the chamber charges past a threshold.
