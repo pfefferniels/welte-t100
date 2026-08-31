@@ -1551,6 +1551,27 @@ by 0.0001 to 0.0002 on held-out blocks, consistently in sign across both halves 
 rail. That is inside the ±0.002 spread across search seeds, so the roll does not support it
 without a refit that lets it trade against everything else.
 
+**The line falls twice as fast as the model can.** Taking the speed over a six-row window
+wherever the trace is continuous:
+
+| units per second | p50 | p90 | p99 | p99.9 | max |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| drawn, falling (Bass) | 0.21 | 1.68 | 15.95 | 22.14 | **32.87** |
+| model, falling (Bass) | 0.37 | 3.53 | 14.90 | 16.08 | 16.66 |
+| drawn, falling (Discant) | 0.22 | 2.02 | 16.82 | 22.45 | **30.18** |
+| model, falling (Discant) | 0.52 | 8.39 | 14.29 | 15.35 | 15.82 |
+
+The model's twelve fastest falls are 16.7, 16.6, 16.6, 16.6, 16.5 … a hard ceiling set by its
+own reopening drive. The line's are 32.9, 32.0, 29.8, 29.2, 27.4 …, spread smoothly, with no
+ceiling. This is not the pen failing to follow, which was the obvious reading: the pen achieves
+twice what the model does. Taken with the cancel census above, where the model's collapses go
+too deep, the real cancel is a briefer and more violent dump than the model's, and the model
+compensates for a rate it cannot reach by staying open longer. Giving the cancelling valve its
+own bleed, which Welte's separate bores 20 and 29 would permit, does not repair it: over a grid
+of tail constants from 8 to 40 ms and assist rates up to three times, nothing beats the shared
+tail on held-out blocks, and the variant that does reproduce the observed peak speed costs
+0.011. What sets the real cancel's rate is not known.
+
 **One interaction the pooled averages concealed.** §2's event-triggered averages put the model
 0.013 too high 150 ms after a sforzando-on in the Bass, which looks like a small rate error.
 Split by whether the crescendo latch was set at the trip, it is not:
