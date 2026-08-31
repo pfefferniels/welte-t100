@@ -95,7 +95,7 @@ const SPEC: readonly ParameterSpec[] = [
   { name: "valveBand", lower: 0.05, upper: 1, unit: "1", note: "share of the charge above the trip threshold over which the sforzando valve lifts; 1 is the whole of it" },
   { name: "assistBand", lower: 0.05, upper: 1, unit: "1", note: "the same for the cancelling valve, which Welte adjusts at its own bore 29" },
   { name: "throughFlowLoad", lower: 0, upper: 2, unit: "s", note: "how far the supply sags under the air that runs straight through the bellows while conduit 39 stands open to atmosphere and the sforzando valve draws" },
-  { name: "dragThreshold", lower: 0, upper: 1.0, unit: "scale/s", note: "net drive the board needs anywhere before it moves at all; static friction in the chain and the cone-valve linkage" },
+  { name: "dragThreshold", lower: 0, upper: 3, unit: "scale/s", note: "net drive the board needs anywhere before it moves at all; static friction in the chain and the cone-valve linkage" },
   { name: "railGrip", lower: 0, upper: 1.0, unit: "scale/s", note: "net drive needed to pull the bellows off its closed rail" },
   { name: "scaleWarp", lower: -2.5, upper: 2.5, unit: "1", note: "curvature of bellows travel against the printed scale; 0 is linear" },
   { name: "regulatorGain", lower: -0.01, upper: 0.01, unit: "scale·s/note", note: "note density added to the trace, the wrong shape for a supply effect but kept to compare" },
@@ -349,9 +349,14 @@ function run(input: ModelInput, params: Parameters): Float64Array {
     // is trapped there for the rest of the roll, which the roll excludes, so the
     // range stops short of it.
     if (railGrip > 0 && target < 0 && -target < railGrip && state.x > forte - RAIL_BAND) target = 0;
-    // Static friction in the chain and cone-valve linkage: below a threshold of
-    // net drive the board does not move at all, anywhere in the travel.
-    if (dragThreshold > 0 && Math.abs(target) < dragThreshold) target = 0;
+    // Dry friction in the chain band, the roller and the cone-valve stem: the net
+    // drive has to exceed a breakaway before anything moves, and once moving the
+    // same constant is still being spent. Symmetric, and on the summed drive
+    // rather than on any one path, because one linkage carries all of them.
+    if (dragThreshold > 0) {
+      const beyond = Math.abs(target) - dragThreshold;
+      target = beyond > 0 ? Math.sign(target) * beyond : 0;
+    }
     const smoothing = inertiaMs > 0 ? Math.exp((-dt * 1000) / inertiaMs) : 0;
     state.velocity = target + (state.velocity - target) * smoothing;
 
