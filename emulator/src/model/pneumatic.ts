@@ -46,7 +46,7 @@
  */
 
 import type { Control } from "../roll/expression.ts";
-import { latched, momentary, shiftedPortOf } from "./latch.ts";
+import { latched, momentary, shiftedPortOf, windResistanceOf } from "./latch.ts";
 import { limitAtStop, newStopState, penetration, type StopState } from "./stop.ts";
 import {
   clamp,
@@ -244,7 +244,7 @@ function run(input: ModelInput, params: Parameters): Float64Array {
   // punch — which is what the roll's non-monotonic fall against punch length
   // hints at. Kept as an option so the two readings can be compared.
   const heldCancel = p.assistLatches! >= 0.5 ? latched(sforzandoOffPort, sforzandoOnPort) : undefined;
-  const wind = latched(at("windResistance", "on", 0), at("windResistance", "off", 0));
+  const wind = windResistanceOf(input, lead, drift);
   const steps = input.grid.dt;
   const load = input.totalNoteDensity;
 

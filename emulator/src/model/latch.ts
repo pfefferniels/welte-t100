@@ -68,3 +68,22 @@ export function latchedControl(input: ModelInput, control: Control, initial = 0)
 export function halfLabel(half: Half): string {
   return half === "bass" ? "Bass" : "Diskant";
 }
+
+/**
+ * The Widerstand, which is punched in the Bass columns only.
+ *
+ * It is the blower's two-speed resistance, one thing serving the whole
+ * instrument, so it acts on the Discant bellows as much as on the Bass even
+ * though nothing is punched in the Discant columns to say so. Reading it from
+ * the half in hand leaves the Discant with no wind state at all, which makes
+ * both wind parameters unidentifiable there rather than merely unhelpful.
+ */
+export function windResistanceOf(input: ModelInput, rows: number, drift: number): Uint8Array {
+  const series = (action: "on" | "off"): Float64Array =>
+    shiftedByDriftingRows(
+      portSeries(input.ports, portKey("bass", "windResistance", action) as PortKey, input.grid.length),
+      rows,
+      drift,
+    );
+  return latched(series("on"), series("off"));
+}
