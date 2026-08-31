@@ -1438,6 +1438,95 @@ systematic terms within a control roughly halves the steep-edge floor, from 0.02
 0.011 and 0.013. What is left below that, **0.011 in the Bass and 0.013 in the Discant**, is
 placement scatter with no structure this roll can find, and is the number to stop at.
 
+## 14. Where the model's error sits, and how far it can go
+
+Everything above measures the line. This section measures the *residual*, and it is included
+here because most of what it finds is a property of the roll rather than of any model.
+
+**Sightings stranded in unreadable stretches.** Splitting the squared error by time since the
+most recent expression code tripped, the worst band on the roll was rows more than two seconds
+after any code: rmse 0.098 (Bass) and 0.116 (Discant), two to four times any other band. They
+turn out to be the lead-in and the run-out. Past the last code the flags run 54 % `gap` and
+17 % `rule`, and the rows still marked `ink` or `faint` are scattered isolated dots spread over
+0.3 scale units with no line between them. At 2 % of the scored rows they carried 8 % and 13 %
+of the squared error. Requiring a sighting's own neighbourhood to be mostly readable removes
+them; the score on the performance proper is unchanged, 0.0393 in the Bass either way, which
+is the check that this removes artefact and does not move the yardstick.
+
+**Per-row tracing noise.** White noise of standard deviation s makes a second difference have
+variance 6s², and real travel contributes only a·dt², four orders of magnitude smaller at
+1.7 ms. So the second difference of the traced line estimates its own noise:
+
+| speed band | rows | trace noise | residual rmse |
+| --- | ---: | ---: | ---: |
+| still | 35 635 | 0.0009 | 0.0333 |
+| moving | 120 881 | 0.0012 | 0.0345 |
+| fast | 20 373 | 0.0026 | 0.0597 |
+| very fast | 6 244 | 0.0089 | 0.0635 |
+
+Bass; the Discant is the same within a factor of 1.5. Per-row noise is therefore not what
+limits a model here. It says nothing about systematic trace error, which is the larger worry.
+
+**What the mechanism's own repeatability allows.** Sforzando-on events were grouped by
+starting level (to 0.1), crescendo and Mezzoforte state, and punch length (to 40 ms), and the
+spread of the drawn response *between* alike events measured against the model's error on the
+same events:
+
+| lag | spread between alike events | model's error |
+| ---: | ---: | ---: |
+| 30 ms | 0.013 / 0.010 | 0.029 / 0.027 |
+| 60 ms | 0.030 / 0.015 | 0.044 / 0.047 |
+| 100 ms | 0.031 / 0.021 | 0.042 / 0.052 |
+| 150 ms | 0.020 / 0.017 | 0.056 / 0.056 |
+
+Bass / Discant, from 16 and 18 groups of three or more. Beyond 150 ms the grouping stops
+controlling anything, because later codes have arrived, and the apparent spread of 0.07 to
+0.13 is not a floor. Within the window that is controlled the model sits two to three times
+above the roll's own repeatability, so there is real headroom, and below roughly 0.02 the roll
+cannot distinguish one model from another. The grouping is coarse, so 0.02 is an upper bound
+on the floor rather than the floor.
+
+**The residual is not a simple missing term.** Regressing it on model velocity, acceleration,
+level, distance below the forte stop, note density, time since the last trip and |velocity|,
+all standardised, explains 1.1 % of its variance in the Bass and 1.6 % in the Discant. No
+damping term, no inertia term, no level-dependent gain and no wind-load term is waiting to be
+added. Note density in particular is flat: where the line rests at the fortissimo rail, its
+level correlates with note density at r = 0.06 and 0.17 across 80 and 61 rest stretches.
+
+**Where it does sit.** Two thirds of the error is within 250 ms of a code tripping, and it
+decays with time since the trip (Bass rmse 0.0445 under 100 ms, 0.0246 at 0.5 to 1 s). Among
+stretches where the line is still for 0.25 s or more:
+
+| | bass | treble |
+| --- | ---: | ---: |
+| at a rail | n=85, rmse 0.032, 7.4 % of error | n=67, rmse 0.047, 11.5 % |
+| hook set, off the rails | n=126, rmse 0.017, 3.0 % | n=122, rmse 0.024, 3.0 % |
+| hook cancelled, off rails | n=19, rmse 0.040, 2.6 % | n=16, rmse 0.048, 1.5 % |
+
+With the faces set from measurement the hook is the best-modelled state on the roll, and the
+rails the worst. The rail level does drift along the roll, r = −0.36 (Bass) and +0.63
+(Discant), but the signs are opposite and adding a linear level drift makes the held-out score
+worse in the Bass, 0.0390 against 0.0386, and does nothing in the Discant. So the correlation
+is not a scale drift.
+
+**One interaction the pooled averages concealed.** §2's event-triggered averages put the model
+0.013 too high 150 ms after a sforzando-on in the Bass, which looks like a small rate error.
+Split by whether the crescendo latch was set at the trip, it is not:
+
+| lag | crescendo off | crescendo on |
+| ---: | ---: | ---: |
+| 50 ms | +0.010 / −0.002 | −0.015 / −0.034 |
+| 100 ms | +0.037 / +0.018 | −0.003 / −0.020 |
+| 150 ms | +0.055 / +0.041 | −0.007 / −0.007 |
+| 200 ms | +0.019 / −0.001 | −0.010 / −0.008 |
+
+Bass / Discant, model minus drawn. With the crescendo off the model over-drives the sforzando
+by about a quarter of its excursion; with it on the model is close to right. The pooled figure
+is the weighted mean of the two. Which of the two constants is wrong is not settled here.
+The model's absolute error 100 ms after a sforzando-on also correlates with the level the line
+started from, r = −0.50 and −0.52, worst from low down. Punch length, note density, the gap
+since the previous sforzando and position along the roll all sit under |r| = 0.22.
+
 ## Limitations
 
 - One roll, and one performance. Nothing here shows that the constants transfer to another
