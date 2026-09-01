@@ -1,0 +1,73 @@
+{
+  "druid": "jq774vx6544",
+  "generations": 220,
+  "rows": [
+    {
+      "variant": "pneumatic, the hook rigid",
+      "question": "the bellows rebounds off it",
+      "half": "bass",
+      "params": {
+        "alpha": 0.6520291825355462,
+        "piano": -0.004530418537267189,
+        "forte": 0.8969786220448421,
+        "mezzoforte": 0.6762216848113467,
+        "crescendoRate": 1.1066718653350256,
+        "crescendoTarget": 0.7813276752561847,
+        "releaseRate": 1.572403745446022,
+        "releaseTarget": 0.040689329881162944,
+        "sforzandoRate": 2.577515382948377,
+        "sforzandoTarget": 2.256509933698572,
+        "sforzandoAssistRate": 32.00287694129669,
+        "assistYields": 0.11430496761490612,
+        "tripThreshold": 0.3033429608860472,
+        "membraneFillMs": 0.13174864265884334,
+        "assistFillMs": 10.112839660005335,
+        "valveTailMs": 92.66868927984657,
+        "inertiaMs": 6.120891801411828,
+        "leadRows": -66.54946284448684,
+        "leadSforzandoOnRows": -2.3707900577576355,
+        "leadCrescendoRows": 11.808503367564427,
+        "leadMezzoforteRows": -7.645901916390565,
+        "leadPerLevelRows": -6.324056472679464,
+        "leadDriftRows": 1.4015717199022815,
+        "valveBand": 0.2601739434613502,
+        "assistBand": 0.9164085393281196,
+        "throughFlowLoad": 0.06481726654959884,
+        "dragThreshold": 0.21083800409914294,
+        "railGrip": 0.4302755277968219,
+        "scaleWarp": 0.5036709231468937,
+        "regulatorGain": 0.00007118050537031014,
+        "supplyDroop": 0.000004738806160014616,
+        "windRateGain": 1.0594936509277864,
+        "windTargetShift": -0.008009297063228763,
+        "mfBarrier": 0.6713706484110902,
+        "mfTwoSided": 0.33134027552490414,
+        "mfThickness": 0.10186863679824795,
+        "stopRestitution": 0.22555436625702718,
+        "sforzandoLatches": 0.00770675045366816,
+        "assistLatches": 0.4948128355495188,
+        "sforzandoSetsCrescendo": 0.2092582834903265
+      },
+      "train": {
+        "n": 93343,
+        "rmse": 0.032906670436642145,
+        "mae": 0.01681778793882579,
+        "medianAbs": 0.010611473669059568,
+        "p90Abs": 0.035760676678659765,
+        "bias": -0.0002421230765884702,
+        "correlation": 0.990110359169181
+      },
+      "test": {
+        "n": 91902,
+        "rmse": 0.030999249683660017,
+        "mae": 0.019452857006455344,
+        "medianAbs": 0.012188602110873137,
+        "p90Abs": 0.04381498701954755,
+        "bias": -0.005505268551608088,
+        "correlation": 0.9928791303282716
+      },
+      "evaluations": 41867,
+      "seconds": 2349.131156953
+    }
+  ]
+}
