@@ -421,6 +421,22 @@ function run(input: ModelInput, params: Parameters): Float64Array {
   // need not be linear in the bellows' own travel: a lever on an arc compresses
   // one end against the other. The rails map to themselves, so this bends the
   // interior only, and at zero it is the identity and nothing is claimed.
+  // The map anchors on the two rails, so `piano` does two jobs: the clamp at the
+  // open end, and the origin the bend is measured from. That is why the fit puts
+  // it above the level the line rests at — 0.027 and 0.024 across eight seeds
+  // against the 0.022 and 0.017 of `cli/settings.ts`, which is 2.5 and 2.3 seed
+  // deviations. Profiled, held-out error falls monotonically past both the fitted
+  // value and the measurement, and it is not the runaway episodes doing it: over
+  // the ordinary stretches alone the preference barely moves.
+  //
+  // Giving the bend its own origin removes the conflict and does not pay for
+  // itself. The profile then goes flat rather than settling on the measurement,
+  // within 0.00004 over the whole range against a between-seed spread of 0.00099,
+  // because the new origin absorbs whatever the rail is set to; the two come out
+  // 91% degenerate and `piano` ends up 2.4x less determined than before. The
+  // origin lands 0.008 to 0.014 above the rail, is not the P.P. gridline, and
+  // slides as the rail is walked, so it names no landmark on the paper. The
+  // ambiguity would be renamed rather than removed, so the rails stay tied.
   const warp = p.scaleWarp!;
   const toScale = (x: number): number => {
     if (warp === 0 || forte === piano) return x;
