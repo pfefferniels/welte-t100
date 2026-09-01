@@ -156,8 +156,9 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
       <span class="mono" id="window"></span>
       <span class="mono dim" id="cursor"></span>
       <span class="spacer"></span>
-      <span class="dim">drag to pan · wheel to zoom · double-click to reset</span>
-      <button id="reset" type="button">reset</button>
+      <span class="dim">drag to pan · wheel to zoom · double-click for true scale</span>
+      <button id="trueScale" type="button">1:1</button>
+      <button id="wholeRoll" type="button">whole roll</button>
     </div>
     <div id="stage"><canvas id="chart"></canvas></div>
     <div class="legend">
@@ -171,6 +172,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
       <span class="key"><span class="swatch block hollow"></span>punch off</span>
     </div>
     <p class="note" id="stripNote"></p>
+    <p class="note" id="scaleNote"></p>
   </div>
 
   <aside>
@@ -199,15 +201,19 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 </main>
 
 <div id="failure" hidden>
-  No bundle loaded. Run <code>node src/cli/export-view.ts --out view/data.js</code> from <code>emulator/</code>.
+  No bundle in the format this page reads. Run <code>node src/cli/export-view.ts --out view/data.js</code> from <code>emulator/</code>.
 </div>
 
 <script>
 "use strict";
 
+const FORMAT = 2;
 const GUTTER = 46;
 const RIGHT = 24;
 const BAND = 6;
+/** True scale reads the screen at the CSS convention, which is nominal and not a measurement. */
+const CSS_PPI = 96;
+const CM_PER_INCH = 2.54;
 const VALUE_LOW = -0.13;
 const VALUE_HIGH = 1.13;
 const LANES = ["mezzoforte", "crescendo", "sforzando", "windResistance"];
@@ -330,6 +336,15 @@ function formatTick(value, step) {
   const minutes = Math.floor(Math.abs(value) / 60);
   const seconds = Math.round(Math.abs(value) - minutes * 60);
   return `${value < 0 ? "−" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+}
+
+/** A magnification as a scale ratio, the way a facsimile is labelled. */
+function formatScale(factor) {
+  if (!Number.isFinite(factor) || factor <= 0) return "—";
+  if (Math.abs(factor - 1) < 0.005) return "1:1";
+  const ratio = factor > 1 ? factor : 1 / factor;
+  const shown = ratio.toFixed(ratio < 10 ? 1 : 0);
+  return factor > 1 ? `${shown}:1` : `1:${shown}`;
 }
 
 function formatNumber(value, places = 4) {
@@ -466,6 +481,7 @@ function start(data) {
   const extent = [bundle.seconds[0], bundle.seconds[data.rows - 1]];
   const minimumSpan = 0.05;
   let range = extent.slice();
+  let atTrueScale = true;
   let cursorX = null;
   let cssWidth = 0;
   let plan = layout(600);
@@ -484,6 +500,38 @@ function start(data) {
     });
   }
 
+  /* ---------- the roll at its own size ---------- */
+
+  /** Rows of scan one screen width covers when a centimetre of screen is a centimetre of paper. */
+  function paperRows() {
+    return Math.round((plan.plotWidth * data.lengthDpi) / CSS_PPI);
+  }
+
+  /** Rows of scan the window covers, which is the length of paper it shows. */
+  function rowsShown() {
+    return lowerBound(bundle.seconds, range[1]) - lowerBound(bundle.seconds, range[0]);
+  }
+
+  function centimetres(rows) {
+    return (rows / data.lengthDpi) * CM_PER_INCH;
+  }
+
+  /** The window of `rows` grid rows beginning at row `at`, slid back inside the grid. */
+  function rowWindow(at, rows) {
+    const first = clamp(Math.round(at), 0, Math.max(data.rows - 1 - rows, 0));
+    return [bundle.seconds[first], bundle.seconds[Math.min(first + rows, data.rows - 1)]];
+  }
+
+  function trueScaleFrom(second) {
+    return rowWindow(lowerBound(bundle.seconds, second), paperRows());
+  }
+
+  function showTrueScale(second) {
+    const rows = paperRows();
+    atTrueScale = true;
+    setRange(...rowWindow(lowerBound(bundle.seconds, second) - rows / 2, rows));
+  }
+
   function resize() {
     palette = readPalette();
     cssWidth = Math.max(Math.round(stage.clientWidth), 240);
@@ -493,6 +541,9 @@ function start(data) {
     canvas.width = Math.round(cssWidth * ratio);
     canvas.height = Math.round(plan.height * ratio);
     context.setTransform(ratio, 0, 0, ratio, 0, 0);
+    // A window at true scale shows the paper a wider screen reaches, not the same
+    // paper stretched, so the span follows the width and the left edge stays put.
+    if (atTrueScale) range = trueScaleFrom(range[0]);
     draw();
   }
 
@@ -716,18 +767,25 @@ function start(data) {
     context.stroke();
   }
 
+  /** The second under a canvas x, clamped to the plot. */
+  function secondAtX(x) {
+    const across = clamp(x - plan.plotLeft, 0, plan.plotWidth) / plan.plotWidth;
+    return range[0] + across * (range[1] - range[0]);
+  }
+
   function report() {
     const span = range[1] - range[0];
+    const paper = rowsShown();
     document.getElementById("window").textContent =
-      `${formatSeconds(range[0])} – ${formatSeconds(range[1])}   ${span.toFixed(span < 10 ? 2 : 1)} s of ${(extent[1] - extent[0]).toFixed(0)} s`;
+      `${formatSeconds(range[0])} – ${formatSeconds(range[1])}   ${span.toFixed(span < 10 ? 2 : 1)} s of ${(extent[1] - extent[0]).toFixed(0)} s` +
+      `   ${formatScale(paperRows() / paper)} · ${centimetres(paper).toFixed(1)} cm of paper`;
 
     const readout = document.getElementById("cursor");
     if (cursorX === null) {
       readout.textContent = "";
       return;
     }
-    const second = range[0] + ((cursorX - plan.plotLeft) / plan.plotWidth) * span;
-    const index = clamp(lowerBound(bundle.seconds, second), 0, data.rows - 1);
+    const index = clamp(lowerBound(bundle.seconds, secondAtX(cursorX)), 0, data.rows - 1);
     readout.textContent = halves
       .map((half) => `${half.name} ${half.drawn[index].toFixed(3)}/${half.model[index].toFixed(3)}`)
       .join("  ");
@@ -767,13 +825,18 @@ function start(data) {
   canvas.addEventListener("wheel", (event) => {
     event.preventDefault();
     const span = range[1] - range[0];
-    const anchor = range[0] + (clamp(event.offsetX - plan.plotLeft, 0, plan.plotWidth) / plan.plotWidth) * span;
+    const anchor = secondAtX(event.offsetX);
     const wanted = clamp(span * Math.exp(event.deltaY * 0.0015), minimumSpan, extent[1] - extent[0]);
     const factor = wanted / span;
+    atTrueScale = false;
     setRange(anchor - (anchor - range[0]) * factor, anchor + (range[1] - anchor) * factor);
   }, { passive: false });
-  canvas.addEventListener("dblclick", () => setRange(extent[0], extent[1]));
-  document.getElementById("reset").addEventListener("click", () => setRange(extent[0], extent[1]));
+  canvas.addEventListener("dblclick", (event) => showTrueScale(secondAtX(event.offsetX)));
+  document.getElementById("trueScale").addEventListener("click", () => showTrueScale((range[0] + range[1]) / 2));
+  document.getElementById("wholeRoll").addEventListener("click", () => {
+    atTrueScale = false;
+    setRange(extent[0], extent[1]);
+  });
   document.getElementById("theme").addEventListener("click", (event) => {
     const order = ["auto", "light", "dark"];
     const next = order[(order.indexOf(document.documentElement.dataset.theme || "auto") + 1) % order.length];
@@ -802,6 +865,8 @@ function describe(data) {
   const facts = [
     ["druid", data.druid],
     ["rows", data.rows.toLocaleString("en")],
+    ["scan", `${data.lengthDpi} ppi`],
+    ["traced", `${(((data.rows / data.lengthDpi) * CM_PER_INCH) / 100).toFixed(2)} m`],
     ["model", data.model],
     ["ports", data.ports],
     ["fit", data.fit ? data.fit.split("/").pop() : "model defaults", data.fit],
@@ -846,9 +911,14 @@ function describe(data) {
 
   document.getElementById("stripNote").textContent =
     "Punched code, one lane per control, filled above the line for the setting punch and outlined below it for the cancelling one. Sustain pedal, hammer rail and rewind punches are on the roll but are not nuance controls and are not drawn.";
+
+  document.getElementById("scaleNote").textContent =
+    `At 1:1 a centimetre of window is a centimetre of roll, reading the scan at its ${data.lengthDpi} rows to the inch ` +
+    `and the screen at the CSS convention of ${CSS_PPI} pixels to the inch. That convention is nominal rather than ` +
+    "measured, so a display of another density shows the roll correspondingly larger or smaller.";
 }
 
-if (self.NUANCE_DATA) start(self.NUANCE_DATA);
+if (self.NUANCE_DATA?.format === FORMAT) start(self.NUANCE_DATA);
 else document.getElementById("failure").hidden = false;
 </script>
 </body>

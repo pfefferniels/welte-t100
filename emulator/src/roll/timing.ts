@@ -96,6 +96,11 @@ export function pixels(value: string | undefined): number {
   return Number.parseFloat((value ?? "").replace(/px$/, ""));
 }
 
+/** A scan resolution such as `"300.25ppi"`, in pixel rows per inch of paper. */
+export function pixelsPerInch(value: string | undefined): number {
+  return Number.parseFloat((value ?? "").replace(/ppi$/, ""));
+}
+
 export function readRoll(druid: string, data: Uint8Array): Roll {
   const smf = parseSmf(data);
   const metadata = rollMetadata(smf.tracks.flat());

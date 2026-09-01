@@ -20,6 +20,7 @@ import { mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 
 import { loadRoll, type PortModel } from "../roll/load.ts";
+import { pixelsPerInch } from "../roll/timing.ts";
 import { FLAGS, halfOf } from "../truth/curves.ts";
 import { agreement } from "../eval/metrics.ts";
 import { alternatingBlocks } from "../eval/split.ts";
@@ -171,6 +172,9 @@ function main(): void {
   const grid = loaded.grid;
   const pack = collector();
 
+  const lengthDpi = pixelsPerInch(loaded.roll.metadata.get("LENGTH_DPI"));
+  if (!Number.isFinite(lengthDpi)) throw new Error(`${druid}: no @LENGTH_DPI, so a row is not a length`);
+
   const time = ramp(grid.seconds);
   const seconds = { base: time.base, slope: time.slope, ...packSeries(pack, time.residual) };
   const halves = {
@@ -187,7 +191,7 @@ function main(): void {
 
   const buffer = pack.concat();
   const bundle = {
-    format: 1,
+    format: 2,
     druid,
     label: loaded.roll.metadata.get("LABEL") ?? druid,
     composer: loaded.roll.metadata.get("COMPOSER") ?? "",
@@ -199,6 +203,7 @@ function main(): void {
     fit: fitPath,
     rows: grid.length,
     startRow: grid.startRow,
+    lengthDpi,
     levels: LEVELS,
     seconds,
     flagNames: FLAGS,
