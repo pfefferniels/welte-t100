@@ -24,6 +24,7 @@ Node 24 or later, no build step and no runtime dependencies. Node strips the typ
 npm install          # typescript and @types/node, for checking only
 npm test             # unit tests
 npm run eval         # every model against the drawn line, published constants
+node src/cli/evaluate.ts --fit docs/fit-pneumatic.json --timing scan   # fitted constants, SUPRA's own tempo map
 node src/cli/fit.ts pneumatic --generations 120 --out docs/fit-pneumatic.json
 node src/cli/experiments.ts --out docs/experiments.json
 node src/cli/residuals.ts --fit docs/fit-pneumatic.json
@@ -44,13 +45,32 @@ node view/build-single.mjs
 It expects the tracer's output at `../out/{druid}/curves.csv` and the SUPRA raw MIDI at
 `../cache/{druid}/{druid}_raw.mid`, which is where `trace_roll.py` leaves them.
 
+## Using it as a library
+
+`npm run build` writes `dist/`, which is what the package exports and what is committed, so a
+dependency on this directory needs no build of its own:
+
+```json
+"welte-t100-emulator": "file:../roll-nuance-tracer/emulator"
+```
+
+`src/index.ts` is the whole surface: the spool law (`paperSeconds`, `paperAt`, `WELTE_SPOOL`),
+the sample grid and the tracker-bar ports (`Grid`, `aperturePorts`, `geometryInMm`), the two
+mechanisms (`pneumaticModel`, `runPedals`) and the constants for them (`playbackParameters`,
+`pedalDefaults`). `playbackParameters` is the headline fit with the terms that describe the
+drawing apparatus switched off, since a playback instrument reads the punches where they are;
+`travelBetweenRails` puts its output on a 0 to 1 scale between the two rails. Nothing in the
+library reads a file. [linked-rolls](https://github.com/pfefferniels/linked-rolls) runs its
+emulation on it. Rebuild `dist/` whenever `src/` changes, and commit it.
+
 ## What is in here
 
 | | |
 | --- | --- |
-| `src/roll/` | the roll as input: a MIDI reader, the tempo map, the expression code, the tracker-bar aperture |
+| `src/index.ts` | the library surface, built into `dist/` |
+| `src/roll/` | the roll as input: a MIDI reader, the take-up spool that sets the time axis, the expression code, the tracker-bar aperture |
 | `src/truth/` | the traced curves, with the flags that say which rows are evidence |
-| `src/model/` | the models, and the Mezzoforte stop they share |
+| `src/model/` | the models, the Mezzoforte stop they share, the pedals, and the constants playback runs on |
 | `src/eval/` | masked metrics, the train/test split, and the fitting |
 | `src/cli/` | evaluate, fit, polish, ablate, and inspect the residuals |
 | `docs/pneumatics.md` | the mechanism after Hagmann 1984, with the German where it is load-bearing |

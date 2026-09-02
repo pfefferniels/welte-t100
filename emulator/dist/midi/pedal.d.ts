@@ -21,36 +21,32 @@
  * a string starts to ring, and how much of the ring survives at half lift, is a
  * property of the piano and of the note, and nothing in the Welte determines it.
  */
-import { clamp } from "../model/types.js";
-import { controlChange } from "./write.js";
-export const DAMPER_CC = 64;
-export const SOFT_CC = 67;
-/** Half travel, where a switching renderer would change state anyway. */
-const SWITCH_POINT = 0.5;
-function level(travel, mode, step) {
-    if (mode === "switch")
-        return travel >= SWITCH_POINT ? 127 : 0;
-    const value = clamp(Math.round(travel * 127), 0, 127);
-    return step <= 1 ? value : Math.min(127, Math.round(value / step) * step);
-}
+import { type MidiMessage } from "./write.ts";
+import type { PedalTravel } from "../model/pedal.ts";
+export declare const DAMPER_CC = 64;
+export declare const SOFT_CC = 67;
+export type PedalMode = "continuous" | "switch";
+export type ControllerOptions = {
+    readonly channel?: number;
+    readonly mode?: PedalMode;
+    /**
+     * Quantisation of the controller value. One is lossless — the stream is then
+     * a run-length encoding of the travel at the controller's own resolution.
+     * Coarser steps trade that for fewer messages.
+     */
+    readonly step?: number;
+};
+/** A controller value and the grid row it takes effect at. */
+export type LevelChange = {
+    readonly index: number;
+    readonly value: number;
+};
 /**
  * One change per step of the quantised value, the first row included. That is
  * a run-length encoding of the series, so it carries everything a controller of
  * 128 steps can carry and nothing is thinned away that a renderer could have
  * used.
  */
-export function levelChanges(travel, options = {}) {
-    const { mode = "continuous", step = 1 } = options;
-    const values = Uint8Array.from(travel, (value) => level(value, mode, step));
-    return [...values].flatMap((value, index) => index === 0 || value !== values[index - 1] ? [{ index, value }] : []);
-}
-export function controllerMessages(travel, tickAt, controller, options = {}) {
-    const { channel = 0 } = options;
-    return levelChanges(travel, options).map(({ index, value }) => controlChange(tickAt(index), channel, controller, value));
-}
-export function pedalMessages(travel, tickAt, options = {}) {
-    return [
-        ...controllerMessages(travel.damper, tickAt, DAMPER_CC, options),
-        ...controllerMessages(travel.hammerRail, tickAt, SOFT_CC, options),
-    ];
-}
+export declare function levelChanges(travel: Float64Array, options?: Pick<ControllerOptions, "mode" | "step">): LevelChange[];
+export declare function controllerMessages(travel: Float64Array, tickAt: (index: number) => number, controller: number, options?: ControllerOptions): MidiMessage[];
+export declare function pedalMessages(travel: PedalTravel, tickAt: (index: number) => number, options?: ControllerOptions): MidiMessage[];

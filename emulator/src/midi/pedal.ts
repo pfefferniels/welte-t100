@@ -51,24 +51,33 @@ function level(travel: number, mode: PedalMode, step: number): number {
   return step <= 1 ? value : Math.min(127, Math.round(value / step) * step);
 }
 
+/** A controller value and the grid row it takes effect at. */
+export type LevelChange = { readonly index: number; readonly value: number };
+
 /**
- * One message per change of the quantised value. That is a run-length encoding
- * of the series, so it carries everything a controller of 128 steps can carry
- * and nothing is thinned away that a renderer could have used.
+ * One change per step of the quantised value, the first row included. That is
+ * a run-length encoding of the series, so it carries everything a controller of
+ * 128 steps can carry and nothing is thinned away that a renderer could have
+ * used.
  */
+export function levelChanges(travel: Float64Array, options: Pick<ControllerOptions, "mode" | "step"> = {}): LevelChange[] {
+  const { mode = "continuous", step = 1 } = options;
+  const values = Uint8Array.from(travel, (value) => level(value, mode, step));
+
+  return [...values].flatMap((value, index) =>
+    index === 0 || value !== values[index - 1] ? [{ index, value }] : [],
+  );
+}
+
 export function controllerMessages(
   travel: Float64Array,
   tickAt: (index: number) => number,
   controller: number,
   options: ControllerOptions = {},
 ): MidiMessage[] {
-  const { channel = 0, mode = "continuous", step = 1 } = options;
-  const values = Uint8Array.from(travel, (value) => level(value, mode, step));
-
-  return [...values].flatMap((value, index) =>
-    index === 0 || value !== values[index - 1]
-      ? [controlChange(tickAt(index), channel, controller, value)]
-      : [],
+  const { channel = 0 } = options;
+  return levelChanges(travel, options).map(({ index, value }) =>
+    controlChange(tickAt(index), channel, controller, value),
   );
 }
 

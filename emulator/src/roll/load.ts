@@ -7,11 +7,13 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
-import { readRoll, type Roll } from "./timing.ts";
+import { readRoll, type AxisChoice, type Roll } from "./timing.ts";
+import { WELTE_SPOOL } from "./spool.ts";
 import { noteOnsets, perforations, type Half, type Perforation } from "./expression.ts";
 import { aperturePorts, binaryPorts, DEFAULT_GEOMETRY, type PortGeometry, type PortKey } from "./aperture.ts";
 import { readTracedCurves, type TracedCurves } from "../truth/curves.ts";
 import { Grid } from "./grid.ts";
+import { noteDensity } from "./density.ts";
 import type { ModelInput } from "../model/types.ts";
 
 const REPO = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
@@ -28,39 +30,15 @@ export type LoadedRoll = {
   inputOver(half: Half, punches: readonly Perforation[], portModel: PortModel): ModelInput;
 };
 
-/** Note onsets per second, in a window centred on each row. */
-function noteDensity(grid: Grid, timing: Roll["timing"], onsets: readonly number[], windowSeconds = 0.5): Float64Array {
-  const counts = new Float64Array(grid.length);
-  onsets.forEach((tick) => {
-    const index = grid.indexOfRow(timing.rowAtTick(tick));
-    counts[index] = counts[index]! + 1;
-  });
-
-  const prefix = new Float64Array(grid.length + 1);
-  counts.forEach((count, index) => {
-    prefix[index + 1] = prefix[index]! + count;
-  });
-
-  const span = grid.seconds.at(-1)! - grid.seconds[0]!;
-  const halfWindow = Math.max(Math.round(((windowSeconds / 2) * (grid.length - 1)) / span), 1);
-
-  return Float64Array.from(counts, (_, index) => {
-    const low = Math.max(index - halfWindow, 0);
-    const high = Math.min(index + halfWindow, grid.length - 1);
-    const seconds = grid.seconds[high]! - grid.seconds[low]!;
-    return seconds > 0 ? (prefix[high + 1]! - prefix[low]!) / seconds : 0;
-  });
-}
-
-export function loadRoll(druid: string): LoadedRoll {
-  const roll = readRoll(druid, readFileSync(join(REPO, "cache", druid, `${druid}_raw.mid`)));
+export function loadRoll(druid: string, axis: AxisChoice = WELTE_SPOOL): LoadedRoll {
+  const roll = readRoll(druid, readFileSync(join(REPO, "cache", druid, `${druid}_raw.mid`)), axis);
   const curves = readTracedCurves(join(REPO, "out", druid, "curves.csv"));
   const punches = perforations(roll);
 
-  // The time axis is rebuilt from the roll's own tempo map rather than taken from
-  // the traced file, whose `seconds` column is rounded to 0.1 ms. Rows are 1.7 ms
-  // apart, so that rounding quantises every integration step to 1.6, 1.7 or
-  // 1.8 ms — a 6 % error on each `dt`, which the tempo map gives exactly.
+  // The time axis is rebuilt from the spool law rather than taken from the traced
+  // file, whose `seconds` column is rounded to 0.1 ms. Rows are 1.7 ms apart, so
+  // that rounding quantises every integration step to 1.6, 1.7 or 1.8 ms — a 6 %
+  // error on each `dt`, where the law gives the step in closed form.
   const grid = Grid.overRows(roll.timing, curves.grid.startRow, curves.grid.startRow + curves.grid.length - 1);
 
   const portCache = new Map<string, Map<PortKey, Float64Array>>();
@@ -70,7 +48,7 @@ export function loadRoll(druid: string): LoadedRoll {
     if (held) return held;
     const onsets =
       which === "both" ? [...noteOnsets(roll, "bass"), ...noteOnsets(roll, "treble")] : noteOnsets(roll, which);
-    const made = noteDensity(grid, roll.timing, onsets);
+    const made = noteDensity(grid, onsets.map((tick) => roll.timing.rowAtTick(tick)));
     densityCache.set(which, made);
     return made;
   };

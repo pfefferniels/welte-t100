@@ -6,12 +6,10 @@
  * enough to trip it. So what matters is when the port first opens far enough,
  * not how long it stays open.
  */
-import { portKey, portSeries } from "../roll/aperture.js";
-import { shiftedByDriftingRows } from "./types.js";
-export const TRIP_THRESHOLD = 0.05;
-export function portOf(input, control, action) {
-    return portSeries(input.ports, portKey(input.half, control, action), input.grid.length);
-}
+import type { Control, Half } from "../roll/expression.ts";
+import { type ModelInput } from "./types.ts";
+export declare const TRIP_THRESHOLD = 0.05;
+export declare function portOf(input: ModelInput, control: Control, action: "on" | "off"): Float64Array;
 /**
  * The port as the mechanism saw it, slid along the paper.
  *
@@ -24,32 +22,13 @@ export function portOf(input, control, action) {
  * belongs to how the paper was laid out, which is an input to the mechanism, not
  * something the mechanism does.
  */
-export function shiftedPortOf(input, control, action, rows, drift) {
-    return shiftedByDriftingRows(portOf(input, control, action), rows, drift);
-}
+export declare function shiftedPortOf(input: ModelInput, control: Control, action: "on" | "off", rows: number, drift: number): Float64Array;
 /** 1 while the function is set, 0 while cancelled. Cancel wins a tie. */
-export function latched(on, off, threshold = TRIP_THRESHOLD, initial = 0) {
-    const state = new Uint8Array(on.length);
-    let held = initial;
-    for (let index = 0; index < on.length; index += 1) {
-        if (off[index] >= threshold)
-            held = 0;
-        else if (on[index] >= threshold)
-            held = 1;
-        state[index] = held;
-    }
-    return state;
-}
+export declare function latched(on: Float64Array, off: Float64Array, threshold?: number, initial?: number): Uint8Array;
 /** 1 only while the port itself is open, which is how midi2exp reads Sforzando. */
-export function momentary(port, threshold = TRIP_THRESHOLD) {
-    return Uint8Array.from(port, (value) => (value >= threshold ? 1 : 0));
-}
-export function latchedControl(input, control, initial = 0) {
-    return latched(portOf(input, control, "on"), portOf(input, control, "off"), TRIP_THRESHOLD, initial);
-}
-export function halfLabel(half) {
-    return half === "bass" ? "Bass" : "Diskant";
-}
+export declare function momentary(port: Float64Array, threshold?: number): Uint8Array;
+export declare function latchedControl(input: ModelInput, control: Control, initial?: number): Uint8Array;
+export declare function halfLabel(half: Half): string;
 /**
  * The Widerstand, which is punched in the Bass columns only.
  *
@@ -59,7 +38,4 @@ export function halfLabel(half) {
  * the half in hand leaves the Discant with no wind state at all, which makes
  * both wind parameters unidentifiable there rather than merely unhelpful.
  */
-export function windResistanceOf(input, rows, drift) {
-    const series = (action) => shiftedByDriftingRows(portSeries(input.ports, portKey("bass", "windResistance", action), input.grid.length), rows, drift);
-    return latched(series("on"), series("off"));
-}
+export declare function windResistanceOf(input: ModelInput, rows: number, drift: number): Uint8Array;
