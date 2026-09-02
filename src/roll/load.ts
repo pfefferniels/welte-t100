@@ -1,6 +1,7 @@
 /**
  * Everything one roll needs, assembled: the punched code, the drawn curves, and
- * the grid they share. Paths follow the tracer's own layout one directory up.
+ * the grid they share. Paths follow the layout of `roll-nuance-tracer`, whose
+ * working directory is expected one level up from this repository.
  */
 
 import { readFileSync } from "node:fs";

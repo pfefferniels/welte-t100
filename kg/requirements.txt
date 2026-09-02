@@ -1,5 +1,0 @@
-# Only what the graph needs. The rest of this repository declares its Python
-# dependencies nowhere; that is a separate problem and not fixed here.
-rdflib>=7.0
-PyYAML>=6.0
-pyshacl>=0.26
