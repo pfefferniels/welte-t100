@@ -80,12 +80,17 @@ export function limitAtStop(
   // driven down onto the hook comes to rest a little below the nominal level, one
   // driven up against it a little above. The hook itself does not move — the line
   // rebounds off it rather than sinking into it, which `stopRestitution` in the
-  // model is for — so what takes up the difference is slack in the chain, the
-  // roller and the leaf, not the pin. Roll 3309 shows both, cleanly separated by direction: the line rests at
-  // 0.58 having fallen (312 stretches, none arrived from below) and at 0.62 to
-  // 0.66 having risen (40 arrivals from below, two from above), and the same 0.06
-  // apart in the treble. The falling rest is the lower of the two, which is the
-  // opposite of what an inelastic barrier at a fixed level would give.
+  // model is for. Only the falling face is measured on this roll. A census of the
+  // 22 hook engagements finds every one entered from above, at the fortissimo
+  // rail, on both halves and over the whole roll: the falling arrests are 144
+  // (bass) and 206 (treble) arriving at 14 to 16 units/s and resting at
+  // 0.5752 +/- 0.0043 and 0.6188 +/- 0.0074. The upward approaches once read as
+  // arrivals from below are pauses in a creep, the fastest of them 3.8 units/s,
+  // and they scatter 0.031 to 0.032 above the falling rest rather than settling
+  // on a second face. So the pin's upper face is never reached here and its
+  // separation is not measured; `mfThickness` is pinned in `cli/settings.ts` for
+  // that reason. Welte has the pin blocking both ways, quoted in Hagemann's
+  // Einstellanleitung, which is why `mfTwoSided` stays set.
   if (twoSided) return state.trappedAbove ? Math.max(moved, lower) : Math.min(moved, upper);
   return state.caught ? Math.max(moved, lower) : moved;
 }
