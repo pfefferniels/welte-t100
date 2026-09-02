@@ -1,0 +1,28 @@
+# Which claims have a single instrument as their subject rather than the T-100 type?
+PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+PREFIX crminf: <http://www.cidoc-crm.org/extensions/crminf/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wt: <https://w3id.org/welte-t100/>
+PREFIX property: <https://w3id.org/welte-t100/property/>
+PREFIX concept: <https://w3id.org/welte-t100/concept/>
+PREFIX logic: <https://w3id.org/welte-t100/logic/>
+PREFIX crmsci: <http://www.cidoc-crm.org/extensions/crmsci/>
+
+SELECT ?machine ?quantity ?value ?unit ?locator
+WHERE {
+  ?instrument a crm:E22_Human-Made_Object ;
+              crm:P2_has_type concept:welte-t100 ;
+              rdfs:label ?machine .
+  # Prefer the English label, but do not drop an entity that has only a German one.
+  FILTER (LANG(?machine) = "en" || NOT EXISTS { ?instrument rdfs:label ?en_m FILTER (LANG(?en_m) = "en") })
+  ?proposition crminf:J30_has_domain ?instrument ;
+               crminf:J32_has_property_type/rdfs:label ?quantity ;
+               crminf:J31_has_range ?dimension .
+  ?dimension crm:P91_has_unit/rdfs:label ?unit .
+  FILTER (LANG(?unit) = "en")
+  OPTIONAL { ?dimension crm:P90_has_value ?value }
+  ?belief crminf:J4_that ?proposition .
+  ?argument crminf:J2_concluded_that ?belief .
+  ?passage crm:P70_documents ?argument ; wt:locator ?locator .
+}
+ORDER BY ?machine ?quantity

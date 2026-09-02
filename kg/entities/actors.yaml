@@ -1,0 +1,101 @@
+# Everyone who holds a belief in this graph.
+#
+# Peter Hagmann and Reinhard Hagemann are two different people writing seventeen years
+# apart. The emulator's source spells the Einstellanleitung's author both ways, in two
+# files; that is what these two records exist to make impossible.
+
+entities:
+  - id: welte-m-soehne
+    kind: group
+    label:
+      de: "M. Welte & Söhne, Freiburg i. Br."
+      en: "M. Welte & Söhne, Freiburg im Breisgau"
+    note: >
+      The firm. Nothing it says survives here at first hand: its Betriebsanleitungen and
+      Skalarollen-Hefte (Welte 2, Welte 13, Welte 17 in Hagmann's bibliography) reach this
+      graph only as quoted or tabulated by Hagmann and Hagemann. Every belief held by this
+      actor is therefore reached through a transmission, and the graph says by whom.
+
+  - id: hagmann-peter
+    kind: person
+    label: { en: "Peter Hagmann" }
+    note: >
+      Author of "Das Welte-Mignon-Klavier, die Welte-Philharmonie-Orgel und die Anfänge der
+      Reproduktion von Musik", Diss. Freiburg i. Ue., Bern 1984. Not Reinhard Hagemann.
+
+  - id: hagemann-reinhard
+    kind: person
+    label: { en: "Reinhard Hagemann" }
+    note: >
+      Author of the "Einstellanleitung für Welte-Mignon", Das Mechanische Musikinstrument 80
+      (2001), pp. 25–27, and the only witness in this graph who put a manometer on a Welte
+      and wrote the readings down. Not Peter Hagmann.
+
+  - id: gottschewski-hermann
+    kind: person
+    label: { en: "Hermann Gottschewski" }
+    note: >
+      Author of "Die Interpretation als Kunstwerk. Musikalische Zeitgestaltung und ihre
+      Analyse am Beispiel von Welte-Mignon-Klavieraufnahmen von 1905", Laaber 1996, and of
+      the 2024 Sydney conference paper on the editing of Welte dynamics, which survives in
+      this graph only as a programme entry.
+
+  - id: schmitz-hans-w
+    kind: person
+    label: { en: "Hans-W. Schmitz" }
+    note: >
+      Author of "Welte-Mignon und Hupfeld DEA, Zwei Reproduktionssysteme in Konkurrenz",
+      Das Mechanische Musikinstrument 19 (1981), pp. 3–10. Gottschewski's authority for the
+      dynamics mechanism where he has one. Not read for this graph.
+
+  - id: broadwell-peter
+    kind: person
+    label: { en: "Peter Broadwell" }
+    note: >
+      Credited by name in midi2exp for the velocity mapping ("Using Peter's velocity
+      mapping") and author of the acceleration commit in the same repository.
+
+  - id: phillips-peter
+    kind: person
+    label: { en: "Peter Phillips" }
+    note: >
+      Author of "Piano Rolls and Contemporary Player Pianos" (Diss. University of Sydney,
+      2016), now in this graph as `phillips-2016`. He built a roll reader, an analogue model
+      of the Welte expression regulator and a decoder from it, and he read the Denis Condon
+      collection before Stanford bought it, which is the collection roll 3309 comes from. He
+      is also the one named provenance note in pianolatron and the authority cited at Fn. 52
+      of the dissertation's Leseregeln chapter.
+
+  - id: pianoroll-project
+    kind: group
+    label: { en: "the Stanford pianoroll project (midi2exp)" }
+    note: >
+      Authorship of individual constants in midi2exp is not established from the repository.
+      Where a comment names someone the graph names them; otherwise the belief is held by
+      this group, which is what the source actually supports.
+
+  - id: sul-cidr
+    kind: group
+    label: { en: "Stanford Libraries CIDR (pianolatron)" }
+    note: >
+      The pianolatron expression code is a port: its introducing commit says it was "cribbed
+      and clipped from Peter's code". Beliefs held here are therefore adopted from
+      midi2exp rather than independently arrived at, and the graph records that.
+
+  - id: brougher-craig
+    kind: person
+    label: { en: "Craig Brougher" }
+    note: >
+      Player-piano rebuilder, author of "Regulating the Welte Licensee and Original
+      Welte-Mignon" on player-care.com. The only witness in this graph who writes from
+      rebuilding the machines rather than from a document, a plate or a scan, and the only
+      one who states regulating targets for the Licensee and the Original together. He is
+      also the only one who says openly that the printed manuals are wrong, which is worth
+      remembering when his figures disagree with Welte's own.
+
+  - id: pfeffer-niels
+    kind: person
+    label: { en: "Niels Pfeffer" }
+    note: >
+      This project. Holds the observations made on roll 3309, the constants fitted to it,
+      the readings of Anhang 13, and every claim adopted from another source.

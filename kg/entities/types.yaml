@@ -1,0 +1,1869 @@
+# The vocabulary: what can be said about a thing, in what unit, and by what reasoning.
+#
+# A property type is the graph's guard against false comparison. Milliseconds appear in
+# three of them below and they are not interchangeable: a traversal time measured off a
+# test roll, the denominator of a linear rate normalised over some span, and a time
+# constant of an exponential are three different quantities that happen to share a unit.
+
+entities:
+
+  # -- bookkeeping concepts the compiler needs ---------------------------------
+
+  - id: mechanism-component
+    kind: concept
+    label: { en: "component of the Welte mechanism, as designed" }
+    note: >
+      Component records name a part of the design, identified by Hagmann's drawing number,
+      not one physical bellows in one instrument. Where a claim is about a particular
+      machine, the subject is that instrument and not the component.
+  - id: piano-roll
+    kind: concept
+    label: { en: "piano roll" }
+  - id: musical-work
+    kind: concept
+    label: { en: "musical work" }
+  - id: performance
+    kind: concept
+    label: { en: "performance" }
+  - id: software
+    kind: concept
+    label: { en: "software" }
+  - id: citation-key
+    kind: concept
+    label: { en: "citation key" }
+  - id: url
+    kind: concept
+    label: { en: "URL" }
+  - id: local-copy
+    kind: concept
+    label: { en: "path to a local copy" }
+  - id: source-kind-article
+    kind: concept
+    label: { en: "journal article" }
+  - id: source-kind-dissertation
+    kind: concept
+    label: { en: "dissertation" }
+  - id: source-kind-dissertation-chapter
+    kind: concept
+    label: { en: "chapter of a dissertation in progress" }
+  - id: source-kind-software
+    kind: concept
+    label: { en: "software repository" }
+  - id: source-kind-appendix
+    kind: concept
+    label: { en: "appendix or plate in a printed work" }
+  - id: source-kind-observation-record
+    kind: concept
+    label: { en: "the project's own record of observations" }
+  - id: source-kind-fitting-record
+    kind: concept
+    label: { en: "the project's own record of a fit" }
+
+  # -- units -------------------------------------------------------------------
+
+  - id: mm-water-column
+    kind: unit
+    label: { en: "mm water column", de: "mm Wassersäule" }
+    note: "Hagemann's unit. Negative values are vacuum below atmosphere."
+  - id: mbar
+    kind: unit
+    label: { en: "mbar" }
+  - id: millimetre
+    kind: unit
+    label: { en: "mm" }
+  - id: millisecond
+    kind: unit
+    label: { en: "ms" }
+  - id: second
+    kind: unit
+    label: { en: "s" }
+  - id: scale-unit
+    kind: unit
+    label: { en: "unit of the roll's printed scale" }
+    note: >
+      0.0 at the half's own P.P. gridline, 0.5 at its M.F. gridline, 1.0 at the shared
+      central F.F. gridline, piecewise linear through M.F. That the M.F. gridline is 0.5 is
+      the roll's own claim and not an independent measurement.
+  - id: travel-fraction
+    kind: unit
+    label: { en: "fraction of the P-to-F travel" }
+    note: >
+      Referred to the two rails the drawn line actually rests at, not to the printed
+      gridlines. Removes a common-mode drift of the whole traced line, which is why the
+      hook level is far steadier in this unit than in scale units.
+  - id: scale-unit-per-second
+    kind: unit
+    label: { en: "scale units per second" }
+  - id: pixel
+    kind: unit
+    label: { en: "px, on the 300.25 dpi Stanford scan" }
+  - id: scan-row
+    kind: unit
+    label: { en: "scan row" }
+    note: "One pixel row of the scan. The SUPRA MIDI's tick is the same quantity."
+  - id: midi-velocity
+    kind: unit
+    label: { en: "MIDI velocity" }
+  - id: percent
+    kind: unit
+    label: { en: "%" }
+  - id: notes-per-second
+    kind: unit
+    label: { en: "notes per second" }
+  - id: line-number
+    kind: unit
+    label: { en: "tracker-bar line number" }
+  - id: velocity-span-fraction
+    kind: unit
+    label: { en: "fraction of the welte_p to welte_f velocity span" }
+    note: >
+      Kept apart from travel-fraction on purpose. midi2exp expresses every constant in MIDI
+      velocity units, which silently asserts that velocity is linear in pneumatic travel and
+      travel linear in hammer speed. Giving the two spans one unit would bury that
+      assumption in the graph instead of exposing it.
+  - id: dimensionless
+    kind: unit
+    label: { en: "dimensionless" }
+    note: >
+      For correlation coefficients, exponents and ratios. Declared as a unit rather than
+      omitted so that every magnitude in the graph carries one and none can be compared
+      across quantities by accident.
+
+  # -- property types ----------------------------------------------------------
+
+  - id: vacuum-at-tone-pneumatic
+    kind: property-type
+    label: { en: "vacuum measured between Betonungs- and Tonpneumatik" }
+    note: >
+      The vacuum on the line the expression regulator delivers to the note pneumatics.
+      Hagemann taps it by drilling the conduit rails behind the Betonungs- and before the
+      Tonpneumatik; Brougher reads it with a gauge put in place of a note tube at the end of
+      the stack. The two taps sit on the same line either side of it, and the graph treats
+      them as one quantity, which is a judgement and not something either author states.
+      Not the same quantity as the vacuum in the relay's wind chamber, which is upstream of
+      the cone valve, nor as the blower's Betriebsunterdruck.
+      Its narrower terms name the expression state the reading was taken in, because
+      I17 One-Proposition Set is binary by design and a state qualifier has nowhere else
+      to go.
+  - id: vacuum-in-piano
+    kind: property-type
+    concerns: [state-piano]
+    part_of: vacuum-at-tone-pneumatic
+    label: { en: "vacuum in the Piano state" }
+  - id: vacuum-in-crescendo
+    kind: property-type
+    concerns: [state-crescendo]
+    part_of: vacuum-at-tone-pneumatic
+    label: { en: "vacuum in the Crescendo state (Welte's Cresc. F.)" }
+  - id: vacuum-in-forte
+    kind: property-type
+    concerns: [state-forte]
+    part_of: vacuum-at-tone-pneumatic
+    label: { en: "vacuum in the Forte state (Welte's Forz. F.)" }
+  - id: vacuum-in-fortissimo
+    kind: property-type
+    concerns: [state-fortissimo]
+    part_of: vacuum-at-tone-pneumatic
+    label: { en: "vacuum in the Fortissimo state (Crescendo and Forte together)" }
+  - id: supply-vacuum
+    kind: property-type
+    concerns: [state-operating-vacuum]
+    label: { en: "vacuum of the blower supply (Betriebsunterdruck)" }
+  - id: valve-chatter-threshold
+    kind: property-type
+    concerns: [state-operating-vacuum]
+    label: { en: "supply vacuum above which the valves begin to chatter" }
+  - id: magazine-bellows-vacuum
+    kind: property-type
+    label: { en: "vacuum at a magazine bellows" }
+  - id: dome-travel
+    kind: property-type
+    label: { en: "travel of the Nuancierbalg dome for a stated change of vacuum" }
+  - id: dome-travel-bass
+    kind: property-type
+    concerns: [half-bass]
+    part_of: dome-travel
+    label: { en: "dome travel, bass side, for −100 to −200 mm WS" }
+  - id: dome-travel-discant
+    kind: property-type
+    concerns: [half-treble]
+    part_of: dome-travel
+    label: { en: "dome travel, discant side, for −100 to −200 mm WS" }
+  - id: reading-depends-on-approach
+    kind: property-type
+    label: { en: "whether the measured value depends on the side the hook is approached from" }
+  - id: contains-a-figure-for
+    kind: property-type
+    label: { en: "whether a source contains any figure for a stated quantity" }
+    note: >
+      For clean negatives. A source that gives no vacuum figure for the piano is telling
+      you something, and the graph should be able to say so without a footnote.
+
+  - id: rest-level-piano
+    kind: property-type
+    concerns: [state-piano]
+    label: { en: "level the drawn line rests at, at the piano rail" }
+  - id: rest-level-forte
+    kind: property-type
+    concerns: [state-forte]
+    label: { en: "level the drawn line rests at, at the fortissimo rail" }
+  - id: hook-arrest-level
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "level the Mezzoforte hook arrests the line at" }
+    note: >
+      The lower of the pin's two faces on this roll, because all twenty-two engagements are
+      entered from above. It is not the pin's centre and not the printed M.F. gridline.
+  - id: hook-arrest-level-on-printed-scale
+    kind: property-type
+    concerns: [state-mezzoforte]
+    part_of: hook-arrest-level
+    label: { en: "hook arrest level, read on the roll's printed scale" }
+  - id: hook-offset-above-printed-mf-upper-bound
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "upper bound on how far the hook sits above the printed M.F. gridline" }
+    note: >
+      A bound, not an estimate. The roll never shows the pin's upper face, so the observed
+      offset can only limit the regulated position from above. Recorded as its own property
+      type so that no query can mistake it for a measurement of that offset.
+  - id: mf-position-on-velocity-span
+    kind: property-type
+    concerns: [state-mezzoforte]
+    part_of: mf-position-on-scale
+    label: { en: "where mezzoforte sits on a MIDI velocity span" }
+    note: >
+      A narrower term, and not interchangeable with its siblings: a fraction of a velocity
+      span becomes a fraction of bellows travel only if velocity is linear in travel, which
+      is exactly what is in dispute.
+  - id: mf-position-on-scale
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "where mezzoforte is taken to sit on the dynamic scale" }
+    note: >
+      Deliberately vague about which scale, because the sources are: the roll's printed
+      gridline is a position on paper, midi2exp's welte_mf a MIDI velocity, and the measured
+      arrest a bellows position. Comparing them is an argument, not a lookup.
+
+  - id: time-constant
+    kind: property-type
+    label: { en: "time constant of an exponential approach" }
+  - id: asymptote
+    kind: property-type
+    label: { en: "asymptote a state relaxes towards" }
+  - id: traversal-time
+    kind: property-type
+    label: { en: "time to traverse a stated span" }
+  - id: linear-rate-denominator
+    kind: property-type
+    label: { en: "denominator of a linear rate, over a stated span" }
+    note: >
+      midi2exp's decay rates are of this kind. They coincide with a traversal time only if
+      the ramp is genuinely linear, which the roll says it is not.
+  - id: peak-rate
+    kind: property-type
+    label: { en: "peak rate of the drawn line" }
+  - id: lead-over-punches
+    kind: property-type
+    label: { en: "how far the drawn line leads the punch that names the feature" }
+  - id: flow-exponent
+    kind: property-type
+    label: { en: "exponent α in the fitted flow law" }
+
+  - id: blocks-in-directions
+    kind: property-type
+    label: { en: "the directions in which a stop blocks travel" }
+  - id: latching-behaviour
+    kind: property-type
+    label: { en: "whether a control latches or acts only while its perforation is open" }
+  - id: records
+    kind: property-type
+    label: { en: "what a drawn line records" }
+  - id: controls-function
+    kind: property-type
+    label: { en: "the expression function a tracker-bar line controls" }
+  - id: roll-line
+    kind: property-type
+    label: { en: "the tracker-bar line a function occupies" }
+  - id: wider-than
+    kind: property-type
+    enumerable: true
+    label: { en: "is of larger bore than" }
+  - id: adjusted-at
+    kind: property-type
+    enumerable: true
+    label: { en: "the adjuster that norms this quantity" }
+  - id: normed-by-control
+    kind: property-type
+    enumerable: true
+    label: { en: "the Skalarolle control that norms this quantity" }
+  - id: perforation-diameter
+    kind: property-type
+    label: { en: "diameter of a punched perforation" }
+  - id: tracker-bore-diameter
+    kind: property-type
+    label: { en: "diameter of a tracker-bar bore" }
+  - id: roll-width
+    kind: property-type
+    label: { en: "width of the paper" }
+  - id: correlation
+    kind: property-type
+    label: { en: "correlation coefficient r" }
+  - id: correlation-note-locked-residual
+    kind: property-type
+    part_of: correlation
+    label: { en: "residual note-locked dip once expression events are excluded" }
+  - id: correlation-with-note-density
+    kind: property-type
+    part_of: correlation
+    label: { en: "correlation of the line's resting position with note density" }
+  - id: held-out-error
+    kind: property-type
+    label: { en: "held-out RMSE against the drawn line" }
+  - id: share-of-squared-error
+    kind: property-type
+    label: { en: "share of a half's squared error" }
+  - id: fraction-of-punches-redundant
+    kind: property-type
+    label: { en: "share of on-punches that would be redundant under a latching reading" }
+  - id: parameter-value
+    kind: property-type
+    label: { en: "the value a model parameter is set to" }
+  - id: has-stated-provenance
+    kind: property-type
+    label: { en: "whether the source states where a value came from" }
+
+  # -- concepts a proposition can point at -------------------------------------
+
+  - id: both-directions
+    kind: concept
+    label: { en: "both directions, opening and closing" }
+  - id: closing-only
+    kind: concept
+    label: { en: "the closing direction only" }
+  - id: latches
+    kind: concept
+    label: { en: "latches: the state persists after the perforation has passed" }
+  - id: momentary
+    kind: concept
+    label: { en: "momentary: acts only while the perforation is open" }
+  - id: momentary-with-decay
+    kind: concept
+    label: { en: "momentary with a decaying hold" }
+    note: >
+      The testable middle position: a hold circuit that leaks gives per-pulse behaviour with
+      an effective pulse longer than the punched perforation.
+  - id: bellows-stays-put
+    kind: concept
+    label: { en: "the valve closes but nothing returns the bellows" }
+    note: >
+      Distinguished from latching because Hagmann's "die Funktion wird aufrecht erhalten"
+      holds equally of both, and the two are not the same mechanism.
+  - id: nuancierbalg-position
+    kind: concept
+    label: { en: "the position of the Nuancierbalg" }
+  - id: delivered-vacuum
+    kind: concept
+    label: { en: "the vacuum delivered to the note pneumatics" }
+  - id: cone-valve-position
+    kind: concept
+    label: { en: "the position of the cone valve" }
+  - id: editors-intention-curve
+    kind: concept
+    label: { en: "an editor's intention curve, drawn by hand at the punching stage" }
+  - id: stated
+    kind: concept
+    label: { en: "stated in the source" }
+  - id: not-stated
+    kind: concept
+    label: { en: "not stated anywhere in the source" }
+  - id: motor-switch
+    kind: concept
+    label: { en: "the transport motor switch" }
+  - id: blower-two-speed-resistance
+    kind: concept
+    label: { en: "the blower's two-speed resistance (Widerstand)" }
+  - id: no-disturbing-effect
+    kind: concept
+    label: { en: "has no disturbing effect on the system" }
+
+  - id: state-piano
+    kind: concept
+    label: { en: "Piano", de: "Piano" }
+  - id: state-mezzoforte
+    kind: concept
+    label: { en: "Mezzoforte" }
+  - id: state-forte
+    kind: concept
+    label: { en: "Forte (Welte's Forz. F.)" }
+  - id: state-fortissimo
+    kind: concept
+    label: { en: "Fortissimo (Crescendo and Forte together)" }
+  - id: state-crescendo
+    kind: concept
+    label: { en: "Crescendo (Welte's Cresc. F.)" }
+  - id: state-slow-decrescendo
+    kind: concept
+    label: { en: "slow decrescendo, the default state" }
+  - id: state-fast-crescendo
+    kind: concept
+    label: { en: "fast crescendo (the sforzando-on path)" }
+  - id: state-fast-decrescendo
+    kind: concept
+    label: { en: "fast decrescendo (the sforzando-off path, subito piano)" }
+  - id: state-operating-vacuum
+    kind: concept
+    label: { en: "Betriebsunterdruck, the blower's working vacuum" }
+
+  - id: function-mezzoforte-off
+    kind: concept
+    label: { en: "Mezzoforte ab" }
+  - id: function-mezzoforte-on
+    kind: concept
+    label: { en: "Mezzoforte an" }
+  - id: function-crescendo-off
+    kind: concept
+    label: { en: "Crescendo ab (slow decrescendo)" }
+  - id: function-crescendo-on
+    kind: concept
+    label: { en: "Crescendo an" }
+  - id: function-sforzando-off
+    kind: concept
+    label: { en: "Sforzando ab (sudden decrescendo)" }
+  - id: function-sforzando-on
+    kind: concept
+    label: { en: "Sforzando an (sudden crescendo)" }
+  - id: function-widerstand-off
+    kind: concept
+    label: { en: "Widerstand ab" }
+  - id: function-widerstand-on
+    kind: concept
+    label: { en: "Widerstand an" }
+
+  - id: half-bass
+    kind: concept
+    label: { en: "the bass half, 1C–f♯¹" }
+  - id: half-treble
+    kind: concept
+    label: { en: "the treble half, g¹–g⁴" }
+
+  # -- inference logics --------------------------------------------------------
+
+  - id: knowledge-revision
+    kind: logic
+    label: { en: "knowledge revision on new evidence" }
+    note: >
+      The earlier belief is concluded FALSE and kept, with its argumentation, rather than
+      deleted. Applied by the compiler wherever a statement declares `supersedes`.
+  - id: source-criticism-t100-over-t98
+    kind: logic
+    label: { en: "prefer the T-100 source over a plate redrawn from a T-98 manual" }
+    note: >
+      Anhang 13 and Anhang 14 both carry the caption "Nach Welte 2", and Hagmann's
+      bibliography (p. 256) gives Welte 2 as the Betriebsanleitung for the T-98. Anhang 12
+      rests on Welte 17, the Skalarollen booklet for the T-100 (his note 53, p. 108). Where
+      the two disagree about the T-100, the T-100 source is preferred.
+  - id: citation-settles-what-the-roll-cannot
+    kind: logic
+    label: { en: "where the roll is silent, a citation may still settle the question" }
+    note: >
+      Applied when the roll cannot decide a parameter, or decides it only weakly, so that
+      fitting it would report noise, and an external source states the answer.
+  - id: composition-of-stated-mechanisms
+    kind: logic
+    inference_class: S8_Categorical_Hypothesis_Building
+    label: { en: "compose statements the source makes separately" }
+    note: >
+      Each link is the source's; the conclusion is not. Used where Hagmann states three
+      things about parts and the consequence for the whole follows without new assumptions.
+  - id: reading-a-drawing
+    kind: logic
+    label: { en: "measurement off a plate at native resolution" }
+    note: >
+      Anhang 13 extracted with pdfimages as a 1744 × 2480 1-bit CCITT bitmap at about
+      211 dpi, all coordinates in native pixels. Constrained by Hagmann's own disclaimer
+      (p. 62 n. 29) that the plates are schematic and not to scale.
+  - id: exponential-versus-constant-fit
+    kind: logic
+    inference_class: S6_Data_Evaluation
+    label: { en: "compare candidate rate laws by weighted rms in the phase plane" }
+  - id: differential-evolution-then-simplex
+    kind: logic
+    inference_class: S6_Data_Evaluation
+    label: { en: "fit by differential evolution, Nelder–Mead and coordinate sweep" }
+    note: >
+      Alternating 8-second blocks rather than a time cut, because the model carries
+      roll-length state; Huber δ = 0.06 while fitting, plain RMSE when scoring; 220
+      generations; the spread across seeds reported as the error bar on the search.
+      Differences below about 0.005 are the search and not the model.
+  - id: ablation-refit
+    kind: logic
+    inference_class: S7_Simulation_or_Prediction
+    label: { en: "price a term by removing it and refitting from scratch" }
+    note: >
+      A term whose value only pays once the drive is reshaped around it is invisible to a
+      one-parameter sweep, so every variant is refitted rather than evaluated at fixed
+      constants.
+  - id: counting-argument-on-the-punching
+    kind: logic
+    inference_class: S8_Categorical_Hypothesis_Building
+    label: { en: "ask what the punching would mean under the competing reading" }
+    note: >
+      If a reading makes several hundred deliberately cut perforations do nothing, that
+      counts against it, on the assumption that the editor was not cutting holes to no
+      purpose.
+  - id: absence-in-a-searched-index
+    kind: logic
+    label: { en: "a clean negative from a searched index and read chapters" }
+    note: >
+      Recorded with what was searched, so the negative can be overturned by naming
+      something that was not.
+  - id: arithmetic
+    kind: logic
+    inference_class: S6_Data_Evaluation
+    label: { en: "arithmetic on values the sources state" }
+
+  # -- added while authoring Hagmann 1984 --------------------------------------
+
+  - id: roll-line-treble
+    kind: property-type
+    concerns: [half-treble]
+    part_of: roll-line
+    label: { en: "the treble tracker-bar line a function occupies" }
+  - id: roll-line-bass
+    kind: property-type
+    concerns: [half-bass]
+    part_of: roll-line
+    label: { en: "the bass tracker-bar line a function occupies" }
+  - id: opening-and-closing-agency
+    kind: property-type
+    label: { en: "what opens and what closes a bellows" }
+  - id: opening-closing-symmetry
+    kind: property-type
+    label: { en: "whether opening and closing are regulated to take the same time" }
+  - id: acts-on
+    kind: property-type
+    enumerable: true
+    label: { en: "the quantity a part acts on" }
+  - id: sets-also
+    kind: property-type
+    enumerable: true
+    label: { en: "the function a control also sets when it is set" }
+
+  - id: air-and-spring-open-suction-closes
+    kind: concept
+    label: { en: "opened by inflowing air and an internal spring, closed by suction" }
+    note: >
+      The asymmetry the model turns on: closing scales with the supply vacuum, reopening
+      runs off atmosphere and the spring and does not.
+  - id: designed-symmetric
+    kind: concept
+    label: { en: "regulated so that opening takes the same elapsed time as closing" }
+
+  - id: t98-function-sforzando
+    kind: concept
+    label: { en: "T-98 opening 67, sudden crescendo (Sforzando Forte)" }
+    note: >
+      The T-98 has four nuancing openings a half rather than six, because Crescendo and
+      Mezzoforte take their input and its cancellation through a single opening. Given its
+      own concept rather than shared with the T-100 control, because they are not the same
+      device and Hagmann describes them differently.
+  - id: t98-function-mezzoforte
+    kind: concept
+    label: { en: "T-98 opening 65, Mezzoforte" }
+  - id: code-symbol
+    kind: concept
+    label: { en: "identifier of a symbol in the project's source code" }
+
+  # -- added while authoring Anhang 12, Anhang 13, Gottschewski and the two ports
+
+  - id: control-principle
+    kind: property-type
+    label: { en: "the principle on which loudness is controlled" }
+  - id: hook-geometry
+    kind: property-type
+    label: { en: "the shape of the Mezzoforte stop" }
+  - id: drawing-is-independent-evidence
+    kind: property-type
+    label: { en: "whether a feature of a plate is independent evidence about the machine" }
+    note: >
+      Needed because a hand-drawn plate can repeat a module, in which case the third copy of
+      a feature testifies to the draughtsman's hand and not to the mechanism.
+  - id: derives-from
+    kind: property-type
+    enumerable: true
+    crm_property: P130_shows_features_of
+    label: { en: "the source a work is derived from" }
+    note: >
+      Recorded so that agreement by descent is never counted as corroboration. Two
+      implementations that share an ancestor are one witness. P130 is CIDOC CRM's own
+      generalisation of "copy of" and "derived from", with the derivative as the domain.
+
+  - id: rates-not-levels
+    kind: concept
+    label: { en: "switchable rates of change, not selectable levels" }
+  - id: downward-finger
+    kind: concept
+    label: { en: "a plain downward finger of finite thickness" }
+    note: >
+      As against a notch. A notch confines the bellows to a band; a finger gives two arrest
+      levels a thickness apart, whichever face is met.
+  - id: hook-position-is-adjustable
+    kind: concept
+    label: { en: "adjustable in regulation rather than fixed by construction" }
+
+  # -- added while authoring the roll observations and the fit -----------------
+  #
+  # Each state gets its own narrower term under time-constant, asymptote and
+  # traversal-time. The reason is the same in every case: two states of the same mechanism
+  # have different values for the same kind of quantity, and merging them under one
+  # property type would make the graph report a disagreement where there is none.
+
+  - id: time-constant-slow-crescendo
+    kind: property-type
+    concerns: [state-crescendo]
+    part_of: time-constant
+    label: { en: "time constant of the slow crescendo" }
+  - id: time-constant-slow-decrescendo
+    kind: property-type
+    concerns: [state-slow-decrescendo]
+    part_of: time-constant
+    label: { en: "time constant of the slow decrescendo, the default state" }
+  - id: asymptote-slow-crescendo
+    kind: property-type
+    concerns: [state-crescendo]
+    part_of: asymptote
+    label: { en: "asymptote of the slow crescendo" }
+  - id: asymptote-slow-decrescendo
+    kind: property-type
+    concerns: [state-slow-decrescendo]
+    part_of: asymptote
+    label: { en: "asymptote of the slow decrescendo" }
+  - id: traversal-time-slow-crescendo
+    kind: property-type
+    concerns: [state-crescendo]
+    part_of: traversal-time
+    label: { en: "time for the slow crescendo to cross its span" }
+  - id: traversal-time-slow-decrescendo
+    kind: property-type
+    concerns: [state-slow-decrescendo]
+    part_of: traversal-time
+    label: { en: "time for the slow decrescendo to cross its span" }
+  - id: traversal-time-fast-crescendo
+    kind: property-type
+    concerns: [state-fast-crescendo]
+    part_of: traversal-time
+    label: { en: "time for the fast crescendo to cross the stop-to-stop span" }
+  - id: traversal-time-fast-decrescendo
+    kind: property-type
+    concerns: [state-fast-decrescendo]
+    part_of: traversal-time
+    label: { en: "time for the fast decrescendo to cross the stop-to-stop span" }
+  - id: peak-rate-with-crescendo-latch
+    kind: property-type
+    concerns: [state-fast-crescendo]
+    part_of: peak-rate
+    label: { en: "peak rate of the fast crescendo with the crescendo latch also set" }
+
+  - id: held-out-error-bass
+    kind: property-type
+    concerns: [half-bass]
+    part_of: held-out-error
+    label: { en: "held-out RMSE against the bass drawn line" }
+  - id: held-out-error-treble
+    kind: property-type
+    concerns: [half-treble]
+    part_of: held-out-error
+    label: { en: "held-out RMSE against the treble drawn line" }
+  - id: held-out-error-bass-refitted
+    kind: property-type
+    concerns: [half-bass]
+    part_of: held-out-error
+    label: { en: "held-out RMSE, bass, after refitting the model's own constants" }
+    note: >
+      Kept apart from the plain held-out error because a score at published constants and a
+      score after refitting answer different questions: the first asks whether the values are
+      right, the second whether the shape is.
+  - id: irreducible-error-bass
+    kind: property-type
+    concerns: [half-bass]
+    part_of: held-out-error
+    label: { en: "the floor the unaccountable windows impose, bass" }
+    note: >
+      Not the model's error on the rest of the roll, which is a different and larger
+      quantity. Confusing the two is a mistake this project has already made once.
+
+  - id: short-of-full-closure
+    kind: concept
+    label: { en: "an equilibrium short of full closure" }
+
+  # -- historical relations, each naming the CIDOC CRM property it stands for ---
+  #
+  # `crm_property` is what makes the adopted layer real CRM rather than a private
+  # vocabulary: the reified proposition keeps the S9 Property Type for provenance, and the
+  # plain triple derived from it uses the CRM property named here. The build refuses any
+  # name not declared in the vendored CIDOC CRM 7.1.3.
+
+  - id: carried-out-by
+    kind: property-type
+    enumerable: true
+    crm_property: P14_carried_out_by
+    label: { en: "was carried out by" }
+  - id: date-of
+    kind: property-type
+    crm_property: P4_has_time-span
+    label: { en: "happened during" }
+  - id: took-place-at
+    kind: property-type
+    crm_property: P7_took_place_at
+    label: { en: "took place at" }
+  - id: has-produced
+    kind: property-type
+    crm_property: P108_has_produced
+    label: { en: "produced" }
+  - id: performs-work
+    kind: property-type
+    crm_property: P16_used_specific_object
+    label: { en: "was a performance of" }
+  - id: current-location
+    kind: property-type
+    crm_property: P55_has_current_location
+    label: { en: "is now kept at" }
+  - id: depicts
+    kind: property-type
+    enumerable: true
+    crm_property: P138_represents
+    label: { en: "represents" }
+    note: >
+      For a plate or a figure. A scan of the roll does not represent it in this sense, it
+      used it, which is `used-specific-object`; and a model of the mechanism is `models`.
+  - id: models
+    kind: property-type
+    label: { en: "is a model of" }
+    note: >
+      No `crm_property`. CIDOC CRM has nothing for a scientific model standing for the
+      system it simulates, and P138 is for visual items. A project property, declared as
+      one, so that a decoder, an emulator and a plate are not all "representations".
+  - id: has-type
+    kind: property-type
+    enumerable: true
+    crm_property: P2_has_type
+    label: { en: "is of type" }
+    note: >
+      For a classification a witness makes, as against the `instance_of` an entity file
+      declares. The catalogue typing roll 3309 as a red roll is a claim with a locator.
+  - id: is-about
+    kind: property-type
+    enumerable: true
+    crm_property: P129_is_about
+    label: { en: "has as its subject" }
+  - id: refers-to
+    kind: property-type
+    enumerable: true
+    crm_property: P67_refers_to
+    label: { en: "refers to" }
+  - id: defined-in
+    kind: property-type
+    enumerable: true
+    crm_property: P67i_is_referred_to_by
+    label: { en: "is a symbol defined in" }
+    note: >
+      A parameter is a concept; the file that sets it is the information object that
+      refers to it. That is all CIDOC CRM can say about a named constant in a program,
+      and it is enough to walk from a number to the code that carries it.
+  - id: documented-in
+    kind: property-type
+    enumerable: true
+    crm_property: P70i_is_documented_in
+    label: { en: "is documented in" }
+  - id: intended-for
+    kind: property-type
+    crm_property: P103_was_intended_for
+    label: { en: "was intended for" }
+  - id: used-specific-object
+    kind: property-type
+    enumerable: true
+    crm_property: P16_used_specific_object
+    label: { en: "used" }
+    note: >
+      An activity and the thing it was done with or to: a measuring campaign and the
+      instrument it was made on, a scan and the roll it was made of, a study and the
+      machines it worked from.
+  - id: resides-at
+    kind: property-type
+    enumerable: true
+    crm_property: P74_has_current_or_former_residence
+    label: { en: "resides or resided at" }
+  - id: former-owner
+    kind: property-type
+    crm_property: P51_has_former_or_current_owner
+    label: { en: "was owned by" }
+  - id: current-owner
+    kind: property-type
+    crm_property: P52_has_current_owner
+    label: { en: "is owned by" }
+  - id: current-keeper
+    kind: property-type
+    crm_property: P50_has_current_keeper
+    label: { en: "is kept by" }
+  - id: member-of
+    kind: property-type
+    enumerable: true
+    crm_property: P107i_is_current_or_former_member_of
+    label: { en: "is or was a member of" }
+  - id: louder-than
+    kind: property-type
+    enumerable: true
+    crm_property: O28_is_conceptually_greater_than
+    label: { en: "is louder than" }
+    note: >
+      CRMsci's ordering of types, which is what a dynamic ladder is: the states are ordered
+      without any of them having to carry a value, and the property is transitive.
+  - id: composed-by
+    kind: property-type
+    label: { en: "was composed by" }
+    note: >
+      No `crm_property`. Doing this properly in CIDOC CRM means an E65 Creation carried out
+      by the composer, and no source to hand dates or places one for this work. The
+      shortcut is recorded as a shortcut rather than dressed up as a modelled event.
+
+  # -- pneumatic topology ------------------------------------------------------
+  #
+  # None of these carries a `crm_property`. CIDOC CRM has no vocabulary for what a conduit
+  # does to a bellows, and mapping "evacuates" onto some part-whole or influence property
+  # would misrepresent both the model and the mechanism. They stay project properties, and
+  # the adopted layer says so by using the project namespace for them.
+
+  - id: supplies-vacuum-to
+    kind: property-type
+    enumerable: true
+    label: { en: "supplies vacuum to" }
+  - id: supplies-atmosphere-to
+    kind: property-type
+    enumerable: true
+    label: { en: "holds at atmospheric pressure" }
+  - id: evacuates
+    kind: property-type
+    enumerable: true
+    label: { en: "evacuates" }
+  - id: admits-air-to
+    kind: property-type
+    enumerable: true
+    label: { en: "admits air to" }
+  - id: actuates
+    kind: property-type
+    enumerable: true
+    label: { en: "actuates" }
+  - id: opens-throttle
+    kind: property-type
+    enumerable: true
+    label: { en: "opens" }
+  - id: connected-through
+    kind: property-type
+    enumerable: true
+    label: { en: "is connected to, through the conduit named in the statement" }
+  - id: triggered-by-opening
+    kind: property-type
+    enumerable: true
+    label: { en: "is triggered by the glide-block opening" }
+  - id: holds-state-latched
+    kind: property-type
+    enumerable: true
+    label: { en: "keeps the function set after the perforation has gone" }
+  - id: releases-latch
+    kind: property-type
+    enumerable: true
+    label: { en: "releases the latch" }
+  - id: fires-on
+    kind: property-type
+    label: { en: "responds to" }
+
+  # -- narrower terms for the fitted constants, one per half --------------------
+  #
+  # A fitted conductance is a property of the model as fitted to one half, more than of a
+  # brass conduit, and the two halves genuinely differ. Splitting the property rather than
+  # the component keeps one record per part of the design, which is what the schematic and
+  # the signal path are drawn from.
+
+  - id: flow-exponent-bass
+    kind: property-type
+    part_of: flow-exponent
+    concerns: [half-bass]
+    label: { en: "flow exponent, as fitted to the bass half" }
+  - id: flow-exponent-treble
+    kind: property-type
+    part_of: flow-exponent
+    concerns: [half-treble]
+    label: { en: "flow exponent, as fitted to the treble half" }
+  - id: rail-open-bass
+    kind: property-type
+    part_of: rail-open
+    concerns: [half-bass]
+    label: { en: "rail open, as fitted to the bass half" }
+  - id: rail-open-treble
+    kind: property-type
+    part_of: rail-open
+    concerns: [half-treble]
+    label: { en: "rail open, as fitted to the treble half" }
+  - id: rail-closed-bass
+    kind: property-type
+    part_of: rail-closed
+    concerns: [half-bass]
+    label: { en: "rail closed, as fitted to the bass half" }
+  - id: rail-closed-treble
+    kind: property-type
+    part_of: rail-closed
+    concerns: [half-treble]
+    label: { en: "rail closed, as fitted to the treble half" }
+  - id: pin-centre-bass
+    kind: property-type
+    part_of: pin-centre
+    concerns: [half-bass]
+    label: { en: "pin centre, as fitted to the bass half" }
+  - id: pin-centre-treble
+    kind: property-type
+    part_of: pin-centre
+    concerns: [half-treble]
+    label: { en: "pin centre, as fitted to the treble half" }
+  - id: pin-thickness-bass
+    kind: property-type
+    part_of: pin-thickness
+    concerns: [half-bass]
+    label: { en: "pin thickness, as fitted to the bass half" }
+  - id: pin-thickness-treble
+    kind: property-type
+    part_of: pin-thickness
+    concerns: [half-treble]
+    label: { en: "pin thickness, as fitted to the treble half" }
+  - id: conductance-to-vacuum-bass
+    kind: property-type
+    part_of: conductance-to-vacuum
+    concerns: [half-bass]
+    label: { en: "conductance to vacuum, as fitted to the bass half" }
+  - id: conductance-to-vacuum-treble
+    kind: property-type
+    part_of: conductance-to-vacuum
+    concerns: [half-treble]
+    label: { en: "conductance to vacuum, as fitted to the treble half" }
+  - id: flow-target-bass
+    kind: property-type
+    part_of: flow-target
+    concerns: [half-bass]
+    label: { en: "flow target, as fitted to the bass half" }
+  - id: flow-target-treble
+    kind: property-type
+    part_of: flow-target
+    concerns: [half-treble]
+    label: { en: "flow target, as fitted to the treble half" }
+  - id: conductance-to-atmosphere-bass
+    kind: property-type
+    part_of: conductance-to-atmosphere
+    concerns: [half-bass]
+    label: { en: "conductance to atmosphere, as fitted to the bass half" }
+  - id: conductance-to-atmosphere-treble
+    kind: property-type
+    part_of: conductance-to-atmosphere
+    concerns: [half-treble]
+    label: { en: "conductance to atmosphere, as fitted to the treble half" }
+  - id: trip-threshold-bass
+    kind: property-type
+    part_of: trip-threshold
+    concerns: [half-bass]
+    label: { en: "trip threshold, as fitted to the bass half" }
+  - id: trip-threshold-treble
+    kind: property-type
+    part_of: trip-threshold
+    concerns: [half-treble]
+    label: { en: "trip threshold, as fitted to the treble half" }
+  - id: charge-time-bass
+    kind: property-type
+    part_of: charge-time
+    concerns: [half-bass]
+    label: { en: "charge time, as fitted to the bass half" }
+  - id: charge-time-treble
+    kind: property-type
+    part_of: charge-time
+    concerns: [half-treble]
+    label: { en: "charge time, as fitted to the treble half" }
+  - id: bleed-time-bass
+    kind: property-type
+    part_of: bleed-time
+    concerns: [half-bass]
+    label: { en: "bleed time, as fitted to the bass half" }
+  - id: bleed-time-treble
+    kind: property-type
+    part_of: bleed-time
+    concerns: [half-treble]
+    label: { en: "bleed time, as fitted to the treble half" }
+  - id: moving-mass-time-bass
+    kind: property-type
+    part_of: moving-mass-time
+    concerns: [half-bass]
+    label: { en: "moving mass time, as fitted to the bass half" }
+  - id: moving-mass-time-treble
+    kind: property-type
+    part_of: moving-mass-time
+    concerns: [half-treble]
+    label: { en: "moving mass time, as fitted to the treble half" }
+  - id: valve-lift-band-bass
+    kind: property-type
+    part_of: valve-lift-band
+    concerns: [half-bass]
+    label: { en: "valve lift band, as fitted to the bass half" }
+  - id: valve-lift-band-treble
+    kind: property-type
+    part_of: valve-lift-band
+    concerns: [half-treble]
+    label: { en: "valve lift band, as fitted to the treble half" }
+  - id: through-flow-load-bass
+    kind: property-type
+    part_of: through-flow-load
+    concerns: [half-bass]
+    label: { en: "through flow load, as fitted to the bass half" }
+  - id: through-flow-load-treble
+    kind: property-type
+    part_of: through-flow-load
+    concerns: [half-treble]
+    label: { en: "through flow load, as fitted to the treble half" }
+  - id: scale-warp-bass
+    kind: property-type
+    part_of: scale-warp
+    concerns: [half-bass]
+    label: { en: "scale warp, as fitted to the bass half" }
+  - id: scale-warp-treble
+    kind: property-type
+    part_of: scale-warp
+    concerns: [half-treble]
+    label: { en: "scale warp, as fitted to the treble half" }
+  - id: stop-restitution-bass
+    kind: property-type
+    part_of: stop-restitution
+    concerns: [half-bass]
+    label: { en: "stop restitution, as fitted to the bass half" }
+  - id: stop-restitution-treble
+    kind: property-type
+    part_of: stop-restitution
+    concerns: [half-treble]
+    label: { en: "stop restitution, as fitted to the treble half" }
+  - id: lead-in-rows-bass
+    kind: property-type
+    part_of: lead-in-rows
+    concerns: [half-bass]
+    label: { en: "lead in rows, as fitted to the bass half" }
+  - id: lead-in-rows-treble
+    kind: property-type
+    part_of: lead-in-rows
+    concerns: [half-treble]
+    label: { en: "lead in rows, as fitted to the treble half" }
+  - id: latch-flag-bass
+    kind: property-type
+    part_of: latch-flag
+    concerns: [half-bass]
+    label: { en: "latch flag, as fitted to the bass half" }
+  - id: latch-flag-treble
+    kind: property-type
+    part_of: latch-flag
+    concerns: [half-treble]
+    label: { en: "latch flag, as fitted to the treble half" }
+  - id: bleed-time
+    kind: property-type
+    label: { en: "bleed time" }
+  - id: charge-time
+    kind: property-type
+    label: { en: "charge time" }
+  - id: conductance-to-atmosphere
+    kind: property-type
+    label: { en: "conductance to atmosphere" }
+  - id: conductance-to-vacuum
+    kind: property-type
+    label: { en: "conductance to vacuum" }
+  - id: flow-exponent
+    kind: property-type
+    label: { en: "flow exponent" }
+  - id: flow-target
+    kind: property-type
+    label: { en: "flow target" }
+  - id: latch-flag
+    kind: property-type
+    label: { en: "latch flag" }
+  - id: lead-in-rows
+    kind: property-type
+    label: { en: "lead in rows" }
+  - id: moving-mass-time
+    kind: property-type
+    label: { en: "moving mass time" }
+  - id: pin-centre
+    kind: property-type
+    label: { en: "pin centre" }
+  - id: pin-thickness
+    kind: property-type
+    label: { en: "pin thickness" }
+  - id: rail-closed
+    kind: property-type
+    label: { en: "rail closed" }
+  - id: rail-open
+    kind: property-type
+    label: { en: "rail open" }
+  - id: scale-warp
+    kind: property-type
+    label: { en: "scale warp" }
+  - id: stop-restitution
+    kind: property-type
+    label: { en: "stop restitution" }
+  - id: through-flow-load
+    kind: property-type
+    label: { en: "through flow load" }
+  - id: trip-threshold
+    kind: property-type
+    label: { en: "trip threshold" }
+  - id: valve-lift-band
+    kind: property-type
+    label: { en: "valve lift band" }
+  - id: per-second
+    kind: unit
+    label: { en: "1/s" }
+    note: >
+      A conductance in the flow law: the rate at which a path closes the gap between the
+      bellows and that path's target, per second, at unit distance.
+  - id: hook-arrest-face
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "which face of the pin a falling bellows comes to rest on" }
+  - id: upper-face
+    kind: concept
+    label: { en: "the pin's upper face, one half-thickness above its centre" }
+  - id: lower-face
+    kind: concept
+    label: { en: "the pin's lower face, one half-thickness below its centre" }
+  - id: arrests
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "arrests the travel of" }
+    note: >
+      Distinct from `actuates`: the pin does not drive the Nuancierbalg anywhere, it stops it
+      where it is. Hagmann calls it interrupting the opening or the closing, and the model
+      treats it as a limit and never as a source of motion.
+  - id: suction-system
+    kind: concept
+    label: { en: "a closed system the blower draws air out of, in which admitted air moves things" }
+    note: >
+      The principle the whole mechanism rests on, and the one a picture of it most needs to
+      convey. The system stands at low pressure; a perforation lets ordinary atmospheric air
+      in; that inrush is what moves a membrane. So on a suction line air travels towards the
+      blower, against the direction in which the causation is usually described.
+
+  # -- added while authoring Brougher ------------------------------------------
+  #
+  # Brougher regulates against the delivered vacuum where every other witness here works in
+  # bellows travel, on paper or in MIDI velocity. That is a fourth axis, so his mezzoforte
+  # gets a fourth narrower term rather than joining the three already under
+  # mf-position-on-scale. Converting between them is the argument the project cannot yet
+  # make.
+
+  - id: source-kind-regulating-guide
+    kind: concept
+    label: { en: "a rebuilder's regulating guide, self-published on the web" }
+
+  - id: vacuum-fraction
+    kind: unit
+    label: { en: "fraction of the maximum stack vacuum" }
+    note: >
+      Kept apart from travel-fraction and velocity-span-fraction for the same reason those
+      two are kept apart. A fraction of delivered vacuum becomes a fraction of bellows
+      travel only through the cone valve's characteristic, which no source in this graph
+      measures; Hagemann's dome-travel figures give one point of it and no more.
+  - id: pound-force-per-inch
+    kind: unit
+    label: { en: "lbf per inch of extension" }
+    note: "Brougher's unit for the expression regulator's extension spring, over a stated inch."
+  - id: roll-tempo-number
+    kind: unit
+    label: { en: "roll tempo number" }
+    note: >
+      The number marked on a roll and set on the transport. The usual player-piano
+      convention is that it is ten times the paper speed in feet per minute, but Brougher
+      states only the number, so the graph records only the number.
+
+  - id: state-expression-fully-closed
+    kind: concept
+    label: { en: "the expression pneumatic held fully closed by hand" }
+    note: >
+      A bench condition rather than a commanded state, and not the same as Fortissimo:
+      Hagemann's Fortissimo is Crescendo plus Forte at -355.6 mm WS while his blower runs at
+      -400 to -457.2, so on his instrument the commanded maximum is short of full closure.
+  - id: bare-metal-right-angle
+    kind: concept
+    label: { en: "a square hook and an unpadded blade, both bare metal" }
+  - id: lock-valve-and-cancel-pouch
+    kind: concept
+    label: { en: "a guided stem with a lock valve and a cancel pouch, the lock valve permanently bled to atmosphere" }
+  - id: regulated-asymmetric
+    kind: concept
+    label: { en: "regulated so that opening and closing take different times" }
+
+  - id: vacuum-at-full-closure
+    kind: property-type
+    concerns: [state-expression-fully-closed]
+    part_of: vacuum-at-tone-pneumatic
+    label: { en: "vacuum at the stack with the expression pneumatic fully closed" }
+  - id: first-intensity-return-tolerance
+    kind: property-type
+    concerns: [state-piano]
+    label: { en: "how far the stack may miss its set first intensity on returning to it" }
+    note: >
+      A regulating tolerance, not a level. It is the closest thing in the literature to a
+      stated repeatability requirement for the mechanism, which is worth having beside the
+      repeatability floor this project measures on the drawn line.
+  - id: mf-position-on-stack-vacuum
+    kind: property-type
+    concerns: [state-mezzoforte]
+    part_of: mf-position-on-scale
+    label: { en: "where mezzoforte sits as a fraction of the maximum stack vacuum" }
+  - id: hook-capture-vacuum-difference
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "difference in stack vacuum between the blade blocked by the hook and captured under it" }
+    note: >
+      The two arrest levels measured in vacuum instead of on paper. Its own property type
+      because it is a difference of magnitudes and not a level, so it carries no sign.
+  - id: hook-and-blade-surface
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "the surface and angle the hook and blade must be kept in" }
+    note: >
+      Separate from hook-geometry, which answers what shape the stop is. A square unpadded
+      hook and a plain downward finger are compatible answers to two different questions,
+      and merging them would put a disagreement in the register where there is none.
+  - id: decrescendo-leak-is-permanent
+    kind: property-type
+    concerns: [state-slow-decrescendo]
+    label: { en: "whether the decrescendo throttle leaks to atmosphere at all times, including while the crescendo draws" }
+  - id: valve-construction
+    kind: property-type
+    label: { en: "how an expression valve is built" }
+  - id: valve-bleed-diameter
+    kind: property-type
+    label: { en: "diameter of the bleed hole in an expression valve" }
+  - id: valve-travel
+    kind: property-type
+    label: { en: "mechanical travel a valve is set to open through" }
+    note: >
+      A gap in millimetres, and not the model's valve-lift band, which is the fraction of a
+      port opening over which conductance rises from nothing to full. Same part, two
+      different quantities.
+  - id: spring-rate
+    kind: property-type
+    label: { en: "rate of the expression regulator's extension spring, over a stated inch" }
+  - id: roll-tempo
+    kind: property-type
+    label: { en: "the tempo the transport is set to for a test" }
+
+  - id: number-drill-gauge
+    kind: logic
+    inference_class: S6_Data_Evaluation
+    label: { en: "read a number-drill size off the standard gauge table" }
+    note: >
+      #70 is 0.0280 in, so 0.7112 mm. A table lookup rather than arithmetic on anything the
+      source states, which is why it is its own logic: the figure is only as good as the
+      assumption that a rebuilder writing "#70s" means the number-drill series.
+
+  # -- added while authoring Phillips 2016 -------------------------------------
+  #
+  # Phillips times the expression pneumatic over its whole stroke, where Brougher, midi2exp
+  # and the roll all time it from the piano rail to the Mezzoforte hook. Those are different
+  # spans, so the full-stroke figures get their own narrower terms rather than joining a
+  # register they would only appear to disagree with.
+
+  - id: traversal-time-fast-crescendo-full-stroke
+    kind: property-type
+    concerns: [state-fast-crescendo]
+    part_of: traversal-time
+    label: { en: "time for the fast crescendo to cross the whole stroke, zero to maximum" }
+  - id: traversal-time-fast-decrescendo-full-stroke
+    kind: property-type
+    concerns: [state-fast-decrescendo]
+    part_of: traversal-time
+    label: { en: "time for the fast decrescendo to cross the whole stroke, maximum to zero" }
+
+  - id: speed-over-the-stroke
+    kind: property-type
+    label: { en: "whether the bellows crosses its stroke at one speed or slows as it nears its target" }
+    note: >
+      The finer question under `control-principle`. Every witness in this graph agrees that
+      the control selects rates rather than levels; they do not agree on whether a selected
+      rate is constant. Kept apart so that agreement on the first is not read as agreement on
+      the second.
+  - id: position-to-vacuum-relation
+    kind: property-type
+    label: { en: "whether the delivered vacuum is an exact function of the bellows position" }
+    note: >
+      The premise every emulation of this mechanism rests on, and the one no source in the
+      graph measures across the stroke. Hagemann's dome travel gives a single point of it.
+  - id: velocity-suction-relation
+    kind: property-type
+    label: { en: "the shape of the relation between applied vacuum and MIDI velocity" }
+    note: >
+      Distinct from `position-to-vacuum-relation`: this one is the note pneumatic and the
+      hammer, that one the expression regulator and the cone valve. Composing them is what
+      turns a bellows position into a velocity, and the two must be able to be wrong
+      separately.
+  - id: minimum-reliable-vacuum
+    kind: property-type
+    part_of: vacuum-at-tone-pneumatic
+    label: { en: "lowest stack vacuum at which the note pneumatics still play reliably" }
+    note: >
+      A floor on playability rather than a regulated level, which is why it is not one of the
+      named states. It is worth having beside them because it says how much of the soft end
+      of the ladder is usable.
+  - id: paper-speed
+    kind: property-type
+    label: { en: "speed of the paper past the glide block" }
+    note: >
+      The conversion between roll distance and time, and so between every duration measured
+      off a roll and every duration measured with a watch on an instrument.
+
+  - id: metre-per-minute
+    kind: unit
+    label: { en: "m/min" }
+    note: "Phillips's unit for paper speed. He gives 9.84 ft/min for the same figure."
+
+  - id: constant-speed
+    kind: concept
+    label: { en: "one speed over the whole stroke" }
+  - id: approaches-a-target
+    kind: concept
+    label: { en: "a rate that falls away as the bellows nears its target" }
+  - id: exact-function-of-position
+    kind: concept
+    label: { en: "an exact function of position, possibly non-linear at the extremes of travel" }
+  - id: logarithmic-in-vacuum
+    kind: concept
+    label: { en: "logarithmic: equal steps of vacuum buy less velocity the louder it gets" }
+  - id: styli-on-pneumatics-at-the-regulators
+    kind: concept
+    label: { en: "styli on pneumatics connected to the bass and treble expression regulators" }
+  - id: pneumatic-pianos-generally
+    kind: concept
+    label: { en: "pneumatic player and reproducing pianos in general, no one type" }
+    note: >
+      A scope and not a type. Phillips's suction-to-velocity work was done on a bench rig
+      playing a Disklavier, with pneumatics shaped after Ampico and Welte practice, so its
+      results are about note pneumatics and hammers rather than about the T-100.
+
+  - id: subsumption-under-a-described-class
+    kind: logic
+    inference_class: S8_Categorical_Hypothesis_Building
+    label: { en: "apply to a particular thing what a source says of the class it belongs to" }
+    note: >
+      Sound only where the thing meets the class's stated criteria and the source did not
+      qualify its description. The premises must therefore include what puts the thing in the
+      class, so a later reader can see the step and reject it.
+  - id: scope-separation-resolves-a-disagreement
+    kind: logic
+    inference_class: S8_Categorical_Hypothesis_Building
+    label: { en: "separate the scopes and see whether the disagreement survives" }
+    note: >
+      Two witnesses answering one question differently may be describing two machines. The
+      test is whether a source that measured both reports the difference along the same line
+      the two witnesses fall on. Where it does, the register keeps both answers and gains a
+      reason for each.
+
+  # -- added while turning the prose glosses into propositions ------------------
+  #
+  # Each of these replaces a sentence that used to be carried in words. Where a sentence
+  # said two or three things it is now two or three propositions, and the concept a
+  # proposition points at is declared here so that a second witness can point at the same
+  # one and land in the same row of the register.
+
+  - id: count
+    kind: unit
+    label: { en: "count" }
+  - id: number-drill
+    kind: unit
+    label: { en: "number-drill gauge size" }
+    note: "The wire-gauge series of twist drills. #70 is 0.0280 in."
+  - id: tracker-diameter
+    kind: unit
+    label: { en: "tracker-bar hole diameters" }
+  - id: plate-pixel
+    kind: unit
+    label: { en: "px, on the 1744 × 2480 extraction of Anhang 13 at about 211 dpi" }
+    note: >
+      Kept apart from `pixel`, which is the 300.25 dpi Stanford scan of the roll. The two
+      rasters have nothing to do with each other.
+  - id: rpm
+    kind: unit
+    label: { en: "revolutions per minute" }
+
+  # the bellows and its stops
+  - id: fixed-position
+    kind: property-type
+    enumerable: true
+    label: { en: "a fixed position the bellows is provided with" }
+  - id: position-fully-open
+    kind: concept
+    label: { en: "the fully open position" }
+  - id: position-fully-closed
+    kind: concept
+    label: { en: "the fully closed position" }
+  - id: position-mezzoforte-middle
+    kind: concept
+    label: { en: "the mezzoforte middle position, set by the pin" }
+  - id: rest-state
+    kind: property-type
+    label: { en: "the state with no expression perforation active" }
+  - id: results-in-state
+    kind: property-type
+    label: { en: "the expression state the function produces while held" }
+    note: >
+      The bridge between the roll's functions and Hagemann's vacuum ladder, which he read
+      with the Skalarolle halted over one perforation at a time. So a state of his is a
+      function of the roll's held open.
+  - id: requires-function
+    kind: property-type
+    enumerable: true
+    label: { en: "a function that must be set for this state" }
+  - id: combining-law
+    kind: property-type
+    label: { en: "how two inputs to a part combine" }
+  - id: additive
+    kind: concept
+    label: { en: "a sum of the contributions" }
+  - id: mechanically-couples
+    kind: property-type
+    enumerable: true
+    label: { en: "is mechanically coupled to" }
+    note: >
+      The band, chain or wire named as the subject joins the object to whatever else the
+      subject couples. No `crm_property`: this is topology, like the pneumatic links.
+  - id: switched-by
+    kind: property-type
+    label: { en: "the roll function that switches this part" }
+  - id: norms-state
+    kind: property-type
+    label: { en: "the expression state this adjuster sets the level of" }
+  - id: identified-with
+    kind: property-type
+    label: { en: "is the same part as" }
+    note: >
+      For a part one witness names one way and another witness numbers another way. Held
+      with a belief value, which is why it is not `owl:sameAs`: an identification can be
+      probable, and the project's guesses are marked as guesses.
+  - id: serves-half
+    kind: property-type
+    enumerable: true
+    label: { en: "the keyboard half a part serves" }
+  - id: lies-outboard-of
+    kind: property-type
+    enumerable: true
+    label: { en: "lies immediately outboard of, on the glide block" }
+    note: >
+      Outboard is towards the edge of the paper. Hagmann's numbers run 7 to 12 from the
+      edge inwards, which is Gottschewski's "von außen nach innen".
+  - id: nuancing-openings-per-half
+    kind: property-type
+    label: { en: "number of nuancing openings per half of the glide block" }
+
+  # the hook
+  - id: hook-engagement-count-from-above
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "number of hook engagements entered from the fortissimo side" }
+  - id: hook-engagement-count-from-below
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "number of hook engagements entered from the piano side" }
+  - id: hook-offset-between-halves
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "how the treble hook is set relative to the bass hook" }
+  - id: treble-set-to-travel-further
+    kind: concept
+    label: { en: "the treble hook lets its bellows travel further than the bass hook does" }
+  - id: balanced-for
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "the quantity a regulating test balances the two halves for" }
+  - id: heard-loudness
+    kind: concept
+    label: { en: "loudness as heard, at the hammer" }
+  - id: hook-offset-compensates-for
+    kind: property-type
+    concerns: [state-mezzoforte]
+    label: { en: "what the offset between the two hooks pays for" }
+  - id: hammer-weight-difference-between-halves
+    kind: concept
+    label: { en: "the difference in hammer weight between the two halves of the keyboard" }
+  - id: endpoint-repeatability
+    kind: property-type
+    label: { en: "whether the endpoint of a movement repeats from one occurrence to the next" }
+  - id: not-repeatable
+    kind: concept
+    label: { en: "varies from one occurrence to the next even on a correctly regulated instrument" }
+  - id: scatter-attributed-to
+    kind: property-type
+    enumerable: true
+    label: { en: "a cause a witness gives for the scatter" }
+  - id: varying-moving-mass
+    kind: concept
+    label: { en: "the mass and velocity of the moving pneumatic varying with how far it has closed" }
+  - id: supply-droop-under-note-load
+    kind: concept
+    label: { en: "the supply unable to compensate the instantaneous demand of accented notes" }
+
+  # the printed scale and the drawn lines
+  - id: gridline-central-ff
+    kind: concept
+    label: { en: "the shared central F.F. gridline printed on late Welte rolls" }
+  - id: gridline-pp
+    kind: concept
+    label: { en: "each half's own outer P.P. gridline" }
+  - id: gridline-mf
+    kind: concept
+    label: { en: "each half's printed M.F. gridline" }
+  - id: marks-scale-end-of
+    kind: property-type
+    label: { en: "the end of the printed scale a gridline marks" }
+  - id: coincides-with-rail
+    kind: property-type
+    label: { en: "whether the drawn line's rest position falls on this gridline" }
+  - id: on-the-gridline
+    kind: concept
+    label: { en: "the line rests on the gridline, within 0.02" }
+  - id: short-of-the-gridline
+    kind: concept
+    label: { en: "the line comes to rest short of the gridline" }
+  - id: shortfall-below-ff-gridline
+    kind: property-type
+    concerns: [state-fortissimo]
+    label: { en: "how far the fortissimo rest level falls short of the central F.F. gridline" }
+  - id: trace-shape-at-the-soft-end
+    kind: property-type
+    label: { en: "the shape of the trace at the bottom of each excursion" }
+  - id: rounded-at-the-bottom
+    kind: concept
+    label: { en: "rounded at the bottom of each excursion" }
+  - id: not-rounded
+    kind: concept
+    label: { en: "not rounded: a straight ramp into the corner" }
+  - id: velocity-cost-of-curvature
+    kind: property-type
+    label: { en: "change in MIDI velocity from following the drawn line's curvature rather than a straight ramp" }
+  - id: hand-nuancing-by-a-playerist
+    kind: concept
+    label: { en: "following the original dynamics by hand when pedalling the roll on a player piano" }
+  - id: produced-by-apparatus
+    kind: property-type
+    label: { en: "the apparatus that drew it" }
+  - id: checking-expression-coding-against-the-performance
+    kind: concept
+    label: { en: "checking the punched expression against the line drawn at the performance" }
+  - id: lead-over-punches-in-rows
+    kind: property-type
+    label: { en: "how far the drawn line leads the punch that names the feature, as a distance on the paper" }
+  - id: expression-perforation-count
+    kind: property-type
+    label: { en: "number of expression perforations on the roll" }
+  - id: median-perforation-length
+    kind: property-type
+    label: { en: "median length of an expression perforation" }
+  - id: sforzando-crescendo-cooccurrence
+    kind: property-type
+    label: { en: "share of Sforzando-on perforations overlapping a Crescendo-on perforation" }
+  - id: sforzando-crescendo-cooccurrence-bass
+    kind: property-type
+    part_of: sforzando-crescendo-cooccurrence
+    concerns: [half-bass]
+    label: { en: "share of bass Sforzando-on perforations overlapping a Crescendo-on" }
+  - id: sforzando-crescendo-cooccurrence-treble
+    kind: property-type
+    part_of: sforzando-crescendo-cooccurrence
+    concerns: [half-treble]
+    label: { en: "share of treble Sforzando-on perforations overlapping a Crescendo-on" }
+  - id: sforzando-crescendo-cooccurrence-by-chance
+    kind: property-type
+    label: { en: "the same share expected by chance, from circularly shifted copies" }
+  - id: sforzando-crescendo-cooccurrence-by-chance-bass
+    kind: property-type
+    part_of: sforzando-crescendo-cooccurrence-by-chance
+    concerns: [half-bass]
+    label: { en: "share expected by chance, bass" }
+  - id: sforzando-crescendo-cooccurrence-by-chance-treble
+    kind: property-type
+    part_of: sforzando-crescendo-cooccurrence-by-chance
+    concerns: [half-treble]
+    label: { en: "share expected by chance, treble" }
+
+  # the glide block and what a perforation does
+  - id: effective-perforation-length
+    kind: property-type
+    label: { en: "how the effective open time compares with the punched length" }
+  - id: longer-than-punched
+    kind: concept
+    label: { en: "longer than the punched hole: the valve is on after the hole has passed" }
+  - id: perforation-tail-extension
+    kind: property-type
+    label: { en: "how far a model extends the tail of every perforation" }
+  - id: bore-uniformity
+    kind: property-type
+    label: { en: "whether all bores of the tracker bar are alike" }
+  - id: all-bores-identical
+    kind: concept
+    label: { en: "every hole in the bar has the same dimensions and none is offset" }
+  - id: tracker-bore-height-relative-to-licensee
+    kind: property-type
+    label: { en: "how much taller the tracker-bar holes are than the Licensee's" }
+  - id: on-time-depends-on
+    kind: property-type
+    enumerable: true
+    label: { en: "a factor the on-time of a valve or function depends on" }
+  - id: on-time-against-suction
+    kind: property-type
+    label: { en: "how a valve's on-time changes with the applied suction" }
+  - id: longer-at-higher-suction
+    kind: concept
+    label: { en: "longer at a higher suction: the valve trips sooner and releases later" }
+  - id: independent-of-suction
+    kind: concept
+    label: { en: "independent of the suction" }
+  - id: pneumatic-valve
+    kind: concept
+    label: { en: "a pouch-operated pneumatic valve in general, as Phillips modelled it on the bench" }
+  - id: applied-suction
+    kind: concept
+    label: { en: "the applied suction" }
+  - id: tracker-hole-opening-speed
+    kind: concept
+    label: { en: "the speed at which the tracker-bar hole is uncovered" }
+  - id: bleed-size-and-pouch-porosity
+    kind: concept
+    label: { en: "the size of the bleed, including the porosity of the pouch" }
+  - id: valve-weight
+    kind: concept
+    label: { en: "the weight of the valve" }
+  - id: perforation-length
+    kind: concept
+    label: { en: "the length of the perforation" }
+  - id: tracker-hole-height
+    kind: concept
+    label: { en: "the height of the tracker-bar hole" }
+  - id: minimum-punch-step
+    kind: property-type
+    label: { en: "smallest distance between successive punches" }
+  - id: acceleration-compensation
+    kind: property-type
+    label: { en: "how the take-up spool's acceleration of the paper is compensated" }
+  - id: cancelled-by-a-matching-recorder-spool
+    kind: concept
+    label: { en: "cancelled, because the recorder's spool accelerated the paper the same way" }
+  - id: drive-motor-speed
+    kind: property-type
+    label: { en: "speed of the roll drive motor" }
+  - id: perforation-diameter-before-1910
+    kind: property-type
+    part_of: perforation-diameter
+    label: { en: "diameter of a punched perforation on red rolls until about 1910" }
+  - id: perforation-diameter-after-1910
+    kind: property-type
+    part_of: perforation-diameter
+    label: { en: "diameter of a punched perforation on red rolls after about 1910" }
+
+  # the ladder in vacuum
+  - id: vacuum-relative-to-piano
+    kind: property-type
+    label: { en: "vacuum as a percentage of the Piano vacuum" }
+  - id: vacuum-relative-crescendo
+    kind: property-type
+    part_of: vacuum-relative-to-piano
+    concerns: [state-crescendo]
+    label: { en: "Crescendo vacuum as a percentage of Piano" }
+  - id: vacuum-relative-forte
+    kind: property-type
+    part_of: vacuum-relative-to-piano
+    concerns: [state-forte]
+    label: { en: "Forte vacuum as a percentage of Piano" }
+  - id: vacuum-relative-fortissimo
+    kind: property-type
+    part_of: vacuum-relative-to-piano
+    concerns: [state-fortissimo]
+    label: { en: "Fortissimo vacuum as a percentage of Piano" }
+  - id: vacuum-relative-operating
+    kind: property-type
+    part_of: vacuum-relative-to-piano
+    concerns: [state-operating-vacuum]
+    label: { en: "operating vacuum as a percentage of Piano" }
+  - id: regulated-by-series
+    kind: property-type
+    label: { en: "the series of values the regulation is conjectured to follow" }
+  - id: percent-series-of-the-piano-vacuum
+    kind: concept
+    label: { en: "a series of whole percentages of the Piano vacuum: 100, 150, 200, 350, 450" }
+  - id: halves-built-alike
+    kind: property-type
+    label: { en: "whether the bass and treble halves are built identically" }
+  - id: not-identical
+    kind: concept
+    label: { en: "not identical between the two halves" }
+  - id: values-transfer-from
+    kind: property-type
+    label: { en: "whether values measured on the named instrument transfer to this type" }
+  - id: principle-transfers-from
+    kind: property-type
+    label: { en: "whether the principle found on the named instrument holds for this type" }
+  - id: travel-times-shared-with
+    kind: property-type
+    enumerable: true
+    label: { en: "whether the expression pneumatic's travel times are the same as on the named type" }
+  - id: calibrated-against
+    kind: property-type
+    label: { en: "what a model's levels were set against" }
+  - id: recordings-of-well-adjusted-instruments
+    kind: concept
+    label: { en: "recordings of original instruments taken to be well adjusted, judged by ear" }
+
+  # velocity at the far end of the chain
+  - id: velocity-at-minimum-suction
+    kind: property-type
+    label: { en: "MIDI velocity of middle C at −127 mm WS (5 in WG)" }
+  - id: velocity-at-maximum-suction
+    kind: property-type
+    label: { en: "MIDI velocity of middle C at −736.6 mm WS (29 in WG)" }
+  - id: velocity-of-lightest-notes-at-maximum-suction
+    kind: property-type
+    label: { en: "MIDI velocity of the lightest notes at −736.6 mm WS (29 in WG)" }
+  - id: velocity-difference-at-equal-suction
+    kind: property-type
+    label: { en: "difference in MIDI velocity between two notes at one and the same suction" }
+  - id: velocity-spread-top-to-bottom
+    kind: property-type
+    part_of: velocity-difference-at-equal-suction
+    label: { en: "velocity difference between C8 and C2 at equal suction" }
+  - id: velocity-spread-top-to-middle-c
+    kind: property-type
+    part_of: velocity-difference-at-equal-suction
+    label: { en: "velocity difference between C8 and C5 at equal suction" }
+  - id: velocity-spread-middle-c-to-bottom
+    kind: property-type
+    part_of: velocity-difference-at-equal-suction
+    label: { en: "velocity difference between C5 and C2 at equal suction" }
+  - id: loudness-across-keyboard-at-equal-suction
+    kind: property-type
+    label: { en: "how loudness varies over the keyboard at one suction" }
+  - id: roughly-equal-across-keyboard
+    kind: concept
+    label: { en: "roughly equal: a lighter hammer at a higher velocity gives about the same loudness" }
+  - id: typical-use
+    kind: property-type
+    label: { en: "what an editor typically uses the function for" }
+  - id: controls-loudness-of-individual-notes
+    kind: concept
+    label: { en: "controls the loudness of individual notes by short, precisely timed perforations" }
+  - id: decoding-limited-by
+    kind: property-type
+    label: { en: "the factor that limits the accuracy of reproducing the dynamics" }
+  - id: perforation-duration-accuracy
+    kind: concept
+    label: { en: "the accuracy of each expression perforation's duration in the raw MIDI" }
+
+  # what the sources contain, and what survives
+  - id: attested-in-the-literature
+    kind: property-type
+    label: { en: "whether any account of it is known in the literature" }
+  - id: not-attested
+    kind: concept
+    label: { en: "no account of it is known" }
+  - id: survival-status
+    kind: property-type
+    label: { en: "whether any example is known to survive" }
+  - id: none-extant
+    kind: concept
+    label: { en: "no example is known to survive" }
+  - id: welte-recording-process
+    kind: concept
+    label: { en: "Welte's piano recording procedure, as a class of activity" }
+    note: >
+      The session at which a pianist played for the recording apparatus. Its details were
+      kept secret and no description survives, which is a statement here, not a note.
+  - id: welte-recording-roll
+    kind: concept
+    label: { en: "the recording rolls made at a Welte recording session, as a class" }
+  - id: drawing-fidelity
+    kind: property-type
+    label: { en: "whether a drawing is to scale" }
+  - id: schematic-not-to-scale
+    kind: concept
+    label: { en: "schematic: not the actual arrangement and not to scale" }
+  - id: stroke-width-encodes-bore
+    kind: property-type
+    label: { en: "whether the drawn width of a conduit encodes its bore" }
+  - id: not-encoded
+    kind: concept
+    label: { en: "not encoded: the variation is the pen and the scan" }
+  - id: conduit-stroke-width
+    kind: property-type
+    label: { en: "drawn width of a conduit on the plate" }
+  - id: module-repeat-pitch
+    kind: property-type
+    label: { en: "pitch at which a hand-drawn module repeats across the plate" }
+  - id: module-overlap
+    kind: property-type
+    label: { en: "intersection over union of two units of the plate at the repeat pitch" }
+  - id: module-overlap-at-arbitrary-offset
+    kind: property-type
+    label: { en: "intersection over union of two units of the plate at arbitrary offsets" }
+  - id: supply-tap-point
+    kind: property-type
+    label: { en: "where a part's driving vacuum is taken from" }
+  - id: upstream-of-the-cone-valve
+    kind: concept
+    label: { en: "the trunk vacuum, upstream of the cone valve, with no feedback from the delivered level" }
+  - id: construction-uniformity
+    kind: property-type
+    label: { en: "whether construction was uniform over the production run" }
+  - id: varied-over-the-production-run
+    kind: concept
+    label: { en: "construction details varied over the production run" }
+  - id: identifiable-from-a-drawing
+    kind: property-type
+    label: { en: "whether a part can be identified from a published drawing" }
+  - id: not-identifiable
+    kind: concept
+    label: { en: "cannot be identified from any drawing: has to be established on the machine in hand" }
+  - id: expression-adjusting-screws
+    kind: concept
+    label: { en: "the expression adjusting screws, as a class" }
+  - id: throttle-type-regulator
+    kind: concept
+    label: { en: "a vacuum regulator of the throttle type" }
+  - id: valve-bleed-drill-size
+    kind: property-type
+    label: { en: "number-drill size of the bleed hole in an expression valve" }
+  - id: occurs-in-state
+    kind: property-type
+    label: { en: "the dynamic state at which a feature occurs" }
+  - id: compensates-for
+    kind: property-type
+    label: { en: "the shortcoming of the reproduction a feature was added to compensate" }
+  - id: octave-tripling
+    kind: concept
+    label: { en: "octave triplings added in editing the 1905 rolls" }
+  - id: ff-ceiling
+    kind: concept
+    label: { en: "the upper limit of the fortissimo blow" }
+
+  # the rest of the tracker-bar layout
+  - id: function-soft-pedal-off
+    kind: concept
+    label: { en: "linkes Pedal aus" }
+  - id: function-soft-pedal-on
+    kind: concept
+    label: { en: "linkes Pedal ein" }
+  - id: function-sustain-pedal-on
+    kind: concept
+    label: { en: "rechtes Pedal ein" }
+  - id: function-sustain-pedal-off
+    kind: concept
+    label: { en: "rechtes Pedal aus" }
+  - id: function-reroll
+    kind: concept
+    label: { en: "Rücklauf" }

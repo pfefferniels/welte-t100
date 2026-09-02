@@ -1,0 +1,168 @@
+# What the project reads off Hagmann's Anhang 13 at native resolution.
+#
+# These are the project's own observations of a drawing, not Hagmann's statements, and they
+# are kept apart from `hagmann-1984` for that reason. They are constrained twice over: by
+# Hagmann's own disclaimer that the plates are schematic (his p. 62 n. 29), and by the
+# plate's caption "Nach Welte 2", which makes it a T-98 document.
+
+source:
+  id: pfeffer-anhang13
+  kind: observation-record
+  title: "Reading Anhang 13 at native resolution"
+  authors: [pfeffer-niels]
+  container: "emulator/docs/signal-path.md"
+  year: 2026
+  note: >
+    The plate was extracted with pdfimages as a 1744 × 2480 one-bit CCITT bitmap at about
+    211 dpi; every coordinate below is in those native pixels. The method and the
+    coordinates are in `emulator/docs/signal-path.md` §0, so any of this can be checked
+    against the plate rather than taken on trust.
+
+statements:
+
+  - id: hook-is-a-finger
+    kind: observation
+    locator: "emulator/docs/signal-path.md §7"
+    subject: mezzofortebalg-93
+    property: hook-geometry
+    object: downward-finger
+    holds: TRUE
+    note: >
+      Not a notch. A notch would confine the bellows to a band; a finger of finite thickness
+      gives two arrest levels a thickness apart, whichever face is met. That is what the
+      roll then shows: the line rests at one level having fallen and at another, higher by
+      about 0.06, having risen.
+
+  - id: hook-at-53-percent
+    kind: observation
+    locator: "emulator/docs/signal-path.md §7"
+    subject: mezzofortebalg-93
+    property: mf-position-on-scale
+    value: 0.53
+    unit: travel-fraction
+    holds: PROBABLE
+    note: >
+      An order of magnitude only, and flagged as such where it is measured. The plate is
+      schematic by its author's own statement, so this is worth having as a check that the
+      arrangement is plausible and worth nothing as a measurement. It sits between Hagmann's
+      "auf halbem Wege" and the roll's 0.627 / 0.645 without deciding between them.
+
+  - id: relay-taps-upstream
+    kind: observation
+    locator: "emulator/docs/signal-path.md §1.2, §5"
+    subject: relais
+    property: supply-tap-point
+    object: upstream-of-the-cone-valve
+    holds: TRUE
+    mentions: [kondukte-14, kegelventil-87]
+    note: >
+      Conduit 14 is drawn as a two-wall duct at x = 1348 / 1362 with a lumen of about 10 px,
+      and over y ∈ [600, 925] it presents exactly two ink runs on every row except those
+      occupied by the "14" glyph. There is no tee anywhere along it. So the relay's driving
+      vacuum is the trunk vacuum, taken upstream of cone valve 87, and there is no feedback
+      path from the current dynamic level back into the relay. Hagmann says the same in
+      words at p. 98, "in der jeweils vom Gebläse erzeugten Stärke".
+
+  - id: plate-module-is-repeated
+    kind: observation
+    locator: "emulator/docs/signal-path.md §11.1"
+    subject: anhang-13
+    property: drawing-is-independent-evidence
+    object: not-stated
+    holds: TRUE
+    mentions: [ventil-22, doppelventil-38, doppelventil-53]
+    note: >
+      The three "on" units on the plate are one hand-drawn module repeated, and the figures
+      for that are the three measurements below. The consequence is the point: the
+      Sforzando-on hold chamber on the plate is not an independent observation about the
+      sforzando, it is what you get by drawing the module a third time. This is the
+      strongest single argument against reading a latch off the drawing, and it is a fact
+      about the drawing rather than about the machine.
+
+  - id: module-repeat-pitch
+    kind: measurement
+    locator: "emulator/docs/signal-path.md §11.1"
+    subject: anhang-13
+    property: module-repeat-pitch
+    value: 331
+    unit: plate-pixel
+    holds: TRUE
+  - id: module-overlap-at-the-pitch
+    kind: measurement
+    locator: "emulator/docs/signal-path.md §11.1"
+    subject: anhang-13
+    property: module-overlap
+    lower: 0.65
+    upper: 0.66
+    unit: dimensionless
+    holds: TRUE
+    note: >
+      Intersection over union 0.66 for Sforzando-on against Crescendo-on at dx = 331, and
+      0.65 against Mezzoforte-on at dx = 663. Not 1.0 because the module is redrawn by hand
+      and not copied.
+  - id: module-overlap-elsewhere
+    kind: measurement
+    locator: "emulator/docs/signal-path.md §11.1"
+    subject: anhang-13
+    property: module-overlap-at-arbitrary-offset
+    lower: 0.14
+    upper: 0.21
+    unit: dimensionless
+    holds: TRUE
+    note: "The baseline the 0.65 to 0.66 is read against."
+
+  - id: bore-not-encoded-in-stroke-width
+    kind: observation
+    locator: "emulator/docs/signal-path.md §8"
+    subject: anhang-13
+    property: stroke-width-encodes-bore
+    object: not-encoded
+    holds: TRUE
+    mentions: [kondukte-23, kondukte-39]
+    note: >
+      Hagmann states in words that conduit 23 is wider than conduit 39; the drawing shows no
+      such difference at all. So the plate demonstrably does not encode bore in stroke
+      width, and any bore ratio taken from it would be invented. This upgrades an earlier
+      and weaker negative — that no dimension could be measured — to a positive reason why
+      none can.
+
+  - id: conduit-stroke-width
+    kind: measurement
+    locator: "emulator/docs/signal-path.md §8"
+    subject: anhang-13
+    property: conduit-stroke-width
+    lower: 3
+    upper: 6
+    unit: plate-pixel
+    holds: TRUE
+    note: "0.36 to 0.72 mm at the plate's 211 dpi, and the variation is the pen and the scan."
+
+  - id: chain-band-can-pull-but-not-push
+    kind: inference
+    locator: "emulator/docs/signal-path.md §6"
+    subject: kettenband
+    property: acts-on
+    object: cone-valve-position
+    holds: PROBABLE
+    premises: [hagmann-1984/cone-valve-is-a-sum]
+    logic: reading-a-drawing
+    note: >
+      One inextensible band, no differential, no lever ratio other than the two hinge radii;
+      spring 89 alone returns the cone to its seat. If the Nuancierbalg reopens faster than
+      89 can take up the slack, the chain goes slack and the cone is momentarily controlled
+      by 89's own dynamics — a one-way coupling with a possible lag at exactly the fastest
+      reopenings, which is to say at a subito piano. Held PROBABLE: the topology is read off
+      the plate, and the plate is schematic.
+
+  - id: spring-89-returns-the-cone
+    kind: observation
+    locator: "emulator/docs/signal-path.md §6"
+    subject: feder-89
+    property: actuates
+    object: kegelventil-87
+    holds: TRUE
+    note: >
+      The band is a chain: it can pull but not push, so spring 89 alone returns the cone to
+      its seat. If the Nuancierbalg reopens faster than 89 can take up the slack the chain
+      goes slack and the cone is momentarily controlled by the spring's own dynamics, which
+      would bite at exactly the fastest reopenings — a subito piano.

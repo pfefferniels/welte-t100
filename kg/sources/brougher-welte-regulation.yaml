@@ -1,0 +1,701 @@
+# Craig Brougher's regulating procedure, the only witness in this graph who writes from
+# rebuilding the machines. Read in full from the PDF at player-care.com on 2026-09-02; every
+# quotation below is verbatim from its text layer.
+#
+# Three things about it decide how it is authored here.
+#
+# **It covers two instruments.** The title and the closing sentence say "the Welte Licensee
+# and Original Welte Mignon", and most figures are given without saying which is meant. Those
+# are scoped to `welte-licensee-and-original`, which is a scope and not a type. Only where he
+# writes "Original" is a statement scoped to `welte-t100`.
+#
+# **He writes in inches of water and the graph works in mm.** Every magnitude below is given
+# in the graph's units with his figure verbatim in the quotation. The conversion is exact
+# (1 in = 25.4 mm) and it is the project's, not his. Vacuum levels carry the sign convention
+# of `mm-water-column`, negative below atmosphere; the two differences carry no sign.
+#
+# **He regulates against delivered vacuum.** Every other witness here works in bellows travel,
+# on paper, or in MIDI velocity. So his mezzoforte gets its own narrower property type rather
+# than joining the three already under `mf-position-on-scale`, and the graph does not convert
+# between them.
+#
+# Nothing here is adopted unless the graph already holds the same claim from another witness,
+# which is the case for three statements only: the control principle, the hook's dependence on
+# the side it is approached from, and the hook being an adjustable regulating choice. His
+# figures are one rebuilder's targets for two machine types, and the project has no way to
+# check them.
+#
+# Deliberately not recorded, because the graph is about T-100 dynamics: stack removal and
+# action regulation, hammer-rail and damper lift heights, the 88-note and reroll tests, the
+# 7/32" gauge-tapping line, and his remarks on gauges and on the quality of Welte's manuals.
+
+source:
+  id: brougher-welte-regulation
+  kind: regulating-guide
+  title: "Regulating the Welte Licensee and Original Welte-Mignon"
+  authors: [brougher-craig]
+  pages: "1–9"
+  url: "http://www.player-care.com/welte/pdf/welte-diagram-regulating-reduced.pdf"
+  copy: "kg/sources/pdf/brougher-welte-regulation.pdf"
+  note: >
+    Undated. The file has been on the server since 2013-05-23 and the procedure says it
+    regulates machines "equivalent to the 1924 models". Locators are the document's own
+    printed page numbers, which run 1 to 9 with page 1 unnumbered; in the PDF add one,
+    because its first page is a large-format schematic bound in front of the text. Brougher
+    states throughout that Welte's own manuals are wrong about the mezzoforte hook, about
+    the "2, 4, 6 test", and about what "locking the expression pneumatic" means, so where he
+    differs from Welte the difference is intended.
+
+statements:
+
+  # -- the principle, and a warning about reading drawings ---------------------
+
+  - id: control-is-by-timed-rates
+    kind: report
+    locator: "p. 2, Preliminary Explanation; again p. 9, Comments"
+    quote:
+      en: "the Welte works strictly by timing the actuation and de-actuation speed of a single pneumatic each in the bass and treble. That means the speed at which a vacuum closes a pneumatic is screw-adjustable, and that vacuum is working against an adjustable spill which is continually dumping that vacuum out again."
+    subject: nuancierbalg-90
+    property: control-principle
+    object: rates-not-levels
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: true
+    note: >
+      The same principle Gottschewski states in 1996 and the project's model is built on,
+      reached from the other end: not from the roll's control tracks but from what a
+      rebuilder has to adjust. He puts it again in the Comments at p. 9, that the instrument
+      "gets 100% of its expression from the timed actuation and release of the expression
+      pneumatic", which is why it is so sensitive to tempo. Adopted because the graph
+      already holds it from `gottschewski-1996/rates-not-steps`.
+
+  - id: screws-cannot-be-numbered-from-a-drawing
+    kind: report
+    locator: "p. 2, Preliminary Explanation"
+    quote:
+      en: "Different models of Welte did not even place the expression screws in the same relative position with each other, so you cannot number them according to any drawing available. You have to know by rebuilding it which screw does what, and then label that screw adjustment."
+    subject: expression-adjusting-screws
+    property: identifiable-from-a-drawing
+    object: not-identifiable
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: true
+    note: >
+      Authored as a warning that constrains the rest of this file and the reading of Anhang
+      13. His own adjusters are entities below, named as he names them, and the graph
+      identifies none of them with Hagmann's numbered parts, on his own authority. His #3 is
+      "just a vacuum leak to air with a screw throttle interposed", which is what Hagmann's
+      bore 100 and throttle 98 do between them; that is as far as the graph goes.
+
+  - id: screw-3-sets-the-decrescendo
+    kind: report
+    locator: "p. 5, test 4"
+    quote:
+      en: "The #3 screw decrescendo dumps for both of them constantly, even when it is not used."
+    subject: function-crescendo-off
+    property: adjusted-at
+    object: brougher-screw-3
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+
+  - id: screw-3-leaks-to-air
+    kind: report
+    locator: "p. 2, Preliminary Explanation; p. 5, test 4"
+    quote:
+      en: "just a vacuum leak to air with a screw throttle interposed"
+    subject: brougher-screw-3
+    property: admits-air-to
+    object: nuancierbalg-90
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      The one topology link in this file. It is not drawn on the schematic, which is
+      Hagmann's T-100 and nothing else.
+
+  - id: screw-4-sets-the-crescendo
+    kind: report
+    locator: "p. 2, Preliminary Explanation"
+    subject: function-crescendo-on
+    property: adjusted-at
+    object: brougher-screw-4
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: "His \"P\" screw, the crescendo."
+
+  - id: screw-6-sets-the-forzando-valve
+    kind: report
+    locator: "p. 2, Preliminary Explanation; p. 6, after Test with Roll 3"
+    quote:
+      en: "set the valve at about 1/16\" travel and then use the set screw"
+    subject: forzando-valve
+    property: adjusted-at
+    object: brougher-screw-6
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+
+  - id: nut-a-sets-the-first-intensity
+    kind: report
+    locator: "p. 3, Setting Pump Pressure b"
+    quote:
+      en: "set the \"pianissimo\" (first intensity) to 5\" with the leather nut A"
+    subject: brougher-leather-nut-a
+    property: norms-state
+    object: state-piano
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      The same adjustment Hagemann makes at "the two leather nuts" and Hagmann gives to the
+      Ledermutter 92. Not identified with either, on Brougher's own warning above.
+
+  # -- the vacuum ladder, as targets rather than readings ----------------------
+
+  - id: first-intensity-target
+    kind: report
+    locator: "p. 2, Initial Procedure b; p. 4, test 1"
+    quote:
+      en: "By connecting a vacuum gauge to each bass and treble end of the stack when this is done, a pianissimo level can be initially guessed at. Try 5\" H2O, initially."
+    subject: tonpneumatik
+    property: vacuum-in-piano
+    value: -127.0
+    unit: mm-water-column
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    mentions: [brougher-leather-nut-a]
+    note: >
+      5" H₂O, set at the leather nuts he calls A, one per half. A starting point to be
+      guessed at and then worked back to, not a measurement, which is why it is not set
+      beside Hagemann's -101.6 mm as though the two were the same kind of thing. They are
+      also readings at different points of the same line and on different machines: his is
+      at a note tube on any Licensee or Original, Hagemann's between Betonungs- and
+      Tonpneumatik on his own Ibach. The figures differ by a quarter.
+
+  - id: first-intensity-must-be-returned-to
+    kind: report
+    locator: "p. 4, test 1"
+    quote:
+      en: "Then close each expression pneumatic by hand and release. If the 1st int. doesn't return to the set 5\" tighten the expression valve's return spring a bit. It should return to within + ½\"H2O."
+    subject: tonpneumatik
+    property: first-intensity-return-tolerance
+    upper: 12.7
+    unit: mm-water-column
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      A magnitude of error, so unsigned. The nearest thing in the literature to a stated
+      repeatability requirement for the mechanism: a tenth of the first intensity itself.
+      Worth holding beside the repeatability floor the project measures on the drawn line,
+      though the two are not the same quantity, one being a spec on the returning stack
+      vacuum and the other the scatter of a pen trace.
+
+  - id: maximum-stack-vacuum
+    kind: report
+    locator: "p. 3, Setting Pump Pressure b"
+    quote:
+      en: "With vacuum gauge connected in place of a note tube on the side you are about to test, set the \"pianissimo\" (first intensity) to 5\" with the leather nut A, and then close down the expression pneumatic by hand. Gauge should read about 35\" of vacuum for a grand, 32\" for an upright."
+    subject: tonpneumatik
+    property: vacuum-at-full-closure
+    lower: -889.0
+    upper: -812.8
+    unit: mm-water-column
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      Two point values and not a tolerance band: 35" for a grand, 32" for an upright. They
+      are far deeper than anything in Hagemann, whose whole ladder tops out at -355.6 mm for
+      Fortissimo with the blower at -400 to -457.2 mm, that is 18". Brougher is roughly at
+      double. Part of the gap is stated in his own next paragraph, that a Welte suction box
+      "does not achieve as high a pressure as a positive displacement bellows pump", so the
+      figure presupposes a pump; part of it may be that this is American licensee practice.
+      The graph records the difference and does not resolve it.
+
+  # -- mezzoforte -------------------------------------------------------------
+
+  - id: mezzoforte-at-six-tenths
+    kind: report
+    locator: "p. 4, test 3"
+    quote:
+      en: "When the blade blocked by the MF hook, the pressure should read about 60% of the maximum stack pressure. So if the pump pressure reads 35,\" the MF level should read 20.\" 32\" would have a MF of 19,\" and 25\" would have a MF of 15.\" Multiply the pump pressure by .6 to get MF."
+    subject: mezzofortebalg-93
+    property: mf-position-on-stack-vacuum
+    value: 0.6
+    unit: vacuum-fraction
+    scope: welte-licensee-and-original
+    mentions: [tonpneumatik]
+    holds: TRUE
+    adopt: false
+    note: >
+      The first figure for mezzoforte on a vacuum axis, and the only one. It cannot be set
+      against Hagmann's "auf halbem Wege" (0.5 of travel), the roll's arrests (0.627 and
+      0.645 of travel) or midi2exp's welte_mf (0.4545 of a velocity span) without the cone
+      valve's characteristic, which nothing in this graph measures. Two of his three worked
+      examples follow his own rule and the first does not: 0.6 × 35 is 21 and he prints 20,
+      while 0.6 × 32 is 19.2 and 0.6 × 25 is 15. The rule is taken as intended and the first
+      example as a slip, on the same reasoning that reads Hagemann's -150 as -152.4. He also
+      insists that this is the one adjustment that must be made on a gauge and not by
+      Welte's own method, which he calls "totally wrong".
+
+  - id: hook-capture-difference
+    kind: report
+    locator: "p. 4, test 3"
+    quote:
+      en: "Allow the blade to be captured by the hook now and the new reading should read no greater than 2\" higher than the MF reading. If the angle of engagement creates more than 1-1/2 or 2\" H2O difference, add felt to the MF pneumatic cover to prevent it from closing so deeply."
+    subject: mezzofortebalg-93
+    property: hook-capture-vacuum-difference
+    upper: 50.8
+    unit: mm-water-column
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      The two arrest levels, in vacuum. He distinguishes the blade "blocked by" the hook
+      from the blade "captured" under it and gives them different readings, the captured one
+      the deeper by up to 2" H₂O, which on his own 0.6 rule is a tenth of the mezzoforte
+      level. This is the phenomenon the project measures on the paper as two levels a finger
+      thickness apart, and that Hagemann reports as a vacuum that differs with the side the
+      hook is played up to. Three witnesses, three methods, no shared ancestry. The bound is
+      a regulating tolerance, so it says how large the difference may be left, not how large
+      it is.
+
+  - id: hook-reading-depends-on-approach
+    kind: report
+    locator: "p. 4, test 3"
+    subject: mezzofortebalg-93
+    property: reading-depends-on-approach
+    object: stated
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: true
+    comprehension: >
+      He never says "depends on the approach". He gives the blocked reading and the captured
+      reading as two separate measurements taken in sequence and requires their difference
+      to be kept small, which is the same claim in a rebuilder's words. The reading is the
+      project's.
+    note: >
+      A second witness for `hagemann-2001/hook-reading-depends-on-approach`, and a stronger
+      one in one respect: Hagemann's is scoped to his own Ibach, Brougher's is asserted of
+      the two types as a regulating requirement. Adopted for that reason. Their practical
+      conclusions differ, though. Hagemann prefers to push the hook out of the way
+      altogether; Brougher treats the difference as something to regulate down and keep.
+
+  - id: hook-must-be-bare-and-square
+    kind: report
+    locator: "p. 4, test 3; p. 3, Test Procedure preamble; p. 8, roll test #13"
+    quote:
+      en: "It must be a right angle hook. This measurement necessitates why the blade cannot be padded."
+    subject: mezzofortebalg-93
+    property: hook-and-blade-surface
+    object: bare-metal-right-angle
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      Three passages say it. At p. 3 he tells the rebuilder to scrape any leather off the
+      hook and polish it with steel wool, warning that bare hook and blade "may click
+      together when the blade is captured"; at p. 4 that the blade cannot be padded and the
+      hook must be square; at p. 8 that a leathered or bent hook is one of three reasons the
+      hook can bind on the blade and fail to return. Consistent with
+      `pfeffer-anhang13/hook-is-a-finger` rather than in competition with it, which is why
+      it is a different property type: leather would widen the gap between the two faces the
+      finger presents, and the project's fitted pin thickness is a measurement of that gap.
+
+  - id: mezzoforte-sets-the-whole-scale
+    kind: report
+    locator: "p. 4, test 3"
+    quote:
+      en: "All music is set up around the desired MF intensity. If for some reason you want a different intensity, now is the time to set it up. Decrease the MF intensity and you compress the soft intensities in resolution. Increase the MF intensity, you compress the loud intensities."
+    subject: mezzofortebalg-93
+    property: adjusted-at
+    object: hook-position-is-adjustable
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: true
+    note: >
+      Agrees with `welte-anhang-12/control-2c-hook-balances-the-halves` that the hook
+      position is a regulating choice and not a constant of the design, and says what the
+      choice costs: resolution in the soft half of the scale against resolution in the loud
+      half. That is the strongest reason in this graph for not expecting "auf halbem Wege"
+      to be a number, and for expecting the machine that drew roll 3309 to have its own
+      value rather than the type's.
+
+  # -- the timings, which are what the document is for ------------------------
+
+  - id: slow-decrescendo-target
+    kind: report
+    locator: "p. 5, test 4"
+    quote:
+      en: "With a digital watch, making sure the blade is not captured under the hook, time the decrescendo of the expression pneu. first. The blade should go from touching the MF hook to fully open pneumatic again in 2.0 sec."
+    subject: nuancierbalg-90
+    property: traversal-time-slow-decrescendo
+    value: 2000
+    unit: millisecond
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      Hook to fully open, timed by hand off a stopwatch with the tracker bar plugged, and
+      adjusted at his screw #3. Against the project's fitted model over the same span, hook
+      to the piano rail, which gives 1747 ms in the bass and 1922 ms in the treble: within
+      13 % and 4 %. The roll's measured 1211 ms in `roll-3309-observations` is not the same
+      span, being 0.5 to 0.1 on the printed scale where the fitted stop sits at 0.716.
+
+  - id: slow-crescendo-target
+    kind: report
+    locator: "p. 6, test 5"
+    quote:
+      en: "The crescendo actuation timing to the MF hook is 2.5 sec. Watch the vacuum gauge and as soon as the needle reaches MF pressure, the watch must read 2.5, or very closely."
+    subject: nuancierbalg-90
+    property: traversal-time-slow-crescendo
+    value: 2500
+    unit: millisecond
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      Rest to the hook, read off the gauge rather than off the blade, so the endpoint is the
+      mezzoforte vacuum of the statement above and not a bellows position. Against the
+      fitted model over the same span, 2273 ms in the bass and 3177 ms in the treble: the
+      bass within 9 %, the treble 27 % slower than his target. This is the one figure in the
+      document that discriminates between the two halves of the project's fit.
+
+  - id: slow-states-are-regulated-asymmetric
+    kind: inference
+    locator: "p. 5, test 4 and p. 6, test 5"
+    holder: pfeffer-niels
+    subject: function-crescendo-on
+    property: opening-closing-symmetry
+    object: regulated-asymmetric
+    premises: [slow-decrescendo-target, slow-crescendo-target]
+    logic: arithmetic
+    scope: welte-licensee-and-original
+    holds: PROBABLE
+    note: >
+      His two targets over the same span make the crescendo 1.25 times the decrescendo. That
+      is against `welte-anhang-12/control-3-crescendo-symmetry`, though less squarely than
+      it looks: Kontrolle 3 norms each direction against its own marker-tone interval and
+      those intervals need not be equal, as that statement's own note says. Held PROBABLE
+      rather than TRUE for that reason, and because it is certain only of Brougher's
+      practice. The fitted model has the same asymmetry in the same direction, 1.30 in the
+      bass and 1.65 in the treble. The roll's traversals over 0.1 to 0.5 on the printed
+      scale run the other way, the crescendo faster than the decrescendo, which is not a
+      contradiction: the crescendo decelerates towards its asymptote as it nears the hook
+      while the decrescendo accelerates as it falls, so the direction of the asymmetry
+      depends on where the span ends.
+
+  - id: fast-crescendo-target
+    kind: report
+    locator: "p. 7, roll test #5"
+    quote:
+      en: "Forzando and crescendo on at the same time, and then both off. The pair stays on for .1 second, at which time the blade should reach the hook \"but not quite touch.\""
+    subject: state-fast-crescendo
+    property: traversal-time
+    value: 100
+    unit: millisecond
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      The same span midi2exp's source comment quotes as 170 to 200 ms, and the two disagree
+      by a factor near two although both are readings of a Welte test roll. Brougher's is
+      the roll's own perforation length rather than a measured travel, and he immediately
+      qualifies the endpoint: the blade not touching the hook "can mean anywhere in its free
+      operating space", and he sets it to come within 1/16" to 1/8". The project's fitted
+      model gives 171 ms in the bass and 190 ms in the treble from the piano rail to the
+      fitted stop, which is inside midi2exp's range and 1.7 to 1.9 times Brougher's figure.
+      Note also that his test drives the sforzando with the crescendo set, which on this
+      roll is the faster of the two cases by half again.
+
+  - id: fast-close-is-not-repeatable
+    kind: report
+    locator: "p. 5, test 3 continued; p. 7, roll test #5"
+    quote:
+      en: "Nailing the exact displacement of a flying forzando able to close in .1 second each time is impossible, so loud accents are approximate."
+    subject: state-fast-crescendo
+    property: endpoint-repeatability
+    object: not-repeatable
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      A rebuilder's statement of the scatter the project measures, and the reason he refuses
+      to regulate to the letter of Welte's forzando tests. It bears on how much of the drawn
+      line's residual is the mechanism rather than the model: he expects the endpoint of a
+      fast close to move from one occurrence to the next even on a correctly regulated
+      instrument.
+
+  - id: scatter-from-the-moving-mass
+    kind: report
+    locator: "p. 5, test 3 continued"
+    subject: state-fast-crescendo
+    property: scatter-attributed-to
+    object: varying-moving-mass
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      The mass and velocity of the moving pneumatic vary with how far it has already
+      closed. The fitted model carries a moving-mass time on the chain band for this.
+
+  - id: scatter-from-the-supply
+    kind: report
+    locator: "p. 5, test 3 continued; p. 7, roll test #5"
+    subject: state-fast-crescendo
+    property: scatter-attributed-to
+    object: supply-droop-under-note-load
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      The supply is jarred by the accented notes themselves. The same effect the fitted model
+      carries as the supply droop and through-flow terms, and the one the roll's
+      note-density test looked for and did not find in the closing states.
+
+  - id: no-figure-for-the-fast-decrescendo
+    kind: report
+    locator: "p. 7, roll test #5, and the whole procedure"
+    holder: pfeffer-niels
+    quote:
+      en: "The second pair of 3, 5 turns off crescendo and the expression pneumatic should instantly return."
+    subject: brougher-regulation-text
+    property: contains-a-figure-for
+    object: not-stated
+    holds: TRUE
+    logic: absence-in-a-searched-index
+    note: >
+      A clean negative from the whole nine pages read through. He times the slow crescendo,
+      the slow decrescendo and the forzando close, and gives the fast decrescendo no time at
+      all, only "instantly". That is worth having: midi2exp sets it at 400 ms, seven times
+      the 55 to 62 ms the roll measures, and "instantly" is the roll's answer rather than
+      midi2exp's, though it is a word and not a figure.
+
+  # -- what the mechanism is made of ------------------------------------------
+
+  - id: decrescendo-leak-is-permanent
+    kind: report
+    locator: "p. 5, test 4"
+    quote:
+      en: "Practically speaking, both valves must leak just a tiny bit, anyway. So if the pneumatic they are powering were perfectly airtight, it would slowly close off. The #3 screw decrescendo dumps for both of them constantly, even when it is not used. That means the #3 screw has to have a minimum opening just to take care of unwanted bleeding."
+    subject: nuancierbalg-90
+    property: decrescendo-leak-is-permanent
+    object: stated
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    mentions: [brougher-screw-3]
+    note: >
+      A testable divergence from the project's model, which is why it is recorded as its own
+      property rather than folded into a note. In `emulator/src/model/pneumatic.ts` conduit
+      39 is one path with two targets, drawing towards vacuum while the crescendo is set and
+      leaking to atmosphere while it is not, so the leak is off exactly when the crescendo
+      draws. Brougher says the decrescendo throttle dumps constantly, including while the
+      crescendo and forzando valves are drawing, and that it must be left open a minimum
+      amount because those valves themselves leak. If he is right the model is missing a
+      small always-on conductance to atmosphere, which would show up as a crescendo that
+      saturates short of its target. The fit already puts the crescendo target at 0.83 and
+      0.88 rather than at full closure, so the two readings are not distinguishable on the
+      roll as it stands.
+
+  - id: expression-valves-are-lock-and-cancel
+    kind: report
+    locator: "p. 5, test 4; p. 9, Comments"
+    quote:
+      en: "Too much leak, in turn, can be caused by a tight cancel pouch buoying up the stem above the lock valve, or a bad seal around the inside valve seat."
+    subject: forzando-valve
+    property: valve-construction
+    object: lock-valve-and-cancel-pouch
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      Said of the crescendo and forzando valves together, and repeated in the Comments for
+      the Original: "the lock valves also utilize bleed holes to atmosphere under felt
+      covers. These are fixed and are open to the pneumatic they control all the time." It
+      bears on the graph's largest open question, whether the sforzando latches, where
+      `function-sforzando-on / latching-behaviour` already carries seven positions. It is
+      deliberately not entered there. "Lock valve" and "cancel pouch" are the trade's
+      ordinary names for set-and-cancel hardware and would make Brougher a second witness
+      for Hagmann's latching reading, but he never says which function latches, and reading
+      a rebuilder's parts vocabulary as an answer to that question would be the project's
+      inference dressed as his testimony. Recorded here so that it can be found by anyone
+      reopening the dispute.
+
+  - id: expression-supply-is-its-own
+    kind: report
+    locator: "p. 5, test 4"
+    quote:
+      en: "In the Original Welte-Mignon and all Weltes, there is a separate vacuum regulator (of the throttle type) providing separate pressure for just the expressions alone. The expression valves with their expression regulator (with the large extension spring) are separate from stack pressure. This is the principle of all Weltes, of course."
+    subject: expression-regulator-brougher
+    property: supplies-vacuum-to
+    object: forzando-valve
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      Agrees with the graph as far as the graph goes. `hagmann-1984` has the blower feeding
+      wind chamber 15 through conduit 14, upstream of cone valve 87, so the relay's supply
+      is already not the stack's. What he adds is a regulator of its own on that supply, and
+      there is no counterpart to it in Hagmann's numbering as this graph holds it. Whether
+      it is a distinct device, or his name for the reservoir and its spring, or for the
+      Regelbalg 91, is open, which is why the regulator is his entity and not one of
+      Hagmann's. It matters because `signal-path.md` §1.1 treats the expression supply as
+      regulated only by the reservoir, with a hard ceiling and a soft floor.
+
+  - id: expression-regulator-is-a-throttle
+    kind: report
+    locator: "p. 5, test 4"
+    quote:
+      en: "a separate vacuum regulator (of the throttle type)"
+    subject: expression-regulator-brougher
+    property: valve-construction
+    object: throttle-type-regulator
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+
+  - id: expression-supply-is-not-the-stacks
+    kind: report
+    locator: "p. 5, test 4"
+    quote:
+      en: "The expression valves with their expression regulator (with the large extension spring) are separate from stack pressure."
+    subject: expression-regulator-brougher
+    property: supplies-vacuum-to
+    object: tonpneumatik
+    scope: welte-licensee-and-original
+    holds: FALSE
+    adopt: false
+    note: >
+      Held FALSE on purpose: the expression side and the stack are on separate pressures,
+      and a graph that only records what feeds what would leave the separation unsaid.
+
+  - id: valve-bleeds-are-seventy-drill
+    kind: report
+    locator: "p. 9, Comments"
+    quote:
+      en: "The valve bleeds in the Mignon are #70s, to make them as sensitive as possible but can also cause valve over-sensitivity in some cases if everything isn't perfect, and that would include a slightly loose elbow or nipple, which in other pianos would be ignored."
+    subject: welte-t100
+    property: valve-bleed-drill-size
+    value: 70
+    unit: number-drill
+    holds: TRUE
+    adopt: false
+    note: >
+      Chosen to make the valves as sensitive as possible, at the cost of over-sensitivity to
+      a loose elbow or nipple and a tendency to clog. Scoped to the Original because the
+      paragraph stands in a run about "the Original Welte Mignon" and "some Original
+      Mignons". It is the only hard dimension of a Welte valve part anywhere in this graph,
+      and Brougher gives it as shop knowledge rather than as something he measured.
+
+  - id: valve-bleed-diameter
+    kind: inference
+    locator: "p. 9, Comments"
+    holder: pfeffer-niels
+    subject: welte-t100
+    property: valve-bleed-diameter
+    value: 0.7112
+    unit: millimetre
+    premises: [valve-bleeds-are-seventy-drill]
+    logic: number-drill-gauge
+    holds: PROBABLE
+    note: >
+      #70 on the number-drill series is 0.0280 in. Held PROBABLE, not TRUE, because the step
+      from "#70s" to a diameter assumes he means that series and that the bleeds were still
+      original in the machines he saw. It is the first figure in this graph that could put a
+      physical bound on a valve time constant, and the fit could use one: its membrane fill
+      comes out at 1.2 ms in the bass against 45.2 ms in the treble, and its valve tail at
+      88.8 against 33.6, which is a disagreement between the halves too large to be a
+      difference between two brass valves. Turning a bore into a time constant needs a
+      chamber volume, which no source here gives.
+
+  - id: forzando-valve-travel
+    kind: report
+    locator: "p. 2, Preliminary Explanation; p. 6, after Test with Roll 3"
+    quote:
+      en: "With both, I'd suggest to set the valve at about 1/16\" travel and then use the set screw."
+    subject: forzando-valve
+    property: valve-travel
+    value: 1.5875
+    unit: millimetre
+    scope: welte-licensee-and-original
+    holds: TRUE
+    adopt: false
+    note: >
+      A starting setting to be trimmed afterwards at the series set screw, which the
+      Original has and the Licensee does not, and not a specification. Recorded because the
+      model carries a valve lift band as a fitted parameter and this is the only physical
+      travel any source states for the valve it belongs to. The two are not the same
+      quantity: his is a mechanical gap in millimetres, the model's is the fraction of a
+      port opening over which conductance goes from nothing to full.
+
+  - id: regulator-spring-rate
+    kind: measurement
+    locator: "p. 6, after test 4"
+    quote:
+      en: "Roughly, the spring on one Original Welte-Mignon was 6.5\" long x 1\" OD, and tested (when I got it) .7-.8 lbs/first inch (I suspect too light). Then it pulled 6.5lbs/second inch."
+    subject: brougher-original-welte
+    property: spring-rate
+    value: 6.5
+    unit: pound-force-per-inch
+    holds: TRUE
+    adopt: false
+    mentions: [expression-regulator-brougher]
+    note: >
+      The large extension spring on the expression regulator, over its second inch, weighed
+      on a luggage scale. Its first inch gave 0.7 to 0.8 lb, which he suspects was too light
+      from having been stretched, and he goes by the second inch for that reason; his
+      replacement is a 6.5" × ¾" OD spring prestretched to 6.8 lb over the second inch. Two
+      things worth keeping. He requires the spring to be "a linear constant within travel
+      limits", which is an assumption the project's rail-to-rail model makes silently. And
+      he requires the two halves to match, having found that they often do not, which is one
+      more mechanism for the difference the emulator finds between bass and treble.
+
+  # -- the transport ----------------------------------------------------------
+
+  - id: test-roll-speed
+    kind: report
+    locator: "p. 7, roll test #10"
+    quote:
+      en: "The idea of this test is to check the roll speed at 80 by \"strobing\" the expression pneumatic with the #6 intensity at a rate which will cause it to progress toward the MF hook."
+    subject: welte-licensee-and-original
+    property: roll-tempo
+    value: 80
+    unit: roll-tempo-number
+    holds: TRUE
+    adopt: false
+    mentions: [brougher-test-roll]
+    note: >
+      The only tempo figure in this graph, and it comes with a caveat. His test numbering
+      runs 1 to 18 and does not match Welte's Kontrollen as Anhang 12 prints them, so his
+      test roll is not identified here with the T-100 Skalarolle, and the reading may belong
+      to the Licensee.
+
+  - id: test-roll-descends-from-the-skalarolle
+    kind: inference
+    locator: "p. 7, roll test #10, against welte-anhang-12 Kontrolle 4b"
+    holder: pfeffer-niels
+    subject: brougher-test-roll
+    property: derives-from
+    object: skalarolle-t100
+    premises: [test-roll-speed, welte-anhang-12/control-4b-six-steps]
+    logic: composition-of-stated-mechanisms
+    holds: PROBABLE
+    note: >
+      His six-pulse strobing test is recognisably Welte's Kontrolle 4b, six short
+      Sforzando-on perforations that must walk the bellows to mezzoforte in six steps, which
+      suggests a common ancestor for the two procedures even where the numbering has
+      diverged. A likeness of one test is thin ground for descent, hence PROBABLE.
+
+  - id: brougher-text-is-about-both-machines
+    kind: report
+    locator: "title; p. 9, closing sentence"
+    subject: brougher-regulation-text
+    property: is-about
+    object: welte-licensee-and-original
+    holds: TRUE
+    adopt: true

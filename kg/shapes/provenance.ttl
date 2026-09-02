@@ -1,0 +1,153 @@
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix crm:     <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crminf:  <http://www.cidoc-crm.org/extensions/crminf/> .
+@prefix wt:      <https://w3id.org/welte-t100/> .
+@prefix shape:   <https://w3id.org/welte-t100/shape/> .
+
+# What this graph refuses to record.
+#
+# Validated with RDFS inference on, so a subclass or subproperty satisfies a constraint
+# stated on its parent: an I12 Adopted Belief concluded by J13 counts as an I2 Belief
+# concluded by J2, and an S21 Measurement counts as an I1 Argumentation.
+
+shape:Belief
+    a sh:NodeShape ;
+    sh:targetClass crminf:I2_Belief ;
+    sh:name "a belief must say what it is about, how firmly, and who reached it" ;
+    sh:property [
+        sh:path crminf:J4_that ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A belief must be about exactly one proposition set (J4 that)." ;
+    ] ;
+    sh:property [
+        sh:path crminf:J5_holds_to_be ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "TRUE" "FALSE" "UNKNOWN" "PROBABLE" ) ;
+        sh:message "A belief must hold its proposition to be TRUE, FALSE, UNKNOWN or PROBABLE." ;
+    ] ;
+    sh:property [
+        sh:path [ sh:inversePath crminf:J2_concluded_that ] ;
+        sh:minCount 1 ;
+        sh:message "A belief must be concluded by an argumentation. Beliefs do not appear from nowhere." ;
+    ] .
+
+shape:Argumentation
+    a sh:NodeShape ;
+    sh:targetClass crminf:I1_Argumentation ;
+    sh:name "an argumentation must have someone doing it and a located passage behind it" ;
+    sh:property [
+        sh:path crm:P14_carried_out_by ;
+        sh:minCount 1 ;
+        sh:message "Every argumentation is carried out by an actor. Say who." ;
+    ] ;
+    # Which property anchors it depends on what kind of argumentation it is: a report or a
+    # measurement is documented by its passage, an adoption is based on evidence from one,
+    # a comprehension interprets one. All three must land on something with a locator.
+    sh:or (
+        [ sh:property [
+            sh:path [ sh:inversePath crm:P70_documents ] ;
+            sh:minCount 1 ; sh:node shape:Passage ] ]
+        [ sh:property [
+            sh:path crminf:J7_is_based_on_evidence_from ;
+            sh:minCount 1 ; sh:node shape:Passage ] ]
+        [ sh:property [
+            sh:path crminf:J22_interpreted_meaning_of ;
+            sh:minCount 1 ; sh:node shape:Passage ] ]
+    ) ;
+    sh:message "Every argumentation must be anchored to a passage carrying a locator, by P70 documents, J7 is based on evidence from, or J22 interpreted meaning of." .
+
+shape:Passage
+    a sh:NodeShape ;
+    sh:name "a passage must say where it is" ;
+    sh:property [
+        sh:path wt:locator ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:datatype <http://www.w3.org/2001/XMLSchema#string> ;
+        sh:message "A cited passage must carry a locator: a page, a figure, a section, a commit and line." ;
+    ] .
+
+shape:InferenceMaking
+    a sh:NodeShape ;
+    sh:targetClass crminf:I5_Inference_Making ;
+    sh:name "an inference must name its premises and its logic" ;
+    sh:property [
+        sh:path crminf:J1_used_as_premise ;
+        sh:minCount 1 ;
+        sh:message "An inference with no premise is not an inference. Name at least one." ;
+    ] ;
+    sh:property [
+        sh:path crminf:J3_applied ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "An inference must name the inference logic it applied, so a reader can judge it." ;
+    ] .
+
+shape:BeliefAdoption
+    a sh:NodeShape ;
+    sh:targetClass crminf:I7_Belief_Adoption ;
+    sh:name "adopting a belief means naming the text it was adopted from" ;
+    sh:property [
+        sh:path crminf:J7_is_based_on_evidence_from ;
+        sh:minCount 1 ;
+        sh:message "A belief adoption must point at the information object it rests on." ;
+    ] .
+
+shape:OnePropositionSet
+    a sh:NodeShape ;
+    sh:targetClass crminf:I17_One-Proposition_Set ;
+    sh:name "a reified proposition is a complete binary relation" ;
+    sh:property [
+        sh:path crminf:J30_has_domain ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A one-proposition set needs exactly one domain (J30)." ;
+    ] ;
+    sh:property [
+        sh:path crminf:J31_has_range ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A one-proposition set needs exactly one range (J31)." ;
+    ] ;
+    sh:property [
+        sh:path crminf:J32_has_property_type ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A one-proposition set needs exactly one property type (J32)." ;
+    ] .
+
+shape:Dimension
+    a sh:NodeShape ;
+    sh:targetClass crm:E54_Dimension ;
+    sh:name "no number without a unit, and no unit without a number" ;
+    sh:property [
+        sh:path crm:P91_has_unit ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A magnitude must carry its unit. Milliseconds and milliseconds are not always the same quantity, and a bare number cannot say which." ;
+    ] ;
+    sh:property [
+        sh:path crm:P2_has_type ;
+        sh:minCount 1 ;
+        sh:message "A magnitude must name the property type it is a magnitude of." ;
+    ] ;
+    sh:or (
+        [ sh:property [ sh:path crm:P90_has_value ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path crm:P90a_has_lower_value_limit ; sh:minCount 1 ] ]
+        [ sh:property [ sh:path crm:P90b_has_upper_value_limit ; sh:minCount 1 ] ]
+    ) ;
+    sh:message "A magnitude needs a value, or a lower or upper limit." .
+
+shape:ProvenanceBelief
+    a sh:NodeShape ;
+    sh:targetClass crminf:I14_Provenance_Belief ;
+    sh:name "a provenance belief is about a provenance statement" ;
+    sh:property [
+        sh:path crminf:J19_that ;
+        sh:minCount 1 ; sh:maxCount 1 ;
+        sh:message "A provenance belief must name the provenance statement it holds." ;
+    ] .
+
+shape:ProvenanceStatement
+    a sh:NodeShape ;
+    sh:targetClass crminf:I10_Provenance_Statement ;
+    sh:name "a provenance statement is about some thing's provenance" ;
+    sh:property [
+        sh:path crminf:J20_is_about_the_provenance_of ;
+        sh:minCount 1 ;
+        sh:message "A provenance statement must name the thing whose provenance it is about." ;
+    ] .

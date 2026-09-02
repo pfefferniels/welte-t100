@@ -1,0 +1,1486 @@
+# Peter Phillips's thesis: the one prior attempt to model the T-100 expression regulator.
+#
+# Phillips built an analogue electronic circuit whose output voltage stands for the position
+# of the expression pneumatic, adjusted it against the Welte-Mignon test roll by the roll's
+# own criteria, and read the travel times off an oscilloscope. That is the same object this
+# project fits to a drawn line, reached from the other end and thirty years after Hagmann.
+# Nothing else in this graph gives a number for the fast travel times, and nothing else in it
+# reports the apparatus that drew the lines on roll 3309.
+#
+# Scope. Only the dynamics regulation of the T-100 dynamics pneumatics is taken in, together
+# with the two things every timing here depends on: how long a perforation holds a valve, and
+# how fast the paper runs. The catalogue chapters, the roll reader's construction, the Ampico
+# and Duo-Art expression systems and the MIDI editing chapter are all left out. The Green
+# Welte timings of Table 4.2 are left out as out of scope; the Licensee pair of Table 4.3 is
+# kept, because it is what separates the two answers already in the register to Welte's
+# Kontrolle 3.
+#
+# Quotations were checked against the text layer of the local PDF on 2026-09-02. Printed page
+# numbers are used throughout; they run nine behind the PDF's.
+
+source:
+  id: phillips-2016
+  kind: dissertation
+  title: "Piano Rolls and Contemporary Player Pianos: The Catalogues, Technologies, Archiving and Accessibility"
+  authors: [phillips-peter]
+  container: "PhD thesis, Sydney Conservatorium of Music, University of Sydney"
+  year: 2016
+  pages: "110–127, 175–181, 209–230"
+  copy: "~/Zotero/storage/PNRJITZ5/Phillips - Piano Rolls and Contemporary Player Pianos.pdf"
+  note: >
+    Submitted 2016, signed 2 July 2017. Phillips writes as a builder rather than a
+    historian: the thesis reports a roll reader, a pneumatic switch design, an analogue
+    model of the Welte expression regulator and a microprocessor decoder built from it. He
+    had unfettered access to the Denis Condon collection before Stanford bought it, which is
+    the collection roll 3309 comes from, so this source and the roll this project works on
+    stand behind the same door. His account of the mechanism is taken from factory handbooks
+    and from working on instruments owned by others; he names no Welte drawing and does not
+    cite Hagmann, so where the two agree they agree independently.
+
+statements:
+
+  # -- the mechanism as he describes it ----------------------------------------
+
+  - id: loudness-follows-stack-vacuum
+    kind: report
+    locator: "p. 210"
+    quote:
+      en: "The principle behind all reproducing pianos is that the loudness of a note depends on the level of suction applied to the pneumatic operating that note. This principle was patented by Welte, regardless of how the suction level might be regulated."
+    subject: tonpneumatik
+    property: control-principle
+    object: delivered-vacuum
+    holds: TRUE
+    adopt: true
+    note: >
+      The premise under everything else, and the reason the graph can treat a bellows
+      position and a playing dynamic as two ends of one chain. Phillips attributes the
+      patent to Welte without giving its number.
+
+  - id: position-determines-the-vacuum
+    kind: report
+    locator: "p. 210"
+    quote:
+      en: "In principle, the position of expression pneumatic N determines the level of suction supplied by the regulator to the player action. This important concept forms the basis of how the expression regulator is controlled by piano roll perforations."
+    subject: nuancierbalg-90
+    property: acts-on
+    object: delivered-vacuum
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    mentions: [kegelventil-87, regelbalg-91]
+    comprehension: >
+      Phillips's "expression pneumatic N" is Hagmann's Nuancierbalg 90, his "regulating
+      valve K" the cone valve 87 and his "regulating bellows R" the Regelbalg 91. The
+      identification is the project's: he works from a Welte handbook figure that carries
+      letters, Hagmann from a drawing that carries numbers, and neither names the other's
+      labels. Everything below that gives Hagmann's number for one of his parts rests on
+      this reading.
+    note: >
+      He describes the same closed loop Hagmann does, in the same direction: pneumatic N
+      pulls the cord, the valve opens a little, the regulating bellows moves much further and
+      pays the cord back out. That is the mechanism behind `hagmann-1984/cone-valve-is-a-sum`
+      arrived at without the drawing.
+
+  - id: four-adjustments-two-speeds-each-way
+    kind: report
+    locator: "pp. 210–211"
+    quote:
+      en: "1. Slow closing speed, adjustment noted in Figure 4.1 as Crescendo F […] 2. Slow opening speed, adjustment Crescendo P […] 3. Fast closing speed, adjustment Forz F […] 4. Fast opening speed, adjustment Forz P"
+    subject: nuancierbalg-90
+    property: control-principle
+    object: rates-not-levels
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      A fourth independent witness for the principle the whole model rests on, after
+      Gottschewski 1996, Brougher and the roll. He states it in its strongest form on p. 212:
+      "The system is based solely on the crescendo principle." His four adjusters are
+      entities, and which of Hagmann's numbered parts each is are the inferences below.
+
+  # Phillips's four adjusters, one per function, and their identification with Hagmann's
+  # numbered parts. Three rest on Welte's own Kontrolle 3 and on Hagmann's note 32; the
+  # fourth is the project's guess and is held as one.
+
+  - id: crescendo-f-sets-the-slow-closing
+    kind: report
+    locator: "pp. 210–211, Figure 4.1"
+    subject: function-crescendo-on
+    property: adjusted-at
+    object: phillips-adjuster-crescendo-f
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+  - id: crescendo-p-sets-the-slow-opening
+    kind: report
+    locator: "pp. 210–211, Figure 4.1"
+    subject: function-crescendo-off
+    property: adjusted-at
+    object: phillips-adjuster-crescendo-p
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+  - id: forz-f-sets-the-fast-closing
+    kind: report
+    locator: "pp. 210–211, Figure 4.1"
+    subject: function-sforzando-on
+    property: adjusted-at
+    object: phillips-adjuster-forz-f
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+  - id: forz-p-sets-the-fast-opening
+    kind: report
+    locator: "pp. 210–211, Figure 4.1"
+    subject: function-sforzando-off
+    property: adjusted-at
+    object: phillips-adjuster-forz-p
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+
+  - id: crescendo-f-is-throttle-98
+    kind: inference
+    locator: "pp. 210–211, against welte-anhang-12 Kontrolle 3"
+    holder: pfeffer-niels
+    subject: phillips-adjuster-crescendo-f
+    property: identified-with
+    object: drossel-98
+    premises: [crescendo-f-sets-the-slow-closing, welte-anhang-12/control-3-adjusts-98-for-the-crescendo]
+    logic: composition-of-stated-mechanisms
+    scope: welte-t100
+    holds: PROBABLE
+    note: >
+      Both are the one adjuster of the slow closing speed; Welte numbers it and Phillips
+      letters it. Probable rather than true because the two describe the part from opposite
+      ends and neither names the other's label.
+  - id: crescendo-p-is-bore-100
+    kind: inference
+    locator: "pp. 210–211, against welte-anhang-12 Kontrolle 3"
+    holder: pfeffer-niels
+    subject: phillips-adjuster-crescendo-p
+    property: identified-with
+    object: bohrung-100
+    premises: [crescendo-p-sets-the-slow-opening, welte-anhang-12/control-3-adjusts-100-for-the-decrescendo]
+    logic: composition-of-stated-mechanisms
+    scope: welte-t100
+    holds: PROBABLE
+  - id: forz-f-is-throttle-99
+    kind: inference
+    locator: "pp. 210–211, against hagmann-1984 p. 100 note 32"
+    holder: pfeffer-niels
+    subject: phillips-adjuster-forz-f
+    property: identified-with
+    object: drossel-99
+    premises: [forz-f-sets-the-fast-closing, hagmann-1984/conduit-23-adjusted-at-99]
+    logic: composition-of-stated-mechanisms
+    scope: welte-t100
+    holds: PROBABLE
+  - id: forz-p-is-throttle-96
+    kind: inference
+    locator: "pp. 210–211, against hagmann-1984 p. 100"
+    holder: pfeffer-niels
+    subject: phillips-adjuster-forz-p
+    property: identified-with
+    object: drossel-96
+    premises: [forz-p-sets-the-fast-opening, hagmann-1984/throttle-96-admits-air-to-the-bellows]
+    logic: composition-of-stated-mechanisms
+    scope: welte-t100
+    holds: PROBABLE
+    note: >
+      The project's guess and nobody's statement: throttle 96 is the reopening assist after a
+      sforzando, which is what a "fast opening speed" adjuster would set, but no source
+      names an adjuster on it. Weaker than the three above and held at the same value only
+      because the vocabulary has nothing between PROBABLE and UNKNOWN.
+
+  - id: thesis-is-about-the-t100
+    kind: report
+    locator: "pp. 209–230"
+    subject: phillips-2016-thesis
+    property: is-about
+    object: welte-t100
+    holds: TRUE
+    adopt: true
+  - id: thesis-is-about-the-licensee
+    kind: report
+    locator: "p. 221, Table 4.3"
+    subject: phillips-2016-thesis
+    property: is-about
+    object: welte-licensee
+    holds: TRUE
+    adopt: true
+  - id: thesis-is-about-the-green-welte
+    kind: report
+    locator: "p. 221, Table 4.2"
+    subject: phillips-2016-thesis
+    property: is-about
+    object: welte-t98
+    holds: TRUE
+    adopt: true
+
+  - id: rest-state-is-the-softest
+    kind: report
+    locator: "p. 211"
+    quote:
+      en: "in the absence of other expression data, the pneumatic will always open slowly until it reaches a stationary point, typically when it is fully open. At this point, the suction level applied to the player action is at its lowest, giving the softest playing."
+    subject: nuancierbalg-90
+    property: rest-state
+    object: state-piano
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      A second witness, with the Leseregeln chapter, for the default state being the
+      quietest point, reached from the resting circuit rather than from the roll.
+
+  - id: closing-draws-opening-admits-air
+    kind: report
+    locator: "p. 211"
+    quote:
+      en: "To achieve a slow closing speed, the expression pneumatic is connected to a regulated suction source (vacuum pump, regulated at the pump) via a restriction in the form of a small aperture of adjustable size, also called an adjustable bleed. […] The opening speed of the pneumatic is similarly controlled, except the pneumatic is now connected to atmosphere via either the smaller or larger aperture."
+    subject: nuancierbalg-90
+    property: opening-and-closing-agency
+    object: air-and-spring-open-suction-closes
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+    comprehension: >
+      He gives the halves of the asymmetry the graph already holds from Hagmann, closing on
+      suction and opening on atmosphere, and he does not mention an internal spring. Recorded
+      against the same concept because the concept's load-bearing half is that reopening
+      does not scale with the supply vacuum, which is his claim too. Not adopted, since the
+      spring is Hagmann's and not his.
+
+  - id: decrescendo-bleed-is-always-open
+    kind: report
+    locator: "p. 211"
+    quote:
+      en: "In practice, the expression pneumatic is always connected to atmosphere via the adjustable aperture Crescendo P in Figure 4.1. As a result, in the absence of other expression data, the pneumatic will always open slowly until it reaches a stationary point, typically when it is fully open. At this point, the suction level applied to the player action is at its lowest, giving the softest playing."
+    subject: nuancierbalg-90
+    property: decrescendo-leak-is-permanent
+    object: stated
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+    note: >
+      A second witness for `brougher-welte-regulation/decrescendo-leak-is-permanent`, and an
+      independent one: Brougher reaches it as a rebuilder's tolerance for leaky valves,
+      Phillips as a description of the resting circuit. Both say the decrescendo aperture
+      dumps while the crescendo draws, which the project's model does not do. Between the two
+      of them this is now the reading with more witnesses than the model's, and the fitted
+      crescendo target sitting at 0.83 and 0.88 rather than at closure is what it would
+      predict.
+
+  - id: slow-crescendo-cannot-fully-close
+    kind: observation
+    locator: "p. 211"
+    quote:
+      en: "A fourth stationary position for the expression pneumatic is the point it reaches when instructed to close slowly (slow crescendo). The relatively small size of the aperture allowing the pneumatic to be exhausted prevents it from fully closing due to external forces on the pneumatic. This position is not referred to in Welte instructions, but can be observed on an original instrument."
+    subject: function-crescendo-on
+    property: asymptote
+    object: short-of-full-closure
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      The strongest external support in this graph for the fitted crescendo asymptote, and
+      the only witness who says he watched it happen on an original instrument. It agrees
+      with `pfeffer-leseregeln/crescendo-saturates-below-full-closure` about the fact and differs about
+      the cause: Phillips blames external forces on the bellows working against a small
+      aperture, Brougher the permanently open decrescendo dump. Both mechanisms would give
+      the same ceiling and the roll cannot tell them apart. Worth reading beside
+      `gottschewski-1996/ff-ceiling-was-felt-as-a-limitation`, which says the editors felt
+      the same ceiling from the musical side.
+    comprehension: >
+      Read as a statement about the end position rather than about the speed. He lists it as
+      one of four stationary positions of the pneumatic, which is what makes it an asymptote
+      and not a slow approach to full closure.
+
+  - id: welte-literature-gives-no-levels
+    kind: report
+    locator: "p. 227"
+    quote:
+      en: "Establishing these settings in the model required judgement, as Welte literature gives no information."
+    subject: welte-handbooks-phillips
+    property: contains-a-figure-for
+    object: not-stated
+    holds: TRUE
+    adopt: true
+    mentions: [state-piano, state-mezzoforte, state-fortissimo, rest-level-piano]
+    note: >
+      No figure for any of the four stationary levels of the expression pneumatic.
+      Independent confirmation of the gap this project works in: Welte's Anhang 12 norms
+      every level against a test roll and a marker tone and never states one, and Phillips,
+      working from factory handbooks the project has not seen, reports the same absence. It
+      is why every level in the graph is either measured off the paper or fitted, and why the
+      timings below are worth more than the levels beside them.
+
+  - id: levels-set-by-ear
+    kind: report
+    locator: "p. 227"
+    quote:
+      en: "As a guide, I listened to recordings of well-adjusted original instruments"
+    subject: phillips-welte-decoder
+    property: calibrated-against
+    object: recordings-of-well-adjusted-instruments
+    holds: TRUE
+    adopt: true
+    note: >
+      The zero level, the mezzoforte level and the maximum of his model were set by ear.
+      That is what the model's levels rest on, and it is not a measurement of a Welte.
+
+  # -- the Mezzoforte hook -----------------------------------------------------
+
+  - id: hook-blocks-whichever-face-is-met
+    kind: report
+    locator: "p. 211"
+    quote:
+      en: "When pneumatic G is closed, the metal tab S on the top of the expression pneumatic will engage with tab H, which is now lowered into position. The effect is to either prevent the expression pneumatic from fully opening or fully closing, depending on the side by which tab S is engaged."
+    subject: mezzofortebalg-93
+    property: blocks-in-directions
+    object: both-directions
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    comprehension: >
+      "Either […] or […] depending on the side by which tab S is engaged" is the two-sided
+      reading stated without ambiguity, and it also says how the sides are decided: by which
+      face the tab meets, once, on engagement. That is the hysteresis the emulator's
+      `limitAtStop` implements, described here rather than inferred from code.
+    note: >
+      A third witness for `mfTwoSided`, after Welte's own sentence quoted in Hagemann 2001
+      and Hagmann's "Oeffnung oder Schliessung", and the only one of the three that is not a
+      translation question. Roll 3309 cannot test the upward direction at all.
+
+  - id: hook-capture-difference-measured
+    kind: measurement
+    locator: "p. 227"
+    quote:
+      en: "Another consideration is the side of the hook by which the expression pneumatic is engaged. Measurements from an original instrument show a difference of 0.5 inches WG, due to the thickness of the metal tab."
+    subject: mezzofortebalg-93
+    property: hook-capture-vacuum-difference
+    value: 12.7
+    unit: mm-water-column
+    holds: TRUE
+    adopt: false
+    note: >
+      The first measured value for this quantity in the graph. Brougher gives only a
+      regulating tolerance, that the two readings should differ by no more than 1½ to 2
+      inches; Hagemann says the readings differ and gives no figure; the project measures two
+      arrest levels a pin thickness apart on the paper. Phillips's 0.5 inches sits at a
+      quarter of Brougher's allowance, which is what one would expect of a measurement
+      against a limit. The conversion from his inches is the project's and exact; his figure
+      is verbatim in the quotation. He does not name the instrument, so the reading rests on
+      one unidentified machine.
+
+  - id: hook-reading-depends-on-approach
+    kind: report
+    locator: "p. 227"
+    subject: mezzofortebalg-93
+    property: reading-depends-on-approach
+    object: stated
+    holds: TRUE
+    adopt: true
+    quote:
+      en: "Another consideration is the side of the hook by which the expression pneumatic is engaged."
+    note: >
+      A third witness, with Hagemann 2001 and Brougher, and the only one who attributes the
+      difference to a cause: the thickness of the metal tab. That is the same cause the
+      project reads off Anhang 13 as a plain downward finger rather than a notch.
+
+  - id: treble-hook-set-higher-than-bass
+    kind: report
+    locator: "p. 227"
+    quote:
+      en: "Another critical setting in a Welte-Mignon is the position of the mezzoforte hooks, in which the treble hook is positioned so that the treble expression pneumatic travels slightly further than the bass expression pneumatic. Therefore, the suction level at the mezzoforte hook position is slightly higher for the treble side than the bass side."
+    subject: mezzofortebalg-93
+    property: hook-offset-between-halves
+    object: treble-set-to-travel-further
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      The sign of a difference this project measures without having predicted it. Roll 3309
+      arrests at 0.627 of the piano-to-forte travel in the bass and 0.645 in the treble, the
+      treble the further of the two, which is what Phillips says regulating practice put
+      there; that reading of the roll is entered in `roll-3309-observations` against the
+      same question. Two machines, two methods, and the asymmetry falls the same way. The
+      object is a direction and not a figure, because "slightly further" is all he says.
+
+  - id: halves-differ-at-the-zero-level
+    kind: measurement
+    locator: "p. 228"
+    quote:
+      en: "In the model, the minimum playing level of the treble expression is around twelve MIDI steps higher than the bass expression, which the waveforms show agrees with the settings of Hall's Welte-Mignon."
+    subject: phillips-welte-decoder
+    property: parameter-value
+    value: 12
+    unit: midi-velocity
+    holds: TRUE
+    adopt: false
+    note: >
+      A setting of his model rather than a measurement of a Welte, checked against a
+      recording of Denis Hall's 1921–22 Welte-Mignon Steinway O by comparing waveforms. It is
+      the quantity Welte's own Kontrolle 2c calls a "trifle" and adjusts at the hook, and
+      twelve steps is by his own p. 226 argument the change worth about 3 dB, that is the
+      smallest one he takes to be discernible. So "a trifle softer" comes out as the smallest
+      audible difference and not as an imperceptible one.
+
+  - id: hammer-weight-explains-the-halves
+    kind: inference
+    locator: "pp. 215–216 and p. 227, against welte-anhang-12 Kontrolle 2c"
+    holder: pfeffer-niels
+    subject: mezzofortebalg-93
+    property: hook-offset-compensates-for
+    object: hammer-weight-difference-between-halves
+    premises:
+      - velocity-depends-on-hammer-weight
+      - treble-hook-set-higher-than-bass
+      - welte-anhang-12/control-2c-hook-balances-the-halves
+      - welte-anhang-12/control-2c-balances-for-loudness
+    logic: composition-of-stated-mechanisms
+    scope: welte-t100
+    holds: PROBABLE
+    adopt: false
+    note: >
+      Welte's Kontrolle 2c balances the two halves for loudness at mezzoforte by moving the
+      hook at 93. Phillips measures that for one and the same suction the lighter treble
+      hammers give some twelve more MIDI velocity steps than middle C and seventeen more than
+      the bass, and reports that the treble hook is set to travel further, which raises the
+      treble suction further still. The two do not cancel, they compound, so the reconciling
+      reading is that the hook offset is what pays for the difference in hammer weight
+      between the two halves of the keyboard, given that Welte's test is a test of what is
+      heard. Held PROBABLE: it composes statements none of which was made with the others
+      in view, and Phillips measured hammer weight by eye rather than on a balance.
+
+  # -- the travel times, which are what this source is for ---------------------
+
+  - id: slow-crescendo-t100
+    kind: measurement
+    locator: "p. 221, Table 4.1"
+    quote:
+      en: "Slow crescendo, travel from zero to mezzoforte hook · Bass regulator 2.38 seconds · Treble regulator 2.38 seconds"
+    subject: nuancierbalg-90
+    property: traversal-time-slow-crescendo
+    value: 2380
+    unit: millisecond
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+    mentions: [phillips-welte-mignon-test-roll]
+    note: >
+      Zero to the hook, the same span Brougher times at 2.5 s and the roll gives 1072 ms over
+      a shorter one. Phillips is within 5 % of Brougher, which is closer than either is to
+      the other numbers in this register, and unlike Brougher he is scoped to the T-100
+      rather than to the Licensee and Original together. Measured off the MIDI file of the
+      Welte-Mignon test roll, so the figure is the test roll's requirement rather than any
+      instrument's behaviour. The project's fitted model gives 2273 ms in the bass and
+      3177 ms in the treble over the same span.
+
+  - id: slow-decrescendo-t100
+    kind: measurement
+    locator: "p. 221, Table 4.1"
+    quote:
+      en: "Slow decrescendo, travel from mezzoforte hook to zero · Bass regulator 2.38 seconds · Treble regulator 2.38 seconds"
+    subject: nuancierbalg-90
+    property: traversal-time-slow-decrescendo
+    value: 2380
+    unit: millisecond
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+    mentions: [phillips-welte-mignon-test-roll]
+    note: >
+      Against Brougher's 2.0 s over the same span, and 19 % slower. The four cells of Table
+      4.1 that cover the slow states all read 2.38, bass and treble alike, which is the
+      finding rather than an artefact of rounding: he reports the fast rows to the
+      millisecond and separates the halves there.
+
+  - id: fast-crescendo-full-stroke-t100
+    kind: measurement
+    locator: "p. 221, Table 4.1"
+    quote:
+      en: "Fast crescendo, travel from zero to maximum · Bass regulator 700 milliseconds · Treble regulator 700 milliseconds"
+    subject: nuancierbalg-90
+    property: traversal-time-fast-crescendo-full-stroke
+    value: 700
+    unit: millisecond
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+    mentions: [phillips-welte-decoder]
+    note: >
+      Deliberately not entered against `traversal-time-fast-crescendo`, where Brougher's
+      100 ms, midi2exp's 170 to 200 ms and the roll's 211 ms all measure from the piano rail
+      to the hook. Phillips's span is the whole stroke, so the two are not in disagreement and
+      must not be made to look as though they were. How much further the whole stroke is
+      cannot be settled here: on the roll the hook arrests at 0.63 of the piano-to-forte
+      travel, which would make it about 1.6 times, but the forte rail and the fully closed
+      position need not be the same place. Even at 1.6 his 700 ms is three to four times
+      midi2exp's figure and the roll's, and seven times Brougher's, so it is slower than a
+      constant rate over the extra distance would give.
+
+  - id: fast-decrescendo-full-stroke-t100
+    kind: measurement
+    locator: "p. 221, Table 4.1"
+    quote:
+      en: "Fast decrescendo, travel from maximum to zero · Bass regulator 150 milliseconds · Treble regulator 156 milliseconds"
+    subject: nuancierbalg-90
+    property: traversal-time-fast-decrescendo-full-stroke
+    lower: 150
+    upper: 156
+    unit: millisecond
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+    mentions: [phillips-welte-decoder]
+    note: >
+      The two ends are the bass and the treble regulator, not an error bar; neither is an
+      estimate of the other. This is the first figure for the fast decrescendo anywhere in the
+      graph. Brougher gives it no time at all, only "instantly"; midi2exp sets 400 ms; the
+      roll measures 55 ms in the bass and 62 ms in the treble over a partial span. Phillips's
+      full stroke at 150 ms sits between the roll's partial span and midi2exp's constant, and
+      it is the only one of the three that comes with a stated span.
+
+  - id: fast-times-came-from-the-model
+    kind: assessment
+    locator: "p. 212 and p. 220"
+    holder: pfeffer-niels
+    about: phillips-welte-decoder
+    quote:
+      en: "there were time intervals that could not be resolved, such as the times taken for the expression pneumatic to fully open or to fully close at the fast speed settings […] Once the model was adjusted according to the test roll, it was possible to make accurate timing measurements of all movements associated with the expression pneumatic."
+    gloss: >
+      The slow times in Tables 4.1 to 4.3 were measured from the MIDI files of the test
+      rolls; the fast ones could not be, and were read off the analogue model's oscilloscope
+      after the model had been adjusted to satisfy the test roll's pass criteria. So the two
+      halves of each table have different provenance, and the fast figures are only as good
+      as the criteria: tests 4, 5 and 6 say where the blade must arrive, not how long it may
+      take.
+    holds: PROBABLE
+    note: >
+      Recorded as a provenance assessment and not as a criticism. Phillips is explicit about
+      both steps and says on p. 222 that "production rolls vary, and it may be that other
+      test rolls would give slightly different timing values." The distinction matters
+      because the fast figures are the ones this graph has nothing else to compare, and
+      because a model adjusted to a pass criterion and then measured returns the criterion
+      plus the model's own dynamics.
+
+  - id: timings-differ-by-instrument-type
+    kind: report
+    locator: "p. 221 and p. 222"
+    quote:
+      en: "As the tables show, the timings vary between instruments. The greatest differences are associated with the fast movements, in which the Licensee instrument has a considerably faster operating speed for the fast crescendo function, compared to that for the Green Welte."
+    subject: welte-t100
+    property: travel-times-shared-with
+    object: welte-licensee
+    holds: FALSE
+    adopt: true
+    note: >
+      The reason the graph refuses to promote a Licensee reading into a T-100 one, stated by
+      a source that measured all three from each instrument's own test roll. Brougher's whole
+      procedure is scoped to the Licensee and the Original together for exactly this kind of
+      reason; here is a measurement of how much that scope costs. The Green Welte figures of
+      Table 4.2 are out of this graph's scope and are not entered.
+
+  - id: timings-differ-from-the-green-welte
+    kind: report
+    locator: "p. 221 and p. 222"
+    quote:
+      en: "As the tables show, the timings vary between instruments."
+    subject: welte-t100
+    property: travel-times-shared-with
+    object: welte-t98
+    holds: FALSE
+    adopt: true
+    note: "Phillips's Green Welte is the T-98, the green rolls."
+
+  - id: model-adjusted-to-the-test-roll
+    kind: report
+    locator: "p. 220"
+    quote:
+      en: "Once the model was adjusted according to the test roll, it was possible to make accurate timing measurements of all movements associated with the expression pneumatic."
+    subject: phillips-welte-decoder
+    property: derives-from
+    object: phillips-welte-mignon-test-roll
+    holds: TRUE
+    adopt: true
+    note: >
+      The model's constants were set until it satisfied the test roll's pass criteria, so
+      what it shows features of is the roll's requirements.
+
+  - id: model-stands-for-the-nuancierbalg
+    kind: report
+    locator: "p. 212 and p. 220"
+    subject: phillips-welte-decoder
+    property: models
+    object: nuancierbalg-90
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: "Its output voltage stands for the position of the expression pneumatic."
+
+  - id: slow-states-symmetric-on-the-t100
+    kind: measurement
+    locator: "p. 221, Table 4.1"
+    quote:
+      en: "Slow crescendo, travel from zero to mezzoforte hook · 2.38 seconds · 2.38 seconds. Slow decrescendo, travel from mezzoforte hook to zero · 2.38 seconds · 2.38 seconds."
+    subject: function-crescendo-on
+    property: opening-closing-symmetry
+    object: designed-symmetric
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+    note: >
+      Four equal cells over the same span in both directions and both halves. This is a
+      measured second witness for `welte-anhang-12/control-3-crescendo-symmetry`, which until
+      now stood alone against Brougher's asymmetry, and it is measured off the T-100 test roll
+      rather than read out of its instructions.
+
+  - id: slow-states-asymmetric-on-the-licensee
+    kind: measurement
+    locator: "p. 221, Table 4.3"
+    quote:
+      en: "Slow crescendo, travel from zero to mezzoforte hook · Bass 2.45 seconds · Treble 2.48 seconds. Slow decrescendo, travel from mezzoforte hook to zero · Bass 2.73 seconds · Treble 2.86 seconds."
+    subject: function-crescendo-on
+    property: opening-closing-symmetry
+    object: regulated-asymmetric
+    scope: welte-licensee
+    holds: TRUE
+    adopt: false
+    note: >
+      On the Licensee the decrescendo is 11 % slower than the crescendo in the bass and 15 %
+      in the treble, from the same test-roll measurement that gives four equal cells for the
+      Welte-Mignon. Entered because of what it does to the register, not for its own sake.
+
+  - id: the-symmetry-disagreement-is-a-scope-difference
+    kind: inference
+    locator: "p. 221, Tables 4.1 and 4.3"
+    holder: pfeffer-niels
+    subject: function-crescendo-on
+    property: opening-closing-symmetry
+    object: designed-symmetric
+    premises:
+      - slow-states-symmetric-on-the-t100
+      - slow-states-asymmetric-on-the-licensee
+      - welte-anhang-12/control-3-crescendo-symmetry
+      - brougher-welte-regulation/slow-states-are-regulated-asymmetric
+    logic: scope-separation-resolves-a-disagreement
+    scope: welte-t100
+    holds: PROBABLE
+    adopt: false
+    note: >
+      The contested register has held two answers to this question: Welte's Kontrolle 3 for
+      the T-100 says symmetric, and Brougher's two targets for the Licensee and the Original
+      together give a crescendo 1.25 times the decrescendo. Phillips measured both machines
+      and found the difference falls along exactly that line, equal on the Welte-Mignon and
+      unequal on the Licensee, with his Licensee ratios of 1.11 and 1.15 near Brougher's
+      1.25. So the disagreement may be about two instruments rather than about one. Held
+      PROBABLE, and the register keeps both answers: this weakens Brougher as a witness about
+      the T-100 without making him wrong, and it does not touch the project's own fit, which
+      finds ratios of 1.30 and 1.65 on a T-100 roll and so disagrees with the symmetric
+      answer from a third direction.
+
+  - id: fast-actions-carry-the-single-notes
+    kind: report
+    locator: "p. 230"
+    quote:
+      en: "Critical settings are those controlling the fast crescendo and decrescendo actions, as both functions are operated by precisely timed, short-duration perforations, typically to control the playing volume of individual notes."
+    subject: function-sforzando-on
+    property: typical-use
+    object: controls-loudness-of-individual-notes
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      Reached from building a decoder rather than from reading a roll, and it is the same
+      conclusion this project reaches from the residuals: the sforzando events are where the
+      model and the drawn line part company, and they are the shortest events on the roll.
+
+  - id: fast-cancel-carries-the-single-notes
+    kind: report
+    locator: "p. 230"
+    quote:
+      en: "as both functions are operated by precisely timed, short-duration perforations, typically to control the playing volume of individual notes"
+    subject: function-sforzando-off
+    property: typical-use
+    object: controls-loudness-of-individual-notes
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+
+  - id: perforation-duration-is-the-limit
+    kind: report
+    locator: "p. 230"
+    quote:
+      en: "This highlights the importance of accurate time durations of the notes representing expression perforations in the raw MIDI data of a Welte piano roll."
+    subject: welte-t100
+    property: decoding-limited-by
+    object: perforation-duration-accuracy
+    holds: TRUE
+    adopt: true
+
+  # -- what a perforation does to a valve, and for how long --------------------
+
+  # Four causes of a valve's on-time, measured on his own valve models for the roll reader.
+  # They are the four constants the emulator carries for the same part, `trip-threshold`,
+  # `charge-time`, `bleed-time` and `moving-mass-time`, arrived at by fitting a drawn line
+  # rather than by bench tests. That the two lists coincide is the strongest external
+  # support in this graph for modelling the valve at all rather than treating a perforation
+  # as its own signal.
+
+  - id: valve-on-time-has-four-causes
+    kind: report
+    locator: "p. 177"
+    quote:
+      en: "The findings show that the time a valve is open (pouch inflated) depends on the: 1. applied suction 2. speed at which a tracker bar hole is opened 3. size of the bleed (including the porosity of the pouch material) 4. weight of the valve."
+    subject: pneumatic-valve
+    property: on-time-depends-on
+    object: applied-suction
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: true
+  - id: on-time-depends-on-opening-speed
+    kind: report
+    locator: "p. 177"
+    subject: pneumatic-valve
+    property: on-time-depends-on
+    object: tracker-hole-opening-speed
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: true
+  - id: on-time-depends-on-the-bleed
+    kind: report
+    locator: "p. 177"
+    subject: pneumatic-valve
+    property: on-time-depends-on
+    object: bleed-size-and-pouch-porosity
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: true
+    note: >
+      The bleed is what Brougher gives a drill size for on the Welte, and what the
+      emulator's charge and bleed times stand in for.
+  - id: on-time-depends-on-valve-weight
+    kind: report
+    locator: "p. 177"
+    subject: pneumatic-valve
+    property: on-time-depends-on
+    object: valve-weight
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: true
+
+  - id: on-time-grows-with-the-suction
+    kind: report
+    locator: "p. 177"
+    quote:
+      en: "It was found that increasing the suction level caused the valve to turn on sooner and turn off later compared to a lower suction level, giving a longer on-time. It was also found that, at low suction levels, the speed at which a tracker bar hole is uncovered affects the on-time of the valve."
+    subject: pneumatic-valve
+    property: on-time-against-suction
+    object: longer-at-higher-suction
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+    note: >
+      The louder the instrument is playing, the longer an expression perforation of a given
+      length holds its valve open. A feedback path the project's model does not have, and
+      `emulator-fit` records that it does not. Not adopted, because his tests are on his own
+      valve models rather than on Welte parts and he gives no figure for the size of the
+      effect, but it is a named candidate for what a fitted valve constant may be absorbing.
+
+  - id: valve-outlasts-the-perforation
+    kind: report
+    locator: "p. 178"
+    quote:
+      en: "The important fact is that a pneumatic valve is held on for a time that exceeds the apparent length of a perforation."
+    subject: gleitblock
+    property: effective-perforation-length
+    object: longer-than-punched
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      This is the passage the dissertation's Leseregeln chapter cites at Fn. 52, and reading
+      it settles what that footnote is for: it supports the sentence about the perforation
+      having to clear the glide block, not the sforzando rule in the sentence before it,
+      which is the chapter's own. Phillips's ground is bench measurement on valves he built;
+      midi2exp's answer to the same effect is to extend every hole by 0.75 tracker diameters;
+      this project models the overlap of two circles. Three treatments of one phenomenon, and
+      only Phillips measured it.
+
+  - id: welte-tracker-holes-are-uniform
+    kind: observation
+    locator: "p. 180, Figure 3.6"
+    quote:
+      en: "The tracker bars for Welte instruments in Figure 3.6 show that all holes in each bar have the same dimensions."
+    subject: gleitblock
+    property: bore-uniformity
+    object: all-bores-identical
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      A clean negative worth having: the T-100 has none of the offsets and enlarged
+      expression holes that make an Ampico or Duo-Art roll unreadable without a bar diagram,
+      so on this instrument the punched geometry and the pneumatic signal differ only by the
+      hole's own height. That is the assumption the project's overlap-of-two-circles model
+      makes, stated by someone who photographed the bars.
+
+  - id: licensee-holes-half-a-millimetre-shorter
+    kind: observation
+    locator: "p. 180, Figure 3.6"
+    quote:
+      en: "Holes in the Welte-Mignon bar are taller by 0.5 millimetres than those in the Welte Licensee bar."
+    subject: gleitblock
+    property: tracker-bore-height-relative-to-licensee
+    value: 0.5
+    unit: millimetre
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      The published locus of the one attributed constant in pianolatron, and the figure
+      that turns midi2exp's 16.7 px into pianolatron's 10.8; that arithmetic is in
+      `pianolatron`. The thesis calls it a height, pianolatron applies it as a diameter.
+
+  - id: on-time-depends-on-perforation-length
+    kind: report
+    locator: "p. 180"
+    quote:
+      en: "A critical aspect of the Welte expression system is the time that a particular expression function is turned on, which depends on the length of the perforation, the size of the tracker bar hole and the roll paper speed."
+    subject: welte-t100
+    property: on-time-depends-on
+    object: perforation-length
+    holds: TRUE
+    adopt: true
+  - id: on-time-depends-on-hole-height
+    kind: report
+    locator: "p. 180"
+    subject: welte-t100
+    property: on-time-depends-on
+    object: tracker-hole-height
+    holds: TRUE
+    adopt: true
+  - id: on-time-depends-on-paper-speed
+    kind: report
+    locator: "p. 180"
+    subject: welte-t100
+    property: on-time-depends-on
+    object: paper-speed
+    holds: TRUE
+    adopt: true
+    note: >
+      Just three things on this instrument, which is what makes the punched geometry and the
+      pneumatic signal differ only by the hole's own height.
+
+  - id: pianolatron-note-has-a-published-locus
+    kind: assessment
+    locator: "p. 180, against pianolatron welte-licensee.js:18"
+    holder: pfeffer-niels
+    about: pianolatron-source
+    gloss: >
+      Pianolatron's "P. Phillips: .5 mm smaller than Welte-Mignon", the one attributed
+      constant in that repository and taken there for a personal communication, has a
+      published locus: Phillips states the same 0.5 mm difference between the Welte-Mignon
+      and Licensee tracker bars at p. 180 of this thesis. The thesis calls it a difference in
+      the height of the holes; pianolatron applies it as a difference in diameter.
+    holds: PROBABLE
+    note: >
+      Held PROBABLE rather than TRUE. The wording matches closely and Phillips worked with
+      the Stanford project's own roll collection, but nothing in the repository cites the
+      thesis, and a figure that circulates in conversation may also appear in print without
+      the one deriving from the other. The height-against-diameter difference is the part
+      worth carrying forward: on a round hole the two agree, and Phillips discusses hole
+      height because it is what sets how long an expression function stays on.
+
+  # -- the time axis every duration above is measured against ------------------
+
+  - id: drive-motor-speed-t100
+    kind: measurement
+    locator: "p. 113"
+    quote:
+      en: "from which I have determined that the roll drive motor should rotate at 120 RPM"
+    subject: welte-t100
+    property: drive-motor-speed
+    value: 120
+    unit: rpm
+    holds: TRUE
+    adopt: false
+    mentions: [phillips-welte-mignon-test-roll]
+    note: >
+      An operational check rather than a new number: the tempo test on the test roll fixes
+      the drive motor's speed, so the paper speed can be set on an instrument without
+      measuring paper.
+
+  - id: paper-speed-t100
+    kind: measurement
+    locator: "p. 113"
+    quote:
+      en: "Welte-Mignon rolls generally run at the same paper speed (roll tempo) of three metres or 9.84 feet per minute. Paper speed is set correctly by using the tempo test on a Welte-Mignon test roll, from which I have determined that the roll drive motor should rotate at 120 RPM."
+    subject: welte-t100
+    property: paper-speed
+    value: 3.0
+    unit: metre-per-minute
+    holds: TRUE
+    adopt: false
+    mentions: [phillips-welte-mignon-test-roll]
+    note: >
+      The figure the dissertation's Fn. 182 attributes to him, and it agrees with
+      Gottschewski's reading of the surviving Skalarollen at 143.1 to 150 cm per thirty
+      seconds. SUPRA uses 9.64 ft/min instead, which is 2.94 m/min. What Phillips adds is an
+      operational check rather than a new number: the tempo test on the test roll fixes the
+      drive motor at 120 RPM, so the speed can be set on an instrument without measuring
+      paper. Note that his own "9.84 feet per minute" is 3.0 m/min to three figures, so the
+      two units in his sentence are the same claim and not two.
+
+  - id: acceleration-was-compensated-at-recording
+    kind: report
+    locator: "p. 113, with p. 180"
+    quote:
+      en: "Because the paper transport geometry in the Welte-Mignon is similar to that in the recorder, the accelerating paper speed does not cause an increase in the tempo of the music."
+    subject: welte-t100
+    property: acceleration-compensation
+    object: cancelled-by-a-matching-recorder-spool
+    scope: welte-t100
+    holds: PROBABLE
+    adopt: false
+    mentions: [welte-recording-process, parameter-accel-ft-per-min2]
+    note: >
+      The recording machine's take-up spool was about the same diameter as the
+      Welte-Mignon's, so the paper accelerated in the same way at recording as at playback
+      and the acceleration cancels. A roll played at a constant paper speed, as a scan is,
+      will therefore run slow rather than being neutral.
+      His ground is a photograph of the organ-roll recording machine on the Pianola Institute
+      site, from which he judges the spool diameters similar, so this is an argument from a
+      picture and is held as one. It matters here because every duration measured off the
+      drawn line depends on the acceleration model applied to the scan, and the graph already
+      records that midi2exp's acceleration constant has no stated provenance.
+
+  - id: punch-hole-and-step
+    kind: measurement
+    locator: "p. 114"
+    quote:
+      en: "In both cases a single punch hole measured 2.19 mm. Measurements of extended perforations involving a number of closely spaced punches showed the smallest distance between punches was 0.47 mm, which in Imperial terms equates to 0.0185 inches or 54 steps per inch."
+    subject: welte-t100
+    property: perforation-diameter
+    value: 2.19
+    unit: millimetre
+    holds: TRUE
+    adopt: false
+    contradicts: [pfeffer-leseregeln/red-perforations-after-1910]
+    note: >
+      Measured on two rolls, one on lined and one on blank red paper, both dated 1912 on the
+      roll. This is against the figure the dissertation carries at Fn. 66 from Hagmann p. 76,
+      that perforations on red rolls were 2.2 mm until about 1910 and 1.8 mm afterwards:
+      Phillips measures the earlier diameter on rolls punched two years after the change. One
+      of the two is wrong about the date or about the roll, and the question matters for
+      roll 3309, punched in 1922 and so taken to be a 1.8 mm roll on Hagmann's account.
+
+  - id: punch-step
+    kind: measurement
+    locator: "p. 114"
+    quote:
+      en: "the smallest distance between punches was 0.47 mm, which in Imperial terms equates to 0.0185 inches or 54 steps per inch"
+    subject: welte-t100
+    property: minimum-punch-step
+    value: 0.47
+    unit: millimetre
+    holds: TRUE
+    adopt: false
+    note: "Which gives him a timing resolution of 9.4 ms at the start of a roll."
+
+  # -- what the models assume, and where the roll answers back -----------------
+
+  - id: vacuum-is-a-function-of-position
+    kind: report
+    locator: "p. 225"
+    quote:
+      en: "The first assumption is that the suction level is exactly related to the position of the expression pneumatic. The assumption is supported by measurements taken from original instruments, although such readings are not exact and some non-linearity may apply, particularly at the extremes of travel of the pneumatic. For example, slight movement from the fully open (zero) position may create a greater change in suction than the same movement a few millimetres of travel later."
+    subject: nuancierbalg-90
+    property: position-to-vacuum-relation
+    object: exact-function-of-position
+    scope: welte-t100
+    holds: PROBABLE
+    adopt: false
+    note: >
+      He states it as an assumption and names its likely failure, which is the honest form of
+      the premise every emulation here rests on. His expected non-linearity is largest at the
+      two extremes and in a definite direction: steep just off the zero position, shallow
+      over the last few millimetres before closure. Hagemann's dome travel gives one point of
+      the same relation, 11 mm on the discant and 8 mm on the bass for −100 to −200 mm WS,
+      and no source in this graph gives a second, which is why the conversion between bellows
+      travel and delivered vacuum is still the one the project most wants and cannot have.
+
+  - id: no-figures-for-the-position-vacuum-measurements
+    kind: assessment
+    locator: "p. 225, and Chapter 4 read through"
+    holder: pfeffer-niels
+    about: phillips-2016-thesis
+    gloss: >
+      The measurements from original instruments that Phillips says support the first
+      assumption are not printed anywhere in the thesis, and no instrument is named for them.
+      So the claim that delivered vacuum is an exact function of bellows position rests, in
+      this source, on an appeal to readings the reader cannot see.
+    holds: UNKNOWN
+    note: >
+      A clean negative from Chapter 4 read through and from searching the thesis for the
+      terms. Recorded because it is the one place where this source could have closed the gap
+      Hagemann leaves open, and because the reader would otherwise take the appeal for a
+      citation.
+
+  - id: constant-speed-assumption
+    kind: report
+    locator: "p. 225"
+    quote:
+      en: "The second assumption is that the expression pneumatic moves at a constant speed over its full stroke for both slow and fast actions. In theory, a pneumatic that is being exhausted through a fixed aperture by a fixed level of suction will close at a constant rate, because the air inside the pneumatic is being withdrawn at a constant rate. However, this assumes the external forces working against the pneumatic remain constant."
+    subject: nuancierbalg-90
+    property: speed-over-the-stroke
+    object: constant-speed
+    scope: welte-t100
+    holds: PROBABLE
+    adopt: false
+    note: >
+      The same law midi2exp implements, and here it is argued for rather than merely coded.
+      The argument is that a fixed aperture under a fixed vacuum removes air at a constant
+      rate. It holds only while the pressure across the aperture is fixed, which it is not
+      once the bellows has begun to draw down, and Phillips guards it with a caveat about
+      external forces rather than about the pressure difference. He states it as an
+      assumption and lists it among the things that could make his models behave differently
+      from a Welte.
+
+  - id: drawn-lines-are-rounded-at-the-bottom
+    kind: observation
+    locator: "pp. 225–226"
+    quote:
+      en: "The dynamic lines on the roll are rounded at the bottom of each excursion, while those generated by the models are not rounded. […] The difference is that the softest playing level (zero level) is reached slightly later by the pneumatic regulator compared to how the models behave."
+    subject: drawn-expression-lines
+    property: trace-shape-at-the-soft-end
+    object: rounded-at-the-bottom
+    holds: TRUE
+    adopt: true
+    note: >
+      Phillips saw the curvature this project measures and read it the other way. He puts it
+      down to a non-linearity in the relation between bellows position and suction, near the
+      zero end where his first assumption predicts one, and prices it at one or two MIDI
+      velocity steps, which is below what he can hear. Recorded as an observation because the
+      shape of the line is what he saw, and the explanation is a separate claim.
+
+  - id: model-traces-are-not-rounded
+    kind: observation
+    locator: "pp. 225–226"
+    quote:
+      en: "while those generated by the models are not rounded"
+    subject: phillips-welte-decoder
+    property: trace-shape-at-the-soft-end
+    object: not-rounded
+    holds: TRUE
+    adopt: true
+    note: >
+      The constant-speed model reaches the zero level in a straight ramp, and that is the
+      one place he saw it differ from the paper.
+
+  - id: the-roll-rejects-the-constant-speed
+    kind: inference
+    locator: "emulator/docs/empirics.md §3, against p. 225"
+    holder: pfeffer-niels
+    subject: nuancierbalg-90
+    property: speed-over-the-stroke
+    object: approaches-a-target
+    premises:
+      - constant-speed-assumption
+      - drawn-lines-are-rounded-at-the-bottom
+      - roll-3309-observations/constant-rate-is-rejected
+      - roll-3309-observations/decrescendo-tau-bass
+      - roll-3309-observations/decrescendo-tau-treble
+    logic: exponential-versus-constant-fit
+    scope: welte-t100
+    contradicts: [constant-speed-assumption]
+    holds: TRUE
+    adopt: true
+    note: >
+      The drawn line on roll 3309 rejects a constant rate against an exponential approach by
+      a factor of four to eleven in weighted rms, in all four state-by-half combinations, and
+      the default decrescendo's time constant comes out at 592 ms in the bass and 661 ms in
+      the treble, which is a rate that halves about every four tenths of a second and not a
+      constant one. Phillips's rounded
+      bottoms are the same curvature seen on a different roll, and his two candidate
+      explanations, a non-linear position-to-vacuum map and a non-constant speed, are exactly
+      the two the project can separate and he could not: the null result at the Mezzoforte
+      stop shows the line is tracking bellows position and not delivered vacuum, so the
+      curvature cannot be in the map and has to be in the motion. That is the one place in
+      this graph where a measurement on the paper settles a question a builder had to leave
+      open, and it is worth saying that he had already found the evidence.
+
+  - id: non-linearity-costs-two-velocity-steps
+    kind: report
+    locator: "p. 226"
+    quote:
+      en: "Determining the MIDI velocity levels that would occur if the expression pneumatic behaved according to the dynamic lines in Figure 4.7(a) showed an indiscernible difference of one or two steps. […] Comparing the playing dynamics produced by both look-up tables to determine if a non-linearity exists has proven inconclusive."
+    subject: phillips-welte-decoder
+    property: velocity-cost-of-curvature
+    lower: 1
+    upper: 2
+    unit: midi-velocity
+    holds: TRUE
+    adopt: true
+    note: >
+      His reason for setting the curvature aside, and it is a good one for his purpose and
+      not for this project's. A decoder is judged by whether it convinces a listener; a model
+      of the mechanism is judged against the line the mechanism drew, where one or two
+      velocity steps is well above the 0.0008 scale units the null result resolves. The same
+      evidence carries different weight in the two enterprises, which is worth having on
+      record before the disagreement above is read as a correction.
+
+  # -- the drawn lines: what made them, and when -------------------------------
+
+  - id: lines-drawn-by-an-apparatus
+    kind: report
+    locator: "p. 120, with p. 222"
+    quote:
+      en: "These lines appear to have been drawn by styli attached to pneumatics that were connected to the bass and treble expression regulators of a Welte-Mignon that was playing the roll."
+    subject: drawn-expression-lines
+    property: produced-by-apparatus
+    object: styli-on-pneumatics-at-the-regulators
+    scope: welte-t100
+    holds: PROBABLE
+    adopt: false
+    note: >
+      The only account in the literature of what physically drew the lines, and it is about
+      playback of a production roll, not about the recording session. "Appear to have been"
+      is why it is PROBABLE.
+
+  - id: lines-drawn-by-styli-at-the-regulators
+    kind: report
+    locator: "p. 120, with p. 222"
+    quote:
+      en: "A clue is the expression lines found on some Welte-Mignon rolls produced after 1922, as shown in Figure 2.2. These lines appear to have been drawn by styli attached to pneumatics that were connected to the bass and treble expression regulators of a Welte-Mignon that was playing the roll."
+    subject: drawn-expression-lines
+    property: records
+    object: nuancierbalg-position
+    scope: welte-t100
+    holds: PROBABLE
+    adopt: false
+    comprehension: >
+      He writes "connected to the bass and treble expression regulators" and at p. 222
+      "connected to the bass and treble suction regulators", so what the stylus followed is
+      the regulator assembly. Reading that as the position of the Nuancierbalg rather than as
+      the delivered vacuum is the project's step, and it is a step Phillips himself could not
+      take: his first assumption makes position and suction interchangeable, so his evidence,
+      the agreement in shape between his oscilloscope trace and the roll's line, cannot
+      distinguish them. The reading is entered here because it is the only one on which his
+      sentence names an apparatus at all.
+    note: >
+      An independent answer to the question the whole project turns on, and the only positive
+      one in the literature. Hagmann and Gottschewski both say the recording procedure is
+      undocumented, and both are right, but Phillips is not talking about the recording
+      procedure: his claim is that the lines on the late production rolls were drawn at
+      playback, by a Welte-Mignon playing the roll. That is a different event, and it is one
+      that could leave the traces this project measures. His ground is stated at p. 222: the
+      shape of his model's trace and the shape of the line on the roll agree. Held PROBABLE
+      because he says "appear to have been", and not adopted, because the project holds the
+      same conclusion on stronger evidence in
+      `roll-3309-observations/line-records-bellows-not-vacuum`.
+
+  - id: phillips-answers-for-roll-3309
+    kind: inference
+    locator: "p. 120 and p. 222, applied to roll 3309"
+    holder: pfeffer-niels
+    subject: drawn-line-3309
+    property: records
+    object: nuancierbalg-position
+    premises:
+      - lines-drawn-by-styli-at-the-regulators
+      - lines-appear-on-rolls-after-1922
+      - pfeffer-leseregeln/punching-date
+    logic: subsumption-under-a-described-class
+    holds: PROBABLE
+    adopt: false
+    note: >
+      Carried down from the class to the instance so that the register for what roll 3309's
+      lines record holds Phillips's answer beside the project's. Roll 3309 was punched in
+      November 1922 and so falls inside the window he gives, and its two lines are laid out
+      as he describes, mirrored about a shared central maximum. Entered as an inference and
+      not as his statement, because he never saw this roll. It does not contradict
+      `gottschewski-1996/no-piano-recording-rolls-survive` or
+      `hagmann-1984/recording-procedure-undocumented`, and the distinction is the point:
+      those two are about the recording rolls and the recording session, Phillips is about
+      a stylus running on a production roll at playback, years later. Both absences stand and
+      the literature turns out to say something about the lines all the same. Held PROBABLE,
+      and not adopted, because the project holds the same conclusion from the roll itself on
+      stronger and independent evidence.
+
+  - id: lines-appear-on-rolls-after-1922
+    kind: observation
+    locator: "p. 120"
+    quote:
+      en: "the expression lines found on some Welte-Mignon rolls produced after 1922"
+    subject: drawn-expression-lines
+    property: date-of
+    date: { begin: "1922-01-01", label: "on Welte-Mignon rolls produced after 1922" }
+    holds: TRUE
+    adopt: true
+    mentions: [roll-3309]
+    note: >
+      Roll 3309 was punched on 22 November 1922, at the very start of the window Phillips
+      gives. The date is worth having because it is the only external check on the class the
+      roll belongs to, and because it makes the lines a late feature of the production
+      process rather than a survival from the recording session.
+
+  - id: lines-were-for-the-playerist
+    kind: report
+    locator: "p. 120"
+    quote:
+      en: "The purpose of the lines was so a playerist could follow the original dynamics when pedalling the roll."
+    subject: drawn-expression-lines
+    property: intended-for
+    object: hand-nuancing-by-a-playerist
+    holds: PROBABLE
+    adopt: false
+    note: >
+      Printed so that someone pedalling the roll on an ordinary player piano, rather than
+      playing it on a reproducing piano, could follow the dynamics of the original
+      performance by hand. He gives no evidence for the purpose and none is obvious, which
+      is why it is held PROBABLE. It is the reading the German name carries too:
+      Handnuancierung is nuancing by hand. If it is right, the lines were drawn to be
+      followed rather than to be accurate, and that is a caveat worth keeping beside every
+      figure this project measures off them.
+
+  - id: centre-line-is-the-shared-maximum
+    kind: observation
+    locator: "p. 222"
+    quote:
+      en: "The centre line on the roll in Figure 4.7 (a) indicates the maximum level of both dynamic lines, therefore the treble (higher) dynamic line on the roll is upside down compared to the oscilloscope display."
+    subject: gridline-central-ff
+    property: marks-scale-end-of
+    object: state-fortissimo
+    holds: TRUE
+    adopt: true
+    mentions: [drawn-expression-lines]
+    note: >
+      The two drawn lines are laid out mirrored about a shared central gridline that marks
+      the maximum of both, so the treble line runs upside down with respect to the bass one.
+      Independent confirmation of the layout the project's scale unit is defined against:
+      0.0 at each half's own P.P. gridline, 1.0 at the shared central F.F. gridline.
+      Phillips reads it off a different roll and states it as a consequence of comparing his
+      trace with the paper.
+
+  - id: outer-line-is-the-minimum
+    kind: observation
+    locator: "p. 120, Figure 2.2"
+    subject: gridline-pp
+    property: marks-scale-end-of
+    object: state-piano
+    holds: TRUE
+    adopt: true
+    mentions: [drawn-expression-lines]
+    note: >
+      His Figure 2.2 labels the arrangement, PP outermost and FF at the centre for both
+      halves.
+
+  - id: feedback-check-at-the-recording-piano
+    kind: report
+    locator: "p. 120"
+    quote:
+      en: "If such a trace was a normal outcome of a recording session, it would have been possible to check the expression coding added to a roll by playing it on the recording piano and comparing the dynamic lines produced by the original playing and the roll recording, explaining the confidence Welte and Bockisch had in their product."
+    subject: styli-on-pneumatics-at-the-regulators
+    property: intended-for
+    object: checking-expression-coding-against-the-performance
+    holds: PROBABLE
+    adopt: false
+    note: >
+      A conjecture, stated as one, and it does not bear on what the lines on a production
+      roll record. Entered because it is the only account in the graph of why anyone would
+      have built the apparatus, and because if it is right the same kind of line existed at
+      both ends of the process, which would make the class this project measures harder to
+      date than the 1922 window suggests.
+
+  # -- suction and MIDI velocity, the far end of the chain ---------------------
+
+  - id: velocity-is-logarithmic-in-suction
+    kind: measurement
+    locator: "p. 216"
+    quote:
+      en: "The graphs show that the relationship between suction and MIDI velocity is essentially logarithmic, in which a small change in suction at the low end of the graphs gives a much greater change in MIDI velocity level compared to a similar suction change at the high end."
+    subject: tonpneumatik
+    property: velocity-suction-relation
+    object: logarithmic-in-vacuum
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+    note: >
+      Ten graphs from a bench rig in which a pneumatic worked a wooden finger on a Disklavier
+      key, five strikes at each of twenty-five suction levels from 5 to 29 inches WG, each
+      test repeated at least twice, read against a single-tube manometer. It is the only
+      measurement in this graph of the step from delivered vacuum to playing dynamic. It
+      bears directly on `velocity-span-fraction`, the unit the graph keeps apart from
+      `travel-fraction` precisely because midi2exp's constants assume velocity is linear in
+      travel: Phillips measured that relation and it is not linear. Not adopted, because the
+      rig is not a Welte and the curve is the Disklavier's as much as the pneumatic's, which
+      he says himself.
+
+  # The two endpoints that fix the curve above, each a velocity at a stated suction, so the
+  # suction is in the property type and the velocity is the value. Measured on the bench
+  # rig, which is the subject; the stack in general is what they are taken to say something
+  # about, and that is the scope.
+
+  - id: velocity-endpoints-for-middle-c
+    kind: measurement
+    locator: "pp. 216–217"
+    quote:
+      en: "At this value of suction, middle C played at MIDI level 30, which is about as soft as can be reliably achieved by many solenoid mechanical pianos."
+    subject: phillips-bench-rig
+    property: velocity-at-minimum-suction
+    value: 30
+    unit: midi-velocity
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+  - id: velocity-of-middle-c-at-the-top
+    kind: measurement
+    locator: "pp. 216–217"
+    quote:
+      en: "while at this level, middle C registered MIDI 88"
+    subject: phillips-bench-rig
+    property: velocity-at-maximum-suction
+    value: 88
+    unit: midi-velocity
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+    note: >
+      A nearly sixfold change of suction bought fifty-eight velocity steps.
+  - id: velocity-of-the-lightest-notes-at-the-top
+    kind: measurement
+    locator: "pp. 216–217"
+    quote:
+      en: "The maximum playing levels of the lightest notes were found to exceed MIDI 100 at 29 inches WG"
+    subject: phillips-bench-rig
+    property: velocity-of-lightest-notes-at-maximum-suction
+    lower: 100
+    unit: midi-velocity
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+
+  # Hammer weight, at one and the same suction: three differences and what they do to the
+  # loudness. Tests on five notes across two Disklaviers with differently weighted actions,
+  # the weights judged by eye. They say what the split stack at F♯/G costs: on either side
+  # of that break equal suction gives unequal loudness, so the two halves have to be
+  # regulated apart for a reason that has nothing to do with the music.
+
+  - id: velocity-depends-on-hammer-weight
+    kind: measurement
+    locator: "p. 215"
+    quote:
+      en: "The average difference in MIDI velocities between C8 and the heaviest note (C2) is a substantial seventeen steps, with around twelve steps between C8 and C5. C2 is around three steps lower in velocity than C5. This shows the effect of hammer weight on the closing speed of a note-playing pneumatic."
+    subject: tonpneumatik
+    property: velocity-spread-top-to-bottom
+    value: 17
+    unit: midi-velocity
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+    mentions: [phillips-bench-rig]
+    note: >
+      The premise under `hammer-weight-explains-the-halves`. He notes the relation appears
+      linear in hammer weight.
+  - id: velocity-spread-to-middle-c
+    kind: measurement
+    locator: "p. 215"
+    quote:
+      en: "with around twelve steps between C8 and C5"
+    subject: tonpneumatik
+    property: velocity-spread-top-to-middle-c
+    value: 12
+    unit: midi-velocity
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+    mentions: [phillips-bench-rig]
+  - id: velocity-spread-below-middle-c
+    kind: measurement
+    locator: "p. 215"
+    quote:
+      en: "C2 is around three steps lower in velocity than C5."
+    subject: tonpneumatik
+    property: velocity-spread-middle-c-to-bottom
+    value: 3
+    unit: midi-velocity
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+    mentions: [phillips-bench-rig]
+  - id: loudness-is-roughly-even
+    kind: report
+    locator: "p. 215"
+    subject: tonpneumatik
+    property: loudness-across-keyboard-at-equal-suction
+    object: roughly-equal-across-keyboard
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+    note: >
+      Because a lighter hammer at a higher velocity delivers about the same loudness, the
+      perceived volume is roughly unchanged across the keyboard at one suction.
+
+  - id: minimum-usable-stack-vacuum
+    kind: measurement
+    locator: "p. 216"
+    quote:
+      en: "For example, the lightly weighted treble notes could be played at a suction level of four inches WG, but working progressively down the keyboard showed that notes responded spasmodically or not at all. Rather, suction levels of five inches WG and higher were necessary for consistent behaviour."
+    subject: tonpneumatik
+    property: minimum-reliable-vacuum
+    value: -127.0
+    unit: mm-water-column
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+    note: >
+      Worth putting beside Hagemann's ladder, where Piano is −101.6 mm WS, that is four
+      inches: the state Welte calls Piano is where Phillips finds the bass notes beginning to
+      fail. Two different machines and a bench rig, so this is not a contradiction, but it
+      says how little margin the soft end of the T-100 scale has and it fits Brougher's
+      practice of setting the first intensity at five inches. The conversion from inches is
+      the project's; his figure is verbatim in the quotation.
+
+  - id: typical-zero-level
+    kind: report
+    locator: "p. 213"
+    quote:
+      en: "A typical 'zero' level is between four and six inches WG, while a maximum level might be fourteen inches WG, or more typically 25 to 30 inches WG."
+    subject: tonpneumatik
+    property: vacuum-in-piano
+    lower: -152.4
+    upper: -101.6
+    unit: mm-water-column
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+    note: >
+      A range of what is usual rather than a measurement of one machine, and he says in the
+      same paragraph that it depends on owner preference and on the regulation of the action.
+      Hagemann's measured Piano at −101.6 mm WS is the top of Phillips's range exactly, and
+      Brougher sets his first intensity at five inches, the middle of it. Three witnesses,
+      three methods, one figure, which is unusual in this graph.
+
+  - id: typical-maximum-level
+    kind: report
+    locator: "p. 213"
+    quote:
+      en: "while a maximum level might be fourteen inches WG, or more typically 25 to 30 inches WG. A range of five to 29 inches WG was chosen as a basis with which to begin."
+    subject: tonpneumatik
+    property: vacuum-at-full-closure
+    lower: -762.0
+    upper: -635.0
+    unit: mm-water-column
+    scope: pneumatic-pianos-generally
+    holds: TRUE
+    adopt: false
+    note: >
+      The loud end is where the witnesses part. Brougher wants about 35 inches for a grand
+      and 32 for an upright, Phillips calls 25 to 30 typical and 14 possible, and Hagemann
+      measures Fortissimo at −355.6 mm WS, which is 14 inches, on an instrument whose blower
+      runs at 16 to 18. So Hagemann's whole ladder sits at Phillips's lower alternative and
+      at less than half of Brougher's figure. The graph records the spread and does not
+      resolve it; part of it is certainly that Hagemann reads between Betonungs- and
+      Tonpneumatik while the other two read at the stack or at the pump.
