@@ -1,0 +1,355 @@
+# Welte's own regulation procedure for the T-100, which reaches this graph only through
+# Hagmann's Anhang 12 (pp. 181–185). Its basis, per Hagmann's note 53 at p. 108, is
+# "Welte 17 (T 100); Welte 13 (T 98); Ergänzungen in Welte 2".
+#
+# It is kept apart from `hagmann-1984` because it is a different witness with a different
+# standing. Anhang 12 descends from a T-100 source; Anhang 13, the plate everything about
+# the relay is read off, is captioned "Nach Welte 2", a T-98 Betriebsanleitung. Where the
+# two disagree about the T-100, that difference is the argument, and it can only be made if
+# the graph keeps them apart.
+#
+# Every statement here is held by Welte and transmitted by Hagmann. German verified against
+# the local PDF on 2026-09-02.
+
+source:
+  id: welte-anhang-12
+  kind: appendix
+  title: "Welte's Skalarollen-Kontrollen for the T-100, as printed in Hagmann 1984, Anhang 12"
+  authors: [welte-m-soehne]
+  container: "Hagmann 1984, Anhang 12"
+  year: 1984
+  pages: "181–185"
+  note: >
+    Every duration in the procedure is defined by the distance between marker tones on the
+    Skalarolle, so the whole of it becomes seconds the moment a T-100 Skalarolle is scanned.
+    That is the single most valuable missing measurement for this project.
+
+statements:
+
+  - id: control-3-crescendo-symmetry
+    kind: report
+    locator: "Kontrolle 3 (g 3), p. 182"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Im Bass und Diskant gleichzeitig Bewegung der Nuancierbälge 90 von der Piano- zur Mezzoforte-Stellung und zurück, wobei mit dem Kontrollton c3 das Erreichen des Mezzoforte, mit C der Abschluss der Bewegung markiert ist. Werden die Bewegungen nicht in den von den Kontrolltönen markierten Zeiträumen zurückgelegt, Verstellung von 98 (Crescendo) oder 100 (Decrescendo)."
+    subject: function-crescendo-on
+    property: opening-closing-symmetry
+    object: designed-symmetric
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      The rate is normed, not the duration: each direction has its own adjuster, 98 for the
+      crescendo and 100 for the decrescendo, and the test is that each covers its span
+      within the interval its marker tones set.
+
+  - id: control-4a-equal-speeds
+    kind: report
+    locator: "Kontrolle 4a, p. 182"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Im Bass und Diskant gleichzeitig 4x Bewegung der Nuancierbälge 90 von der Piano- zur Mezzoforte-Stellung und zurück, wobei Oeffnung und Schliessung in gleicher Geschwindigkeit zu erfolgen haben."
+    subject: function-sforzando-on
+    property: opening-closing-symmetry
+    object: designed-symmetric
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      Roll 3309 measures the opposite: the fast fall crosses the stop-to-stop span in about
+      55 and 62 ms against 211 and 257 ms for the fast rise, a factor of 3.9 to 4.3. Either
+      the machine that drew 3309 was out of regulation on exactly this control, or the drawn
+      line is not recording what the control measures.
+
+  - id: control-4b-six-steps
+    kind: report
+    locator: "Kontrolle 4b (k 6), pp. 182–183"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Im Bass und Diskant gleichzeitig Eingabe von sechs kurzen Perforationen Sforzando an: Die Nuancierbälge 90 müssen sich in sechs Schritten von der Piano- zur Mezzoforte-Stellung bewegen. Nach Rückfall in die Piano-Stellung Eingabe von sechs noch kürzeren Perforationen Sforzando an: Die Nuancierbälge 90 dürfen sich nicht bewegen. Wird die Mezzoforte-Stellung zu früh oder zu spät erreicht, Korrektur an 20 (T 100) oder 82 (T 98)."
+    translation: >
+      In bass and discant simultaneously, input six short Sforzando-on perforations: the
+      Nuancierbälge 90 must move in six steps from the Piano to the Mezzoforte position.
+      After falling back to the Piano position, input six still shorter Sforzando-on
+      perforations: the Nuancierbälge 90 must not move. If the Mezzoforte position is
+      reached too early or too late, correct at 20 (T 100) or 82 (T 98).
+    subject: function-sforzando-on
+    property: latching-behaviour
+    object: momentary
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    contradicts: [hagmann-1984/sforzando-on-latches]
+    comprehension: >
+      Four separate things in one control, each of them against a latch. Six discrete steps,
+      where a latch set by the first perforation would drive the bellows continuously to
+      forte at sforzando speed. They stop at mezzoforte, so the endpoint depends on how many
+      pulses there were, which under a latch it could not. "Nach Rückfall in die
+      Piano-Stellung" says the bellows returns to piano between the two halves of the test
+      with no cancelling command named. And the correction clause presupposes per-pulse
+      behaviour: bore 20 is being used to trim how much travel each pulse buys.
+
+  - id: control-4d-short-cancel-falls-short
+    kind: report
+    locator: "Kontrolle 4d (k 4c), p. 183"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Anschliessend Eingabe von Crescendo und Sforzando ab (kurze Perforation): Die Nuancierbälge fallen nicht vollständig in die Piano-Stellung zurück."
+    subject: function-sforzando-off
+    property: latching-behaviour
+    object: momentary
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      Read with control 4c, where a long Sforzando-off perforation must bring the bellows
+      all the way down. Long goes all the way, short does not: the cancel is
+      duration-proportional. This is what forbids giving the cancelling valve a narrow lift
+      band in the model, since a narrow band would make a short cancel reach full
+      conductance almost at once.
+
+  - id: control-4e-three-steps
+    kind: report
+    locator: "Kontrolle 4e (k 4d), p. 183"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Anschliessend Eingabe von Crescendo und Sforzando ab in drei kurzen Einzelperforationen: Die Nuancierbälge fallen in drei Schritten vollständig in die Piano-Stellung zurück. Wird die Piano-Stellung nicht erreicht, Korrektur an 29 (T 100) oder 70 (T 98)."
+    subject: function-sforzando-off
+    property: latching-behaviour
+    object: momentary
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      And cumulative: three short cancels together do what one long one does. Bore 29 is the
+      adjuster, which is why the model gives the cancelling valve its own fill constant
+      rather than sharing the sforzando valve's.
+
+  - id: control-6b-automatic-decrescendo
+    kind: report
+    locator: "Kontrolle 6b, p. 184"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Anschliessend Eingabe von 5 kurzen Perforationen Sforzando an: Trotz des automatischen Eintritts der Decrescendo-Bewegung müssen die Bälge immer wieder die Forte-Stellung erreichen."
+    translation: >
+      Then input five short Sforzando-on perforations: despite the automatic onset of the
+      decrescendo movement, the bellows must reach the forte position again each time.
+    subject: function-sforzando-on
+    property: latching-behaviour
+    object: momentary
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    comprehension: >
+      "Der automatische Eintritt der Decrescendo-Bewegung" after a Sforzando-on perforation
+      ends is what a momentary valve gives and a latch does not. Under a latch nothing would
+      enter automatically, because the sforzando would still be set.
+
+  - id: control-6c-nine-pairs-hold-mezzoforte
+    kind: report
+    locator: "Kontrolle 6c, p. 184"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Im Bass und Diskant 9x Eingabe von Sforzando an-ab: die Nuancierbälge 90 sollen sich stets auf Mezzoforte-Stellung halten."
+    subject: function-sforzando-on
+    property: opening-closing-symmetry
+    object: designed-symmetric
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      Nine on-off pairs holding the level at mezzoforte is a balance of nine equal closing
+      and nine equal opening increments. Under a set-and-cancel reading eight of the nine
+      pairs would be doing nothing. It is also the control the fitted model most clearly
+      fails, since on 3309 the fall is about four times the rise.
+
+  - id: control-2c-hook-balances-the-halves
+    kind: report
+    locator: "Kontrolle 2c, p. 182"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Kontrolle der Ausgeglichenheit zwischen Bass und Diskant im mf. … Bei unterschiedlicher Lautstärke Verstellung des Hakens an 93."
+    subject: mezzofortebalg-93
+    property: adjusted-at
+    object: hook-position-is-adjustable
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      Two consequences. The mezzoforte position is adjustable rather than fixed, so "auf
+      halbem Wege" describes an arrangement and not a constant. And Welte balances the two
+      halves for *loudness* at mezzoforte by moving the hook, which means mezzoforte
+      loudness was treated as an adjustable quantity rather than one derived from a fixed
+      bellows position.
+
+  - id: control-5-adjusts-throttle-97
+    kind: report
+    locator: "Kontrolle 5, p. 183"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Kontrolle der raschen Bewegung Forte-Piano … Wird die Piano-Stellung nicht in der vorgeschriebenen Zeit zwischen dem ersten und dem dritten Kontrollton erreicht, Verstellung von 97."
+    subject: function-sforzando-off
+    property: adjusted-at
+    object: drossel-97
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      Throttle 97 is normed against a *heard* result, the last tones sounding piano, rather
+      than against a bellows position, which is evidence about what Welte was regulating.
+
+  - id: throttle-97-normed-by-control-5
+    kind: report
+    locator: "Kontrolle 5, p. 183"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    subject: drossel-97
+    property: normed-by-control
+    object: kontrolle-5
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+
+  # -- which adjuster each control turns ----------------------------------------
+  #
+  # Every control names the part to correct at. Written out per function so that a part can
+  # be asked which control norms it and a function which adjuster sets it, and so that
+  # Phillips's four lettered adjusters can be identified with these numbered ones.
+
+  - id: control-3-adjusts-98-for-the-crescendo
+    kind: report
+    locator: "Kontrolle 3 (g 3), p. 182"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Verstellung von 98 (Crescendo) oder 100 (Decrescendo)"
+    subject: function-crescendo-on
+    property: adjusted-at
+    object: drossel-98
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+
+  - id: control-3-adjusts-100-for-the-decrescendo
+    kind: report
+    locator: "Kontrolle 3 (g 3), p. 182"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Verstellung von 98 (Crescendo) oder 100 (Decrescendo)"
+    subject: function-crescendo-off
+    property: adjusted-at
+    object: bohrung-100
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+
+  - id: control-4b-adjusts-20
+    kind: report
+    locator: "Kontrolle 4b (k 6), pp. 182–183"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Wird die Mezzoforte-Stellung zu früh oder zu spät erreicht, Korrektur an 20 (T 100) oder 82 (T 98)."
+    subject: function-sforzando-on
+    property: adjusted-at
+    object: bohrung-20
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      Bore 20 trims how much travel each Sforzando-on pulse buys, which is the model's trip
+      threshold.
+
+  - id: bore-20-normed-by-control-4b
+    kind: report
+    locator: "Kontrolle 4b (k 6), pp. 182–183"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    subject: bohrung-20
+    property: normed-by-control
+    object: kontrolle-4b
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+
+  - id: control-4e-adjusts-29
+    kind: report
+    locator: "Kontrolle 4e (k 4d), p. 183"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Wird die Piano-Stellung nicht erreicht, Korrektur an 29 (T 100) oder 70 (T 98)."
+    subject: function-sforzando-off
+    property: adjusted-at
+    object: bohrung-29
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+
+  - id: bore-29-normed-by-control-4e
+    kind: report
+    locator: "Kontrolle 4e (k 4d), p. 183"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    subject: bohrung-29
+    property: normed-by-control
+    object: kontrolle-4e
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+
+  - id: hook-normed-by-control-2c
+    kind: report
+    locator: "Kontrolle 2c, p. 182"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    subject: mezzofortebalg-93
+    property: normed-by-control
+    object: kontrolle-2c
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+
+  - id: control-2c-balances-for-loudness
+    kind: report
+    locator: "Kontrolle 2c, p. 182"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    quote:
+      de: "Kontrolle der Ausgeglichenheit zwischen Bass und Diskant im mf. … Bei unterschiedlicher Lautstärke Verstellung des Hakens an 93."
+    subject: mezzofortebalg-93
+    property: balanced-for
+    object: heard-loudness
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      "Lautstärke", loudness as heard, is what the two halves are balanced for at
+      mezzoforte, and the hook is what is moved to balance them. Not a vacuum at the stack
+      and not a bellows position. This is the premise Phillips's hammer-weight argument
+      turns on.
+
+  - id: control-4a-is-the-sforzando-control
+    kind: report
+    locator: "Kontrolle 4a, p. 182"
+    holder: welte-m-soehne
+    transmitted_by: [hagmann-peter]
+    subject: ventil-22
+    property: normed-by-control
+    object: kontrolle-4a
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      Four Sforzando movements to mezzoforte and back at equal speed each way: the valve
+      and its reopening assist together.

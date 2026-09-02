@@ -39,8 +39,8 @@ export function penetration(state, engaged, moved, level, twoSided, thickness = 
     const upper = level + thickness / 2;
     const lower = level - thickness / 2;
     if (state.trappedAbove || state.caught)
-        return moved < upper ? upper - moved : 0;
-    return twoSided && moved > lower ? moved - lower : 0;
+        return moved < lower ? lower - moved : 0;
+    return twoSided && moved > upper ? moved - upper : 0;
 }
 export function limitAtStop(state, engaged, current, moved, level, twoSided, thickness = 0) {
     const upper = level + thickness / 2;
@@ -57,7 +57,22 @@ export function limitAtStop(state, engaged, current, moved, level, twoSided, thi
     }
     if (current >= upper)
         state.caught = true;
+    // The two arrest levels are a hysteresis and not an excluded band: a bellows
+    // driven down onto the hook comes to rest a little below the nominal level, one
+    // driven up against it a little above. The hook itself does not move — the line
+    // rebounds off it rather than sinking into it, which `stopRestitution` in the
+    // model is for. Only the falling face is measured on this roll. A census of the
+    // 22 hook engagements finds every one entered from above, at the fortissimo
+    // rail, on both halves and over the whole roll: the falling arrests are 144
+    // (bass) and 206 (treble) arriving at 14 to 16 units/s and resting at
+    // 0.5752 +/- 0.0043 and 0.6188 +/- 0.0074. The upward approaches once read as
+    // arrivals from below are pauses in a creep, the fastest of them 3.8 units/s,
+    // and they scatter 0.031 to 0.032 above the falling rest rather than settling
+    // on a second face. So the pin's upper face is never reached here and its
+    // separation is not measured; `mfThickness` is pinned in `cli/settings.ts` for
+    // that reason. Welte has the pin blocking both ways, quoted in Hagemann's
+    // Einstellanleitung, which is why `mfTwoSided` stays set.
     if (twoSided)
-        return state.trappedAbove ? Math.max(moved, upper) : Math.min(moved, lower);
-    return state.caught ? Math.max(moved, upper) : moved;
+        return state.trappedAbove ? Math.max(moved, lower) : Math.min(moved, upper);
+    return state.caught ? Math.max(moved, lower) : moved;
 }

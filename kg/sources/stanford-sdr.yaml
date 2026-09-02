@@ -1,0 +1,178 @@
+# The Stanford catalogue record for roll 3309, as it reaches this project through the SUPRA
+# scan metadata committed at `emulator/data/expression-events.meta.json`.
+#
+# It is a separate source from the dissertation because it is a separate witness: a library
+# catalogue describing a physical object it holds, against a footnote written from it. Where
+# the two agree that is worth knowing, and where they would disagree the graph could say so.
+
+source:
+  id: stanford-sdr
+  kind: observation-record
+  title: "Stanford Digital Repository record for Welte-Mignon roll 3309"
+  authors: [stanford-libraries]
+  identifier: "druid jq774vx6544"
+  url: "https://purl.stanford.edu/jq774vx6544"
+  note: >
+    The fields used here — druid, label, performer, composer, roll type — are those carried
+    into the SUPRA raw MIDI and from there into this repository, so every one of them can be
+    checked against a file under version control rather than against a web page.
+
+statements:
+
+  - id: roll-is-a-t100
+    kind: report
+    locator: "expression-events.meta.json, rollType"
+    quote:
+      en: "welte-red"
+    subject: roll-3309
+    property: has-type
+    object: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      The record types the roll as "welte-red", which is the T-100 scale. Everything this
+      graph says about the mechanism is brought to bear on 3309 through this one
+      classification, so it is worth having as a statement with a locator and not only as
+      the `instance_of` the entity file declares.
+
+  - id: performer-is-backhaus
+    kind: report
+    locator: "expression-events.meta.json, performer"
+    subject: performance-backhaus-1920
+    property: carried-out-by
+    object: backhaus-wilhelm
+    holds: TRUE
+    adopt: true
+
+  - id: work-is-by-schubert
+    kind: report
+    locator: "expression-events.meta.json, composer"
+    subject: militaermarsch-es-dur
+    property: composed-by
+    object: schubert-franz
+    holds: TRUE
+    adopt: true
+
+  - id: performance-was-of-the-marsch
+    kind: report
+    locator: "expression-events.meta.json, label and composer"
+    subject: performance-backhaus-1920
+    property: performs-work
+    object: militaermarsch-es-dur
+    holds: TRUE
+    adopt: true
+    note: >
+      Which of Schubert's marches is not said, in the catalogue record or anywhere else this
+      project has looked, so the work entity stands for the piece named on the roll and
+      nothing narrower.
+
+  - id: roll-is-at-stanford
+    kind: report
+    locator: "purl.stanford.edu/jq774vx6544"
+    subject: roll-3309
+    property: current-location
+    object: stanford
+    holds: TRUE
+    adopt: true
+    mentions: [condon-denis, stanford-libraries]
+    note: >
+      CONDON ROLL 776, from the Denis Condon collection. The copy this project works from is
+      a scan of this physical roll and of no other, which matters because roll 3309 was an
+      edition and other copies of it exist.
+
+  - id: collection-was-condons
+    kind: report
+    locator: "purl.stanford.edu/jq774vx6544, collection"
+    subject: condon-collection
+    property: former-owner
+    object: condon-denis
+    holds: TRUE
+    adopt: true
+  - id: collection-is-stanfords
+    kind: report
+    locator: "purl.stanford.edu/jq774vx6544, collection"
+    subject: condon-collection
+    property: current-owner
+    object: stanford-libraries
+    holds: TRUE
+    adopt: true
+  - id: roll-is-stanfords
+    kind: report
+    locator: "purl.stanford.edu/jq774vx6544"
+    subject: roll-3309
+    property: current-owner
+    object: stanford-libraries
+    holds: TRUE
+    adopt: true
+  - id: roll-was-condons
+    kind: report
+    locator: "purl.stanford.edu/jq774vx6544, CONDON ROLL 776"
+    subject: roll-3309
+    property: former-owner
+    object: condon-denis
+    holds: TRUE
+    adopt: true
+  - id: libraries-are-at-stanford
+    kind: report
+    locator: "purl.stanford.edu/jq774vx6544"
+    subject: stanford-libraries
+    property: resides-at
+    object: stanford
+    holds: TRUE
+    adopt: true
+
+  - id: scan-was-made-by-stanford
+    kind: report
+    locator: "expression-events.meta.json, druid and lengthDpi"
+    subject: digitisation-3309
+    property: carried-out-by
+    object: stanford-libraries
+    holds: TRUE
+    adopt: true
+    note: >
+      At 300.25 ppi. Every pixel measurement in this graph — the gridline positions, the
+      punch diameter, the lead of the drawn line over the punches — is in the coordinate
+      system this activity produced, so it is a participant in those results and not merely
+      background.
+
+  - id: scan-produced-the-images
+    kind: report
+    locator: "expression-events.meta.json, source"
+    subject: digitisation-3309
+    property: has-produced
+    object: drawn-line-3309
+    holds: FALSE
+    adopt: false
+    note: >
+      Held FALSE deliberately, and kept, because it is the confusion worth forestalling: the
+      scanning produced images of the drawn line, not the drawn line. The line is on the
+      paper and was made in 1920 or 1922; the scan is a representation of it made a century
+      later. A graph that let the two collapse would licence treating a scanning artefact as
+      a fact about the mechanism, which §12 of `empirics.md` spends several pages ruling out.
+
+  - id: scan-represents-the-roll
+    kind: report
+    locator: "purl.stanford.edu/jq774vx6544"
+    subject: digitisation-3309
+    property: used-specific-object
+    object: roll-3309
+    holds: TRUE
+    adopt: true
+    note: >
+      The scanning is an activity and the roll is what it was done to, which is P16. The
+      images it produced represent the roll; the activity does not, and the graph used to
+      say it did.
+
+  - id: scan-was-made-at-stanford
+    kind: inference
+    locator: "expression-events.meta.json, druid; purl.stanford.edu/jq774vx6544"
+    holder: pfeffer-niels
+    subject: digitisation-3309
+    property: took-place-at
+    object: stanford
+    premises: [scan-was-made-by-stanford, libraries-are-at-stanford]
+    logic: composition-of-stated-mechanisms
+    holds: PROBABLE
+    note: >
+      The Libraries scanned their own roll, and the Libraries are at Stanford. No record to
+      hand says where the scanner stood, so the place is probable and not stated.

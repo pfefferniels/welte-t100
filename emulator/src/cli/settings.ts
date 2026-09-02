@@ -9,6 +9,31 @@
 
 import type { Parameters } from "../model/types.ts";
 import type { Half } from "../roll/expression.ts";
+import { WELTE_SPOOL } from "../roll/spool.ts";
+import type { AxisChoice } from "../roll/timing.ts";
+
+/**
+ * The time axis a command was asked for: `--timing scan` for the tempo map in the
+ * SUPRA file, otherwise the take-up spool, whose two interesting parameters are
+ * `--effect` (how much of the circumference growth reaches the paper) and
+ * `--revolution` (the spool's period, which sets the length of the whole axis).
+ */
+export function axisFrom(argv: readonly string[]): AxisChoice {
+  const option = (name: string, fallback: number): number => {
+    const at = argv.indexOf(`--${name}`);
+    if (at < 0) return fallback;
+    const given = Number(argv[at + 1]);
+    if (!Number.isFinite(given)) throw new Error(`--${name} wants a number, and was given ${argv[at + 1]}`);
+    return given;
+  };
+  const timing = argv.indexOf("--timing");
+  if (timing >= 0 && argv[timing + 1] === "scan") return "scan";
+  return {
+    ...WELTE_SPOOL,
+    circumferenceEffect: option("effect", WELTE_SPOOL.circumferenceEffect),
+    revolutionSeconds: option("revolution", WELTE_SPOOL.revolutionSeconds),
+  };
+}
 
 /**
  * What `docs/empirics.md` measures directly, per half: the two rails from where

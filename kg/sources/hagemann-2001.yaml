@@ -1,0 +1,499 @@
+# Reinhard Hagemann's regulation instructions: the only manometer readings in this graph.
+#
+# Every quotation below was checked against the text layer of the local PDF on 2026-09-02.
+# The page division follows the printed footers: sections 1–6, the vacuum ladder, are on
+# p. 25; section 8, the dome travel and the caveat are on p. 26; the percentage series is
+# on p. 27.
+
+source:
+  id: hagemann-2001
+  kind: article
+  title: "Einstellanleitung für Welte-Mignon"
+  authors: [hagemann-reinhard]
+  container: "Das Mechanische Musikinstrument 80"
+  year: 2001
+  pages: "25–27"
+  copy: "~/Projects/stgall/einstellanleitung.pdf"
+  note: >
+    Hagemann drilled small holes into the conduit rails of the papier-mâché tubes between
+    Betonungs- and Tonpneumatik of his own Ibach Welte-Flügel, glued in lead tubes, and read
+    the vacuum off a manometer with the test roll "Skala" halted so that the perforation
+    being measured lay over its opening in the glide block. He reports "viele Tausend
+    Druckmessungen". What makes the article decisive for this project is not the ladder,
+    which is in vacuum where the model works in bellows travel, but the sentence of Welte's
+    that he quotes about the Mezzoforte hook.
+
+statements:
+
+  # -- the measured ladder ----------------------------------------------------
+
+  - id: piano-vacuum
+    kind: measurement
+    locator: "p. 25, §2"
+    quote:
+      de: "Piano (p.) … einzustellen mit den beiden Ledermuttern und gemessen hinter der Betonungs- und vor der Tonpneumatik, wie oben beschrieben: -4\" WS = -101.6 mm WS"
+    subject: ibach-8171-21310
+    property: vacuum-in-piano
+    value: -101.6
+    unit: mm-water-column
+    holds: TRUE
+    adopt: true
+    note: >
+      Welte gives this state no name of its own ("von Welte nicht näher bezeichnet"). It is
+      the reference of the whole series: on p. 27 Hagemann sets it to 100 %.
+
+  - id: crescendo-vacuum
+    kind: measurement
+    locator: "p. 25, §3"
+    quote:
+      de: "Crescendo (cresc.), von Welte \"Cresc. F.\" beziehungsweise \"Crescendo forte\" genannt … Piano plus 1/2 Piano = -4\" plus -2\" = -6\" WS = -150 mm WS"
+    subject: ibach-8171-21310
+    property: vacuum-in-crescendo
+    value: -152.4
+    unit: mm-water-column
+    holds: TRUE
+    adopt: true
+    note: >
+      The article prints two different values for this state. Section 3 on p. 25 gives
+      "-150 mm WS"; the arithmetic in the same line gives -6", which is -152.4 mm exactly,
+      and the recapitulation on p. 26 lists "-101.6, -152.4, -203.2 und -355.6 mm WS". The
+      exact conversion is taken here as the intended figure and the rounding as a slip,
+      because the whole point of the article is that differences of one to three mm WS are
+      already audible.
+
+  - id: forte-vacuum
+    kind: measurement
+    locator: "p. 25, §5"
+    quote:
+      de: "Forte (f.), von Welte \"Forz. F.\" oder \"Forzando Forte\" genannt … 2 x Piano = 2 x -4\" = -8\" WS = -203.2 mm WS"
+    subject: ibach-8171-21310
+    property: vacuum-in-forte
+    value: -203.2
+    unit: mm-water-column
+    holds: TRUE
+    adopt: true
+
+  - id: fortissimo-vacuum
+    kind: measurement
+    locator: "p. 25, §6"
+    quote:
+      de: "Fortissimo (ff.) … von Welte nicht näher bezeichnet: Crescendo plus Forte = -6\" plus -8\" = -14\" WS = -355.6 mm WS"
+    subject: ibach-8171-21310
+    property: vacuum-in-fortissimo
+    value: -355.6
+    unit: mm-water-column
+    holds: TRUE
+    adopt: true
+
+  - id: operating-vacuum
+    kind: measurement
+    locator: "p. 25, §1"
+    quote:
+      de: "Erforderlicher Betriebsunterdruck, gemessen unmittelbar vor dem Flügel: Mindestens -400 mm WS, in der Regel jedoch 18\" WS = -457.2 mm WS"
+    subject: ibach-8171-21310
+    property: supply-vacuum
+    lower: -457.2
+    upper: -400.0
+    unit: mm-water-column
+    holds: TRUE
+    adopt: true
+    note: >
+      A range, not a point. Below -400 mm WS the Verschiebung and the right pedal no longer
+      work quickly enough; the usual setting is the deeper end. Recorded with both limits
+      rather than a midpoint, because neither end is an estimate of the other.
+
+  - id: valve-chatter-threshold
+    kind: measurement
+    locator: "p. 25, §1"
+    quote:
+      de: "Höhere Unterdruckwerte als -457.2 mm WS haben zur Folge, dass durch das Kegelventil in der Betonungspneumatik vermehrt Luft aus der Tonpneumatik abgesaugt wird … Auch beginnen die Ventile … zu klappern"
+    subject: ibach-8171-21310
+    property: valve-chatter-threshold
+    value: -457.2
+    unit: mm-water-column
+    holds: TRUE
+    adopt: true
+
+  # The ladder as percentages of Piano, which is how Hagemann himself presents it on p. 27,
+  # and then his conjecture about Welte's practice, which is a different kind of claim.
+
+  - id: crescendo-relative-to-piano
+    kind: report
+    locator: "p. 27"
+    quote:
+      de: "100 %, 150 %, 200 %, 350 %, 450 %."
+    subject: ibach-8171-21310
+    property: vacuum-relative-crescendo
+    value: 150
+    unit: percent
+    holds: TRUE
+    adopt: true
+  - id: forte-relative-to-piano
+    kind: report
+    locator: "p. 27"
+    quote:
+      de: "100 %, 150 %, 200 %, 350 %, 450 %."
+    subject: ibach-8171-21310
+    property: vacuum-relative-forte
+    value: 200
+    unit: percent
+    holds: TRUE
+    adopt: true
+  - id: fortissimo-relative-to-piano
+    kind: report
+    locator: "p. 27"
+    quote:
+      de: "100 %, 150 %, 200 %, 350 %, 450 %."
+    subject: ibach-8171-21310
+    property: vacuum-relative-fortissimo
+    value: 350
+    unit: percent
+    holds: TRUE
+    adopt: true
+    note: "Crescendo plus Forte: 150 plus 200."
+  - id: operating-relative-to-piano
+    kind: report
+    locator: "p. 27"
+    quote:
+      de: "100 %, 150 %, 200 %, 350 %, 450 %."
+    subject: ibach-8171-21310
+    property: vacuum-relative-operating
+    value: 450
+    unit: percent
+    holds: TRUE
+    adopt: true
+    note: "Piano plus Crescendo plus Forte, at the usual 18 inch setting."
+
+  - id: series-as-percentages
+    kind: report
+    locator: "p. 27"
+    quote:
+      de: "100 %, 150 %, 200 %, 350 %, 450 %."
+    subject: welte-t100
+    property: regulated-by-series
+    object: percent-series-of-the-piano-vacuum
+    holds: PROBABLE
+    adopt: false
+    note: >
+      Hagemann argues that the additivity, and the fact that five such values are quickly
+      and accurately settable with a simple manometer, make it likely that Welte used this
+      or a similar series. Held PROBABLE rather than TRUE because it is his argument about
+      Welte's practice, not a measurement, and he states it as a likelihood himself. Not
+      adopted: the project has no independent evidence about what series Welte used.
+
+  # -- the ladder as an order --------------------------------------------------
+
+  - id: crescendo-louder-than-piano
+    kind: measurement
+    locator: "p. 25, §§2–3"
+    subject: state-crescendo
+    property: louder-than
+    object: state-piano
+    holds: TRUE
+    adopt: true
+    note: >
+      The ladder as CRMsci's ordering of types, so that the order survives even where the
+      figures do not transfer to another instrument. −152.4 against −101.6 mm WS.
+  - id: forte-louder-than-crescendo
+    kind: measurement
+    locator: "p. 25, §§3–5"
+    subject: state-forte
+    property: louder-than
+    object: state-crescendo
+    holds: TRUE
+    adopt: true
+  - id: fortissimo-louder-than-forte
+    kind: measurement
+    locator: "p. 25, §§5–6"
+    subject: state-fortissimo
+    property: louder-than
+    object: state-forte
+    holds: TRUE
+    adopt: true
+
+  # -- which roll function each state is ----------------------------------------
+  #
+  # Hagemann read each figure with the Skalarolle halted over one perforation, so each of
+  # his states is a function of the roll held open. Welte's own names for the perforations
+  # are what identify them, and where the identification is a reading it says so.
+
+  - id: crescendo-state-is-crescendo-on-held
+    kind: report
+    locator: "p. 25, §3"
+    quote:
+      de: "Crescendo (cresc.), von Welte \"Cresc. F.\" beziehungsweise \"Crescendo forte\" genannt"
+    subject: function-crescendo-on
+    property: results-in-state
+    object: state-crescendo
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+
+  - id: forte-state-is-sforzando-on-held
+    kind: report
+    locator: "p. 25, §5"
+    quote:
+      de: "Forte (f.), von Welte \"Forz. F.\" oder \"Forzando Forte\" genannt"
+    subject: function-sforzando-on
+    property: results-in-state
+    object: state-forte
+    scope: welte-t100
+    holds: PROBABLE
+    adopt: true
+    comprehension: >
+      Welte's "Forz. F." is the Forzando perforation of the Skalarolle held over its
+      opening, and Forzando is what Hagmann's Anhang 10 calls Sforzando. The identification
+      of the two names is the project's, which is why the belief is PROBABLE.
+
+  - id: fortissimo-requires-crescendo
+    kind: report
+    locator: "p. 25, §6"
+    quote:
+      de: "Crescendo plus Forte"
+    subject: state-fortissimo
+    property: requires-function
+    object: function-crescendo-on
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+  - id: fortissimo-requires-sforzando
+    kind: report
+    locator: "p. 25, §6"
+    quote:
+      de: "Crescendo plus Forte"
+    subject: state-fortissimo
+    property: requires-function
+    object: function-sforzando-on
+    scope: welte-t100
+    holds: PROBABLE
+    adopt: true
+    comprehension: >
+      Rests on the same identification of "Forz. F." with Sforzando as the statement above.
+
+  - id: piano-set-at-the-leather-nuts
+    kind: report
+    locator: "p. 25, §2"
+    quote:
+      de: "einzustellen mit den beiden Ledermuttern"
+    subject: ledermutter-92
+    property: norms-state
+    object: state-piano
+    scope: welte-t100
+    holds: PROBABLE
+    adopt: true
+    comprehension: >
+      Hagemann names "the two leather nuts" and no drawing number. That they are Hagmann's
+      Ledermutter 92, one per half, is the project's identification, made because Hagmann
+      gives the nut the same job at pp. 96–97.
+
+  # -- the dome travel, and why the two halves differ -------------------------
+
+  - id: dome-travel-discant
+    kind: measurement
+    locator: "p. 26"
+    quote:
+      de: "Bei meinem Instrument muss, um eine Druckänderung von -100 mm WS auf -200 mm WS zu erzielen, der Dom am Nuancierbalg auf der Diskantseite einen Weg von 11 mm, auf der Bassseite aber einen Weg von lediglich 8 mm Länge zurücklegen."
+    subject: ibach-8171-21310
+    property: dome-travel-discant
+    value: 11.0
+    unit: millimetre
+    holds: TRUE
+    adopt: true
+    note: >
+      The one place in the whole literature where bellows travel and vacuum are related by a
+      measurement. It is a single point of that relation on a single instrument, so it does
+      not license converting the ladder above into travel, which is the conversion this
+      project most wants and cannot have.
+
+  - id: dome-travel-bass
+    kind: measurement
+    locator: "p. 26"
+    quote:
+      de: "auf der Bassseite aber einen Weg von lediglich 8 mm Länge zurücklegen"
+    subject: ibach-8171-21310
+    property: dome-travel-bass
+    value: 8.0
+    unit: millimetre
+    holds: TRUE
+    adopt: true
+
+  - id: halves-differ-by-valve-and-seat
+    kind: report
+    locator: "p. 26"
+    quote:
+      de: "dass die Regulierventile (Kegelventile) in der Nuancier- bzw. Betonungspneumatik und ihr Ventilsitz auf der Bass- und Diskantseite nicht völlig identisch sind und kleine Unterschiede zwischen Diskant- und Bassseite aufweisen"
+    translation: >
+      that the regulating valves (cone valves) in the nuancing or expression pneumatic and
+      their seat are not completely identical on the bass and discant sides and show small
+      differences between the discant and the bass side.
+    subject: ibach-8171-21310
+    property: halves-built-alike
+    object: not-identical
+    holds: TRUE
+    adopt: true
+    mentions: [kegelventil-87, half-bass, half-treble]
+    note: >
+      His explanation for the two dome-travel figures above. Worth holding onto when reading
+      this project's own results: the emulator fits the two halves independently and finds
+      them different, and here is a mechanism, on a different instrument, for expecting
+      exactly that.
+
+  # -- the Mezzoforte hook: Welte's own words, transmitted -------------------
+
+  - id: mf-hook-blocks-both-ways
+    kind: report
+    locator: "p. 26, §8"
+    holder: welte-m-soehne
+    transmitted_by: [hagemann-reinhard]
+    quote:
+      de: "Mezzoforte ist eine Hilfsfunktion. Der Mezzofortebalg [...] versperrt dem Nuancierbalg [...] den Weg, sodaß solange jener zugesaugt ist, kein Ton stärker als Mezzoforte, oder schwächer als Mezzoforte spielen kann."
+    translation: >
+      Mezzoforte is an auxiliary function. The Mezzoforte bellows blocks the Nuancierbalg's
+      way, so that as long as the former is drawn in, no note can play stronger than
+      mezzoforte, or weaker than mezzoforte.
+    subject: mezzofortebalg-93
+    property: blocks-in-directions
+    object: both-directions
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    comprehension: >
+      The disjunction carries it: "kein Ton stärker als Mezzoforte, oder schwächer als
+      Mezzoforte". Stronger or weaker, so the hook is a barrier in both directions and not
+      a floor. The reading is the project's; Welte's sentence is what is quoted. Hagemann
+      introduces it with "schreibt die Firma Welte", so the words are attributed to the firm
+      and reach this graph through him. Note that the ellipses inside the quotation are
+      Hagemann's own.
+    note: >
+      This is what settles the emulator's `mfTwoSided` flag, which roll 3309 cannot: every
+      one of its twenty-two hook engagements is entered from above, so the roll never tests
+      the upward direction.
+
+  - id: hook-reading-depends-on-approach
+    kind: report
+    locator: "p. 26, §8"
+    quote:
+      de: "da die gemessenen Unterdruckwerte unterschiedlich sind, je nachdem ob der Mezzofortehaken von der Pianoseite oder von der Fortissimoseite herangespielt wird"
+    subject: mezzofortebalg-93
+    property: reading-depends-on-approach
+    object: stated
+    scope: ibach-8171-21310
+    holds: TRUE
+    adopt: true
+    note: >
+      Independent support, from vacuum on a different instrument, for what this project
+      measures on the paper as two arrest levels a finger-thickness apart. Hagemann's
+      practical conclusion is the opposite of an emulator's: he recommends pushing the hook
+      out of the Nuancierbalg's way altogether, both when regulating and when playing, and
+      says the music comes out better rather than worse for it.
+
+  # -- the caveat the author states himself ----------------------------------
+
+  - id: transfer-to-other-instruments
+    kind: report
+    locator: "p. 26"
+    quote:
+      de: "Dem Verfasser ist nicht bekannt, ob die an seinem Instrument (Ibach Welte-Flügel Nr. 8171/21310) gemessenen Werte ohne weiteres auf andere Instrumente übertragen werden können."
+    translation: >
+      The author does not know whether the values measured on his instrument (Ibach
+      Welte-Flügel Nr. 8171/21310) can be transferred without further ado to other
+      instruments.
+    subject: welte-t100
+    property: values-transfer-from
+    object: ibach-8171-21310
+    holds: UNKNOWN
+    adopt: true
+    note: >
+      Deliberately one of only two statements in this file whose subject is the T-100 type
+      rather than the Ibach. Every measurement above is scoped to one machine, and this is
+      the author's own reason for keeping it that way. `out/reports/single-instrument.md`
+      exists to keep the distinction visible.
+
+  - id: principle-transfers-to-other-instruments
+    kind: report
+    locator: "p. 26"
+    quote:
+      de: "Das Prinzip dürfte aber für alle Welte-Mignon Instrumente bzw. Apparate identisch sein."
+    translation: >
+      The principle, however, should be identical for all Welte-Mignon instruments and
+      apparatuses.
+    subject: welte-t100
+    property: principle-transfers-from
+    object: ibach-8171-21310
+    holds: PROBABLE
+    adopt: true
+    note: >
+      "Dürfte" is a likelihood and is held as one. The values stay with the machine; the
+      principle goes to the type.
+
+  # -- the instrument and the campaign -----------------------------------------
+
+  - id: ibach-produced-the-instrument
+    kind: report
+    locator: "p. 26"
+    subject: production-ibach-8171
+    property: has-produced
+    object: ibach-8171-21310
+    holds: TRUE
+    adopt: true
+    note: >
+      An Ibach grand fitted with the Welte mechanism, serial numbers 8171 for the piano and
+      21310 for the Welte action. The production is an event with two makers because CIDOC
+      CRM has no shortcut from a thing to its maker, and because the two halves of the
+      instrument have different makers and the vacuum readings belong to the Welte half.
+
+  - id: instrument-made-by-ibach
+    kind: report
+    locator: "p. 26"
+    subject: production-ibach-8171
+    property: carried-out-by
+    object: ibach
+    holds: TRUE
+    adopt: true
+
+  - id: action-made-by-welte
+    kind: report
+    locator: "p. 26"
+    subject: production-ibach-8171
+    property: carried-out-by
+    object: welte-m-soehne
+    holds: PROBABLE
+    adopt: true
+    comprehension: >
+      That 21310 is the Welte action's serial number is the project's reading of a double
+      serial on a "Welte-Flügel", not something Hagemann spells out.
+
+  - id: campaign-carried-out-by-hagemann
+    kind: report
+    locator: "p. 25, preamble"
+    subject: hagemann-measurement-campaign
+    property: carried-out-by
+    object: hagemann-reinhard
+    holds: TRUE
+    adopt: true
+
+  - id: campaign-measured-the-ibach
+    kind: report
+    locator: "p. 25, preamble"
+    quote:
+      de: "hat der Verfasser angenommen, dass äußerst sorgfältige Druckbestimmungen erforderlich waren und deshalb am eigenen Ibach Welte-Flügel viele Tausend Druckmessungen vorgenommen"
+    subject: hagemann-measurement-campaign
+    property: used-specific-object
+    object: ibach-8171-21310
+    holds: TRUE
+    adopt: true
+
+  - id: campaign-used-the-skalarolle
+    kind: report
+    locator: "p. 25, preamble"
+    subject: hagemann-measurement-campaign
+    property: used-specific-object
+    object: skalarolle-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      The readings were taken with the test roll "Skala" halted so that the perforation being
+      measured lay over its opening in the glide block. So the Skalarolle is a participant in
+      every figure in this file, and the roll Welte's whole regulation procedure is defined
+      against is the same one — which is why obtaining and scanning a T-100 Skalarolle would
+      turn Anhang 12 into seconds.

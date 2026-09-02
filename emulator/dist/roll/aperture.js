@@ -14,11 +14,30 @@
  * time but places it about 11 ms late. `binaryPort` reproduces that for the
  * baseline model.
  */
+/** Welte's tracker bore, in mm. */
+export const TRACKER_BORE_MM = 1.413;
+/**
+ * The resolution of the Stanford scan of roll 3309, in rows per inch of paper.
+ * Every constant here that is stated in rows, the geometry below included, is
+ * stated at this pitch, so a roll measured in millimetres is put on the same
+ * grid by `geometryInMm` rather than on one of its own.
+ */
+export const ROWS_PER_INCH = 300.25;
+export const ROWS_PER_MM = ROWS_PER_INCH / 25.4;
 /** Roll 3309. */
 export const DEFAULT_GEOMETRY = {
     punchDiameterPx: 20.86,
-    trackerDiameterPx: (1.413 * 300.25) / 25.4,
+    trackerDiameterPx: TRACKER_BORE_MM * ROWS_PER_MM,
 };
+/** The punch diameter of roll 3309, in mm. */
+export const DEFAULT_PUNCH_MM = DEFAULT_GEOMETRY.punchDiameterPx / ROWS_PER_MM;
+/** A geometry stated in millimetres, on the scan's row pitch. */
+export function geometryInMm(punchDiameterMm, trackerDiameterMm = TRACKER_BORE_MM) {
+    return {
+        punchDiameterPx: punchDiameterMm * ROWS_PER_MM,
+        trackerDiameterPx: trackerDiameterMm * ROWS_PER_MM,
+    };
+}
 /** Area of the lens where two circles of radius `a` and `b` overlap at centre distance `d`. */
 function lensArea(d, a, b) {
     if (d >= a + b)
@@ -54,8 +73,8 @@ export function portKey(half, control, action) {
  * two holes. The image parser already bridges chained punches, but leaves any
  * that overlap only partly, and a stadium is not the union of two stadiums.
  */
-export function slots(perforations) {
-    const byPort = perforations.reduce((groups, punch) => {
+export function slots(punches) {
+    const byPort = punches.reduce((groups, punch) => {
         const key = portKey(punch.half, punch.control, punch.action);
         return groups.set(key, [...(groups.get(key) ?? []), punch]);
     }, new Map());
@@ -70,7 +89,7 @@ export function slots(perforations) {
     }, []));
 }
 /** Continuous open fraction per grid row, keyed by half, control and action. */
-export function aperturePorts(grid, perforations, geometry = DEFAULT_GEOMETRY) {
+export function aperturePorts(grid, punches, geometry = DEFAULT_GEOMETRY) {
     const reach = Math.ceil(geometry.trackerDiameterPx / 2) + 1;
     const ports = new Map();
     const stamp = (slot) => {
@@ -83,14 +102,14 @@ export function aperturePorts(grid, perforations, geometry = DEFAULT_GEOMETRY) {
             series[index] = Math.max(series[index], value);
         });
     };
-    slots(perforations).forEach(stamp);
+    slots(punches).forEach(stamp);
     return ports;
 }
 /** midi2exp's model: fully open for the ink, plus a fixed tail extension. */
-export function binaryPorts(grid, perforations, geometry = DEFAULT_GEOMETRY, extensionFraction = 0.75) {
+export function binaryPorts(grid, punches, geometry = DEFAULT_GEOMETRY, extensionFraction = 0.75) {
     const extension = Math.round(geometry.trackerDiameterPx * extensionFraction);
     const ports = new Map();
-    slots(perforations).forEach((slot) => {
+    slots(punches).forEach((slot) => {
         const series = ports.get(slot.key) ?? new Float64Array(grid.length);
         ports.set(slot.key, series);
         series.fill(1, grid.indexOfRow(slot.rowOn), grid.indexOfRow(slot.rowOff + extension) + 1);

@@ -1,13 +1,26 @@
 {
-  "name": "welte-nuance-emulator",
-  "version": "0.1.0",
+  "name": "welte-t100-emulator",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
-  "description": "Derives the Nuancierbalg travel of a Welte-Mignon T-100 from the punched expression code, for comparison with the hand-drawn Nuancierungslinien of roll 3309.",
+  "description": "The expression mechanism of a Welte-Mignon T-100: the take-up spool, the nuancing bellows and the pedals, fitted against the hand-drawn Nuancierungslinien of roll 3309.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "engines": {
     "node": ">=24"
   },
   "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "check": "tsc --noEmit",
     "test": "node --test",
     "eval": "node src/cli/evaluate.ts",

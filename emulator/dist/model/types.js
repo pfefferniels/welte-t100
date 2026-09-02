@@ -50,6 +50,35 @@ export function shiftedByDriftingRows(series, rows, drift) {
     }
     return shifted;
 }
+/**
+ * The series slid by an amount that depends on its own value.
+ *
+ * The pen that drew the line swung on an arm, so where its tip sits *along* the
+ * paper depends on how far it has swung *across* it. That makes the offset
+ * between line and punches a function of the level, which is what roll 3309
+ * shows: within the sforzando-off collapses the offset correlates with the level
+ * at the event at r = 0.18 in the bass and 0.44 in the treble. The same geometry
+ * bends the printed scale, which `scaleWarp` carries, so the two are one effect
+ * seen along two axes.
+ *
+ * The shift wanted at a row depends on the value that ends up there, which is
+ * circular; the value before shifting stands in, and the error in that is second
+ * order for shifts of a few rows.
+ */
+export function shiftedByLevel(series, rowsPerUnit, mid) {
+    if (rowsPerUnit === 0)
+        return series;
+    const last = series.length - 1;
+    const shifted = new Float64Array(series.length);
+    const at = (index) => series[index < 0 ? 0 : index > last ? last : index];
+    for (let index = 0; index <= last; index += 1) {
+        const rows = rowsPerUnit * (series[index] - mid);
+        const whole = Math.floor(rows);
+        const fraction = rows - whole;
+        shifted[index] = at(index - whole) * (1 - fraction) + at(index - whole - 1) * fraction;
+    }
+    return shifted;
+}
 export function shiftedByRows(series, rows) {
     if (rows === 0)
         return series;

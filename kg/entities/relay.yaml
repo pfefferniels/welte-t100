@@ -1,0 +1,206 @@
+# The relay, part by part, as Hagmann numbers it on Anhang 13 (Discant side).
+#
+# His footnote 28 says the plate shows the Discant; the bass side is the same in mirrored
+# order. These are components of the T-100 design, not parts of any one instrument, which is
+# why `hagemann-2001`'s measurements have an instrument as their subject and never one of
+# these.
+#
+# Declaring them separately is what makes the signal path traversable: a query can start at
+# the glide-block opening a perforation passes over and follow the chain to the Nuancierbalg,
+# because every link in `hagmann-1984` names two of these records.
+
+entities:
+
+  # -- the relay as a whole ------------------------------------------------------
+  #
+  # Hagmann's Relais: the valves that turn a perforation into a change of state, between
+  # the two wind chambers common to all of them. Declaring it lets the parts nest under it
+  # rather than directly under the type, and gives the plate reading of where the relay's
+  # supply is tapped a subject.
+
+  - id: relais
+    kind: component
+    part_of: welte-t100
+    label: { de: "Relais", en: "the relay" }
+
+  # -- shared through the whole relay ------------------------------------------
+
+  - id: kondukte-14
+    kind: component
+    part_of: relais
+    label: { de: "Kondukte 14", en: "conduit 14" }
+    note: >
+      Carries the blower's vacuum to wind chamber 15, at whatever strength the blower is
+      producing. Traced on the plate over y ∈ [600, 925] with no tee anywhere along it, so
+      the relay's driving vacuum is the trunk vacuum, upstream of the cone valve.
+  - id: windkammer-15
+    kind: component
+    part_of: relais
+    label: { de: "Windkammer 15", en: "wind chamber 15" }
+    note: "Common to all the relay valves; supplied with vacuum through conduit 14."
+  - id: bohrung-16
+    kind: component
+    part_of: relais
+    label: { de: "Bohrungen 16", en: "bores 16" }
+    note: "Keep wind chambers 17 always at atmospheric pressure."
+  - id: windkammer-17
+    kind: component
+    part_of: relais
+    label: { de: "Windkammern 17", en: "wind chambers 17" }
+    note: >
+      The atmosphere side. Hagmann: the two chambers 15 and 17, in mutual interaction, pass
+      the impulses received from the glide block on to the nuancing gear.
+
+  # -- the crescendo relay -----------------------------------------------------
+  #
+  # A membrane sits inside its chamber, so it nests under the chamber and not under the
+  # relay; that is also how the schematic draws it.
+
+  - id: kondukte-34
+    kind: component
+    part_of: relais
+    label: { de: "Kondukte 34", en: "conduit 34" }
+  - id: membrankammer-35
+    kind: component
+    part_of: relais
+    label: { de: "Membrankammer 35", en: "membrane chamber 35" }
+  - id: bohrung-37
+    kind: component
+    part_of: relais
+    label: { de: "Bohrung 37", en: "bore 37" }
+    note: >
+      Dimensioned so that it can establish the working vacuum in chamber 35 and conduit 34
+      but cannot neutralise the incoming pulse of air. That is what makes the relay fire on
+      a puff rather than on a level, and it is the mechanism behind the model's trip
+      threshold.
+  - id: membran-36
+    kind: component
+    part_of: membrankammer-35
+    label: { de: "Membran 36", en: "membrane 36" }
+  - id: membran-40
+    kind: component
+    part_of: membrankammer-41
+    label: { de: "Membran 40", en: "membrane 40" }
+    note: >
+      Joined to membrane 36 by an inflexible wire. It is the one that keeps the crescendo
+      set after the perforation has gone, because the upper part of chamber 41 is evacuated
+      and holds it up.
+  - id: membrankammer-41
+    kind: component
+    part_of: relais
+    label: { de: "Membrankammer 41", en: "membrane chamber 41" }
+    note: "The latch. Its upper part holds the crescendo on; its lower part releases it."
+  - id: doppelventil-38
+    kind: component
+    part_of: relais
+    label: { de: "Doppelventil 38", en: "double valve 38" }
+  - id: kondukte-43
+    kind: component
+    part_of: relais
+    label: { de: "Kondukte 43", en: "conduit 43" }
+  - id: membrankammer-44
+    kind: component
+    part_of: relais
+    label: { de: "Membrankammer 44", en: "membrane chamber 44" }
+  - id: membran-45
+    kind: component
+    part_of: membrankammer-44
+    label: { de: "Membran 45", en: "membrane 45" }
+  - id: bohrung-46
+    kind: component
+    part_of: relais
+    label: { de: "Bohrung 46", en: "bore 46" }
+    note: "Evacuates chamber 44 again once the cancelling perforation has passed."
+  - id: doppelventil-47
+    kind: component
+    part_of: relais
+    label: { de: "Doppelventil 47", en: "double valve 47" }
+  - id: kondukte-48
+    kind: component
+    part_of: relais
+    label: { de: "Kondukte 48", en: "conduit 48" }
+
+  # -- the sforzando relay -----------------------------------------------------
+
+  - id: ventil-22
+    kind: component
+    part_of: relais
+    label: { de: "Ventil 22", en: "valve 22" }
+    note: >
+      A simple valve, not a double one. Hagmann's whole account of the sforzando latch rests
+      on this one valve, and Anhang 13 draws its hold chamber by repeating the crescendo
+      module a third time.
+  - id: kondukte-27
+    kind: component
+    part_of: relais
+    label: { de: "Kondukte 27", en: "conduit 27" }
+  - id: membrankammer-28
+    kind: component
+    part_of: relais
+    label: { de: "Membrankammer 28", en: "membrane chamber 28" }
+  - id: membran-30
+    kind: component
+    part_of: membrankammer-28
+    label: { de: "Membran 30", en: "membrane 30" }
+  - id: doppelventil-31
+    kind: component
+    part_of: relais
+    label: { de: "Doppelventil 31", en: "double valve 31" }
+  - id: kondukte-33
+    kind: component
+    part_of: relais
+    label: { de: "Kondukte 33", en: "conduit 33" }
+    note: "Evacuates both auxiliary bellows 94 and 95 together."
+
+  # -- the mezzoforte relay ----------------------------------------------------
+
+  - id: doppelventil-53
+    kind: component
+    part_of: relais
+    label: { de: "Doppelventil 53", en: "double valve 53" }
+  - id: kondukte-54
+    kind: component
+    part_of: relais
+    label: { de: "Kondukte 54", en: "conduit 54" }
+
+  # -- downstream of the cone valve --------------------------------------------
+
+  - id: windkammer-86
+    kind: component
+    part_of: welte-t100
+    label: { de: "Windkammer 86", en: "wind chamber 86" }
+    note: >
+      The delivery side. Both throttle 97 and the Regelbalg act here, which is why the
+      delivered vacuum is not a function of the Nuancierbalg's position alone.
+  - id: kondukte-88
+    kind: component
+    part_of: welte-t100
+    label: { de: "Kondukte 88", en: "conduits 88" }
+    note: "Carry the nuanced vacuum to the note pneumatics."
+  - id: feder-89
+    kind: component
+    part_of: welte-t100
+    label: { de: "Feder 89", en: "spring 89" }
+    note: "Returns the cone valve to its seat; the chain band can pull but not push."
+  - id: ledermutter-92
+    kind: component
+    part_of: welte-t100
+    label: { de: "Ledermutter 92", en: "leather nut 92" }
+    note: "Sets the pianissimo end stop, and balances bass against treble in piano."
+  - id: regelfeder-101
+    kind: component
+    part_of: welte-t100
+    label: { de: "Regelfeder 101", en: "regulating spring 101" }
+    note: >
+      In equilibrium with the Regelbalg's suction. When dense playing weakens that suction
+      the spring gains the upper hand and opens the cone valve further.
+  - id: tonerzeugungsbalg-121
+    kind: component
+    part_of: tonpneumatik
+    label: { de: "Tonerzeugungsbalg 121", en: "note pneumatic 121" }
+    note: "Closes faster or slower with the delivered vacuum; that is the loudness map."
+  - id: geblaese
+    kind: component
+    part_of: welte-t100
+    label: { de: "Gebläse", en: "the blower" }
+    note: "Runs at two speeds, selected from the roll by the Widerstand lines."

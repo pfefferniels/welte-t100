@@ -34,16 +34,19 @@ function level(travel, mode, step) {
     return step <= 1 ? value : Math.min(127, Math.round(value / step) * step);
 }
 /**
- * One message per change of the quantised value. That is a run-length encoding
- * of the series, so it carries everything a controller of 128 steps can carry
- * and nothing is thinned away that a renderer could have used.
+ * One change per step of the quantised value, the first row included. That is
+ * a run-length encoding of the series, so it carries everything a controller of
+ * 128 steps can carry and nothing is thinned away that a renderer could have
+ * used.
  */
-export function controllerMessages(travel, tickAt, controller, options = {}) {
-    const { channel = 0, mode = "continuous", step = 1 } = options;
+export function levelChanges(travel, options = {}) {
+    const { mode = "continuous", step = 1 } = options;
     const values = Uint8Array.from(travel, (value) => level(value, mode, step));
-    return [...values].flatMap((value, index) => index === 0 || value !== values[index - 1]
-        ? [controlChange(tickAt(index), channel, controller, value)]
-        : []);
+    return [...values].flatMap((value, index) => index === 0 || value !== values[index - 1] ? [{ index, value }] : []);
+}
+export function controllerMessages(travel, tickAt, controller, options = {}) {
+    const { channel = 0 } = options;
+    return levelChanges(travel, options).map(({ index, value }) => controlChange(tickAt(index), channel, controller, value));
 }
 export function pedalMessages(travel, tickAt, options = {}) {
     return [

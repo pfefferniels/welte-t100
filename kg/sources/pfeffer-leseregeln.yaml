@@ -1,0 +1,285 @@
+# The reading rules from chapter 1 of the author's own dissertation in progress.
+#
+# It is a source like any other here, and treated with the same suspicion. The one finding
+# that matters most is about its footnoting: the sforzando rule, which happens to be the
+# rule the emulator's fit agrees with, carries no footnote of its own. Anyone citing the
+# agreement as confirmation of a prior reading should say so.
+
+source:
+  id: pfeffer-leseregeln
+  kind: dissertation-chapter
+  title: "Kap. 1 „Leseregeln“"
+  authors: [pfeffer-niels]
+  container: "Grünfelds Geist (dissertation in progress)"
+  year: 2025
+  copy: "~/Projects/diss/Grünfelds Geist.docx"
+  note: >
+    Cited by docx paragraph index and by footnote number, both verified against
+    footnotes.xml. Its only general technical reference is Hagmann pp. 96–100, at Fn. 46.
+
+statements:
+
+  - id: sforzando-acts-only-while-punched
+    kind: report
+    locator: "Abs. 95–109, P4"
+    quote:
+      de: "Während ein Crescendo an ab dem Beginn der Stanzung wirksam ist bis eine Crescendo ab-Stanzung in Erscheinung tritt und umgekehrt, unabhängig davon, wie lang die Stanzung ist, wirken Sforzando an und Sforzando ab nur über die Dauer der eigentlichen Stanzung."
+    translation: >
+      Whereas a Crescendo-on is effective from the start of the perforation until a
+      Crescendo-off perforation appears, and vice versa, regardless of how long the
+      perforation is, Sforzando-on and Sforzando-off act only for the duration of the
+      perforation itself.
+    subject: function-sforzando-on
+    property: latching-behaviour
+    object: momentary
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      The sentence carries no footnote of its own. Fn. 52, which cites Phillips, *Piano Rolls
+      and Contemporary Player Pianos*, p. 178, hangs on the *following* sentence, about the
+      perforation having to clear the glide block. So the chapter advances the sforzando rule
+      as its own finding rather than as a report of someone else's description, and it does
+      not mark its divergence from Hagmann. Citing the fitted emulator's agreement with this
+      rule as confirmation of a prior reading is legitimate, but the reading's own standing
+      should be stated with it.
+
+  - id: perforation-read-slightly-longer
+    kind: report
+    locator: "Abs. 95–109, P4"
+    quote:
+      de: "Die Stanzung gilt dabei erst dann als geschlossen, wenn sie vollständig über den Gleitblock gelaufen ist und muss daher immer etwas länger als die eigentliche Stanzung gelesen werden."
+    translation: >
+      A perforation counts as closed only once it has run fully across the glide block, and
+      must therefore always be read as somewhat longer than the punched hole itself.
+    subject: gleitblock
+    property: effective-perforation-length
+    object: longer-than-punched
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      The same correction midi2exp makes by extending every hole by 0.75 tracker diameters at
+      its tail, and the same effect Phillips measured on the bench. This project instead
+      models the overlap of two circles, which places a comparable total open time about
+      11 ms earlier.
+
+  - id: crescendo-saturates-below-full-closure
+    kind: report
+    locator: "Abs. 95–109, P3"
+    quote:
+      de: "Mit einem bloßen Crescendo an kann langsam ein Forte erreicht werden (⑦, ⑧), bei dem sich der Balg zwischen mittlerer und vollständig geschlossener Stellung befindet."
+    translation: >
+      With a bare Crescendo-on a forte can slowly be reached, at which the bellows stands
+      between the middle and the fully closed position.
+    subject: function-crescendo-on
+    property: asymptote
+    object: short-of-full-closure
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    comprehension: >
+      This is a statement about the end position and not only about the speed: the crescendo
+      path has an equilibrium below full travel, and only the sforzando path goes beyond it.
+      A model in which conduit 39 alone pulls to the stop says something different from the
+      chapter. It is what appears in the fitted model as `crescendoTarget` sitting short of
+      the closed rail, and in midi2exp as the `welte_loud` ceiling — an asymptote in the one
+      case, a hard cap in the other.
+
+  - id: default-state-is-the-quietest-point
+    kind: report
+    locator: "Abs. 95–109, P3"
+    quote:
+      de: "Ohne Ausdrucksstanzung befindet sich die Dynamik immer auf dem leisestmöglichen Punkt, der Nuancierbalg ist in seiner Ruhestellung geöffnet"
+    translation: >
+      With no expression perforation the dynamic is always at the softest possible point;
+      the Nuancierbalg is open in its resting position.
+    subject: nuancierbalg-90
+    property: rest-state
+    object: state-piano
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      Phillips says the same at p. 211 from the resting circuit: the pneumatic opens until
+      it is fully open and the playing is at its softest.
+
+  - id: parallel-crescendo-removes-the-slowdown
+    kind: report
+    locator: "Abs. 95–109, P5"
+    quote:
+      de: "Je näher der Nuancierbalg der vollständig geschlossenen Position ist, desto mehr verlangsamt sich auch der Anstieg eines Sforzandos (Abb. 6, ②). Durch die Kombination mit einem parallelen Crescendo an kann diese Verlangsamung verhindert werden (①)."
+    subject: function-sforzando-on
+    property: sets-also
+    object: function-crescendo-on
+    scope: welte-t100
+    holds: TRUE
+    adopt: false
+    note: >
+      The first half follows from any flow law with a target: the closer the bellows is to
+      its target the slower it moves. The second half does not follow, and it is where the
+      additivity assumption should be tested. The two paths are not simply superposed. Roll
+      3309 does show the crescendo latch speeding the sforzando up — 5.65 against 3.46
+      units/s in the bass — but the fitted model reproduces only about two thirds of that
+      gap, so the claim is not adopted as it stands.
+
+  - id: crescendo-is-not-linear
+    kind: report
+    locator: "Fn. 51"
+    holder: gottschewski-hermann
+    transmitted_by: [pfeffer-niels]
+    quote:
+      de: "Bemerkenswert ist, dass jenes Crescendo anders als das der Emulationssoftware aus Stanford, midi2exp […] keineswegs linear verläuft – ein Umstand, auf den wiederum Gottschewski ebd. hinwies."
+    subject: function-crescendo-on
+    property: control-principle
+    object: rates-not-levels
+    scope: welte-t100
+    holds: TRUE
+    adopt: true
+    note: >
+      Attributed by the footnote to Gottschewski's 2024 Sydney paper ("ebd." referring to
+      Fn. 50), not to the chapter itself. Since that paper exists for this project only as a
+      programme entry, the attribution cannot be checked, and the claim reaches the graph at
+      two removes. The project has since established it independently from the roll, where a
+      constant rate is rejected by a factor of four to eleven in rms.
+
+  - id: drawn-lines-record-the-bellows
+    kind: report
+    locator: "Fn. 50"
+    quote:
+      de: "Diese Rolle ist, wie Gottschewski 2024 zeigte, von bedeutendem Quellenwert, da auf ihr Linien zur Handnuancierung zu finden sind, die vermutlich unmittelbar aus einer aufgezeichneten Bewegung des Nuancierbalgs stammen"
+    subject: drawn-line-3309
+    property: records
+    object: nuancierbalg-position
+    holds: PROBABLE
+    adopt: false
+    note: >
+      Stated as a conjecture — "vermutlich" — and the word order leaves open whether the
+      conjecture is Gottschewski's or the chapter's. It is not put forward as established.
+      The project has since answered the same question positively from the roll, on a null
+      result, which is a different and stronger kind of evidence; that statement supersedes
+      this one as the ground for the claim, without contradicting it.
+
+  # -- what Fn. 50 dates -------------------------------------------------------
+
+  - id: recording-date
+    kind: report
+    locator: "Fn. 50"
+    quote:
+      de: "Rolle 3309, Backhaus, Schubert Militärmarsch in Es-Dur, aufgenommen 1.1.1920, Kopie im Stanford University Archive, Stanzdatum 22.11.1922."
+    subject: performance-backhaus-1920
+    property: date-of
+    date: { begin: "1920-01-01", end: "1920-01-01", label: "1 January 1920" }
+    holds: TRUE
+    adopt: true
+    mentions: [roll-3309, backhaus-wilhelm]
+
+  - id: performance-was-a-recording-session
+    kind: report
+    locator: "Fn. 50"
+    quote:
+      de: "aufgenommen 1.1.1920"
+    subject: performance-backhaus-1920
+    property: has-type
+    object: welte-recording-process
+    holds: TRUE
+    adopt: true
+    note: >
+      "Aufgenommen": the playing was a recording session, and so an instance of the
+      procedure Hagmann and Gottschewski both say is undocumented.
+
+  - id: sydney-paper-is-about-the-drawn-lines
+    kind: report
+    locator: "Fn. 50"
+    quote:
+      de: "wie Gottschewski 2024 zeigte, von bedeutendem Quellenwert, da auf ihr Linien zur Handnuancierung zu finden sind"
+    subject: gottschewski-2024-sydney
+    property: is-about
+    object: drawn-expression-lines
+    holds: TRUE
+    adopt: false
+    note: >
+      The chapter's own claim about a paper it cites; the paper exists for this project only
+      as a programme entry, so what it actually says is not in the graph.
+
+  - id: red-perforations-before-1910
+    kind: report
+    locator: "Fn. 66, citing Hagmann p. 76"
+    holder: hagmann-peter
+    transmitted_by: [pfeffer-niels]
+    subject: welte-t100
+    property: perforation-diameter-before-1910
+    value: 2.2
+    unit: millimetre
+    holds: TRUE
+    adopt: false
+    note: >
+      Reaches the graph through the dissertation's footnote and has not been re-read in
+      Hagmann. Phillips measures 2.19 mm on two rolls dated 1912, which agrees with this
+      figure and not with the one below.
+
+  - id: red-perforations-after-1910
+    kind: report
+    locator: "Fn. 66, citing Hagmann p. 76"
+    holder: hagmann-peter
+    transmitted_by: [pfeffer-niels]
+    subject: welte-t100
+    property: perforation-diameter-after-1910
+    value: 1.8
+    unit: millimetre
+    holds: TRUE
+    adopt: false
+    note: >
+      On this account roll 3309, punched in 1922, is a 1.8 mm roll. Phillips's 2.19 mm on
+      rolls of 1912 says one of the two is wrong about the date or about the roll.
+
+  - id: punching-date
+    kind: report
+    locator: "Fn. 50"
+    subject: production-3309
+    property: date-of
+    date: { begin: "1922-11-22", end: "1922-11-22", label: "22 November 1922" }
+    holds: TRUE
+    adopt: true
+    mentions: [roll-3309]
+    note: >
+      Two years and ten months after the playing. Whatever was done to the dynamics was done
+      in that gap, which is why the recording and the punching are two events here and not
+      one. Gottschewski establishes independently that the expression tracks were edited
+      after the fact.
+
+  - id: punching-produced-the-roll
+    kind: report
+    locator: "Fn. 50"
+    subject: production-3309
+    property: has-produced
+    object: roll-3309
+    holds: TRUE
+    adopt: true
+
+  - id: welte-cut-the-roll
+    kind: report
+    locator: "Fn. 50, with Hagmann pp. 75–76"
+    subject: production-3309
+    property: carried-out-by
+    object: welte-m-soehne
+    holds: PROBABLE
+    adopt: true
+    note: >
+      Held PROBABLE rather than TRUE. That Welte cut its own rolls is not in doubt, but no
+      source to hand says who operated the punch for this one, and the graph should not turn
+      a firm into an individual by silence.
+
+  - id: welte-worked-in-freiburg
+    kind: report
+    locator: "Hagmann, title page and pp. 75–76"
+    holder: hagmann-peter
+    subject: production-3309
+    property: took-place-at
+    object: freiburg-im-breisgau
+    holds: PROBABLE
+    adopt: true
+    note: >
+      Welte's works were in Freiburg im Breisgau, so a roll of this date was in all
+      likelihood punched there. Recorded as probable because it is an inference from the
+      firm's location to this roll, and no source states it of 3309.

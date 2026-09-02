@@ -33,7 +33,7 @@ change how readily the traced path moves sideways.
 | --- | --- |
 | `y_px` | pixel row in the scan |
 | `tick` | MIDI tick of Stanford's raw MIDI for the same scan, i.e. `y_px − FIRST_HOLE` |
-| `seconds` | elapsed time, from that file's tempo map (which carries the spool acceleration) |
+| `seconds` | elapsed time, from that file's tempo map (which carries the spool acceleration; the emulator derives its own axis from the spool instead, see `emulator/src/roll/spool.ts`) |
 | `bass_x`, `treble_x` | traced column in the scan, sub-pixel |
 | `bass_value`, `treble_value` | position on the printed scale: 0 at the half's P.P. line, 0.5 at M.F., 1 at the shared F.F. line |
 | `bass_flag`, `treble_flag` | how well the point is witnessed: `ink`, `faint`, `hole`, `rule`, `gap` |

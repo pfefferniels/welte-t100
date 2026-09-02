@@ -1,0 +1,1811 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welte T-100 Nuancierung</title>
+<style>
+:root {
+  color-scheme: light;
+  --vacuum: #0e7490;
+  --air: #b45309;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --sunken: #f3f4f6;
+  --line: #e5e7eb;
+  --line-strong: #d1d5db;
+  --text: #111111;
+  --text-dim: #6b7280;
+  --accent: #2563eb;
+  --true: #15803d;
+  --false: #b91c1c;
+  --probable: #a16207;
+  --unknown: #6b7280;
+  --mark: #fde68a;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+  --vacuum: #67e8f9;
+  --air: #fcd34d;
+    --bg: #0c0e11;
+    --surface: #111418;
+    --sunken: #171b21;
+    --line: #262b33;
+    --line-strong: #39404a;
+    --text: #e6e8eb;
+    --text-dim: #9aa1ab;
+    --accent: #7aa2f7;
+    --true: #4ade80;
+    --false: #f87171;
+    --probable: #fbbf24;
+    --unknown: #9aa1ab;
+    --mark: #4d3f14;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --vacuum: #67e8f9;
+  --air: #fcd34d;
+  --bg: #0c0e11;
+  --surface: #111418;
+  --sunken: #171b21;
+  --line: #262b33;
+  --line-strong: #39404a;
+  --text: #e6e8eb;
+  --text-dim: #9aa1ab;
+  --accent: #7aa2f7;
+  --true: #4ade80;
+  --false: #f87171;
+  --probable: #fbbf24;
+  --unknown: #9aa1ab;
+  --mark: #4d3f14;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.55 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-variant-numeric: tabular-nums;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+header h1 { font-size: 13px; font-weight: 600; margin: 0; white-space: nowrap; }
+header .count { color: var(--text-dim); white-space: nowrap; }
+#search {
+  flex: 1;
+  min-width: 120px;
+  max-width: 420px;
+  padding: 5px 9px;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+#search:focus-visible, a:focus-visible, button:focus-visible, tr:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+button.ghost {
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--text-dim);
+  border-radius: 5px;
+  padding: 5px 9px;
+  font: inherit;
+  cursor: pointer;
+}
+button.ghost:hover { background: var(--sunken); color: var(--text); }
+
+/* Each mode is its own grid. Scoping matters: an unscoped `main` rule put the schematic
+   into the graph mode's 320px sidebar column and left the rest of the window empty. */
+main { min-height: 0; }
+#graph-mode { display: grid; grid-template-columns: 320px 1fr; min-height: 0; }
+#mech-mode { display: grid; grid-template-columns: 1fr; grid-template-rows: 1fr; min-height: 0; }
+@media (max-width: 760px) {
+  #graph-mode { grid-template-columns: 1fr; }
+  #graph-mode > aside { display: none; }
+}
+
+aside {
+  border-right: 1px solid var(--line);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  background: var(--surface);
+}
+nav { display: flex; border-bottom: 1px solid var(--line); }
+nav button {
+  flex: 1;
+  padding: 7px 4px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: var(--text-dim);
+  font: inherit;
+  cursor: pointer;
+}
+nav button:hover { background: var(--sunken); }
+nav button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+
+#list { overflow-y: auto; }
+#list a {
+  display: block;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--line);
+  color: inherit;
+  text-decoration: none;
+}
+#list a:hover { background: var(--sunken); }
+#list a[aria-current="true"] { background: var(--sunken); box-shadow: inset 3px 0 0 var(--accent); }
+#list .primary { display: block; }
+#list .secondary { display: block; color: var(--text-dim); font-size: 12px; }
+#list .empty { padding: 14px 12px; color: var(--text-dim); }
+
+article { overflow-y: auto; padding: 20px 24px 60px; }
+article > * { max-width: 62rem; }
+h2 { font-size: 17px; margin: 0 0 2px; font-weight: 600; line-height: 1.35; }
+h3 { font-size: 13px; margin: 22px 0 8px; font-weight: 600; }
+.sub { color: var(--text-dim); margin: 0 0 16px; }
+p { margin: 0 0 10px; }
+.prose { color: var(--text); max-width: 46rem; }
+.dim { color: var(--text-dim); }
+
+.badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+.badge {
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 1px 9px;
+  font-size: 12px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+.badge.TRUE { color: var(--true); border-color: currentColor; }
+.badge.FALSE { color: var(--false); border-color: currentColor; }
+.badge.PROBABLE { color: var(--probable); border-color: currentColor; }
+.badge.UNKNOWN { color: var(--unknown); }
+.badge.contested { color: var(--false); border-color: currentColor; }
+
+.claim {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  background: var(--sunken);
+  border-radius: 4px;
+  padding: 10px 12px;
+  margin: 0 0 14px;
+}
+.claim .prop { color: var(--text-dim); font-style: italic; }
+.claim .answer { font-weight: 600; }
+
+blockquote {
+  margin: 0 0 10px;
+  padding: 9px 14px;
+  border-left: 2px solid var(--line-strong);
+  background: var(--sunken);
+  border-radius: 0 4px 4px 0;
+  font-family: ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 46rem;
+}
+blockquote .lang { color: var(--text-dim); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+
+.scroller { overflow-x: auto; margin: 0 0 14px; }
+table { border-collapse: collapse; width: 100%; min-width: 34rem; }
+th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--text-dim); font-weight: 600; white-space: nowrap; }
+tbody tr:hover { background: var(--sunken); }
+td.holds { white-space: nowrap; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+mark { background: var(--mark); color: inherit; border-radius: 2px; }
+
+ul.chips { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-wrap: wrap; gap: 6px; }
+ul.chips a {
+  display: inline-block;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  padding: 2px 8px;
+  color: var(--text);
+}
+ul.chips a:hover { background: var(--sunken); text-decoration: none; }
+
+.rows { border-top: 1px solid var(--line); }
+.rows a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  color: inherit;
+}
+.rows a:hover { background: var(--sunken); text-decoration: none; }
+.rows .where { color: var(--text-dim); white-space: nowrap; font-size: 12px; }
+
+/* -- the schematic ---------------------------------------------------------- */
+
+#mech { display: grid; min-height: 0; min-width: 0; grid-template-columns: minmax(0, 1fr) 340px; grid-template-rows: 1fr auto auto; min-height: 0; }
+#mech > .stage { grid-column: 1; grid-row: 1; min-height: 0; min-width: 0; overflow: hidden;
+  padding: 10px 12px 0; display: grid; place-items: stretch; }
+#schematic { width: 100%; height: 100%; display: block; }
+#mech > .trace { grid-column: 1; grid-row: 2; padding: 0 14px; }
+#mech > .transport { grid-column: 1; grid-row: 3; display: flex; align-items: center; gap: 12px;
+  padding: 8px 14px 12px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+#mech > aside.panel { grid-column: 2; grid-row: 1 / -1; border-left: 1px solid var(--line);
+  background: var(--surface); overflow-y: auto; padding: 14px 16px 40px; }
+@media (max-width: 900px) { #mech { grid-template-columns: 1fr; } #mech > aside.panel { display: none; } }
+
+#clock { min-width: 5.2rem; font-variant-numeric: tabular-nums; color: var(--text-dim); }
+#hint { flex: 1; color: var(--text-dim); }
+kbd { border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 4px;
+  padding: 0 5px; font: inherit; font-size: 11px; background: var(--sunken); }
+.part.playable .body { stroke: var(--air); stroke-width: 2; }
+.part.held .body { fill: var(--air); fill-opacity: .3; stroke: var(--air); stroke-width: 2.4; }
+.keycap { fill: var(--text-dim); font-size: 9px; }
+.seg { display: flex; border: 1px solid var(--line-strong); border-radius: 5px; overflow: hidden; }
+.seg button { border: 0; background: var(--surface); color: var(--text-dim); font: inherit;
+  padding: 4px 10px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line-strong); }
+.seg button[aria-pressed="true"] { background: var(--sunken); color: var(--text); font-weight: 600; }
+
+.part { cursor: pointer; }
+.part .body { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.2; }
+.part.on .body { stroke: var(--accent); stroke-width: 2; }
+.part.sel .body { stroke: var(--accent); stroke-width: 2.4; }
+.part.air .body { stroke: var(--air); }
+.part.vac .body { stroke: var(--vacuum); }
+
+/* what is drawn inside a box. The cut-away is a picture, so the box beneath it stays the
+   thing that answers a click. */
+.part * { pointer-events: none; }
+.part > .body { pointer-events: all; }
+.cut-fill { opacity: .22; }
+.cut-fill.air { fill: var(--air); }
+.cut-fill.vac { fill: var(--vacuum); }
+.cut-fill.off { fill: none; }
+.cut-wall { fill: none; stroke: var(--line-strong); stroke-width: 1.6; stroke-linecap: round; }
+.cut-vessel { fill: none; stroke: var(--line); stroke-width: 1.2; }
+.cut-seat { fill: none; stroke: var(--text-dim); stroke-width: 2.4; stroke-linecap: round; }
+.cut-body { fill: var(--surface); stroke: var(--text); stroke-width: 1.5; }
+.cut-membrane { fill: none; stroke: var(--text); stroke-width: 1.8; stroke-linecap: round; }
+.cut-board, .cut-coil { fill: none; stroke: var(--text); stroke-width: 1.8; stroke-linecap: round; }
+.cut-rod, .cut-rotor { stroke: var(--text-dim); stroke-width: 1.6; stroke-linecap: round; fill: none; }
+.cut-bar { fill: var(--sunken); stroke: var(--line-strong); stroke-width: 1; }
+.cut-paper { fill: var(--line-strong); stroke: var(--text-dim); stroke-width: .7; }
+.cut-punch { fill: var(--surface); stroke: var(--text-dim); stroke-width: .7; }
+.cut-chain { fill: none; stroke: var(--text-dim); stroke-width: 1.4; }
+.cut-pin { fill: var(--line-strong); }
+.cut-stream { fill: none; stroke: var(--air); stroke-width: 1.8; stroke-dasharray: 3 3; }
+.cut-stream.vac { stroke: var(--vacuum); }
+.cut-tip { fill: var(--air); }
+.cut-tip.vac { fill: var(--vacuum); }
+.cut-note { fill: var(--text-dim); font-size: 9px; }
+.cut-dot { fill: var(--text-dim); }
+.arrow { fill: var(--line-strong); opacity: .35; }
+.arrow.air { fill: var(--air); }
+.arrow.vacuum { fill: var(--vacuum); }
+.arrow.on { opacity: 1; }
+.band { fill: none; stroke: var(--line); stroke-dasharray: 3 4; }
+.band-title { fill: var(--text-dim); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; }
+.link { fill: none; stroke: var(--line-strong); stroke-width: 1.5; cursor: pointer;
+  stroke-linecap: round; }
+.link.vacuum { stroke: var(--vacuum); }
+.link.air { stroke: var(--air); }
+.link.control { stroke: var(--line-strong); stroke-dasharray: 1.5 4; }
+.link.on { stroke-width: 3; }
+.link.on.vacuum, .link.on.air { stroke-dasharray: 8 5; }
+.link.on.control { stroke-dasharray: 4 4; }
+.link.sel { stroke: var(--accent); stroke-width: 3.4; }
+.link.unsettled { stroke: var(--probable); stroke-dasharray: 6 4; opacity: .8; }
+.arrow.unsettled { fill: var(--probable); }
+.legend-mark { stroke-width: 2.5; fill: none; }
+.legend-text { fill: var(--text-dim); font-size: 11px; }
+.cap-in { font-size: 10px; fill: var(--text); font-weight: 600; }
+.link-label { fill: var(--text-dim); font-size: 10px; }
+.balg { fill: var(--vacuum); opacity: .2; transition: none; }
+.balg.closing { opacity: .34; }
+.balg.opening { fill: var(--air); opacity: .26; }
+.board { stroke: var(--text); stroke-width: 2.5; stroke-linecap: round; }
+.hook-finger { fill: var(--line-strong); transition: transform .18s ease-out; }
+.hook-finger.in { fill: var(--text-dim); }
+.hook-finger.bearing { fill: var(--false); }
+.scale-note { fill: var(--text-dim); font-size: 9px; }
+.contested-mark { fill: var(--false); font-size: 13px; font-weight: 700; }
+.readout { font-size: 11px; fill: var(--text-dim); font-variant-numeric: tabular-nums; }
+.cap-out { font-size: 10px; fill: var(--text); font-weight: 600; }
+
+.trace svg { width: 100%; height: 108px; display: block; }
+.trace .sim { fill: none; stroke: var(--accent); stroke-width: 1.4; }
+.trace .axis { stroke: var(--line); }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--text-dim); padding: 2px 14px 0; }
+.swatch { display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 5px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Welte T-100 Nuancierung</h1>
+  <span class="seg" id="modes">
+    <button data-mode="graph" aria-pressed="true">Graph</button>
+    <button data-mode="mech" aria-pressed="false">Mechanism</button>
+  </span>
+  <span class="count" id="count"></span>
+  <input id="search" type="search" placeholder="Search statements, quotations, sources…" autocomplete="off" spellcheck="false">
+  <button class="ghost" id="theme" title="Switch theme">Theme</button>
+</header>
+
+<main id="graph-mode">
+  <aside>
+    <nav id="tabs">
+      <button data-tab="questions" aria-selected="true">Questions</button>
+      <button data-tab="sources" aria-selected="false">Sources</button>
+      <button data-tab="entities" aria-selected="false">Entities</button>
+    </nav>
+    <div id="list"></div>
+  </aside>
+  <article id="detail"></article>
+</main>
+
+<main id="mech-mode" hidden>
+  <section id="mech">
+    <div class="stage"><svg id="schematic" role="img" aria-label="Schematic of the T-100 nuancing gear"></svg></div>
+    <div class="trace">
+      <div class="legend">
+        <span><i class="swatch" style="background:var(--accent)"></i>the bellows</span>
+        <span id="trace-note"></span>
+      </div>
+      <svg id="trace" preserveAspectRatio="none"></svg>
+    </div>
+    <div class="transport">
+      <button class="ghost" id="reset">Reset</button>
+      <span id="clock">0.00 s</span>
+      <span id="hint">hold <kbd>1</kbd>–<kbd>6</kbd>, or press the openings</span>
+      <span class="seg" id="halves">
+        <button data-half="bass" aria-pressed="true">Bass</button>
+        <button data-half="treble" aria-pressed="false">Discant</button>
+      </span>
+      <span class="seg" id="speeds">
+        <button data-speed="0.125" aria-pressed="true">⅛×</button>
+        <button data-speed="0.5" aria-pressed="false">½×</button>
+        <button data-speed="1" aria-pressed="false">1×</button>
+      </span>
+    </div>
+    <aside class="panel" id="mech-detail"></aside>
+  </section>
+</main>
+
+<script id="graph-data" type="application/json">{}</script>
+<script>
+"use strict";
+
+const DATA = JSON.parse(document.getElementById("graph-data").textContent);
+const STATEMENTS = DATA.statements;
+const SOURCES = new Map(DATA.sources.map(s => [s.id, s]));
+const ENTITIES = new Map(DATA.entities.map(e => [e.id, e]));
+const QUESTIONS = new Map(DATA.questions.map(q => [q.id, q]));
+
+const listEl = document.getElementById("detail") && document.getElementById("list");
+const detailEl = document.getElementById("detail");
+const searchEl = document.getElementById("search");
+
+let tab = "questions";
+let query = "";
+
+/* ---- text ---------------------------------------------------------------- */
+
+const escape = text => String(text ?? "").replace(/[&<>"]/g, c =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function highlight(text) {
+  const safe = escape(text);
+  if (!query) return safe;
+  const pattern = new RegExp("(" + query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi");
+  return safe.replace(pattern, "<mark>$1</mark>");
+}
+
+const searchableStatement = s => [
+  s.id, s.answer, s.gloss, s.subjectLabel, s.propertyLabel, s.holderLabel,
+  s.locator, s.note, s.comprehension, s.translation,
+  ...(s.quotes || []).map(q => q[1]),
+].filter(Boolean).join(" ").toLowerCase();
+
+const HAYSTACK = new Map(Object.entries(STATEMENTS).map(([id, s]) => [id, searchableStatement(s)]));
+
+const matches = id => !query || (HAYSTACK.get(id) || "").includes(query.toLowerCase());
+
+/* ---- fragments ----------------------------------------------------------- */
+
+const badge = (text, kind = "") => `<span class="badge ${kind}">${escape(text)}</span>`;
+
+const link = (href, text) => `<a href="${href}">${highlight(text)}</a>`;
+
+const statementLink = id => {
+  const s = STATEMENTS[id];
+  return s ? link("#/statement/" + id, s.answer || s.gloss || id) : escape(id);
+};
+
+const chips = (title, ids) => ids && ids.length
+  ? `<h3>${escape(title)}</h3><ul class="chips">${ids.map(id =>
+      `<li><a href="#/statement/${id}"><code>${escape(id)}</code></a></li>`).join("")}</ul>`
+  : "";
+
+function claimLine(s) {
+  const subject = s.subject
+    ? link("#/entity/" + s.subject, s.subjectLabel)
+    : "";
+  if (s.gloss) return `<div class="claim prose">${highlight(s.gloss)}</div>`;
+  return `<div class="claim">${subject} — <span class="prop">${highlight(s.propertyLabel || "")}</span>
+    — <span class="answer">${highlight(s.answer)}</span></div>`;
+}
+
+function statementRows(ids) {
+  if (!ids.length) return `<p class="dim">Nothing here.</p>`;
+  return `<div class="rows">` + ids.map(id => {
+    const s = STATEMENTS[id];
+    return `<a href="#/statement/${id}">
+      <span>${highlight(s.answer || s.gloss || id)}
+        ${s.holds ? badge(s.holds, s.holds) : badge("stipulated")}</span>
+      <span class="where">${escape(s.holderLabel)} · ${escape(s.locator)}</span>
+    </a>`;
+  }).join("") + `</div>`;
+}
+
+/* ---- detail views -------------------------------------------------------- */
+
+function renderStatement(id) {
+  const s = STATEMENTS[id];
+  if (!s) return `<h2>Not found</h2>`;
+  const source = SOURCES.get(s.source);
+  const parts = [];
+
+  parts.push(`<h2>${escape(s.subjectLabel || s.ident)}</h2>`);
+  parts.push(`<p class="sub"><code>${escape(s.id)}</code></p>`);
+  parts.push(`<div class="badges">
+    ${badge(s.kind)}
+    ${badge(s.crmClass)}
+    ${s.holds ? badge(s.holds, s.holds) : badge("stipulated, not believed")}
+    ${badge("held by " + s.holderLabel)}
+    ${s.adopt ? badge("adopted by the project") : ""}
+    ${s.scopeLabel ? badge("scope: " + s.scopeLabel) : ""}
+  </div>`);
+
+  parts.push(claimLine(s));
+
+  parts.push(`<p><strong>${escape(s.locator)}</strong> — in
+    ${link("#/source/" + s.source, source ? source.title : s.source)}</p>`);
+
+  for (const [lang, text] of s.quotes || []) {
+    parts.push(`<blockquote><span class="lang">${escape(lang)}</span><br>${highlight(text)}</blockquote>`);
+  }
+  if (s.translation) parts.push(`<h3>Translation</h3><p class="prose">${highlight(s.translation)}</p>`);
+  if (s.comprehension) parts.push(`<h3>How the passage was read</h3><p class="prose">${highlight(s.comprehension)}</p>`);
+  if (s.transmittedBy) {
+    parts.push(`<h3>Transmitted by</h3><p>` + s.transmittedBy
+      .map(a => link("#/entity/" + a.id, a.label)).join(", ") + `</p>`);
+  }
+  if (s.mentions && s.mentions.length) {
+    parts.push(`<h3>Also refers to</h3><ul class="chips">` + s.mentions.map(id =>
+      `<li><a href="#/entity/${id}">${escape(ENTITIES.get(id)?.label || id)}</a></li>`).join("")
+      + `</ul>`);
+  }
+  if (s.logicLabel) {
+    parts.push(`<h3>Inference logic</h3><p>${link("#/entity/" + s.logic, s.logicLabel)}</p>`);
+  }
+  parts.push(chips("Premises", s.premises));
+  parts.push(chips("Withdraws", s.supersedes));
+  parts.push(chips("Contradicts", s.contradicts));
+  parts.push(chips("Used as a premise by", s.usedBy));
+  parts.push(chips("Withdrawn by", s.supersededBy));
+  parts.push(chips("Contradicted by", s.contradictedBy));
+  if (s.note) parts.push(`<h3>Note</h3><p class="prose">${highlight(s.note)}</p>`);
+
+  if (s.subject && s.property) {
+    const key = s.subject + "~" + s.property;
+    const question = QUESTIONS.get(key);
+    if (question && question.statements.length > 1) {
+      parts.push(`<h3>Other answers to the same question</h3>`);
+      parts.push(statementRows(question.statements.filter(other => other !== id)));
+    }
+  }
+  return parts.join("\n");
+}
+
+function renderQuestion(id) {
+  const q = QUESTIONS.get(id);
+  if (!q) return `<h2>Not found</h2>`;
+  const rows = q.statements.map(sid => {
+    const s = STATEMENTS[sid];
+    return `<tr onclick="location.hash='#/statement/${sid}'" style="cursor:pointer">
+      <td>${escape(s.holderLabel)}</td>
+      <td>${highlight(s.answer || s.gloss)}</td>
+      <td class="holds">${s.holds ? badge(s.holds, s.holds) : badge("stipulated")}</td>
+      <td><code>${escape(s.source)}</code></td>
+      <td class="where">${escape(s.locator)}</td>
+    </tr>`;
+  }).join("");
+  const notes = q.statements.map(sid => STATEMENTS[sid])
+    .filter(s => s.note)
+    .map(s => `<p class="prose"><code>${escape(s.ident)}</code> — ${highlight(s.note)}</p>`)
+    .join("");
+  return `
+    <h2>${escape(q.subjectLabel)} — ${escape(q.propertyLabel)}</h2>
+    <p class="sub">${q.statements.length} statement(s) from ${q.holders.length} holder(s)</p>
+    <div class="badges">${q.contested ? badge("contested", "contested") : badge("agreed")}
+      ${link("#/entity/" + q.subject, q.subjectLabel)} ${link("#/entity/" + q.property, q.propertyLabel)}</div>
+    <div class="scroller"><table><thead><tr><th>holder</th><th>answer</th><th>holds</th><th>source</th><th>locator</th></tr></thead>
+    <tbody>${rows}</tbody></table></div>
+    ${notes ? "<h3>What each says about it</h3>" + notes : ""}`;
+}
+
+function renderSource(id) {
+  const source = SOURCES.get(id);
+  if (!source) return `<h2>Not found</h2>`;
+  const visible = source.statements.filter(matches);
+  return `
+    <h2>${escape(source.title)}</h2>
+    <p class="sub">${escape(source.authors.join(", "))}${source.imprint ? " · " + escape(source.imprint) : ""}</p>
+    <div class="badges">${badge(source.kind)}${badge(source.statements.length + " statements")}
+      ${source.url ? `<a class="badge" href="${escape(source.url)}">source ↗</a>` : ""}</div>
+    ${source.note ? `<p class="prose">${highlight(source.note)}</p>` : ""}
+    ${source.copy ? `<p class="dim">Local copy: <code>${escape(source.copy)}</code></p>` : ""}
+    <h3>Statements${query ? ` matching “${escape(query)}”` : ""}</h3>
+    ${statementRows(visible)}`;
+}
+
+function renderEntity(id) {
+  const entity = ENTITIES.get(id);
+  if (!entity) return `<h2>Not found</h2>`;
+  const asSubject = entity.statements.filter(sid => STATEMENTS[sid].subject === id);
+  const other = entity.statements.filter(sid => !asSubject.includes(sid));
+  return `
+    <h2>${escape(entity.label)}</h2>
+    <p class="sub"><code>${escape(entity.id)}</code></p>
+    <div class="badges">${badge(entity.kind)}
+      ${entity.partOf ? link("#/entity/" + entity.partOf, "within " + (ENTITIES.get(entity.partOf)?.label || entity.partOf)) : ""}
+      ${entity.code ? badge(entity.code) : ""}</div>
+    ${entity.note ? `<p class="prose">${highlight(entity.note)}</p>` : ""}
+    ${entity.labels.length > 1 ? `<p class="dim">` + entity.labels
+        .map(([lang, text]) => `${escape(lang)}: ${escape(text)}`).join(" · ") + `</p>` : ""}
+    ${asSubject.length ? `<h3>Said about it</h3>` + statementRows(asSubject) : ""}
+    ${other.length ? `<h3>Mentioned in</h3>` + statementRows(other) : ""}`;
+}
+
+function renderHome() {
+  const contested = DATA.questions.filter(q => q.contested);
+  return `
+    <h2>What is known about the T-100 expression mechanism, and who knows it</h2>
+    <p class="sub">${Object.keys(STATEMENTS).length} statements ·
+      ${DATA.sources.length} sources · ${DATA.questions.length} questions ·
+      ${contested.length} of them contested</p>
+    <p class="prose">Nothing here is asserted as a fact. Every proposition carries a holder, a
+    belief value and a located passage, so that the questions worth asking — who says so, on
+    what evidence, and who disagrees — can actually be asked. Modelled in CRMinf 1.2.1.</p>
+    <h3>Where the sources disagree</h3>
+    ${DATA.questions.filter(q => q.contested).length
+      ? `<div class="rows">` + contested.map(q =>
+          `<a href="#/question/${q.id}"><span>${escape(q.subjectLabel)} — ${escape(q.propertyLabel)}</span>
+           <span class="where">${q.statements.length} answers · ${escape(q.holders.join(", "))}</span></a>`).join("")
+        + `</div>`
+      : `<p class="dim">Nothing contested.</p>`}
+    <h3>Sources</h3>
+    <div class="rows">${DATA.sources.map(s =>
+      `<a href="#/source/${s.id}"><span>${escape(s.title)}</span>
+       <span class="where">${escape(s.authors.join(", "))} · ${s.statements.length}</span></a>`).join("")}</div>`;
+}
+
+function renderSearch() {
+  const hits = Object.keys(STATEMENTS).filter(matches);
+  return `<h2>“${escape(query)}”</h2>
+    <p class="sub">${hits.length} statement(s)</p>
+    ${statementRows(hits)}`;
+}
+
+/* ---- sidebar ------------------------------------------------------------- */
+
+function sidebarItems() {
+  if (tab === "sources") {
+    return DATA.sources
+      .filter(s => !query || s.statements.some(matches) ||
+        (s.title + " " + s.authors.join(" ")).toLowerCase().includes(query.toLowerCase()))
+      .map(s => ({
+        href: "#/source/" + s.id,
+        primary: s.title,
+        secondary: s.authors.join(", ") + " · " + s.statements.length + " statements",
+      }));
+  }
+  if (tab === "entities") {
+    return DATA.entities
+      .filter(e => !query || e.statements.some(matches) ||
+        (e.label + " " + e.id + " " + e.note).toLowerCase().includes(query.toLowerCase()))
+      .map(e => ({
+        href: "#/entity/" + e.id,
+        primary: e.label,
+        secondary: e.kind + " · " + e.statements.length + " statements",
+      }));
+  }
+  return DATA.questions
+    .filter(q => !query || q.statements.some(matches) ||
+      (q.subjectLabel + " " + q.propertyLabel).toLowerCase().includes(query.toLowerCase()))
+    .map(q => ({
+      href: "#/question/" + q.id,
+      primary: (q.contested ? "◆ " : "") + q.subjectLabel + " — " + q.propertyLabel,
+      secondary: q.statements.length + " answers · " + q.holders.join(", "),
+    }));
+}
+
+function drawSidebar() {
+  const items = sidebarItems();
+  const current = location.hash;
+  document.getElementById("list").innerHTML = items.length
+    ? items.map(item => `<a href="${item.href}"${item.href === current ? ' aria-current="true"' : ""}>
+        <span class="primary">${highlight(item.primary)}</span>
+        <span class="secondary">${escape(item.secondary)}</span></a>`).join("")
+    : `<p class="empty">Nothing matches.</p>`;
+  document.getElementById("count").textContent = items.length + " " + tab;
+}
+
+/* ---- routing ------------------------------------------------------------- */
+
+function draw() {
+  const [, kind, ...rest] = location.hash.split("/");
+  const id = decodeURIComponent(rest.join("/"));
+  let html;
+  if (kind === "statement") html = renderStatement(id);
+  else if (kind === "question") html = renderQuestion(id);
+  else if (kind === "source") html = renderSource(id);
+  else if (kind === "entity") html = renderEntity(id);
+  else html = query ? renderSearch() : renderHome();
+  detailEl.innerHTML = html;
+  detailEl.scrollTop = 0;
+  drawSidebar();
+}
+
+document.getElementById("tabs").addEventListener("click", event => {
+  const button = event.target.closest("button[data-tab]");
+  if (!button) return;
+  tab = button.dataset.tab;
+  for (const other of document.querySelectorAll("#tabs button")) {
+    other.setAttribute("aria-selected", String(other === button));
+  }
+  drawSidebar();
+});
+
+let pending;
+searchEl.addEventListener("input", () => {
+  clearTimeout(pending);
+  pending = setTimeout(() => {
+    query = searchEl.value.trim();
+    draw();
+  }, 120);
+});
+
+document.getElementById("theme").addEventListener("click", () => {
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const current = document.documentElement.getAttribute("data-theme") || (dark ? "dark" : "light");
+  document.documentElement.setAttribute("data-theme", current === "dark" ? "light" : "dark");
+});
+
+addEventListener("keydown", event => {
+  if (event.key === "/" && document.activeElement !== searchEl) {
+    event.preventDefault();
+    searchEl.focus();
+  }
+  if (event.key === "Escape") { searchEl.value = ""; query = ""; searchEl.blur(); draw(); }
+});
+
+addEventListener("hashchange", () => {
+  // A link in the mechanism panel names a statement, and statements are read in graph mode.
+  // Without this the hash changed and the page appeared not to respond at all.
+  if (location.hash.startsWith("#/")) setMode("graph");
+  draw();
+});
+draw();
+
+/* ==== the mechanism ========================================================= */
+
+const M = DATA.mechanism;
+const SVG = "http://www.w3.org/2000/svg";
+const NODES = new Map(M.nodes.map(n => [n.id, n]));
+
+/* -- simulation -------------------------------------------------------------
+ * A reduced re-implementation of the model in `emulator/src/model/pneumatic.ts`,
+ * running on the constants this graph records for it. It keeps the flow law, the
+ * latches, the valve charge and the Mezzoforte stop; it leaves out the aperture
+ * geometry, the scale warp, the drag threshold and the rebound.
+ */
+
+const SUB_DT = 0.001;   // integration step
+const FLOW_RATE = 130;  // px per simulated second, so the dashes still read at an eighth speed
+
+function constant(name, half) {
+  const entry = M.constants[name];
+  return entry && entry[half] !== undefined ? entry[half] : null;
+}
+
+function rails(half) {
+  return Object.fromEntries(Object.keys(M.constants).map(k => [k, constant(k, half)]));
+}
+
+const RAILS = { bass: rails("bass"), treble: rails("treble") };
+
+function newState(K) {
+  return { t: 0, x: K.piano, v: 0, cresc: false, mf: false, sf: 0, assist: 0,
+           engaged: false, trappedAbove: false,
+           ports: { mfOn: 0, mfOff: 0, crescOn: 0, crescOff: 0, sfOn: 0, sfOff: 0 } };
+}
+
+/** One step of the mechanism, from whatever is currently held open over the glide block. */
+function step(state, K, ports, dt) {
+  const alpha = K.alpha ?? 1;
+  const tauSf = Math.max(K.membraneFillMs ?? 30, 0.05) / 1000;
+  const tauAssist = Math.max(K.assistFillMs ?? 30, 0.05) / 1000;
+  const tauTail = Math.max(K.valveTailMs ?? 40, 1) / 1000;
+  const tauInertia = Math.max(K.inertiaMs ?? 30, 1) / 1000;
+  const band = Math.max(K.valveBand ?? 1, 1e-4);
+  const trip = K.tripThreshold ?? 0.25;
+  const lower = K.mezzoforte - K.mfThickness / 2;
+  const upper = K.mezzoforte + K.mfThickness / 2;
+
+  // The latching functions answer to the leading edge of a perforation, not to its presence.
+  const was = state.ports;
+  if (ports.crescOn && !was.crescOn) state.cresc = true;
+  if (ports.crescOff && !was.crescOff) state.cresc = false;
+  if (ports.mfOn && !was.mfOn) state.mf = true;
+  if (ports.mfOff && !was.mfOff) state.mf = false;
+
+  state.sf += (ports.sfOn ? (1 - state.sf) / tauSf : -state.sf / tauTail) * dt;
+  state.assist += (ports.sfOff ? (1 - state.assist) / tauAssist : -state.assist / tauTail) * dt;
+  state.sf = Math.min(Math.max(state.sf, 0), 1);
+  state.assist = Math.min(Math.max(state.assist, 0), 1);
+  const sfOpen = Math.min(Math.max((state.sf - trip) / band, 0), 1);
+  const assistOpen = Math.min(Math.max((state.assist - trip) / band, 0), 1);
+
+  // Conduit 39 is always joined to the bellows; the relay switches its far end between
+  // vacuum and atmosphere, which is why cancelling a crescendo turns it into a leak.
+  const paths = [
+    state.cresc
+      ? { via: "kondukte-39", g: K.crescendoRate, a: 1, T: K.crescendoTarget }
+      : { via: "bohrung-100", g: K.releaseRate, a: 1, T: K.releaseTarget },
+    { via: "kondukte-23", g: K.sforzandoRate, a: sfOpen, T: K.sforzandoTarget },
+    { via: "drossel-96", g: K.sforzandoAssistRate, a: assistOpen, T: K.releaseTarget },
+  ];
+  let drive = 0;
+  for (const path of paths) {
+    if (!path.a) continue;
+    const gap = path.T - state.x;
+    drive += path.g * path.a * Math.sign(gap) * Math.pow(Math.abs(gap), alpha);
+  }
+
+  state.v += (drive - state.v) * (dt / tauInertia);
+  let next = state.x + state.v * dt;
+
+  // The pin is a hysteresis, not an excluded band, and which side the bellows is confined
+  // to is decided once, when the hook engages. Confined above, it comes to rest on the
+  // lower face. This follows `limitAtStop` in `emulator/src/model/stop.ts`, not that
+  // file's own header, which says the opposite.
+  let clamped = false;
+  if (state.mf) {
+    if (!state.engaged) { state.engaged = true; state.trappedAbove = state.x >= K.mezzoforte; }
+    const held = state.trappedAbove ? Math.max(next, lower) : Math.min(next, upper);
+    if (held !== next) { next = held; state.v = 0; clamped = true; }
+  } else {
+    state.engaged = false;
+  }
+  if (next < K.piano) { next = K.piano; state.v = Math.max(state.v, 0); }
+  if (next > K.forte) { next = K.forte; state.v = Math.min(state.v, 0); }
+
+  state.x = next;
+  state.t += dt;
+  state.ports = { ...ports };
+  return {
+    t: state.t, x: state.x, v: state.v, cresc: state.cresc, mf: state.mf,
+    clamped, trappedAbove: state.trappedAbove, sfOpen, assistOpen, ports: state.ports,
+    active: paths.filter(path => path.a > 0.02).map(path => path.via),
+  };
+}
+
+/* -- drawing ---------------------------------------------------------------- */
+
+let half = "bass";
+let speed = 0.125;   // the mechanism is not followable at its own pace
+let picked = null;
+
+const svg = document.getElementById("schematic");
+const traceSvg = document.getElementById("trace");
+const refs = new Map();
+// One updater per cut-away, closed over the elements it moves.
+const insides = [];
+
+const el = (name, attrs = {}, parent = null) => {
+  const node = document.createElementNS(SVG, name);
+  for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+  if (parent) parent.appendChild(node);
+  return node;
+};
+
+const W = M.shapes;
+
+function roundedPath(points, radius = 10) {
+  if (points.length < 2) return "";
+  let d = `M${points[0][0]} ${points[0][1]}`;
+  for (let i = 1; i < points.length - 1; i++) {
+    const [px, py] = points[i - 1], [x, y] = points[i], [nx, ny] = points[i + 1];
+    const before = Math.hypot(x - px, y - py), after = Math.hypot(nx - x, ny - y);
+    if (!before || !after) continue;
+    const r = Math.min(radius, before / 2, after / 2);
+    d += ` L${x + ((px - x) / before) * r} ${y + ((py - y) / before) * r}`;
+    d += ` Q${x} ${y} ${x + ((nx - x) / after) * r} ${y + ((ny - y) / after) * r}`;
+  }
+  const end = points[points.length - 1];
+  return `${d} L${end[0]} ${end[1]}`;
+}
+
+const longestSegment = points => {
+  let best = null, span = 0;
+  for (let i = 0; i < points.length - 1; i++) {
+    const [x1, y1] = points[i], [x2, y2] = points[i + 1];
+    const length = Math.hypot(x2 - x1, y2 - y1);
+    if (length > span) { span = length; best = [points[i], points[i + 1]]; }
+  }
+  return span >= 30 ? best : null;
+};
+
+const longestRun = points => {
+  let best = null, span = 0;
+  for (let i = 0; i < points.length - 1; i++) {
+    const [x1, y1] = points[i], [x2, y2] = points[i + 1];
+    if (Math.abs(y1 - y2) > 1) continue;
+    if (Math.abs(x2 - x1) > span) { span = Math.abs(x2 - x1); best = [(x1 + x2) / 2, y1]; }
+  }
+  return span >= 46 ? best : null;
+};
+
+const anchor = id => {
+  const n = NODES.get(id);
+  const [w, h] = W[n.shape] || [96, 30];
+  return { x: n.x, y: n.y, w, h, l: n.x - w / 2, r: n.x + w / 2, t: n.y - h / 2, b: n.y + h / 2 };
+};
+
+/* -- what is inside a part ---------------------------------------------------
+ * Each box is a cut-away rather than a labelled rectangle, so that the sentence in Hagmann
+ * can be watched instead of read. Valve chamber 38 is joined to wind chamber 17 or to wind
+ * chamber 15 and never to both; the shuttle between the two seats is what switches it, and
+ * that is a thing to see move.
+ *
+ * These drawings are a reading of Anhang 13 in the same sense the layout is, and not a copy
+ * of it. Each part is shown upright in its own working orientation, while the arrangement
+ * left to right belongs to the graph: the plate stacks membrane 36, its valve and latch 41
+ * one above another. Every state a cut-away shows comes from `pressures` and the running
+ * model, so nothing here moves that the drawing does not otherwise assert.
+ */
+
+const cavity = box => {
+  const t = box.t + 19, b = box.b - 5;
+  return { l: box.l + 9, r: box.r - 9, t, b, mx: box.x, my: (t + b) / 2 };
+};
+
+const tint = (node, state) => node.setAttribute("class",
+  `cut-fill ${state === "air" ? "air" : state === "vacuum" ? "vac" : "off"}`);
+
+// A stream is drawn the way the air actually travels, so its dashes always run forward along
+// the path. The links outside are drawn in the direction of the causation instead, which is
+// why their dashes have to run backwards down a suction line; inside a part there is room to
+// draw the flow itself. `back` is for the one line that reverses, conduit 39.
+const streamLine = (g, d, kind = "air") => el("path", { class: `cut-stream ${kind}`, d }, g);
+
+function runs(line, on, clock, back = false) {
+  line.style.opacity = String(Math.min(1, Math.max(0, on)));
+  line.style.strokeDashoffset = String((back ? 1 : -1) * ((clock * FLOW_RATE) % 12));
+}
+
+// Which way out of a box the air goes: towards whichever side the parts that evacuate it
+// sit on, so a cut-away's stream leaves by the edge its suction line arrives at.
+function drainSide(id) {
+  const here = NODES.get(id);
+  const pull = M.edges
+    .filter(e => (e.from === id || e.to === id) && e.carries.includes("vacuum"))
+    .map(e => NODES.get(e.from === id ? e.to : e.from))
+    .filter(Boolean)
+    .reduce((sum, other) => sum + Math.sign(other.x - here.x), 0);
+  return pull >= 0 ? 1 : -1;
+}
+
+// How far a valve stands off its seat, 0 to 1. The relay's double valves snap between their
+// seats; valve 22 is the one the model gives a continuous lift, because the charge of
+// membrane 28 through bore 20 is what times the sforzando.
+const LIFT = { "ventil-22": view => view.f.sfOpen };
+const lift = (id, view) => LIFT[id] ? LIFT[id](view) : view.p.get(id) === "vacuum" ? 1 : 0;
+
+// How far a small bellows has collapsed, 0 open to 1 shut. A bellows is collapsed exactly
+// while it is being drawn down, so the same number times the stream leaving it.
+const COLLAPSE = {
+  "hilfsbalg-94": view => view.f.assistOpen,
+  "hilfsbalg-95": view => view.f.assistOpen,
+  "regelbalg-91": view => travel(view.f.x, view.K),
+  "tonerzeugungsbalg-121": view => travel(view.f.x, view.K),
+  magazinbalg: () => 0.5,
+};
+
+// How much air a chamber still holds, 0 to 1. The delivery side thins out as the
+// Nuancierbalg closes, which is the loudness map in one picture.
+const nuanced = view => 0.62 - 0.44 * travel(view.f.x, view.K);
+const DENSITY = {
+  "windkammer-17": () => 1,
+  "windkammer-15": () => 0.18,
+  "windkammer-86": nuanced,
+  "kondukte-88": nuanced,
+};
+
+function insidePort(g, box, node) {
+  const c = cavity(box);
+  const bar = c.b - 12, half = 7;
+  el("rect", { class: "cut-bar", x: c.l, y: bar, width: c.r - c.l, height: c.b - bar }, g);
+  const opening = el("rect", { class: "cut-fill off", x: c.mx - half, y: bar,
+                               width: half * 2, height: c.b - bar }, g);
+  el("path", { class: "cut-wall",
+    d: `M${c.mx - half} ${bar}V${c.b}M${c.mx + half} ${bar}V${c.b}` }, g);
+  // The paper runs over the bar's face as one band, and the perforation is punched through
+  // it: an unbroken band is a place on the roll where nothing is written.
+  const paper = c.t + 1, thick = 6;
+  el("rect", { class: "cut-paper", x: c.l, y: paper, width: c.r - c.l, height: thick }, g);
+  const punched = el("rect", { class: "cut-punch", x: c.mx - half, y: paper,
+                               width: half * 2, height: thick }, g);
+  const inrush = streamLine(g, `M${c.mx} ${paper + thick}V${c.b + 3}`);
+  return view => {
+    const open = view.p.get(node.id) === "air";
+    punched.style.opacity = open ? "1" : "0";
+    tint(opening, open ? "air" : null);
+    runs(inrush, open ? 1 : 0, view.clock);
+  };
+}
+
+function insideMembrane(g, box, node) {
+  const c = cavity(box);
+  const rest = c.b - 12, reach = 12, under = c.b - 6;
+  const bored = M.adjusters.some(a => a.on === node.id);
+  el("rect", { class: "cut-vessel", x: c.l, y: c.t + 5, width: c.r - c.l,
+               height: c.b - c.t - 5, rx: 3 }, g);
+  const charged = el("path", { class: "cut-fill off", d: "" }, g);
+  const inrush = streamLine(g,
+    `M${box.l} ${box.y}H${c.l + 5}V${under}H${c.mx - 5}`);
+  // The bore is drawn as a marker on the box's top corner, so its drain runs out to it.
+  const bleed = bored
+    ? streamLine(g, `M${c.mx + 5} ${under}H${c.r}V${box.t - 8}`, "vac")
+    : null;
+  const skin = el("path", { class: "cut-membrane", d: "" }, g);
+  const disc = el("line", { class: "cut-board", x1: c.mx - 9, x2: c.mx + 9 }, g);
+  const wire = el("line", { class: "cut-rod", x1: c.mx, x2: c.mx, y2: c.t + 3 }, g);
+  el("line", { class: "cut-board", x1: c.mx - 7, x2: c.mx + 7,
+               y1: c.t + 3, y2: c.t + 3 }, g);
+  return view => {
+    const air = view.p.get(node.id) === "air";
+    const crest = rest - (air ? reach : 0);
+    const arc = `M${c.l + 2} ${rest}Q${c.mx} ${2 * crest - rest} ${c.r - 2} ${rest}`;
+    skin.setAttribute("d", arc);
+    charged.setAttribute("d", `${arc}V${c.b}H${c.l + 2}Z`);
+    tint(charged, air ? "air" : "vacuum");
+    disc.setAttribute("y1", crest);
+    disc.setAttribute("y2", crest);
+    wire.setAttribute("y1", crest);
+    runs(inrush, air ? 1 : 0, view.clock);
+    if (bleed) runs(bleed, air ? 0 : 1, view.clock);
+  };
+}
+
+function insideLatch(g, box) {
+  const c = cavity(box);
+  const high = c.t + 14, low = c.b - 14;
+  const upper = el("rect", { class: "cut-fill off", x: c.l, y: c.t + 2,
+                             width: c.r - c.l, height: 0 }, g);
+  const lower = el("rect", { class: "cut-fill off", x: c.l, width: c.r - c.l, height: 0 }, g);
+  const held = streamLine(g, `M${c.mx + 10} ${c.t + 8}H${c.r}V${box.t - 2}`, "vac");
+  const release = streamLine(g, `M${c.mx} ${c.b - 5}H${box.l}`, "vac");
+  const skin = el("line", { class: "cut-membrane", x1: c.l + 2, x2: c.r - 2 }, g);
+  const wire = el("line", { class: "cut-rod", x1: c.mx, x2: c.mx, y2: c.b + 3 }, g);
+  el("text", { class: "cut-note", x: c.l + 2, y: c.t + 10 }, g).textContent = "holds";
+  el("text", { class: "cut-note", x: c.l + 2, y: c.b - 2 }, g).textContent = "48 · releases";
+  return view => {
+    // Suction in the upper half is what keeps membrane 40 raised. Conduit 48 puts the lower
+    // half on suction too, only while valve 47 stands lifted, and that balance is the
+    // release: the crescendo drops the moment both halves pull alike.
+    const on = view.f.cresc;
+    const releasing = view.p.get("doppelventil-47") === "vacuum";
+    const y = on ? high : low;
+    skin.setAttribute("y1", y);
+    skin.setAttribute("y2", y);
+    wire.setAttribute("y1", y);
+    upper.setAttribute("height", Math.max(0, y - c.t - 2));
+    lower.setAttribute("y", y);
+    lower.setAttribute("height", Math.max(0, c.b - 2 - y));
+    tint(upper, on ? "vacuum" : "air");
+    tint(lower, releasing ? "vacuum" : "air");
+    runs(held, on ? 1 : 0, view.clock);
+    runs(release, releasing ? 1 : 0, view.clock);
+  };
+}
+
+function insideDoubleValve(g, box, node) {
+  const c = cavity(box);
+  const top = c.t + 10, bottom = c.b - 8, mouth = 7.5, thick = 9;
+  const outlet = (top + bottom) / 2, past = c.mx + 5;
+  const chamber = el("rect", { class: "cut-fill off", x: c.l, y: top,
+                               width: c.r - c.l, height: bottom - top }, g);
+  el("path", { class: "cut-seat", d:
+    `M${c.l} ${top}H${c.mx - mouth}M${c.mx + mouth} ${top}H${c.r}` +
+    `M${c.l} ${bottom}H${c.mx - mouth}M${c.mx + mouth} ${bottom}H${c.r}` }, g);
+  el("text", { class: "cut-note", x: c.l, y: top - 3 }, g).textContent = "17 · air";
+  el("text", { class: "cut-note", x: c.l, y: c.b + 1 }, g).textContent = "15 · vacuum";
+  const admits = streamLine(g, `M${past} ${box.t + 2}V${outlet}`);
+  const drains = streamLine(g, `M${past} ${outlet}V${bottom + 11}`, "vac");
+  const conduit = streamLine(g, `M${c.mx + 9} ${outlet}H${box.r}`);
+  const tip = el("path", { class: "cut-tip", d: "M-4 -3L1.5 0L-4 3Z" }, g);
+  const wire = el("line", { class: "cut-rod", x1: c.mx, x2: c.mx, y2: c.b + 3 }, g);
+  const shuttle = el("rect", { class: "cut-body", x: c.mx - 13, width: 26,
+                               height: thick, rx: 1.5 }, g);
+  return view => {
+    // Lifted, the mouth to 17 is sealed and 15 draws the chamber down, so the conduit on the
+    // right empties into it; dropped, air from 17 fills the chamber and leaves by that same
+    // conduit. It is never joined to both, and the arrow turns round when it changes over.
+    const up = lift(node.id, view) > 0.5;
+    const y = up ? top : bottom - thick;
+    shuttle.setAttribute("y", y);
+    wire.setAttribute("y1", y + thick);
+    tint(chamber, up ? "vacuum" : "air");
+    runs(admits, up ? 0 : 1, view.clock);
+    runs(drains, up ? 1 : 0, view.clock);
+    conduit.setAttribute("class", `cut-stream ${up ? "vac" : "air"}`);
+    runs(conduit, 1, view.clock, up);
+    tip.setAttribute("class", `cut-tip${up ? " vac" : ""}`);
+    tip.setAttribute("transform", up
+      ? `translate(${c.mx + 11} ${outlet}) rotate(180)`
+      : `translate(${box.r - 2} ${outlet})`);
+  };
+}
+
+function insideValve(g, box, node) {
+  const c = cavity(box);
+  const seat = c.b - 9, mouth = 7.5, thick = 9, stroke = 14;
+  const outlet = c.t + 8, past = c.mx + 5;   // clear of the disc at its full lift
+  const chamber = el("rect", { class: "cut-fill off", x: c.l, y: c.t + 3,
+                               width: c.r - c.l, height: seat - c.t - 3 }, g);
+  el("path", { class: "cut-seat",
+    d: `M${c.l} ${seat}H${c.mx - mouth}M${c.mx + mouth} ${seat}H${c.r}` }, g);
+  el("text", { class: "cut-note", x: c.l, y: c.b + 1 }, g).textContent = "15 · vacuum";
+  el("text", { class: "cut-note", x: c.r, y: c.t + 10, "text-anchor": "end" }, g)
+    .textContent = "one seat only";
+  const conduit = streamLine(g, `M${box.r} ${outlet}H${c.mx + 9}`, "vac");
+  const drains = streamLine(g, `M${past} ${outlet}V${seat + 11}`, "vac");
+  const wire = el("line", { class: "cut-rod", x1: c.mx, x2: c.mx, y2: c.b + 3 }, g);
+  const disc = el("rect", { class: "cut-body", x: c.mx - 13, width: 26,
+                            height: thick, rx: 1.5 }, g);
+  return view => {
+    // Hagmann gives the sforzando a simple valve, not a double one, so there is nothing here
+    // to switch: lifted, it lets conduit 23 through to 15, and that is all it does.
+    const open = lift(node.id, view);
+    const y = seat - thick - open * stroke;
+    disc.setAttribute("y", y);
+    wire.setAttribute("y1", y + thick);
+    tint(chamber, view.p.get(node.id));
+    runs(conduit, open, view.clock);
+    runs(drains, open, view.clock);
+  };
+}
+
+function insideCone(g, box) {
+  const c = cavity(box);
+  const seat = c.b - 14, mouth = 11, flank = 15;
+  el("rect", { class: "cut-fill vac", x: c.l, y: c.t + 3,
+               width: c.r - c.l, height: seat - c.t - 3 }, g);
+  const delivered = el("rect", { class: "cut-fill vac", x: c.l, y: seat,
+                                 width: c.r - c.l, height: c.b - seat }, g);
+  el("path", { class: "cut-seat",
+    d: `M${c.l} ${seat}H${c.mx - mouth}M${c.mx + mouth} ${seat}H${c.r}` }, g);
+  const through = streamLine(g, `M${c.mx + 16} ${c.t + 4}V${box.b}`, "vac");
+  const cone = el("path", { class: "cut-body", d: "" }, g);
+  const stem = el("line", { class: "cut-rod", x1: c.mx, x2: c.mx, y2: c.t + 2 }, g);
+  el("text", { class: "cut-note", x: c.r, y: c.b - 2, "text-anchor": "end" }, g)
+    .textContent = "on to 86";
+  return view => {
+    // Spring 89 holds the taper on its seat and the chain band pulls it off, so the gap the
+    // note pneumatics draw through is the bellows' own position, and nothing else.
+    const drawn = travel(view.f.x, view.K);
+    const apex = seat + flank - drawn * 13;
+    cone.setAttribute("d",
+      `M${c.mx} ${apex}L${c.mx + mouth} ${apex - flank}H${c.mx - mouth}Z`);
+    stem.setAttribute("y1", apex - flank);
+    delivered.style.opacity = String(0.1 + drawn * 0.26);
+    runs(through, 0.25 + drawn * 0.75, view.clock);
+  };
+}
+
+function insidePlenum(g, box, node) {
+  const c = cavity(box);
+  const wash = el("rect", { class: "cut-fill off", x: c.l, y: c.t + 2,
+                            width: c.r - c.l, height: c.b - c.t - 4, rx: 3 }, g);
+  el("rect", { class: "cut-vessel", x: c.l, y: c.t + 2, width: c.r - c.l,
+               height: c.b - c.t - 4, rx: 3 }, g);
+  const across = 9, down = 3, total = across * down;
+  const dots = Array.from({ length: total }, (_, i) => {
+    const column = i % across, row = (i / across) | 0;
+    return el("circle", { class: "cut-dot", r: 1.7,
+      cx: c.l + 8 + column * ((c.r - c.l - 16) / (across - 1)) + (row % 2 ? 2.5 : -2.5),
+      cy: c.t + 10 + row * ((c.b - c.t - 24) / (down - 1)) }, g);
+  });
+  return view => {
+    const state = view.p.get(node.id);
+    const density = (DENSITY[node.id] || (() => (state === "air" ? 1 : 0.2)))(view);
+    // A scattered order, so that thinning the air empties the chamber evenly rather than
+    // draining it a row at a time.
+    dots.forEach((dot, i) => {
+      dot.style.opacity = ((i * 7) % total) / total < density ? "0.8" : "0.07";
+    });
+    tint(wash, state);
+  };
+}
+
+function insideThrottle(g, box, node) {
+  const y = box.y, wide = 8, pinch = 3.2;
+  const mouth = Math.sqrt((box.w / 2) ** 2 - wide ** 2);
+  const left = box.x - mouth, right = box.x + mouth;
+  const lips =
+    `M${left} ${y - wide}Q${box.x} ${y - pinch} ${right} ${y - wide}` +
+    `M${left} ${y + wide}Q${box.x} ${y + pinch} ${right} ${y + wide}`;
+  const bore = el("path", { class: "cut-fill off", d:
+    `M${left} ${y - wide}Q${box.x} ${y - pinch} ${right} ${y - wide}` +
+    `L${right} ${y + wide}Q${box.x} ${y + pinch} ${left} ${y + wide}Z` }, g);
+  el("path", { class: "cut-wall", d: lips }, g);
+  const through = streamLine(g, `M${box.l} ${y}H${box.r}`);
+  return view => {
+    // What a throttle does is all in the neck: it is a hole small enough to meter the air,
+    // and the times the model fits are what that hole costs.
+    const state = view.p.get(node.id);
+    tint(bore, state);
+    through.setAttribute("class", `cut-stream ${state === "vacuum" ? "vac" : "air"}`);
+    runs(through, state ? 1 : 0, view.clock);
+  };
+}
+
+function insideSmallBellows(g, box, node) {
+  const c = cavity(box);
+  const hinge = c.l + 5, tip = c.r - 4, floor = c.b - 3, stroke = c.b - c.t - 8;
+  const side = drainSide(node.id);
+  // The open position is outlined, so a bellows drawn shut reads as one that has closed and
+  // not as an empty box.
+  el("path", { class: "cut-vessel",
+    d: `M${hinge} ${floor}L${tip} ${floor - stroke}V${floor}Z` }, g);
+  const wedge = el("path", { class: "cut-fill vac", d: "" }, g);
+  const drain = streamLine(g, side > 0
+    ? `M${c.mx} ${floor - 5}H${box.r}` : `M${c.mx} ${floor - 5}H${box.l}`, "vac");
+  const board = el("path", { class: "cut-board", d: "" }, g);
+  el("path", { class: "cut-wall", d: `M${hinge} ${floor}H${tip}` }, g);
+  return view => {
+    const shut = COLLAPSE[node.id] ? COLLAPSE[node.id](view) : 0.5;
+    const gap = (1 - shut) * stroke;
+    board.setAttribute("d", `M${hinge} ${floor}L${tip} ${floor - gap}`);
+    wedge.setAttribute("d", `M${hinge} ${floor}L${tip} ${floor - gap}V${floor}Z`);
+    runs(drain, shut * 2, view.clock);
+  };
+}
+
+function insideHook(g, box, node) {
+  const c = cavity(box);
+  const hinge = c.l + 4, tip = c.mx - 8, floor = c.b - 4, stroke = 18;
+  el("path", { class: "cut-vessel",
+    d: `M${hinge} ${floor}L${tip} ${floor - stroke}V${floor}Z` }, g);
+  const wedge = el("path", { class: "cut-fill vac", d: "" }, g);
+  const drain = streamLine(g, drainSide(node.id) > 0
+    ? `M${tip - 6} ${floor - 5}H${box.r}` : `M${tip - 6} ${floor - 5}H${box.l}`, "vac");
+  const board = el("path", { class: "cut-board", d: "" }, g);
+  el("path", { class: "cut-wall", d: `M${hinge} ${floor}H${tip}` }, g);
+  const pin = el("rect", { class: "cut-pin", width: 24, height: 7, rx: 1.5, y: floor - 24 }, g);
+  el("text", { class: "cut-note", x: c.r, y: c.t + 10, "text-anchor": "end" }, g)
+    .textContent = "the pin";
+  return view => {
+    // Evacuated, it collapses, and the collapse is what drives the pin into the
+    // Nuancierbalg's path over on the right of the drawing.
+    const shut = view.f.mf ? 1 : 0;
+    const gap = (1 - shut) * stroke;
+    board.setAttribute("d", `M${hinge} ${floor}L${tip} ${floor - gap}`);
+    wedge.setAttribute("d", `M${hinge} ${floor}L${tip} ${floor - gap}V${floor}Z`);
+    pin.setAttribute("x", c.r - 24 - (1 - shut) * 14);
+    runs(drain, shut, view.clock);
+  };
+}
+
+function insideSpring(g, box) {
+  const c = cavity(box);
+  const y = c.my, left = c.l + 2, right = c.r - 2, coils = 6;
+  const coil = el("path", { class: "cut-coil", d: "" }, g);
+  el("path", { class: "cut-wall", d: `M${left} ${y - 8}V${y + 8}` }, g);
+  return view => {
+    const load = travel(view.f.x, view.K);
+    const end = left + 8 + (right - left - 8) * (1 - 0.3 * load);
+    const step = (end - left - 8) / coils;
+    const zigzag = Array.from({ length: coils }, (_, i) =>
+      `L${(left + 6 + i * step + step / 2).toFixed(1)} ${y + (i % 2 ? 7 : -7)}`).join("");
+    coil.setAttribute("d", `M${left} ${y}L${left + 6} ${y}${zigzag}L${end.toFixed(1)} ${y}`);
+  };
+}
+
+function insideChain(g, box) {
+  const c = cavity(box);
+  const y = c.my, links = 7, pitch = (c.r - c.l - 6) / links;
+  const band = el("g", {}, g);
+  Array.from({ length: links }, (_, i) =>
+    el("rect", { class: "cut-chain", x: c.l + 3 + i * pitch, y: y - 4,
+                 width: pitch - 3, height: 8, rx: 3.5 }, band));
+  el("path", { class: "cut-wall",
+    d: `M${box.l} ${y}H${c.l + 3}M${c.r - 3} ${y}H${box.r}` }, g);
+  return view => {
+    // It can pull and not push, so it only ever takes up: the whole band shifts with the
+    // board it hangs from.
+    band.setAttribute("transform",
+      `translate(${((travel(view.f.x, view.K) - 0.5) * 12).toFixed(1)} 0)`);
+  };
+}
+
+function insideBlower(g, box) {
+  const c = cavity(box);
+  const cx = c.l + 14, cy = c.my, r = 12;
+  el("circle", { class: "cut-vessel", cx, cy, r }, g);
+  const rotor = el("path", { class: "cut-rotor",
+    d: `M${cx} ${cy - r + 2}V${cy + r - 2}M${cx - r + 2} ${cy}H${cx + r - 2}` }, g);
+  const out = streamLine(g, `M${cx + r + 3} ${cy}H${box.r}`, "vac");
+  el("text", { class: "cut-note", x: c.r, y: cy - 7, "text-anchor": "end" }, g)
+    .textContent = "air out";
+  return view => {
+    rotor.setAttribute("transform",
+      `rotate(${((view.clock * 220) % 360).toFixed(1)} ${cx} ${cy})`);
+    runs(out, 1, view.clock);
+  };
+}
+
+// The Nuancierbalg, drawn as one. Hagmann: held fully open it gives the note pneumatics the
+// least vacuum and so the quietest blow; fully closed, the most and the loudest. So the
+// bellows here is tall when the music is quiet and collapsed when it is loud.
+function insideNuancierbalg(g, box) {
+  const top = box.t + 26, floor = box.b - 16, stroke = floor - top;
+  // The whole stroke is outlined, so a bellows drawn almost shut reads as one that has
+  // closed up and not as an empty box.
+  el("rect", { class: "cut-vessel", x: box.l + 4, y: top, width: box.w - 8,
+               height: stroke, rx: 2 }, g);
+  const body = el("rect", { class: "balg", x: box.l + 4, width: box.w - 8, rx: 2 }, g);
+  const board = el("line", { class: "board", x1: box.l + 2, x2: box.r - 2 }, g);
+  el("text", { x: box.l + 8, y: top - 4, class: "scale-note" }, g).textContent = "open · piano";
+  el("text", { x: box.l + 8, y: floor + 11, class: "scale-note" }, g)
+    .textContent = "closed · forte";
+  const breath = streamLine(g, `M${box.l} ${box.y}H${box.l + 16}`, "vac");
+  const finger = el("path", { class: "hook-finger", d: "" }, g);
+  // Two lines, not one: a single line long enough to say all of it reached across the
+  // Regelbalg standing beside the bellows.
+  const readout = el("text", { x: box.x, y: box.b + 24, class: "readout",
+                               "text-anchor": "middle" }, g);
+  const hookState = el("text", { x: box.x, y: box.b + 38, class: "readout",
+                                 "text-anchor": "middle" }, g);
+  return ({ f, K, clock }) => {
+    const at = value => top + travel(value, K) * stroke;
+    const face = at(f.x);
+    body.setAttribute("y", face);
+    body.setAttribute("height", Math.max(0, floor - face));
+    body.setAttribute("class", `balg ${f.v > 0.02 ? "closing" : f.v < -0.02 ? "opening" : ""}`);
+    board.setAttribute("y1", face);
+    board.setAttribute("y2", face);
+    // Air leaves as it closes and comes back as it opens, along the one conduit 39, so the
+    // stream at its mouth reverses with the direction of travel.
+    breath.setAttribute("class", `cut-stream ${f.v > 0 ? "vac" : "air"}`);
+    runs(breath, Math.min(1, Math.abs(f.v) * 12), clock, f.v <= 0);
+    // The hook is a finger on the Mezzofortebalg. Cancelled, it is drawn back out of the
+    // bellows' path rather than merely fading.
+    const lip = at(K.mezzoforte - K.mfThickness / 2);
+    const heel = Math.max(at(K.mezzoforte + K.mfThickness / 2), lip + 5);
+    const nose = box.l + 14;
+    finger.setAttribute("d",
+      `M${box.l - 30} ${lip - 5}H${nose}V${heel}H${nose - 7}V${lip}H${box.l - 30}Z`);
+    finger.setAttribute("transform", f.mf ? "translate(0 0)" : "translate(-26 0)");
+    finger.setAttribute("class",
+      `hook-finger${f.mf ? " in" : ""}${f.clamped ? " bearing" : ""}`);
+    readout.textContent = `${f.x.toFixed(3)} scale · ${f.cresc ? "cresc set" : "decresc"}`;
+    hookState.textContent = f.mf ? (f.clamped ? "resting on the hook" : "hook in") : "";
+  };
+}
+
+const INSIDE = {
+  port: insidePort,
+  membrane: insideMembrane,
+  latch: insideLatch,
+  doublevalve: insideDoubleValve,
+  valve: insideValve,
+  cone: insideCone,
+  plenum: insidePlenum,
+  throttle: insideThrottle,
+  "bellows-small": insideSmallBellows,
+  hook: insideHook,
+  spring: insideSpring,
+  link: insideChain,
+  supply: insideBlower,
+  bellows: insideNuancierbalg,
+};
+
+function drawSchematic() {
+  svg.setAttribute("viewBox", M.viewBox);
+  svg.replaceChildren();
+  const layers = { bands: el("g", {}, svg), links: el("g", {}, svg), parts: el("g", {}, svg) };
+
+  for (const band of M.bands) {
+    el("text", { x: band.x, y: band.y, class: "band-title" }, layers.bands).textContent = band.title;
+  }
+
+  M.edges.forEach((edge, i) => {
+    const path = el("path", {
+      class: `link ${edge.carries}`, d: roundedPath(edge.points), "data-edge": i,
+    }, layers.links);
+    path.addEventListener("click", () => select({ kind: "edge", edge }));
+    refs.set(`edge:${i}`, path);
+    if (!edge.carries.includes("control") || edge.carries.length > 1) {
+      const run = longestSegment(edge.points);
+      if (run) {
+        const arrow = el("path", { class: "arrow", d: "M-5.5 -4 L5.5 0 L-5.5 4 Z" }, layers.links);
+        refs.set(`arrow:${i}`, { node: arrow, run });
+      }
+    }
+    const where = edge.via ? longestRun(edge.points) : null;
+    if (where) {
+      el("text", { x: where[0], y: where[1] - 6, class: "link-label",
+                   "text-anchor": "middle" }, layers.links)
+        .textContent = edge.via.replace("kondukte-", "").replace("kettenband", "chain");
+    }
+  });
+
+  insides.length = 0;
+  for (const node of M.nodes) {
+    const [w, h] = W[node.shape] || [96, 30];
+    const box = { x: node.x, y: node.y, w, h, l: node.x - w / 2, r: node.x + w / 2,
+                  t: node.y - h / 2, b: node.y + h / 2 };
+    const g = el("g", { class: "part", "data-part": node.id }, layers.parts);
+    g.addEventListener("click", () => select({ kind: "part", id: node.id }));
+    // The caption sits in a strip along the top of the box, because what is underneath it
+    // is a drawing now and not empty paper. A throttle is too small for a strip, so its
+    // number goes under the circle.
+    if (node.shape === "throttle") {
+      el("circle", { class: "body", cx: box.x, cy: box.y, r: h / 2 }, g);
+      el("text", { x: box.x, y: box.b + 12, class: "cap-out", "text-anchor": "middle" }, g)
+        .textContent = node.caption;
+    } else {
+      el("rect", { class: "body", x: box.l, y: box.t, width: w, height: h,
+                   rx: node.shape === "port" ? 12 : 5 }, g);
+      el("text", { x: box.l + 8, y: box.t + 14, class: "cap-in" }, g).textContent = node.caption;
+    }
+    const build = INSIDE[node.shape];
+    if (build) insides.push(build(g, box, node));
+    const key = PORT_KEYS.find(([id]) => id === node.id);
+    if (key) {
+      g.classList.add("playable");
+      g.addEventListener("pointerdown", event => { event.preventDefault(); press(key[2], true); });
+      g.addEventListener("pointerup", () => press(key[2], false));
+      el("text", { x: box.l - 9, y: box.y + 3, class: "keycap",
+                   "text-anchor": "middle" }, g).textContent = key[1];
+    }
+    refs.set(`part:${node.id}`, g);
+  }
+
+  for (const item of M.legend) {
+    el("path", { class: `legend-mark link ${item.carries}`,
+                 d: `M${item.x} ${item.y} h26` }, layers.parts);
+    el("text", { x: item.x + 34, y: item.y + 4, class: "legend-text" }, layers.parts)
+      .textContent = item.text;
+  }
+
+  for (const a of M.adjusters) {
+    const host = anchor(a.on);
+    const g = el("g", { class: "part" }, layers.parts);
+    g.addEventListener("click", () => select({ kind: "part", id: a.id }));
+    el("circle", { class: "body", cx: host.r - 9, cy: host.t - 8, r: 8 }, g);
+    el("text", { x: host.r - 9, y: host.t - 4.5, class: "cap-in", "text-anchor": "middle",
+                 "font-size": 9 }, g).textContent = a.id.split("-")[1];
+  }
+}
+
+// Where the moving board sits, as a fraction of the stroke. 0 is fully open, which Hagmann
+// says gives the note pneumatics their minimum vacuum and so the quietest blow; 1 is fully
+// closed and the loudest. The drawn bellows is what is left under the board, so it shrinks
+// as the music grows.
+function travel(value, K) {
+  return Math.max(0, Math.min((value - K.piano) / (K.forte - K.piano), 1));
+}
+
+function drawTrace() {
+  const w = 1000, h = 100, pad = 6;
+  traceSvg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+  traceSvg.replaceChildren();
+  const K = RAILS[half];
+  const end = liveState ? liveState.t : 0;
+  const start = Math.max(0, end - TRACE_WINDOW);
+  const X = t => ((t - start) / TRACE_WINDOW) * w;
+  const Y = value => h - pad - travel(value, K) * (h - 2 * pad);
+  el("line", { class: "axis", x1: 0, y1: Y(K.piano), x2: w, y2: Y(K.piano) }, traceSvg);
+  el("line", { class: "axis", x1: 0, y1: Y(K.forte), x2: w, y2: Y(K.forte) }, traceSvg);
+  el("line", { class: "axis", x1: 0, y1: Y(K.mezzoforte), x2: w, y2: Y(K.mezzoforte),
+               "stroke-dasharray": "3 4" }, traceSvg);
+  if (trace.length > 1) {
+    el("polyline", { class: "sim",
+      points: trace.map(([t, x]) => `${X(t).toFixed(1)},${Y(x).toFixed(1)}`).join(" ") },
+      traceSvg);
+  }
+  document.getElementById("trace-note").textContent =
+    "the last twelve seconds of your own playing · dashed line is the Mezzoforte pin";
+}
+
+function paint() {
+  const f = liveFrame;
+  if (!f) return;
+  const clock = liveState ? liveState.t : 0;
+  const p = pressures(f);
+  const view = { f, p, clock, K: RAILS[half] };
+
+  for (const node of M.nodes) {
+    const state = p.get(node.id) ?? null;
+    const part = refs.get(`part:${node.id}`);
+    part.classList.toggle("air", state === "air");
+    part.classList.toggle("vac", state === "vacuum");
+  }
+  for (const update of insides) update(view);
+
+  M.edges.forEach((edge, i) => {
+    const path = refs.get(`edge:${i}`);
+    const flow = flowOn(edge, p, f);
+    const unsettled = edge.holds && edge.holds !== "TRUE" ? " unsettled" : "";
+    path.setAttribute("class",
+      `link ${flow || edge.carries[edge.carries.length - 1]}${flow ? " on" : ""}${unsettled}`);
+    // Air travels towards the blower on a suction line, so its dashes run against the
+    // direction the arrow of causation points.
+    if (flow === "air") path.style.strokeDashoffset = String(-(clock * FLOW_RATE) % 26);
+    else if (flow === "vacuum") path.style.strokeDashoffset = String((clock * FLOW_RATE) % 26);
+    else path.style.strokeDashoffset = "0";
+
+    const marker = refs.get(`arrow:${i}`);
+    if (marker) {
+      const [[x1, y1], [x2, y2]] = marker.run;
+      const back = flow === "vacuum";
+      const [ax, ay, bx, by] = back ? [x2, y2, x1, y1] : [x1, y1, x2, y2];
+      const angle = (Math.atan2(by - ay, bx - ax) * 180) / Math.PI;
+      marker.node.setAttribute("transform",
+        `translate(${(x1 + x2) / 2} ${(y1 + y2) / 2}) rotate(${angle})`);
+      marker.node.setAttribute("class",
+        `arrow ${flow || ""}${flow ? " on" : ""}${unsettled}`);
+    }
+  });
+
+  document.getElementById("clock").textContent = `${clock.toFixed(2)} s`;
+}
+
+/* -- pressure ----------------------------------------------------------------
+ * Hagmann's principle, drawn: the mechanism is a closed system the blower keeps at low
+ * pressure, and it is ordinary air let in through a perforation that moves anything. So a
+ * part is amber while it holds atmospheric air and teal while it is drawn down, and the
+ * dashes on a suction line travel towards the blower — against the way the causation reads.
+ */
+
+const ALWAYS = {
+  "windkammer-17": "air", "windkammer-15": "vacuum", geblaese: "vacuum",
+  magazinbalg: "vacuum", "nuancierbalg-90": "vacuum", "kegelventil-87": "vacuum",
+  "windkammer-86": "vacuum", "kondukte-88": "vacuum", "tonerzeugungsbalg-121": "vacuum",
+  "regelbalg-91": "vacuum",
+};
+
+function pressures(f) {
+  const p = new Map(Object.entries(ALWAYS));
+  const open = f.ports;
+  p.set("gleitblock-opening-7", open.mfOff ? "air" : null);
+  p.set("gleitblock-opening-8", open.mfOn ? "air" : null);
+  p.set("gleitblock-opening-9", open.crescOff ? "air" : null);
+  p.set("gleitblock-opening-10", open.crescOn ? "air" : null);
+  p.set("gleitblock-opening-11", open.sfOff ? "air" : null);
+  p.set("gleitblock-opening-12", open.sfOn ? "air" : null);
+  p.set("membrankammer-35", open.crescOn ? "air" : "vacuum");
+  p.set("membrankammer-44", open.crescOff ? "air" : "vacuum");
+  p.set("membrankammer-28", open.sfOff ? "air" : "vacuum");
+  p.set("membrankammer-41", f.cresc ? "vacuum" : "air");
+  p.set("doppelventil-38", f.cresc ? "vacuum" : "air");
+  p.set("doppelventil-47", open.crescOff ? "vacuum" : "air");
+  p.set("doppelventil-31", open.sfOff ? "vacuum" : "air");
+  p.set("doppelventil-53", f.mf ? "vacuum" : "air");
+  p.set("ventil-22", f.sfOpen > 0.02 ? "vacuum" : "air");
+  p.set("hilfsbalg-94", f.assistOpen > 0.02 ? "vacuum" : "air");
+  p.set("hilfsbalg-95", f.assistOpen > 0.02 ? "vacuum" : "air");
+  p.set("drossel-96", f.assistOpen > 0.02 ? "air" : null);
+  p.set("drossel-97", f.assistOpen > 0.02 ? "air" : null);
+  p.set("bohrung-100", f.cresc ? null : "air");
+  p.set("mezzofortebalg-93", f.mf ? "vacuum" : "air");
+  return p;
+}
+
+// Whether a line is open, and which way the air goes along it. One end of a flow line is a
+// standing supply and the other is what switches, so it is the switching end that decides.
+// Conduit 39 is the interesting case: valve 38 puts its far end on vacuum or on atmosphere,
+// and the same conduit empties or refills the bellows accordingly.
+const STANDING = new Set(["windkammer-15", "windkammer-17", "geblaese", "magazinbalg"]);
+
+// A membrane chamber does its work when it is charged with air; a valve does its work when
+// it has been drawn down and lifted. Testing only for air lit every idle valve in the relay.
+const CONTROL_WHEN = {
+  "membrankammer-28": "air", "membrankammer-35": "air", "membrankammer-44": "air",
+  "doppelventil-31": "vacuum", "doppelventil-38": "vacuum", "doppelventil-47": "vacuum",
+  "doppelventil-53": "vacuum", "ventil-22": "vacuum",
+};
+
+function flowOn(edge, p, f) {
+  const from = p.get(edge.from), to = p.get(edge.to);
+  const decider = STANDING.has(edge.from) ? to : from;
+  if (edge.carries.includes("air") && decider === "air") return "air";
+  if (edge.carries.includes("vacuum") && decider === "vacuum") return "vacuum";
+  if (!edge.carries.includes("control")) return null;
+  if (edge.kind === "arrests") return f.clamped ? "control" : null;
+  if (edge.kind === "opens-throttle") return f.assistOpen > 0.02 ? "control" : null;
+  const when = CONTROL_WHEN[edge.from];
+  if (when) return from === when ? "control" : null;
+  return Math.abs(f.v) > 0.02 ? "control" : null;   // a linkage, live while the board moves
+}
+
+/* -- the overlay ------------------------------------------------------------- */
+
+function statementsAbout(id) {
+  const entity = ENTITIES.get(id);
+  return entity ? entity.statements : [];
+}
+
+function select(target) {
+  picked = target;
+  for (const node of M.nodes) refs.get(`part:${node.id}`).classList.remove("sel");
+  M.edges.forEach((_, i) => refs.get(`edge:${i}`).classList.remove("sel"));
+  if (target.kind === "part" && refs.has(`part:${target.id}`)) {
+    refs.get(`part:${target.id}`).classList.add("sel");
+  }
+  if (target.kind === "edge") {
+    refs.get(`edge:${M.edges.indexOf(target.edge)}`).classList.add("sel");
+  }
+  drawPanel();
+}
+
+function constantsFor(id) {
+  return Object.entries(M.constants)
+    .filter(([, entry]) => entry.subject === id)
+    .map(([name, entry]) => ({ name, value: entry[half], statement: entry.statements?.[half] }));
+}
+
+function drawPanel() {
+  const panel = document.getElementById("mech-detail");
+  if (!picked) {
+    panel.innerHTML = `
+      <h2>The nuancing gear</h2>
+      <p class="sub">${M.nodes.length} parts, ${M.edges.length} links, all from the graph</p>
+      <h3>How to read it</h3>
+      <p class="prose">The mechanism is a closed system that the blower keeps at low pressure.
+      Nothing is pushed: a perforation opens a hole, ordinary outside air rushes in, and that
+      inrush is what moves a membrane. Hagmann puts it in one sentence —
+      <em>„Der Wiedergabe-Mechanismus ist als abgeschlossenes System konzipiert, aus dem eine
+      Gebläse-Einrichtung die Luft abzieht. In der verdünnten Atmosphäre des Systems kann nun
+      Normaldruck … als Bewegungsauslöser wirksam werden."</em></p>
+      <p class="prose">So a part is <strong>amber</strong> while it holds air at ordinary
+      pressure and <strong>teal</strong> while it has been drawn down, and the moving dashes
+      are air, not signal. On a suction line they travel <em>towards</em> the blower — the
+      opposite way from the arrow of cause. Watch conduit 39, the line from valve 38 to the
+      Nuancierbalg: it turns teal when the crescendo relay puts its far end on vacuum and
+      amber when the relay lets it back to atmosphere. One conduit doing both jobs is the
+      reading this project's model is built on.</p>
+      <h3>What is inside the boxes</h3>
+      <p class="prose">Every box is a cut-away, and the air runs on inside it. A perforation
+      passes over the tracker bar and air falls through the hole into the opening. It lifts
+      a membrane, and the membrane's wire lifts the valve above it. A <strong>double
+      valve</strong> is a shuttle between two seats: raised, it seals the mouth to wind
+      chamber 17 and the chamber behind it is drawn down by 15; dropped, air from 17 fills
+      it again. It is never joined to both, and the arrow on its conduit turns round at the
+      moment it changes over — that is conduit 39 switching, seen from inside. Valve 22 is
+      drawn with one seat and not two, because that is what Hagmann gives the sforzando.</p>
+      <p class="prose">Chamber 41 is the latch, drawn as the two halves it is: suction above
+      holds membrane 40 up, and conduit 48 puts the lower half on suction too, at which
+      point the two pull alike and the crescendo drops. In the wind chambers the air itself
+      is stippled, thickly in 17 at ordinary pressure and thinly in 15; chambers 86 and 88
+      thin out as the Nuancierbalg closes, which is the loudness map with nothing else added
+      to it. The cone valve's gap is the bellows' own position and nothing else.</p>
+      <p class="prose">The cut-aways are a reading of Anhang 13 in the same sense the layout
+      is. Each part is drawn upright in its own working orientation while the arrangement
+      left to right is the graph's — the plate stacks a membrane, its valve and the latch one
+      above another — and every state shown is one the model is already running on.</p>
+      <p class="prose">Every box and every line is a statement in <code>hagmann-1984</code>
+      with a page behind it, and every constant the simulation runs on is a statement in
+      <code>emulator-fit</code>. Click anything to see what is claimed about it and by whom.</p>
+      <h3>Playing it</h3>
+      <p class="prose">There is no roll on this machine. Openings 7 to 12 are keys
+      <kbd>1</kbd> to <kbd>6</kbd> and can also be pressed on the drawing, so a perforation
+      lasts exactly as long as you hold it. Hold Crescendo on and the bellows walks up and
+      stays there once you let go; drop the Mezzoforte hook into its path and cancel the
+      crescendo to see the fall arrested half way; a short tap of Sforzando buys less travel
+      than a long one. The trace is the last twelve seconds of your own playing.</p>
+      <h3>How far to trust the blue line</h3>
+      <p class="prose">It is a reduced re-implementation: the flow law, the latches, the valve
+      charge and the Mezzoforte stop, on the constants in the graph. It leaves out the
+      aperture geometry, the scale warp, the drag threshold and the rebound at the hook, all
+      of which the emulator has. With no roll here there is nothing to measure it against
+      either, so what it shows is how the gear behaves, and not a reading of any
+      performance.</p>
+      <h3>Not drawn</h3>
+      <p class="prose">${M.linksDrawnOtherwise} links are in the graph but appear here as a
+      conduit label or a marker rather than a box; ${M.linksNotDrawn} are missing altogether.
+      The layout is a reading of Anhang 13, and Hagmann says of his own plates that they are
+      schematic and not to scale.</p>`;
+    return;
+  }
+  if (picked.kind === "edge") {
+    const { edge } = picked;
+    const s = STATEMENTS[edge.statement];
+    panel.innerHTML = `
+      <h2>${escape(ENTITIES.get(edge.from)?.label || edge.from)}</h2>
+      <p class="sub">${escape(s ? s.propertyLabel : edge.kind)}
+        ${escape(ENTITIES.get(edge.to)?.label || edge.to)}</p>
+      <div class="badges">
+        ${edge.carries.map(c => badge(c === "air" ? "carries air in"
+          : c === "vacuum" ? "carries air out, towards the blower"
+          : "one part working another")).join("")}
+        ${edge.holds && edge.holds !== "TRUE" ? badge(edge.holds, edge.holds) : ""}
+        ${edge.via ? badge("through " + (ENTITIES.get(edge.via)?.label || edge.via)) : ""}
+      </div>
+      ${edge.statements.map(key => STATEMENTS[key])
+        .filter(Boolean).map(renderStatementCard).join("<hr style='border:0;border-top:1px solid var(--line);margin:14px 0'>")}`;
+    return;
+  }
+  const id = picked.id;
+  const entity = ENTITIES.get(id);
+  const ids = statementsAbout(id);
+  const numbers = constantsFor(id);
+  panel.innerHTML = `
+    <h2>${escape(entity ? entity.label : id)}</h2>
+    <p class="sub"><code>${escape(id)}</code></p>
+    ${entity && entity.note ? `<p class="prose">${escape(entity.note)}</p>` : ""}
+    ${numbers.length ? `<h3>What the simulation uses</h3>` + numbers.map(c => `
+      <p>${escape(c.name)} = <strong>${c.value === null || c.value === undefined ? "—" : c.value}</strong>
+      ${c.statement ? ` · <a href="#/statement/${c.statement}">provenance</a>` : ""}</p>`).join("") : ""}
+    ${ids.length ? `<h3>What is claimed about it</h3>` + ids.map(sid => {
+      const s = STATEMENTS[sid];
+      return `<p><a href="#/statement/${sid}">${escape(s.answer || s.gloss || sid)}</a>
+        ${s.holds ? badge(s.holds, s.holds) : ""}<br>
+        <span class="dim">${escape(s.holderLabel)} · ${escape(s.locator)}</span></p>`;
+    }).join("") : `<p class="dim">Nothing is claimed about this part yet.</p>`}`;
+}
+
+function renderStatementCard(s) {
+  return `
+    <div class="badges">${badge(s.kind)}${s.holds ? badge(s.holds, s.holds) : ""}
+      ${badge(s.holderLabel)}</div>
+    ${(s.quotes || []).map(([lang, text]) =>
+      `<blockquote><span class="lang">${escape(lang)}</span><br>${escape(text)}</blockquote>`).join("")}
+    ${s.note ? `<p class="prose">${escape(s.note)}</p>` : ""}
+    <p><a href="#/statement/${s.id}">${escape(s.locator)} — open in the graph</a></p>`;
+}
+
+/* -- playing it --------------------------------------------------------------
+ * The machine with the roll off: `step` is driven by whatever the reader is holding open
+ * instead of by punched perforations. Openings 7 to 12 are keys 1 to 6, and the boxes on
+ * the drawing can be pressed directly.
+ */
+
+const PORT_KEYS = [
+  ["gleitblock-opening-7", "1", "mfOff"],
+  ["gleitblock-opening-8", "2", "mfOn"],
+  ["gleitblock-opening-9", "3", "crescOff"],
+  ["gleitblock-opening-10", "4", "crescOn"],
+  ["gleitblock-opening-11", "5", "sfOff"],
+  ["gleitblock-opening-12", "6", "sfOn"],
+];
+
+let liveState = null;
+let liveFrame = null;
+const held = new Set();
+const trace = [];
+const TRACE_WINDOW = 12;
+
+const portsHeld = () => Object.fromEntries(
+  PORT_KEYS.map(([, , name]) => [name, held.has(name) ? 1 : 0]));
+
+function startLive() {
+  const K = RAILS[half];
+  liveState = newState(K);
+  liveFrame = step(liveState, K, portsHeld(), 0);
+  trace.length = 0;
+  held.clear();
+}
+
+function press(name, on) {
+  if (on) held.add(name); else held.delete(name);
+  for (const [id, , port] of PORT_KEYS) {
+    refs.get(`part:${id}`)?.classList.toggle("held", held.has(port));
+  }
+}
+
+addEventListener("keydown", event => {
+  const entry = PORT_KEYS.find(([, key]) => key === event.key);
+  if (entry) { event.preventDefault(); press(entry[2], true); }
+});
+addEventListener("keyup", event => {
+  const entry = PORT_KEYS.find(([, key]) => key === event.key);
+  if (entry) press(entry[2], false);
+});
+addEventListener("pointerup", () => { for (const [, , n] of PORT_KEYS) press(n, false); });
+
+/* -- transport --------------------------------------------------------------- */
+
+let last = null;
+function tick(stamp) {
+  // `last ? …` swallowed a frame stamped zero, which is the first one a test drives.
+  const elapsed = last === null ? 0 : Math.min((stamp - last) / 1000, 0.1);
+  last = stamp;
+  if (liveState) {
+    let remaining = elapsed * speed;
+    while (remaining > 1e-6) {
+      const slice = Math.min(SUB_DT, remaining);
+      liveFrame = step(liveState, RAILS[half], portsHeld(), slice);
+      remaining -= slice;
+    }
+    trace.push([liveState.t, liveState.x]);
+    while (trace.length && trace[0][0] < liveState.t - TRACE_WINDOW) trace.shift();
+    drawTrace();
+    paint();
+  }
+  requestAnimationFrame(tick);
+}
+
+function setMode(mode) {
+  document.getElementById("graph-mode").hidden = mode !== "graph";
+  document.getElementById("mech-mode").hidden = mode === "graph";
+  for (const b of document.querySelectorAll("#modes button")) {
+    b.setAttribute("aria-pressed", String(b.dataset.mode === mode));
+  }
+  if (mode === "mech" && !refs.size) {
+    drawSchematic(); startLive(); drawTrace(); drawPanel(); paint();
+  }
+}
+
+document.getElementById("modes").addEventListener("click", event => {
+  const button = event.target.closest("button[data-mode]");
+  if (button) setMode(button.dataset.mode);
+});
+document.getElementById("reset").addEventListener("click", () => startLive());
+document.getElementById("halves").addEventListener("click", event => {
+  const button = event.target.closest("button[data-half]");
+  if (!button) return;
+  half = button.dataset.half;
+  for (const b of document.querySelectorAll("#halves button")) {
+    b.setAttribute("aria-pressed", String(b === button));
+  }
+  startLive();
+  drawTrace(); drawPanel(); paint();
+});
+document.getElementById("speeds").addEventListener("click", event => {
+  const button = event.target.closest("button[data-speed]");
+  if (!button) return;
+  speed = Number(button.dataset.speed);
+  for (const b of document.querySelectorAll("#speeds button")) {
+    b.setAttribute("aria-pressed", String(b === button));
+  }
+});
+requestAnimationFrame(tick);
+
+</script>
+</body>
+</html>

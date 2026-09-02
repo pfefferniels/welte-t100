@@ -1,0 +1,614 @@
+# What roll 3309 says. These are the project's own observations of the drawn line, and
+# they are the only evidence in this graph that comes from a Welte roll rather than from a
+# description of one.
+#
+# Two limits govern all of them. It is one roll, and the drawn line records the nuance
+# bellows of the *recording* machine, not of a reproducing piano. And the punches were
+# derived from the line, not the other way round, so a model fitted here is inverting the
+# punching.
+
+source:
+  id: roll-3309-observations
+  kind: observation-record
+  title: "What the drawn Nuancierung line does when the punched code changes"
+  authors: [pfeffer-niels]
+  container: "emulator/docs/empirics.md; measurements in emulator/data/measurements.json"
+  year: 2026
+  identifier: "Stanford druid jq774vx6544"
+  note: >
+    Every figure is reproducible from `emulator/analysis/`. The two pipelines that produced
+    them, the Python analysis and the TypeScript emulator, were built independently from the
+    same two files and agree: both find 2763 expression perforations, matching one for one
+    on code and on both edges to the row, with time axes agreeing to 0.05 ms.
+
+statements:
+
+  # -- what the line records ---------------------------------------------------
+
+  - id: line-records-bellows-not-vacuum
+    kind: inference
+    locator: "emulator/docs/empirics.md §8b"
+    subject: drawn-line-3309
+    property: records
+    object: nuancierbalg-position
+    holds: TRUE
+    premises:
+      - note-locked-dip-is-commanded-motion
+      - hagmann-1984/throttle-97-bypasses-the-bellows
+      - hagmann-1984/regelbalg-is-a-closed-loop
+    logic: composition-of-stated-mechanisms
+    note: >
+      A positive result rather than an absence of alternatives. Where the bellows provably
+      cannot move — on rows pinned against the M.F. stop — the line does not move with the
+      notes either, to within 0.40 px in the bass and 0.49 px in the treble, that is 0.0008
+      and 0.0010 scale units. A trace of delivered vacuum would have to show a dip there,
+      because the Regelbalg is chasing the note load and throttle 97 dumps straight into the
+      wind chamber, and it does not. One caveat stands with it: if the pen linkage has
+      appreciable inertia it would attenuate a 30 ms wiggle, and nothing here measures that,
+      so the bound is on what reached the paper rather than on what the vacuum did.
+
+  - id: note-locked-dip-is-commanded-motion
+    kind: observation
+    locator: "emulator/docs/empirics.md §8b"
+    subject: drawn-line-3309
+    property: correlation-note-locked-residual
+    value: 0.0
+    unit: dimensionless
+    holds: TRUE
+    note: >
+      Aligned on individual note attacks the line dips by 1.96 px (bass) and 2.60 px
+      (treble), and by 7 to 11 px on chords of five notes or more. Excluding ±200 ms around
+      any expression event leaves 0.09 and 0.23 px, a ratio of 0.7 and 1.1 against the
+      shifted controls. So the dip is entirely accounted for by the expression code. The
+      value recorded is the residual correlation after that exclusion, which is what the
+      inference above uses.
+
+  # -- the rails ---------------------------------------------------------------
+
+  - id: rail-piano-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §9"
+    subject: drawn-line-3309-bass
+    property: rest-level-piano
+    value: 0.017
+    unit: scale-unit
+    holds: TRUE
+  - id: rail-piano-treble
+    kind: observation
+    locator: "emulator/docs/empirics.md §9"
+    subject: drawn-line-3309-treble
+    property: rest-level-piano
+    value: 0.022
+    unit: scale-unit
+    holds: TRUE
+  - id: rail-forte-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §9"
+    subject: drawn-line-3309-bass
+    property: rest-level-forte
+    value: 0.912
+    unit: scale-unit
+    holds: TRUE
+    note: >
+      The piano rail sits essentially on the printed P.P. gridline, within 0.02 in both
+      halves. The fortissimo rail does not: it falls 0.088 short of the shared central F.F.
+      gridline in the bass and 0.048 short in the treble. So the outer gridline marks the
+      mechanism's travel limit and the central one does not.
+  - id: rail-forte-treble
+    kind: observation
+    locator: "emulator/docs/empirics.md §9"
+    subject: drawn-line-3309-treble
+    property: rest-level-forte
+    value: 0.952
+    unit: scale-unit
+    holds: TRUE
+
+  # The rails against the printed gridlines: the outer one marks a stop, the central one
+  # does not, and the shortfall is a figure per half.
+
+  - id: piano-rail-is-on-the-pp-gridline
+    kind: observation
+    locator: "emulator/docs/empirics.md §9"
+    subject: gridline-pp
+    property: coincides-with-rail
+    object: on-the-gridline
+    scope: roll-3309
+    holds: TRUE
+    note: "Within 0.02 in both halves."
+  - id: forte-rail-is-short-of-the-ff-gridline
+    kind: observation
+    locator: "emulator/docs/empirics.md §9"
+    subject: gridline-central-ff
+    property: coincides-with-rail
+    object: short-of-the-gridline
+    scope: roll-3309
+    holds: TRUE
+    note: >
+      So the outer gridline marks the mechanism's travel limit and the central one does not.
+      Phillips reads the central line as the printed maximum of both halves, which it is;
+      the bellows simply never gets there.
+  - id: forte-shortfall-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §9"
+    subject: drawn-line-3309-bass
+    property: shortfall-below-ff-gridline
+    value: 0.088
+    unit: scale-unit
+    holds: TRUE
+    mentions: [gridline-central-ff]
+  - id: forte-shortfall-treble
+    kind: observation
+    locator: "emulator/docs/empirics.md §9"
+    subject: drawn-line-3309-treble
+    property: shortfall-below-ff-gridline
+    value: 0.048
+    unit: scale-unit
+    holds: TRUE
+    mentions: [gridline-central-ff]
+
+  # -- the hook ----------------------------------------------------------------
+
+  - id: hook-arrest-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §6"
+    subject: drawn-line-3309-bass
+    property: hook-arrest-level
+    value: 0.627
+    sd: 0.002
+    unit: travel-fraction
+    holds: TRUE
+    note: >
+      Referred to the fortissimo stop of the same hold, which removes a common-mode drift of
+      the whole traced line. In the roll's printed scale it is 0.576. Twenty-two engagements,
+      every one of them entered from above.
+  - id: hook-arrest-treble
+    kind: observation
+    locator: "emulator/docs/empirics.md §6"
+    subject: drawn-line-3309-treble
+    property: hook-arrest-level
+    value: 0.645
+    sd: 0.003
+    unit: travel-fraction
+    holds: TRUE
+
+  - id: hook-arrest-bass-on-printed-scale
+    kind: observation
+    locator: "emulator/docs/empirics.md §6"
+    subject: drawn-line-3309-bass
+    property: hook-arrest-level-on-printed-scale
+    value: 0.5752
+    unit: scale-unit
+    holds: TRUE
+    note: >
+      The same arrest, read on the roll's own printed scale rather than against the two
+      rails. Both are recorded because the emulator pins its constant in scale units while
+      the steadier measurement is in travel units, and a graph that carried only one of them
+      could not check the code.
+  - id: hook-arrest-treble-on-printed-scale
+    kind: observation
+    locator: "emulator/docs/empirics.md §6"
+    subject: drawn-line-3309-treble
+    property: hook-arrest-level-on-printed-scale
+    value: 0.6169
+    unit: scale-unit
+    holds: TRUE
+
+  - id: hook-is-not-the-printed-midpoint
+    kind: observation
+    locator: "emulator/docs/empirics.md §6"
+    subject: drawn-line-3309
+    property: hook-offset-above-printed-mf-upper-bound
+    lower: 0.08
+    upper: 0.12
+    unit: scale-unit
+    holds: TRUE
+    mentions: [gridline-mf]
+    note: >
+      A bound and not an estimate. All twenty-two Mezzoforte-on punches fire while the line
+      is at the fortissimo stop, so every arrival at the stop is from above, and the roll
+      never shows the pin's upper face. The measured offset can therefore only limit how far
+      the hook is regulated above the printed midpoint; it cannot estimate it. The tracer
+      artefact explanation was tested and ruled out: in raw scan columns the stop is a single
+      clean mode 37 px (bass) and 57 px (treble) from the gridline, and not one hook-engaged
+      row falls within 6 px of it.
+
+  - id: hook-holds-in-both-directions-untestable
+    kind: observation
+    locator: "emulator/docs/empirics.md §6"
+    subject: mezzofortebalg-93
+    property: blocks-in-directions
+    object: both-directions
+    scope: roll-3309
+    holds: UNKNOWN
+    note: >
+      Roll 3309 cannot say whether the hook blocks the upward direction as well as the
+      downward, because every one of its twenty-two engagements is entered from above; the
+      two counts are the next two statements. Held UNKNOWN against the same question the
+      three witnesses answer TRUE, so that the register shows what the roll cannot settle.
+      This is the gap Welte's own sentence, quoted in Hagemann 2001, fills from outside, and
+      it is why `mfTwoSided` is pinned from a citation rather than fitted.
+
+  - id: hook-engagements-from-above
+    kind: observation
+    locator: "emulator/docs/empirics.md §6"
+    subject: drawn-line-3309
+    property: hook-engagement-count-from-above
+    value: 22
+    unit: count
+    holds: TRUE
+    note: >
+      All twenty-two Mezzoforte-on punches fire while the line is standing at the fortissimo
+      stop, at 0.904 to 0.918 in the bass and 0.924 to 0.954 in the treble.
+  - id: hook-engagements-from-below
+    kind: observation
+    locator: "emulator/docs/empirics.md §6"
+    subject: drawn-line-3309
+    property: hook-engagement-count-from-below
+    value: 0
+    unit: count
+    holds: TRUE
+    note: >
+      So the roll never shows the pin's upper face, and the upward direction is never tested.
+
+  - id: treble-hook-sits-further-on-the-roll
+    kind: inference
+    locator: "emulator/docs/empirics.md §6"
+    subject: mezzofortebalg-93
+    property: hook-offset-between-halves
+    object: treble-set-to-travel-further
+    scope: roll-3309
+    premises: [hook-arrest-bass, hook-arrest-treble]
+    logic: arithmetic
+    holds: PROBABLE
+    note: >
+      0.645 against 0.627 of the piano-to-forte travel, the treble the further of the two,
+      which is the direction Phillips says regulating practice put there. Held PROBABLE
+      because whether the 0.018 is a real difference between the two hooks or a defect in
+      how the shared central F.F. gridline calibrates the two halves is not settled.
+
+  # -- rates and time constants -------------------------------------------------
+
+  - id: decrescendo-tau-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §4"
+    subject: drawn-line-3309-bass
+    property: time-constant-slow-decrescendo
+    value: 592
+    unit: millisecond
+    holds: TRUE
+  - id: decrescendo-tau-treble
+    kind: observation
+    locator: "emulator/docs/empirics.md §4"
+    subject: drawn-line-3309-treble
+    property: time-constant-slow-decrescendo
+    value: 661
+    unit: millisecond
+    holds: TRUE
+  - id: decrescendo-asymptote-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §4"
+    subject: drawn-line-3309-bass
+    property: asymptote-slow-decrescendo
+    value: 0.041
+    unit: scale-unit
+    holds: TRUE
+  - id: crescendo-tau-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §4"
+    subject: drawn-line-3309-bass
+    property: time-constant-slow-crescendo
+    value: 1168
+    unit: millisecond
+    holds: TRUE
+    note: >
+      The fitted asymptote for this state, 0.766 in the bass and 1.154 in the treble, is an
+      extrapolation: a slow crescendo on this roll rarely gets above 0.62 before something
+      else intervenes. It is not recorded as a measurement for that reason.
+
+  - id: constant-rate-is-rejected
+    kind: inference
+    locator: "emulator/docs/empirics.md §3"
+    subject: nuancierbalg-90
+    property: control-principle
+    object: rates-not-levels
+    holds: TRUE
+    premises: [decrescendo-tau-bass, decrescendo-tau-treble, decrescendo-asymptote-bass]
+    logic: exponential-versus-constant-fit
+    note: >
+      An exponential approach beats a constant rate by a factor of four to eleven in weighted
+      rms, in all four state-by-half combinations: 0.019 against 0.120 for the default
+      decrescendo. midi2exp's constant-rate slow decay has the wrong shape, not merely the
+      wrong value.
+
+  - id: crescendo-traversal-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §4"
+    subject: drawn-line-3309-bass
+    property: traversal-time-slow-crescendo
+    value: 1072
+    unit: millisecond
+    holds: TRUE
+    note: >
+      Against 1211 ms for the decrescendo over the same span. The two time constants differ
+      by a factor of two because the states relax towards different asymptotes, yet the
+      traversal times come out within 13 % of each other — which is Welte's control 3
+      visible in the drawn line.
+  - id: decrescendo-traversal-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §4"
+    subject: drawn-line-3309-bass
+    property: traversal-time-slow-decrescendo
+    value: 1211
+    unit: millisecond
+    holds: TRUE
+
+  - id: fast-decrescendo-traversal-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §4"
+    subject: drawn-line-3309-bass
+    property: traversal-time-fast-decrescendo
+    value: 55
+    unit: millisecond
+    holds: TRUE
+    note: >
+      Against midi2exp's 400 ms, and against 211 ms for the fast crescendo over the same
+      span with the crescendo latch on. The fall is 3.9 to 4.3 times the rise, on sustained
+      rate or on peak rate, which contradicts Welte's control 6c and is measured without
+      reference to any model.
+  - id: fast-decrescendo-traversal-treble
+    kind: observation
+    locator: "emulator/docs/empirics.md §4"
+    subject: drawn-line-3309-treble
+    property: traversal-time-fast-decrescendo
+    value: 62
+    unit: millisecond
+    holds: TRUE
+  - id: fast-crescendo-traversal-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §4"
+    subject: drawn-line-3309-bass
+    property: traversal-time-fast-crescendo
+    value: 211
+    unit: millisecond
+    holds: TRUE
+
+  - id: crescendo-latch-speeds-the-sforzando
+    kind: observation
+    locator: "emulator/docs/empirics.md §4"
+    subject: drawn-line-3309-bass
+    property: peak-rate-with-crescendo-latch
+    value: 5.65
+    unit: scale-unit-per-second
+    holds: TRUE
+    note: >
+      Against 3.46 units/s with the crescendo latch off; 5.16 against 3.37 in the treble. The
+      two ports cannot be modelled as alternatives. Taking conduit 39 to be permanently
+      joined to the bellows, so that cancelling the crescendo turns it into a leak working
+      against the sforzando, predicts a gap of the slow crescendo rate plus the slow
+      decrescendo rate at the same position: that accounts for 65 % of the observed gap in
+      the bass and 60 % in the treble, which makes the result much less surprising without
+      closing it.
+
+  # -- the lead ----------------------------------------------------------------
+
+  - id: lead-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §7"
+    subject: drawn-line-3309-bass
+    property: lead-over-punches
+    value: 109
+    lower: 106
+    upper: 110
+    n: 227
+    unit: millisecond
+    holds: TRUE
+    note: >
+      Two independent estimates agree. The two row systems were checked against each other
+      where a punch crosses the drawn line and share an origin to within one scan row, so the
+      offset is not a registration artefact. It is closer to constant as a distance on the
+      paper — 65 px bass, 46 px treble — than as a duration, which points at how the roll was
+      laid out rather than at a reaction time.
+  - id: lead-treble
+    kind: observation
+    locator: "emulator/docs/empirics.md §7"
+    subject: drawn-line-3309-treble
+    property: lead-over-punches
+    value: 76
+    lower: 73
+    upper: 79
+    n: 274
+    unit: millisecond
+    holds: TRUE
+
+  - id: lead-in-rows-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §7"
+    subject: drawn-line-3309-bass
+    property: lead-over-punches-in-rows
+    value: 65
+    unit: scan-row
+    holds: TRUE
+    note: >
+      The same lead as a distance on the paper, which is the form in which it is closer to
+      constant, and the form the emulator pins.
+  - id: lead-in-rows-treble
+    kind: observation
+    locator: "emulator/docs/empirics.md §7"
+    subject: drawn-line-3309-treble
+    property: lead-over-punches-in-rows
+    value: 46
+    unit: scan-row
+    holds: TRUE
+
+  # -- the latch, from the roll ------------------------------------------------
+
+  - id: sforzando-latches-earlier-reading
+    kind: observation
+    locator: "emulator/docs/empirics.md §11, before the revision"
+    subject: function-sforzando-on
+    property: latching-behaviour
+    object: latches
+    scope: roll-3309
+    holds: FALSE
+    when: "2026-08"
+    note: >
+      Recorded rather than deleted. The windows this rested on mostly had the crescendo
+      latched as well, and a latched crescendo alone would hold the line up or walk it slowly
+      upward, which is the behaviour that was being read as evidence for the sforzando.
+
+  - id: sforzando-latch-withdrawn
+    kind: inference
+    locator: "emulator/docs/empirics.md §11"
+    subject: function-sforzando-on
+    property: latching-behaviour
+    object: momentary
+    scope: roll-3309
+    holds: PROBABLE
+    premises: [sforzando-latches-earlier-reading, punches-redundant-under-latch-bass]
+    logic: counting-argument-on-the-punching
+    supersedes: [sforzando-latches-earlier-reading]
+    note: >
+      Held PROBABLE, not TRUE. A clean window — sforzando set, crescendo not, line clear of
+      both stops, no other punch intruding, no further sforzando pulse inside — is very
+      nearly unobtainable on this roll: two such windows in the bass and one in the treble.
+      In the six bass windows with the crescendo off the line falls at −0.62 units/s
+      (CI −0.94 to −0.05) against a momentary prediction of −0.98 and a crescendo-alone
+      prediction of +0.13. The strongest leg is the whole-roll argument, untouched by the
+      revision: a latch would pin the bellows at the stop for about 60 % of the roll against
+      a line that is within 0.02 of it only 14 % and 17 % of the time.
+
+  - id: punches-redundant-under-latch-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §11"
+    subject: drawn-line-3309-bass
+    property: fraction-of-punches-redundant
+    value: 63
+    unit: percent
+    holds: TRUE
+    note: >
+      371 of 587 bass Sforzando-on perforations arrive while the latch would already be set.
+      Under a set-and-cancel reading those punches do nothing at all, and the editor would
+      have been cutting several hundred holes to no purpose.
+  - id: punches-redundant-under-latch-treble
+    kind: observation
+    locator: "emulator/docs/empirics.md §11"
+    subject: drawn-line-3309-treble
+    property: fraction-of-punches-redundant
+    value: 39
+    unit: percent
+    holds: TRUE
+    note: "171 of 443 treble Sforzando-on perforations."
+
+  - id: expression-perforation-count
+    kind: observation
+    locator: "emulator/docs/empirics.md §1; emulator/data/measurements.json"
+    subject: roll-3309
+    property: expression-perforation-count
+    value: 2763
+    unit: count
+    holds: TRUE
+    note: >
+      Found by both pipelines, the Python analysis and the TypeScript emulator, matching one
+      for one on code and on both edges to the row.
+
+  - id: median-perforation-length
+    kind: observation
+    locator: "emulator/docs/empirics.md, finding 7"
+    subject: roll-3309
+    property: median-perforation-length
+    lower: 66
+    upper: 119
+    unit: millisecond
+    holds: TRUE
+    note: >
+      The range of the six functions' medians. Every perforation is short, and it is the
+      opposing hole that ends the state.
+
+  - id: no-sforzando-crescendo-coupling-in-the-punching
+    kind: observation
+    locator: "emulator/docs/empirics.md §10"
+    subject: function-sforzando-on
+    property: sets-also
+    object: function-crescendo-on
+    scope: roll-3309
+    holds: FALSE
+    note: >
+      In the punching, held FALSE: Sforzando and crescendo punches co-occur no more often
+      than chance on roll 3309, and the on-pair slightly less often, as the four figures
+      below say. So if Hagmann's relay sets the crescendo whenever the sforzando is set, the
+      coupling is in the mechanism and not in the punching, and a model driven by the
+      punches must supply it itself. Scoped to the roll, so it sits beside Hagmann's TRUE
+      about the relay without pretending to answer the same question.
+
+  - id: cooccurrence-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §10"
+    subject: roll-3309
+    property: sforzando-crescendo-cooccurrence-bass
+    value: 4.6
+    unit: percent
+    holds: TRUE
+    note: "Of 587 bass Sforzando-on perforations, the share overlapping a Crescendo-on."
+  - id: cooccurrence-by-chance-bass
+    kind: observation
+    locator: "emulator/docs/empirics.md §10"
+    subject: roll-3309
+    property: sforzando-crescendo-cooccurrence-by-chance-bass
+    value: 6.8
+    unit: percent
+    holds: TRUE
+    note: >
+      From 2 000 circularly shifted copies of the sforzando series, which keep its rhythm and
+      destroy only its alignment; 95 % of them fall between 4.6 and 9.4 %.
+  - id: cooccurrence-treble
+    kind: observation
+    locator: "emulator/docs/empirics.md §10"
+    subject: roll-3309
+    property: sforzando-crescendo-cooccurrence-treble
+    value: 6.8
+    unit: percent
+    holds: TRUE
+    note: "Of 443 treble Sforzando-on perforations."
+  - id: cooccurrence-by-chance-treble
+    kind: observation
+    locator: "emulator/docs/empirics.md §10"
+    subject: roll-3309
+    property: sforzando-crescendo-cooccurrence-by-chance-treble
+    value: 6.6
+    unit: percent
+    holds: TRUE
+
+  - id: note-density-is-not-the-blower
+    kind: inference
+    locator: "emulator/docs/empirics.md §8"
+    subject: drawn-line-3309
+    property: correlation-with-note-density
+    value: -0.12
+    unit: dimensionless
+    holds: TRUE
+    premises: [note-locked-dip-is-commanded-motion]
+    logic: exponential-versus-constant-fit
+    note: >
+      The line's position while resting on the M.F. stop correlates weakly and negatively
+      with note density in both halves, r = −0.11 and −0.14. But the sharper test fails. If a
+      shared supply sagged under load it would slow the bellows closing and leave the opening
+      alone, and neither happens: the best-supported closing state shows a slope
+      indistinguishable from zero in both halves, while the opening states carry the only
+      clearly non-zero slopes and point in opposite directions in the two halves, which no
+      shared blower can do. The residual is more likely musical than pneumatic — the hand
+      nuancer working the lever differently where the music is denser — and a model can
+      ignore it.
+
+  - id: all-six-functions-latch
+    kind: observation
+    locator: "emulator/docs/empirics.md, finding 7"
+    subject: gleitblock
+    property: latching-behaviour
+    object: latches
+    scope: roll-3309
+    holds: TRUE
+    note: >
+      Every perforation is short, median 66 to 119 ms, and it is the opposing hole that ends
+      the state. Said of the punching convention rather than of any one valve: the roll is
+      punched as if all six functions were set-and-cancel, which is compatible with the
+      sforzando valve itself being momentary and re-triggered.

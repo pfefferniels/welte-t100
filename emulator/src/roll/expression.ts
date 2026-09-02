@@ -71,17 +71,24 @@ export function meaningOf(key: number): CodeMeaning | undefined {
 }
 
 /**
- * One perforation, as punched. `rowOn` and `rowOff` are the first and last pixel
- * row of ink and `tickOn`/`tickOff` the same rows on the MIDI's tick axis; no
- * tracker-bar correction has been applied. Chains of punches that the image
- * parser bridged into one slot appear as a single perforation.
+ * One hole in the paper as the tracker bar meets it: which port it serves, and
+ * the first and last row of ink. No tracker-bar correction has been applied.
+ * This is all the mechanism needs to know about a perforation.
  */
-export type Perforation = CodeMeaning & {
+export type Punch = CodeMeaning & {
+  readonly rowOn: number;
+  readonly rowOff: number;
+};
+
+/**
+ * A punch as a SUPRA scan records it: `tickOn`/`tickOff` are the same rows on
+ * the MIDI's tick axis. Chains of punches that the image parser bridged into one
+ * slot appear as a single perforation.
+ */
+export type Perforation = Punch & {
   readonly key: number;
   readonly tickOn: number;
   readonly tickOff: number;
-  readonly rowOn: number;
-  readonly rowOff: number;
   readonly secondsOn: number;
   readonly secondsOff: number;
 };
