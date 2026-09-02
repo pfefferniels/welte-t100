@@ -421,7 +421,9 @@ Hagmann.
 | **Punching scatter** | 1 mm variation always present, 2 mm not rare, up to 4 mm in isolated cases; **2 mm ≈ 0.04 s** | p. 39 |
 | **Keyboard split** | bass C₁–f♯¹, treble g¹–g⁴ | pp. 28, 138, 147 |
 
-The rule 5 correction is the one I would apply first. It changes the effective duration of every
+The rows on circumference, paper thickness and revolution period are now the emulator's time axis,
+in `src/roll/spool.ts`; the derivation is below. The rule 5 correction is the one I would apply
+first. It changes the effective duration of every
 sforzando perforation by +26 ms, in the direction of making the momentary reading fit better, and it
 is the kind of systematic offset that a fit will otherwise absorb into the rate constant.
 
@@ -474,6 +476,85 @@ Further figures on the same problem:
   84.9 %, 1908–1913 group 71.5 %, the late group (Nr. 3315 and 4182/3) 91.3 %. One-way ANOVA finds no
   significant difference (F = 0.13 against a 75 %-level threshold of 1.48), so **no evidence that
   the speed behaviour depends on recording date**.
+
+### The law itself, and what the emulator now runs on
+
+Chapter V (pp. 135–137) derives the conversion from centimetres on the roll to seconds, and rule 2
+of the *Rollenleseregeln* (p. 139) restates it as a working recipe. The derivation is short. Under
+the *Walzengeschwindigkeitshypothese* the take-up spool turns at a constant rate, so the paper speed
+follows the spool's circumference. The layers lie approximately equally thick, so one centimetre of
+paper adds `d · 1 cm²` to the spool's cross-section Q, and with Q = U²/4π
+
+```
+Q(x) = Q₀ + d·x                       Q₀ = U₀²/4π
+v(x) = v₀ · √( (Q₀ + d·x) / Q₀ )                                    (p. 135)
+t(x) = √(Q₀/d) · (2/v₀) · [ √(Q₀/d + x) − √(Q₀/d) ]                 (p. 136)
+```
+
+with x the paper run in cm from a point of known circumference U₀. His constants:
+
+| | | |
+|---|---|---|
+| `d` | 0.0075 cm | layer thickness, from a measured 0.047 cm of circumference per revolution (p. 135) |
+| `U₀` | 22.25 cm | standard initial circumference; 22.25–22.35 in most cases, varying with the leader (p. 137, Fn. 107; p. 139) |
+| `v₀` | U₀ / 4.64 cm s⁻¹ | 4.64 s per revolution, set so that the first 1.45 m run at Welte's marked 145 cm/30 s (p. 137) |
+
+He also gives the way to run the law at less than full effect (p. 137): falsify the layer thickness,
+0.0060 in place of 0.0075 for "80 % Auswirkung der Umfangsvergrößerung". His own tempo comparison
+prefers about 80 %, and he adopts 100 % throughout the book, because the 20 % difference is worth
+under 5 % of tempo after ten minutes and could as well be the players' own drift (p. 134).
+
+`src/roll/spool.ts` is this law, with `circumferenceEffect` for his 80 % trick, and it is what the
+emulator's time axis is built from. The closed form is evaluated per pixel row rather than resampled
+into a tempo map: a map written one segment per foot, as SUPRA's is, lags the curve by up to 2.3 ms
+mid-segment, which is more than the 1.7 ms a row lasts.
+
+**Against the SUPRA tempo map**, on roll 3309 (16.63 m of music between the first and last hole):
+
+| axis | duration | end speed / start speed |
+|---|---|---|
+| SUPRA tempo map, 0.22 % per foot compounded | 325.4 s | 1.124 |
+| Gottschewski, 100 % effect | 323.1 s | 1.147 |
+| Gottschewski, 80 % effect | 327.3 s | 1.120 |
+| constant 9.5 ft/min, no acceleration | 344.7 s | 1 |
+
+The two accelerations are close, and SUPRA's falls between his 80 % and his 100 %. His start speed,
+4.795 cm/s, is 0.6 % below the 9.5 ft/min the scan declares, which is the difference between a speed
+measured as a mean over the first 1.45 m and the same figure read as an instantaneous one.
+
+**What the choice is worth to the fit: almost nothing, and the roll cannot decide it.** The whole
+roll under the fitted constants, which were fitted on the scan map and so hold the advantage
+(`node src/cli/evaluate.ts --fit docs/fit-pneumatic.json [--timing scan] [--effect] [--revolution]`).
+The durations are over the traced span, which begins 11 cm before the first hole and so runs a
+little longer than the musical length above:
+
+| axis | duration | bass RMSE | treble RMSE |
+|---|---|---|---|
+| SUPRA tempo map | 328.8 s | 0.03182 | 0.04336 |
+| spool, 100 % effect, 4.64 s per revolution | 326.4 s | 0.03199 | 0.04354 |
+| spool, 100 % effect, held to the map's duration | 328.8 s | 0.03189 | 0.04339 |
+| spool, 80 % effect, held to the same | 328.8 s | 0.03180 | 0.04336 |
+| spool, 50 % effect, held to the same | 328.8 s | 0.03174 | 0.04339 |
+| spool, 0 % effect, held to the same | 328.8 s | 0.03191 | 0.04363 |
+
+Everything from full spool acceleration to none at all lies within 0.0003, on a fit whose own
+residual is 0.032 and whose ablation treats 0.0028 as the noise between refits. The order is not
+even stable: 50 % effect scores marginally best in the Bass and 80 % in the Discant, which is what a
+quantity the data cannot see looks like. The duration has to be separated from the shape before any
+of this can be read, since either alone shifts every rate the fit holds, and `alternatingBlocks`
+cuts the roll in seconds, so a changed axis moves the train/test split as well as the model.
+
+So the drawn line is no witness on the acceleration, and the choice rests on provenance.
+Gottschewski's constants are measured and stated; SUPRA's 0.22 % per foot has none in either
+upstream repository (`docs/prior-art.md` §F). That is why the emulator now runs on his, and the
+scores above played no part in it.
+
+Two caveats worth keeping in view. His U₀ is the circumference where the measurement starts, and it
+varies with the leader already wound on; roll 3309's leader is about 1.14 m, longer than the ones
+that gave him 22.25–22.35 cm, so 22.25 may sit slightly low here. And `out/{druid}/curves.csv` still
+carries a `seconds` column from the SUPRA map, which is what the Python in `analysis/` measures
+against; the emulator does not read that column, but figures in `docs/empirics.md` are on the older
+axis to within the 1.6 % that separates the two locally.
 
 ### On dynamic differentiation by displacement
 

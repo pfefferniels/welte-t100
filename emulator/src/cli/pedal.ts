@@ -74,11 +74,11 @@ function noteMessages(roll: Roll): MidiTrack {
   );
 }
 
-/** The scan's own tempo map, so the output stays on the roll's time axis. */
+/** The time axis the model ran on, as a tempo map, so the output plays on it too. */
 function tempoTrack(roll: Roll, name: string): MidiTrack {
   return [
     trackName(name),
-    ...roll.timing.segments.map((segment) =>
+    ...roll.timing.axis.segments.map((segment) =>
       setTempo(segment.tick, Math.round((roll.smf.division * 1e6) / segment.ticksPerSecond)),
     ),
   ];

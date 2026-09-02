@@ -693,6 +693,13 @@ tempo map. Integrate against that map and set the emulator's own acceleration to
 strip the map and use one acceleration model — but do not do both, and do not follow
 midi2exp's TPQ override (568) when the file says 570.
 
+**What this emulator does.** One model, built from the take-up spool's geometry after
+Gottschewski pp. 135–137, in `src/roll/spool.ts`; the scan's tempo map is read only when
+`--timing scan` asks for it. Both readings say the same thing to within 0.7 % of the roll's
+duration and 1.6 % of any one step, and the drawn line cannot tell them apart at all, so the
+reason for preferring his is that his 0.0075 cm and 4.64 s are measurements with a stated
+source where the 0.22 % per foot is not. `docs/gottschewski.md` has the comparison.
+
 ---
 
 ## F. Empirically derived constants and their provenance
