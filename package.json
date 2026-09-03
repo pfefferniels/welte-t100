@@ -1,9 +1,9 @@
 {
   "name": "welte-t100-emulator",
   "version": "0.2.0",
-  "private": true,
   "type": "module",
   "description": "The expression mechanism of a Welte-Mignon T-100: the take-up spool, the nuancing bellows and the pedals, fitted against the hand-drawn Nuancierungslinien of roll 3309.",
+  "repository": "github:pfefferniels/welte-t100",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -23,6 +23,7 @@
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "check": "tsc --noEmit",
     "test": "node --test",
+    "prepublishOnly": "npm run check && npm test && npm run build",
     "eval": "node src/cli/evaluate.ts",
     "fit": "node src/cli/fit.ts"
   },

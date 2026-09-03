@@ -50,12 +50,16 @@ tests need neither.
 
 ## Using it as a library
 
-`npm run build` writes `dist/`, which is what the package exports and what is committed, so a
-dependency on a checkout of this repository needs no build of its own:
+The package is `welte-t100-emulator` on npm. `npm run build` writes `dist/`, which is what the
+package exports and what is committed, so a dependency on a checkout of this repository needs
+no build of its own either, which is how linked-rolls is developed against it:
 
 ```json
 "welte-t100-emulator": "file:../welte-t100"
 ```
+
+Releases go out through `.github/workflows/publish.yml`: raise the version in `package.json`,
+commit, and push a tag `v<version>`, or run the workflow from the Actions tab.
 
 `src/index.ts` is the whole surface: the spool law (`paperSeconds`, `paperAt`, `WELTE_SPOOL`),
 the sample grid and the tracker-bar ports (`Grid`, `aperturePorts`, `geometryInMm`), the two

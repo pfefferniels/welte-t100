@@ -1,0 +1,51 @@
+# Publishes the package to npm, on a tag v* or by hand from the Actions tab.
+#
+# The first release needs a token, because npm lets a trusted publisher be
+# configured only for a package that already exists: store a granular
+# publish token as the secret NPM_TOKEN, run the workflow once, then add
+# pfefferniels/welte-t100, workflow publish.yml, as the package's trusted
+# publisher on npmjs.com and delete the secret. From then on the release
+# is authenticated by the workflow's own identity and carries provenance.
+
+name: Publish to npm
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      # There is no lockfile: the only dependencies are the type checker and
+      # Node's own types.
+      - run: npm install
+
+      - name: The tag names the version in package.json
+        if: github.ref_type == 'tag'
+        run: test "v$(node -p "require('./package.json').version")" = "$GITHUB_REF_NAME"
+
+      # prepublishOnly type-checks, tests and rebuilds dist first.
+      - name: Publish with the token, for the first release
+        if: env.NPM_TOKEN != ''
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ env.NPM_TOKEN }}
+
+      - name: Publish as a trusted publisher
+        if: env.NPM_TOKEN == ''
+        run: npm publish --access public
