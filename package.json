@@ -3,7 +3,10 @@
   "version": "0.2.0",
   "type": "module",
   "description": "The expression mechanism of a Welte-Mignon T-100: the take-up spool, the nuancing bellows and the pedals, fitted against the hand-drawn Nuancierungslinien of roll 3309.",
-  "repository": "github:pfefferniels/welte-t100",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pfefferniels/welte-t100.git"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
