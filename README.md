@@ -1,21 +1,21 @@
-# A Welte-Mignon T-100 expression emulator
+# Welte-Mignon T-100 expression emulator
 
-Derives the travel of the two *Nuancierbälge* of a red Welte from the punched expression
-code of the roll, and measures the result against the *Handnuancierung* lines drawn on
-roll 3309. The lines were traced off the scan by a separate tool, `roll-nuance-tracer`,
-which is not published; the fitting and evaluation here read its output.
+A few red Welte rolls of the late production period carry drawn *expression lines* that record, as
+Hans-W. Schmitz observed and Hermann Gottschewski restated in 2024, how the two
+*Nuancierbälge* moved. Gottschewski's proposal at the 3rd Global Piano Roll Meeting was to
+read the rules of the mechanism off such lines and then emulate the lines by software, so
+that emulated lines can serve to evaluate the many rolls that carry none. He also observed
+that the Welte crescendos are far from linear, the slow diminuendo resembling an exponential
+decay ([Sydney, 26 July 2024](https://www.youtube.com/watch?v=lNn3OrWgGgM)). This emulator
+follows that proposal on roll 3309.
 
-The point of the exercise is that roll 3309 carries both halves of the problem on the same
-sheet: the drawn line, which Pfeffer's dissertation reads as a record of the bellows itself
-after Gottschewski's Sydney paper of 2024, and the punched code that a Welte piano would play
-from. So the usual difficulty with
-expression emulators — that there is nothing to check them against — does not apply here.
-Whatever the drawn line turns out to be, it is a second, independent witness to the same
-performance, and a model can be scored against it row by row.
-
-The starting point is Stanford's `midi2exp` (Shi and Sapp) and its port in SUL-CIDR's
-`pianolatron`. Neither is followed here. Both integrate a constant rate; the roll says the
-bellows moves at a speed that depends on how far it still has to travel.
+It derives the travel of the two *Nuancierbälge* from the punched expression code by
+modelling the pneumatics that move them: the valves the code operates, the conduits of
+different bore through which the bellows fills and empties, the wind chamber they draw on,
+and the Mezzoforte stop that arrests the travel. The conductance of each conduit, the
+thresholds and time constants of the valves, and the weight of every further term are fitted
+by differential evolution with a Nelder–Mead polish, then scored against the expression lines
+on the blocks of the roll left out of the fit.
 
 ## Running it
 
@@ -24,7 +24,7 @@ Node 24 or later, no build step and no runtime dependencies. Node strips the typ
 ```sh
 npm install          # typescript and @types/node, for checking only
 npm test             # unit tests
-npm run eval         # every model against the drawn line, published constants
+npm run eval         # every model against the expression line, published constants
 node src/cli/evaluate.ts --fit docs/fit-pneumatic.json --timing scan   # fitted constants, SUPRA's own tempo map
 node src/cli/fit.ts pneumatic --generations 120 --out docs/fit-pneumatic.json
 node src/cli/experiments.ts --out docs/experiments.json
@@ -43,10 +43,9 @@ node src/cli/export-view.ts --fit docs/fit-pneumatic.json --out view/data.js
 node view/build-single.mjs
 ```
 
-Fitting and evaluation expect the tracer's output at `../out/{druid}/curves.csv` and the SUPRA
-raw MIDI at `../cache/{druid}/{druid}_raw.mid`, that is, the tracer's working directory one
-level up from this one, which is where `trace_roll.py` leaves them. The library and the unit
-tests need neither.
+Fitting and evaluation expect the traced curves at `../out/{druid}/curves.csv` and the SUPRA
+raw MIDI at `../cache/{druid}/{druid}_raw.mid`, one directory level up from this one, which is
+where `trace_roll.py` leaves them. The library and the unit tests need neither.
 
 ## Using it as a library
 
@@ -82,14 +81,14 @@ emulation on it. Rebuild `dist/` whenever `src/` changes, and commit it.
 | `src/cli/` | evaluate, fit, polish, ablate, and inspect the residuals |
 | `docs/pneumatics.md` | the mechanism after Hagmann 1984, with the German where it is load-bearing |
 | `docs/prior-art.md` | `midi2exp` and `pianolatron`, stated precisely enough to port |
-| `docs/empirics.md` | what the drawn line does when the punched code changes, measured |
+| `docs/empirics.md` | what the expression line does when the punched code changes, measured |
 | `docs/signal-path.md` | the path from perforation to bellows, read off Anhang 13 at 211 dpi |
-| `docs/gottschewski.md` | what Gottschewski's published work settles, and what it does not |
-| `docs/leseregeln.md` | the dissertation's reading rules, and what the model owes them |
+| `docs/gottschewski.md` | what Gottschewski settles, in print and in the Sydney 2024 talk, and what he does not |
+| `docs/leseregeln.md` | the reading rules the model works from, and what it owes them |
 | `docs/experiments.md` | the ablation table and what it decides |
 | `docs/findings.html` | the report, as artifact source; `docs/embed-figures.mjs` inlines its figures |
 | `analysis/` | the Python that produced `docs/empirics.md` and its figures |
-| `view/` | an overlay viewer: drawn line, emulated line, punched code, residual |
+| `view/` | an overlay viewer: expression line, emulated line, punched code, residual |
 | `cluster/` | SLURM scripts for bwUniCluster, and `pull.sh` to bring results home |
 
 ## The model
@@ -138,16 +137,16 @@ That is what lets six short perforations give six steps while six shorter ones g
 (control 4d). Welte adjusts the two valves at separate bores, 20 and 29, so they have
 separate time constants here.
 
-**From the drawn line itself.** The Mezzoforte stop arrests the bellows at two levels a
+**From the expression line itself.** The Mezzoforte stop arrests the bellows at two levels a
 thickness apart depending on which side it approached from, and its position is a regulated
 setting rather than the printed gridline. The stop yields in the direction it is pushed, so
 the rising rest is the higher of the two, which is the opposite of what an inelastic barrier
 would give; both faces are set from the levels the line rests at rather than fitted. Every stop is compliant rather than rigid, so the bellows rebounds off it — visible
-in the drawn line after a fast collapse. The offset between line and punches differs by code,
+in the expression line after a fast collapse. The offset between line and punches differs by code,
 drifts along the roll, and varies with the line's own level, which is the pen swinging on an
 arm; the same arc bends the printed scale, which `scaleWarp` carries.
 
-`src/model/field.ts` is a control rather than a model: it bins the drawn line by valve state
+`src/model/field.ts` is a control rather than a model: it bins the expression line by valve state
 and position and runs the resulting table forward. It assumes no flow law at all. It fails —
 a velocity field estimated along the true trajectory diverges when run open-loop — and is
 kept because that is worth knowing.
@@ -183,7 +182,7 @@ laptop run the same source with no build step, and reproduce each other to four 
 - The models are fitted on alternating blocks of the same roll and scored on the blocks left
   out. That guards against a model memorising the roll; it does not make the constants
   general.
-- What the drawn line physically records is not settled. It behaves like the bellows and not
+- What the expression line physically records is not settled. It behaves like the bellows and not
   like an editor's smooth intention curve — it piles up sharply at one level whenever the
   Mezzoforte hook is set, and it overshoots after a sforzando — but that is an argument, not
   a demonstration.

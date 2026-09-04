@@ -1,12 +1,14 @@
 # Gottschewski on the Welte dynamics coding
 
-What Hermann Gottschewski has written that bears on modelling the Nuancierbalg of a T-100 from
-the punched expression code. Compiled 2026-08-31.
+What Hermann Gottschewski has written and said that bears on modelling the Nuancierbalg of a
+T-100 from the punched expression code. Compiled 2026-08-31; the Sydney 2024 talk added
+2026-09-04, when the recording and the slides turned up.
 
 Short version: one footnote in the 1996 book settles question 1 in your favour, and does so more
-cleanly than the fitting evidence does. Nothing published by him touches the drawn nuancing lines
-at all. He gives a great deal of quantitative material on the time axis and almost none on the
-pneumatics.
+cleanly than the fitting evidence does. Nothing he has *published* touches the drawn nuancing
+lines, but the Sydney 2024 talk is largely about them, so §2 now rests on his own words rather
+than on a second-hand report. He gives a great deal of quantitative material on the time axis and
+almost none on the pneumatics.
 
 ---
 
@@ -39,6 +41,21 @@ images, not grepped.
 Teil B is theory and analysis of musical time-shaping. Judging by the subject index it contains no
 Welte technology, so I left it. If that judgement is wrong, the index is where the error is.
 
+**Hermann Gottschewski, "Insights to the Editing Process of the Dynamics and Pedalling on Welte
+Mignon Piano Rolls", talk at the 3rd Global Piano Roll Meeting, Sydney, 26 July 2024.**
+
+The recording of the whole of Session 4 is on YouTube at
+<https://www.youtube.com/watch?v=lNn3OrWgGgM>; he speaks from 01:27 to about 23:00, with questions
+to about 28:30. His slides are at
+<http://fusehime.c.u-tokyo.ac.jp/gottschewski/doc/sydney2024.pptx> (135 MB, plain http only, and
+the server drops the connection, so a resuming download is needed). He says at the start that he
+dropped the pedalling from the announced title for want of time, so the talk is on dynamics only.
+
+Everything quoted from the talk below comes from a Whisper large-v3-turbo transcript of
+06:50–16:00 and 25:50–28:20, checked against the slides. Timestamps are into the session
+recording. The remainder of the talk I have read only in YouTube's automatic captions, which are
+good enough for sense and not for quotation.
+
 I used the **Sachregister (pp. 324–331)** as the instrument for the negative findings below. It is a
 real subject index, not a name index only, and it is detailed (it has entries for *Saugwindspannung*,
 *Vorpneumatik*, *Perforation*, *Stanzungenauigkeit*, *Papierdicke*). An index can of course be
@@ -58,15 +75,11 @@ incomplete, so a missing entry is strong evidence and not proof.
   nothing further on Welte.
 - **3rd Global Piano Roll Meeting, Sydney, 25–28 July 2024**, programme PDF:
   <https://gprm.net/wp-content/uploads/2024/08/2407_GPRM3-Program.pdf>
-  This confirms the talk. Session 4, "Piano roll editing", moderated by Kumaran Arul, 9:30:
-  *Hermann Gottschewski (Tokyo), "Insights to the Editing Process of the Dynamics and Pedalling on
-  Welte Mignon Piano Rolls"*. The programme carries **titles only, no abstracts** (5 pages, ~5.5 kB
-  of text). The next slot, 10:00, is *Niels Pfeffer (Tübingen), "Music Performance Markup for
-  Scholarly Editing Piano Rolls"* — so you were in that session yourself, which is probably where
-  the second-hand report in question 2 comes from. The meeting page
-  (<https://gprm.net/meeting/2024-3rd-gprmthe-university-of-sydney/>) says all presentations were
-  recorded and "most of them are available on request" (info@gprm.net). That video is the only route
-  I can see to his actual words on this.
+  Session 4, "Piano roll editing", moderated by Kumaran Arul, 9:30: *Hermann Gottschewski (Tokyo),
+  "Insights to the Editing Process of the Dynamics and Pedalling on Welte Mignon Piano Rolls"*. The
+  programme carries **titles only, no abstracts** (5 pages, ~5.5 kB of text). The next slot, 10:00,
+  is *Niels Pfeffer (Tübingen), "Music Performance Markup for Scholarly Editing Piano Rolls"*. The
+  recording and the slides are now to hand and are treated as a source above.
 - **GPRM Prelude 11, Dec 2025**: <https://gprm.net/prelude/prelude-11-nov-15-2025-papers-by-tbd/> —
   a later, different Gottschewski paper, *"Statistical Analysis of Welte-Mignon Roll Copies:
   Distinguishing Types of Punchings Across Periods and Locations"*, working from the raw MIDI at
@@ -79,7 +92,8 @@ incomplete, so a missing entry is strong evidence and not proof.
 ### Not found
 
 No published text by Gottschewski on the drawn nuancing lines, on the printed P.P.–M.F.–F.F. scale,
-or on the sforzando as such. No proceedings volume for GPRM 2024. No slides.
+or on the sforzando as such. No proceedings volume for GPRM 2024, so the talk exists as a recording
+and a slide deck and not as a citable text.
 
 ---
 
@@ -141,6 +155,15 @@ have been a loose description of (b) rather than a claim of (a). Your held-out e
 0.156 discriminates (a) from (b) empirically, and Gottschewski discriminates them textually, in the
 same direction.
 
+**The Sydney slides say (b) outright.** Slide 26 of the 2024 deck labels the sforzando on the roll
+image as
+
+> "forzando forte" (a quick crescendo that lasts as long as the hole in the sliding block is open)
+
+so this no longer has to be inferred from the track arithmetic of footnote 108. It is his own gloss,
+it is explicit about duration, and it is the momentary reading. He still never mentions Hagmann or
+the word *Sforzando*, so it remains independent testimony rather than a refutation.
+
 ### Supporting passage on the rate model
 
 Also from Gottschewski, on the same principle:
@@ -178,7 +201,7 @@ tracks switch. That is the model you are fitting, stated by him in 1996.
 
 ---
 
-## 2. The drawn Nuancierungslinien
+## 2. The drawn lines, which he calls expression lines
 
 **He does not discuss them anywhere in the 1996 book.** I take this to be a clean negative, on
 three grounds:
@@ -195,10 +218,110 @@ three grounds:
    circumferences and hypothesis weightings. He describes no markings, lines or printed scale on any
    of them.
 
-So the second-hand report you are working from **cannot be confirmed or corrected from his
-published work**. If he holds that view it will be from the Sydney 2024 talk, whose title is exactly
-right for it ("Insights to the Editing Process of the Dynamics and Pedalling on Welte Mignon Piano
-Rolls"). I would ask GPRM for the video rather than rely on the report.
+So nothing in the book confirms or corrects the second-hand report. The Sydney 2024 talk does, and
+it is the whole of his contribution on the subject.
+
+### What the Sydney 2024 talk says
+
+**His term is "expression lines"**, in quotation marks on the slides. Not *Nuancierungslinien*, and
+not *Handnuancierung*, which is what the roll's own printed header says. Using his term costs
+nothing and makes the citation exact.
+
+**He credits the reading to Schmitz and treats it as a premise, not as his finding.**
+
+> As earlier researchers such as Hans-W. Schmitz have pointed out, the expression lines show quite
+> precisely how the two expression bellows moved.
+>
+> — 08:01
+
+and immediately after, "so expression lines are real historical examples of the movements of the
+expression bellows" (08:16). Schmitz 1981 is also the source he gives in the 1996 book for the two
+mezzoforte positions (§4 below), so the same publication is behind both. That paper, not
+Gottschewski, is where a citation for the reading belongs.
+
+**Which rolls he has.** Slide 21 shows slow diminuendos from **WM1348, WM1474, WM1478, WM2739 and
+WM3357**, all from SUPRA scans. 3309 is not among them and he never mentions it. His worked example
+throughout is WM1478 (Olga Samaroff plays Grieg's piano concerto, first movement, recorded
+24 April 1908), the copy with control date 18 January 1923 against a copy of 30 April 1920.
+
+**The programme, which is this repository's.** Slide 20 states it as a distinction:
+
+> Direct use of expression lines to evaluate the roll encoding — a historically objective evaluation
+> (An evaluation that uses historical objects as a direct prove.)
+>
+> Use of emulated expression lines to evaluate the roll encoding — a historically objectified
+> evaluation (Historical objects are used to find rules that are used to reconstruct historical or
+> hypothetical objects. The evaluation uses reconstructed objects as an indirect prove.)
+
+and in the talk, "so my idea was to emulate expression lines by software. If the emulation proves to
+be very similar to existing expression lines, emulated expression lines can be used for the
+evaluation of rolls that have no expression lines" (09:01). His own emulation "uses the data of the
+raw MIDI files. It's a work in progress […] although I have not yet emulated the process of
+transition between different functions" (11:45). He gives no equations, no constants and no code.
+
+**The curves are not linear, and he says so before we did.**
+
+> It is important to know that the crescendos and diminuendos of Welte instruments are by no way
+> linear processes. For example, the curves of the crescendo piano, which means slow diminuendo,
+> look like an exponential decay. Consequently the time from fortissimo to mezzo forte is much
+> shorter than that from mezzo forte to pianissimo. […] If the curves are not emulated correctly,
+> errors can add up over time and result in completely wrong dynamics, as can be observed in some of
+> the emulations in SUPRA.
+>
+> — 09:25 and 10:04
+
+This is the objection `docs/prior-art.md` makes to `midi2exp` and `pianolatron`, made independently
+and earlier, and "exponential decay" is the α = 1 end of the flow law the fit settles on. He gives
+no exponent and no time constant, so it corroborates the shape and not the number.
+
+**He assumes an instrument wrote the lines, and one that was out of regulation.**
+
+> Unfortunately, it turned out that the expression lines, although they reflect how the expression
+> bellows really worked in a historical environment, are not in accordance with what the test roll
+> demands. […] the length of the process from mezzo forte to pianissimo is very different from roll
+> to roll, much more than the differences of paper speed could explain. And even in the same roll,
+> sometimes the length is much different in the right and left, which should not happen. So,
+> strangely enough, it is a historical fact that the instruments which were used for writing the
+> expression lines were not properly regulated.
+>
+> — 14:21 to 15:17
+
+He therefore normalises, showing "how the expression lines would have looked like if the instrument
+had been regulated using the test roll before writing the expression lines to the historical roll"
+(15:27), and for that he uses a default setting derived from several emulations rather than from the
+line in front of him. Two things follow for us. He treats a line as the record of one instrument on
+one day, which is the same caution as the first of the README's honest limits. And the left/right
+asymmetry he reports across rolls is the same kind of observation as our bass/treble disagreement,
+which he puts down to regulation rather than to the fit. That is worth weighing against the
+suggestion there that the gap is search rather than physics.
+
+**On the forward offset his explanation is mechanical, and conjectural.**
+
+> Please notice that the original expression line is not exactly at the place where it should be.
+> For instance, the fast crescendo caused by these forzando forte holes begins a few millimeters too
+> early in the expression lines. Perhaps there was a technical reason that the lines could not be
+> written exactly above the holes in the sliding block.
+>
+> — 11:01 and 11:19
+
+He then moves the holes to fit the lines for the sake of the demonstration. A hand, a nuancer and a
+reaction time appear nowhere in the talk, so no reaction-time account of the lead can be attributed
+to him.
+
+**Why the lines exist at all he offers as a guess, and marks it as one.** Asked whether the punched
+code could be read back off the line, he says it almost can be, and goes on:
+
+> So that could be a way to find the mystery of the Welte, how they did it in the old days, maybe. I
+> guess, I don't know, but I guess that these expression lines were not only created for customers.
+> Now the expression lines we have are for customers. But that they had something like that from the
+> earliest day in their company, and they were used by editing the rolls. Because if you don't have
+> something like that it must be very difficult to edit a roll.
+>
+> — 27:30 to 28:16
+
+So on his account the surviving lines are a sales feature on late rolls, and a comparable device in
+the editing room is speculation. He does not claim the line is the recording apparatus's own trace,
+and he does not say what drew it.
 
 Two things in the book do bear on the question indirectly, and both are worth having.
 
@@ -253,8 +376,9 @@ shift between recording and reproduction is unavoidable. The context is an argum
 automatic compensation could have been built in, so this is offered as a difficulty, not as a
 description of editorial practice. But it is his own published reason why the expression information
 on a finished roll has to lead the notes it governs. It is a *different* reason from the
-hand-nuancer's reaction time, and if you cite the lead you should not attach his name to the
-reaction-time explanation without the video to back it.
+hand-nuancer's reaction time, and the talk settles that the reaction-time account is not his: there
+he explains the lead as a possible technical matter in the sliding block instead (§2). So his name
+belongs to two mechanical explanations of the lead and to neither human one.
 
 ---
 
@@ -586,6 +710,12 @@ audible interval in something like 40 ms.
   benötigt wird, um vom *ff* bis zum *pp* oder umgekehrt zu gelangen" (p. 28), with no figure.
 - **No crescendo duration.** He never says how long a crescendo takes.
 - **No figure for the mezzoforte position** (see §4).
+- **No figure for the level a slow crescendo converges to**, though the Sydney slides are useful on
+  its status. Slide 14: a "crescendo forte" starting from *pp* increases the dynamics gradually and
+  starting from *f* holds the level, and a long one "will converge to a certain level ('WELTE
+  LOUD')", which "can be adjusted, but is not specified in any technical manual". So the target of
+  that path is a regulated setting rather than a constant of the mechanism, which is how the fit
+  treats it, and no source states it.
 
 ---
 
@@ -700,16 +830,20 @@ question 4 would be, if they are anywhere.
 
 ## Summary of clean negatives
 
-Things he simply does not address, all of them useful as such:
+Things he simply does not address, all of them useful as such. Unless noted, the negative covers
+both the 1996 book and the Sydney 2024 talk:
 
-1. The word *Sforzando*, and the latch question as a question.
+1. The word *Sforzando*, and the latch question as a question. He glosses the function in the talk
+   (§1) without ever naming the dispute.
 2. Accumulation of repeated expression punches.
-3. The drawn Nuancierungslinien on late red rolls.
+3. The drawn lines — **in the book only**. The talk is largely about them; see §2.
 4. The printed P.P. / M.F. / F.F. scale.
 5. Any numerical value for the mezzoforte position.
 6. Any vacuum figure.
-7. Any time constant, rate, or crescendo duration for the bellows.
+7. Any time constant, rate, or crescendo duration for the bellows. The talk gives the shape of the
+   slow diminuendo as an exponential decay and stops there.
 8. The linearity of loudness against bellows travel.
+9. What physically drew the lines, and with what apparatus. Not in the book, and not in the talk.
 
 And one explicit self-limitation, which is the honest frame for all of the above: "Nicht
 berücksichtigt ist die Dynamik, da diese ohne weitere Untersuchungen noch nicht vollständig
@@ -717,11 +851,13 @@ entschlüsselt werden kann" (p. 138).
 
 ## Open leads
 
-- **The Sydney 2024 video.** The only plausible source for his views on the drawn lines and on the
-  editing of dynamics. GPRM says most presentations are available on request: info@gprm.net. Given
-  that you spoke in the same session, a direct approach to him may be simpler.
 - **Schmitz 1981**, *Das Mechanische Musikinstrument* VI, Nr. 19, pp. 3–10. Gottschewski's source
-  for both dynamics facts he reports. The journal is available as a DVD from GPRM (€15).
+  for the two mezzoforte positions in the book and, in the Sydney talk, for the reading of the lines
+  as bellows movement. It is therefore the primary reference for the premise this whole repository
+  rests on, and it has not been read here. The journal is available as a DVD from GPRM (€15).
+- **The five rolls with lines that Gottschewski has** (WM1348, WM1474, WM1478, WM2739, WM3357). All
+  are in SUPRA, and none is 3309. If the constants fitted here are ever to be shown to transfer,
+  these are the rolls to try them on.
 - **The Welte brochure** *Das Welte-Mignon Reproduktions-Klavier*, pp. 20–21 for the wind-motor
   regulation, cited by him at p. 45, Fn. 61.
 - **Freiburg Augustinermuseum copy-master rolls** with correction annotations (p. 39), the material
