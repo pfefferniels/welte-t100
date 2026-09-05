@@ -106,7 +106,7 @@ function travelCsv(travel: PedalTravel, grid: Grid): string {
 
 /**
  * The same count over a range of travel budgets. Hagmann gives no time for
- * either pedal, so the one defended in `docs/pedal.md` is an argument and not a
+ * either pedal, so the one defended in `docs/measurements.md` §13 is an argument and not a
  * measurement, and what it decides deserves to be seen varying. The relay keeps
  * a third of each budget throughout, which is the split the adjusters imply.
  */

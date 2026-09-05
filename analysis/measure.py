@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Every number reported in emulator/docs/empirics.md.
+"""Every number reported in emulator/docs/measurements.md.
 
 Run from this directory. Writes emulator/data/measurements.json and prints a
 readable summary; the figures are drawn by figures.py from the same helpers.

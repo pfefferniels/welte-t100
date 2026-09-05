@@ -12,7 +12,7 @@
  * rather than only for the one it was first written for.
  *
  * The prose about the mechanism is not computed. It is the same for every roll,
- * and `docs/pedal.md` is where it is argued.
+ * and `docs/sources.md` §7 is where it is argued.
  */
 
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -764,7 +764,7 @@ ${HEAD}
     <p>
       Hole data from the Stanford <span class="mono">roll-image-parser</span>. Built by
       <span class="mono">src/cli/pedal-page.ts</span>; the mechanism and its sources are set out in
-      <span class="mono">docs/pedal.md</span>.
+      <span class="mono">docs/sources.md</span>, §7.
     </p>
   </footer>
 </div>

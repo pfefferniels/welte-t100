@@ -1,8 +1,10 @@
 # Welte-Mignon T-100 expression emulator
 
-A few red Welte rolls of the late production period carry drawn *expression lines* that record, as
-Hans-W. Schmitz observed and Hermann Gottschewski restated in 2024, how the two
-*Nuancierbälge* moved. Gottschewski's proposal at the 3rd Global Piano Roll Meeting was to
+A few red Welte rolls of the late production period carry drawn *expression lines*. Hans-W.
+Schmitz states, without giving a source, that they were drawn onto the finished rolls by two pens
+coupled to the two *Nuancierbälge* while the roll was played back (*Das Mechanische
+Musikinstrument* 19, 1981, p. 5), and Hermann Gottschewski restated that reading in 2024.
+Gottschewski's proposal at the 3rd Global Piano Roll Meeting was to
 read the rules of the mechanism off such lines and then emulate the lines by software, so
 that emulated lines can serve to evaluate the many rolls that carry none. He also observed
 that the Welte crescendos are far from linear, the slow diminuendo resembling an exponential
@@ -79,15 +81,11 @@ emulation on it. Rebuild `dist/` whenever `src/` changes, and commit it.
 | `src/model/` | the models, the Mezzoforte stop they share, the pedals, and the constants playback runs on |
 | `src/eval/` | masked metrics, the train/test split, and the fitting |
 | `src/cli/` | evaluate, fit, polish, ablate, and inspect the residuals |
-| `docs/pneumatics.md` | the mechanism after Hagmann 1984, with the German where it is load-bearing |
-| `docs/prior-art.md` | `midi2exp` and `pianolatron`, stated precisely enough to port |
-| `docs/empirics.md` | what the expression line does when the punched code changes, measured |
-| `docs/signal-path.md` | the path from perforation to bellows, read off Anhang 13 at 211 dpi |
-| `docs/gottschewski.md` | what Gottschewski settles, in print and in the Sydney 2024 talk, and what he does not |
-| `docs/leseregeln.md` | the reading rules the model works from, and what it owes them |
+| `docs/sources.md` | what the sources say, by topic: Hagmann 1984 and Welte's regulation controls, Schmitz 1981, Gottschewski, the patents, `midi2exp` and `pianolatron` |
+| `docs/measurements.md` | what roll 3309 shows, measured without a model |
 | `docs/experiments.md` | the ablation table and what it decides |
 | `docs/findings.html` | the report, as artifact source; `docs/embed-figures.mjs` inlines its figures |
-| `analysis/` | the Python that produced `docs/empirics.md` and its figures |
+| `analysis/` | the Python that produced `docs/measurements.md` and its figures |
 | `view/` | an overlay viewer: expression line, emulated line, punched code, residual |
 | `cluster/` | SLURM scripts for bwUniCluster, and `pull.sh` to bring results home |
 
@@ -105,9 +103,9 @@ dx/dt = Σ  g · a · sign(T − x) · |T − x|^α
 one term per open path, with `g` the conductance of its conduit, `a` how far the tracker port
 is open, `T` the position that path pulls towards, and `α` the exponent of the flow law.
 `α = 1` is a laminar throttle and gives an exponential approach, `α = ½` an orifice, `α = 0`
-a constant rate — which is what `midi2exp` and `pianolatron` assume. `α` is fitted rather than
-chosen, so the family contains the prior art as a special case; on roll 3309 it comes out at
-1.02 in both halves independently.
+a constant rate, which is what `midi2exp` and `pianolatron` assume. `α` is fitted rather than
+chosen, so the family contains the prior art as a special case. The fitted values are in
+`docs/fit-pneumatic.json` and `docs/experiments.md`.
 
 Everything below is in the model because a source says so or a measurement demanded it, and
 `docs/experiments.md` prices each one by taking it away and refitting.
@@ -159,7 +157,7 @@ look. Most of the initial population is clustered around the starting point at a
 scales: seeding a handful of good members into an otherwise random population does not work,
 because differential evolution moves by differences between members and every trial step is
 then far too large — observed here as a search that did not improve at all over forty
-generations. And the fit runs in two stages, the first holding the quantities `docs/empirics.md`
+generations. And the fit runs in two stages, the first holding the quantities `docs/measurements.md`
 measures directly off the roll and fitting only what is unknown, the second releasing
 everything from there.
 

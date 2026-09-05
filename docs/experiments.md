@@ -15,7 +15,7 @@ out several thousandths apart, so differences below about 0.005 are the search a
 model. The table settles the large questions — the Mezzoforte stop is worth 0.087 and 0.116, a
 valve that shuts with its punch costs 0.013 and 0.038 — and cannot settle the small ones. The
 two transit terms were priced separately, against a control on the same budget with two seeds
-each: see `docs/empirics.md` §14.
+each: see `docs/measurements.md` §11.
 
 | variant | question | bass RMSE | treble RMSE | bass r | treble r |
 | --- | --- | ---: | ---: | ---: | ---: |

@@ -59,7 +59,7 @@ import {
 } from "./types.ts";
 
 /**
- * Bounds are set a few times wider than what `docs/empirics.md` measures off
+ * Bounds are set a few times wider than what `docs/measurements.md` measures off
  * this roll, not as wide as the arithmetic allows. Wider than that only enlarges
  * the space the search has to cross without adding any candidate the mechanism
  * could produce, and a fitted value sitting on a bound is reported rather than
@@ -128,7 +128,7 @@ const SPEC: readonly ParameterSpec[] = [
  * roll measures and what the Leseregeln of Pfeffer's dissertation states: a
  * crescendo alone reaches a forte "bei dem sich der Balg zwischen mittlerer und
  * vollständig geschlossener Stellung befindet", and only a sforzando governs the
- * range above it. `docs/empirics.md` has the measurements; the
+ * range above it. `docs/measurements.md` has the measurements; the
  * figures are the average of the two halves, since one set of defaults has to
  * serve both. Fitting moves them, but not far, and this is what the model
  * predicts before any fitting at all.

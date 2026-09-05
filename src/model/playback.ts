@@ -5,7 +5,7 @@
  * the mechanism, and the apparatus that drew the line the mechanism was fitted
  * against. The lead of the punches over the drawn line, its variation by code,
  * by level and along the roll, and the bend of the printed scale all belong to
- * the pen and the layout of the master roll (`docs/empirics.md` §1, §7). A
+ * the pen and the layout of the master roll (`docs/measurements.md` §5). A
  * piano reads the punches where they are, so for playback those terms are
  * switched off and the rest is kept as fitted.
  *

@@ -38,7 +38,7 @@ function forEachMasked(
  *
  * Roll 3309 has a handful of rows the punched code cannot account for: four
  * Discant episodes on 2.3 % of the rows carry 36 % of that half's squared error,
- * and §14 has excluded the trace, the tracker port, the linkage, the hook and
+ * and `docs/measurements.md` §11 has excluded the trace, the tracker port, the linkage, the hook and
  * anything shared with the Bass as their cause. Under a squared loss those rows
  * pull the constants around, and letting them do so costs 0.0028 on every other
  * held-out row, which is about what every structural term proposed for the
