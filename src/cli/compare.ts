@@ -30,7 +30,8 @@ import { HALVES, type Half } from "../roll/expression.ts";
 import { loadRoll, type LoadedRoll, type PortModel } from "../roll/load.ts";
 import { halfOf } from "../truth/curves.ts";
 import { measureRoll, withheldFrom, type HalfMeasurement, type RollMeasurement } from "../truth/measure.ts";
-import { HEADLINE_DRUID, SETTLED, axisFrom, fitPathFor } from "./settings.ts";
+import { MF_THICKNESS } from "../model/stop.ts";
+import { HEADLINE_DRUID, axisFrom, fitPathFor } from "./settings.ts";
 
 const MODELS: ReadonlyMap<string, Model> = new Map([
   [midi2expModel.name, midi2expModel],
@@ -223,7 +224,7 @@ function registrationOf(constants: Record<string, MeasuredConstant>): Parameters
 }
 
 function readRolls(druids: readonly string[], directory: string): Roll[] {
-  const thickness = SETTLED.mfThickness ?? 0;
+  const thickness = MF_THICKNESS;
   return druids.map((druid) => {
     const fit = readFit(fitPathFrom(directory, druid));
     process.stderr.write(`loading ${druid} for ${fit.path}\n`);
@@ -246,10 +247,9 @@ function readRolls(druids: readonly string[], directory: string): Roll[] {
   });
 }
 
-/** What the model is actually run with: its own defaults, then what the fit pinned, then the fit. */
+/** What the model is actually run with: its own defaults, then the fit. */
 function complete(model: Model, params: Parameters): Parameters {
-  const settled = model.name === pneumaticModel.name ? SETTLED : {};
-  return { ...model.defaults, ...settled, ...params };
+  return { ...model.defaults, ...params };
 }
 
 // ---------------------------------------------------------------- transfer

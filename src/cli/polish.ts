@@ -8,11 +8,6 @@
  * afterwards is the same operation and costs a few hundred model runs against
  * the fit's thirty-five thousand. Scores on the held-out blocks are reported but
  * never optimised.
- *
- * It sweeps the same parameters the headline fit varies, `SETTLED` pinned. Left
- * to sweep everything it quietly turns the lean model into the full one — on
- * roll 3309 it lifts `railGrip` to 0.049 and `assistYields` to 0.064 and reports
- * a score that no longer belongs to the model it was handed.
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
@@ -23,8 +18,7 @@ import { coordinateDescent } from "../eval/optimise.ts";
 import { boundsOf } from "../eval/fitting.ts";
 import { parametersFrom, parameterVector } from "../model/types.ts";
 import { pneumaticModel } from "../model/pneumatic.ts";
-import { withFixed } from "../model/types.ts";
-import { HEADLINE_DRUID, axisFrom, fitPathFor, SETTLED } from "./settings.ts";
+import { HEADLINE_DRUID, axisFrom, fitPathFor } from "./settings.ts";
 import { loadRoll } from "../roll/load.ts";
 import { halfOf } from "../truth/curves.ts";
 
@@ -38,7 +32,7 @@ function main(): void {
   const out = option("out", path);
   const file = JSON.parse(readFileSync(path, "utf8"));
   const loaded = loadRoll(option("druid", file.druid ?? HEADLINE_DRUID), axisFrom(process.argv));
-  const model = withFixed(pneumaticModel, SETTLED as Record<string, number>, pneumaticModel.name);
+  const model = pneumaticModel;
 
   for (const result of file.results) {
     const input = loaded.inputFor(result.half, file.ports ?? "aperture");

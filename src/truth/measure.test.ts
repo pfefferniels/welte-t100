@@ -6,7 +6,8 @@ import { dirname, join } from "node:path";
 
 import { loadRoll } from "../roll/load.ts";
 import { HALVES } from "../roll/expression.ts";
-import { HEADLINE_DRUID, MEASURED_3309, SETTLED } from "../cli/settings.ts";
+import { HEADLINE_DRUID, MEASURED_3309 } from "../cli/settings.ts";
+import { MF_THICKNESS } from "../model/stop.ts";
 import { measureRoll, parametersOf, withheldFrom, type RollMeasurement } from "./measure.ts";
 
 const REPO = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
@@ -44,7 +45,7 @@ const TOLERANCE: Readonly<Record<string, number>> = {
 test("the measurement reproduces what docs/measurements.md read off roll 3309", { skip }, () => {
   const roll = measured();
   HALVES.forEach((half) => {
-    const found = parametersOf(roll[half], SETTLED.mfThickness ?? 0);
+    const found = parametersOf(roll[half], MF_THICKNESS);
     Object.entries(TOLERANCE).forEach(([name, tolerance]) => {
       const published = MEASURED_3309[half][name]!;
       assert.ok(
@@ -68,7 +69,7 @@ test("the hook face rests between the rails and on enough arrivals to mean it", 
 test("roll 3309 shows all four constants, so the fit pins all four", { skip }, () => {
   const roll = measured();
   HALVES.forEach((half) => {
-    const pinned = parametersOf(roll[half], SETTLED.mfThickness ?? 0);
+    const pinned = parametersOf(roll[half], MF_THICKNESS);
     assert.deepEqual(Object.keys(pinned).sort(), Object.keys(TOLERANCE).sort(), `${half}`);
     assert.deepEqual(withheldFrom(roll[half]), [], `${half} withholds something`);
   });

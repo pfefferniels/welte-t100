@@ -83,7 +83,7 @@ emulation on it. Rebuild `dist/` whenever `src/` changes, and commit it.
 | `src/cli/` | evaluate, fit, polish, ablate, and inspect the residuals |
 | `docs/sources.md` | what the sources say, by topic: Hagmann 1984 and Welte's regulation controls, Schmitz 1981, Gottschewski, the patents, `midi2exp` and `pianolatron` |
 | `docs/measurements.md` | what roll 3309 shows, measured without a model |
-| `docs/experiments.md` | the ablation table and what it decides |
+| `docs/experiments.md` | the ablation table and what it decides, produced by the model at tag `full-model` |
 | `docs/findings.html` | the report, as artifact source; `docs/embed-figures.mjs` inlines its figures |
 | `analysis/` | the Python that produced `docs/measurements.md` and its figures |
 | `view/` | an overlay viewer: expression line, emulated line, punched code, residual |
@@ -108,7 +108,9 @@ chosen, so the family contains the prior art as a special case. The fitted value
 `docs/fit-pneumatic.json` and `docs/experiments.md`.
 
 Everything below is in the model because a source says so or a measurement demanded it, and
-`docs/experiments.md` prices each one by taking it away and refitting.
+`docs/experiments.md` prices each one by taking it away and refitting. The readings that were
+carried as switches and rejected there, on roll 3309 and then across six rolls, are gone from
+the code; the source that still has them is at tag `full-model`.
 
 **From Hagmann's account of the relay.** Conduit 39 is joined to the bellows permanently and
 the crescendo relay only switches its far end between blower vacuum and atmosphere, so it is
@@ -140,9 +142,11 @@ thickness apart depending on which side it approached from, and its position is 
 setting rather than the printed gridline. The stop yields in the direction it is pushed, so
 the rising rest is the higher of the two, which is the opposite of what an inelastic barrier
 would give; both faces are set from the levels the line rests at rather than fitted. Every stop is compliant rather than rigid, so the bellows rebounds off it — visible
-in the expression line after a fast collapse. The offset between line and punches differs by code,
-drifts along the roll, and varies with the line's own level, which is the pen swinging on an
-arm; the same arc bends the printed scale, which `scaleWarp` carries.
+in the expression line after a fast collapse. The offset between line and punches differs by code
+and drifts along the roll. The pen swung on an arm, and the arc bends the printed scale, which
+`scaleWarp` carries; the shift of the offset with the line's level that the same arc implies was
+priced across six rolls and found worth nothing, so it is not in the model, nor is the Mezzoforte
+code's own offset or the reading of the cancel as a latch.
 
 `src/model/field.ts` is a control rather than a model: it bins the expression line by valve state
 and position and runs the resulting table forward. It assumes no flow law at all. It fails —

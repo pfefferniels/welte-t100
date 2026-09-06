@@ -84,13 +84,13 @@ export const DRAWING_APPARATUS = {
     leadRows: 0,
     leadSforzandoOnRows: 0,
     leadCrescendoRows: 0,
-    leadMezzoforteRows: 0,
-    leadPerLevelRows: 0,
     leadDriftRows: 0,
     scaleWarp: 0,
 };
+/** Exactly the model's parameters, whatever else the fit file recorded. */
 export function playbackParameters(half) {
-    return { ...pneumaticModel.defaults, ...FITTED[half], ...DRAWING_APPARATUS };
+    const merged = { ...pneumaticModel.defaults, ...FITTED[half], ...DRAWING_APPARATUS };
+    return Object.fromEntries(pneumaticModel.spec.map((entry) => [entry.name, merged[entry.name]]));
 }
 /**
  * The model's output as a fraction of the bellows' travel: 0 at the open rail,

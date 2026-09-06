@@ -19,6 +19,7 @@ import type { Parameters } from "./types.ts";
 export declare const FITTED: Record<Half, Parameters>;
 /** The terms that describe the drawing apparatus rather than the mechanism. */
 export declare const DRAWING_APPARATUS: Parameters;
+/** Exactly the model's parameters, whatever else the fit file recorded. */
 export declare function playbackParameters(half: Half): Parameters;
 /**
  * The model's output as a fraction of the bellows' travel: 0 at the open rail,

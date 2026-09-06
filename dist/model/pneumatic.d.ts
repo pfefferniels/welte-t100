@@ -38,11 +38,20 @@
  * relaxes towards the flow-driven velocity instead of taking it at once. At zero
  * the model is first order.
  *
+ * Several readings were carried as switches and priced by refitting without
+ * them: a latching sforzando, a sforzando that sets the crescendo, a cancel that
+ * holds until countermanded, note density loading the supply or added to the
+ * trace, the Widerstand, dry friction, a grip at the closed rail, a lift band of
+ * the cancelling valve's own, a hook that yields as a spring, a floor-only pin,
+ * a pin of fitted thickness, and two further offsets of the pen. None earned its
+ * place, on roll 3309 and then across six rolls, and they are gone from the code.
+ * `docs/experiments.md` records what each cost, and the source that carried
+ * them is at tag `full-model`.
+ *
  * Not modelled: throttle 97, which on a sforzando release dumps air straight into
  * the wind chamber and collapses the output pressure without moving the bellows,
  * and the regulator bellows 91, which acts on the cone valve and not on the
  * bellows either. Neither should appear in a line that records bellows travel.
- * `regulatorGain` exists to test that claim, and is zero by default.
  */
 import { type Model } from "./types.ts";
 export declare const pneumaticModel: Model;

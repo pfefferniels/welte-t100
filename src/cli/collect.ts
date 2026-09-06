@@ -30,10 +30,7 @@ type Row = {
   seconds: number;
 };
 
-// The lean variant pins the terms the ablation shows to be null, which is what the
-// headline fit does, and it scores better than leaving them free. Prefer it.
-const FULL = "pneumatic, lean";
-const FALLBACK = "pneumatic, full";
+const FULL = "pneumatic, full";
 
 /** A correlation is null in the file when the model is constant and has no spread. */
 function number(value: number | null | undefined, places: number): string {
@@ -155,9 +152,7 @@ function main(): void {
   writeFileSync("docs/experiments.json", JSON.stringify({ rows }, null, 2));
   writeFileSync("docs/experiments.md", markdown(rows));
 
-  const full = rows.filter((row) => row.variant === FULL).length > 0
-    ? rows.filter((row) => row.variant === FULL)
-    : rows.filter((row) => row.variant === FALLBACK);
+  const full = rows.filter((row) => row.variant === FULL);
   // The ablation fits each variant once on a shorter budget, so its row is often
   // worse than a headline fit already sitting there. Only replace what it beats:
   // collecting an ablation should not quietly undo a better fit.

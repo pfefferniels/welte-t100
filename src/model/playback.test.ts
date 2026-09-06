@@ -23,11 +23,12 @@ test("the playback constants are the headline fit, verbatim", () => {
 });
 
 test("playback switches the drawing apparatus off and keeps the mechanism", () => {
+  const names = pneumaticModel.spec.map((entry) => entry.name).sort();
   (["bass", "treble"] as const).forEach((half) => {
     const params = playbackParameters(half);
     Object.keys(DRAWING_APPARATUS).forEach((name) => assert.equal(params[name], 0, `${half} ${name}`));
     assert.equal(params.crescendoRate, FITTED[half].crescendoRate);
-    assert.equal(params.regulatorGain, pneumaticModel.defaults.regulatorGain);
+    assert.deepEqual(Object.keys(params).sort(), names, `${half} carries exactly the model's parameters`);
   });
 });
 

@@ -2,95 +2,65 @@
  * The Mezzoforte pin.
  *
  * Hagmann says the pin of the closed Mezzofortebalg interrupts "Oeffnung oder
- * Schliessung" of the Nuancierbalg halfway. The pin is a physical object with
- * extent along the direction of travel, so it does not arrest the bellows at one
- * level but at two: a board descending onto it comes to rest against its upper
- * face, a board rising onto it against its lower face, and the band between them
- * cannot be occupied while the pin is down. `thickness` is that band.
+ * Schliessung" of the Nuancierbalg halfway. It does not arrest the bellows at one
+ * level but at two, and it yields in the direction it is pushed: a board driven
+ * down onto it comes to rest a little below the nominal level, one driven up
+ * against it a little above. `thickness` is the width of that hysteresis, and
+ * on the drawn line the rising rest is the higher of the two, which is the
+ * opposite of what an inelastic barrier would give.
  *
- * The consequence for reading a roll is that a measured stop level is the face
+ * The pin blocks both ways. Welte's own words, quoted in Hagemann's
+ * Einstellanleitung: the Mezzofortebalg "versperrt dem Nuancierbalg den Weg,
+ * sodaß solange jener zugesaugt ist, kein Ton stärker als Mezzoforte, oder
+ * schwächer als Mezzoforte spielen kann". A floor-only reading was carried as an
+ * option and priced on roll 3309; it never differed, because the line only ever
+ * meets the hook from above (Reinhard Hagemann, "Einstellanleitung für
+ * Welte-Mignon", Das Mechanische Musikinstrument 80, 2001, p. 26).
+ *
+ * The consequence for reading a roll is that a measured stop level is the rest
  * the bellows happened to arrive at, not the pin's centre. On roll 3309 all
  * twenty-two engagements happen with the line falling from the forte stop, so
- * what is measured there is the upper face and the centre lies half a thickness
- * below it.
- *
- * `twoSided` false keeps the weaker reading, where the pin only arrests a
- * descent, for comparison. With a pin actually in the path the two-sided
- * behaviour is what the geometry gives; the weaker one is kept because the roll
- * cannot distinguish them and a model should not assert what its evidence does
- * not carry.
+ * what is measured there is the falling rest and the centre lies half a
+ * thickness above it.
  */
 
-export type StopState = { engaged: boolean; caught: boolean; trappedAbove: boolean };
+/**
+ * Only the pin's lower face is observable: a census of roll 3309 finds every hook
+ * engagement entered from above, at the fortissimo rail, and the fastest approach
+ * from below is 3.8 units/s against 14 to 16 at a real arrest. Fitting the
+ * thickness therefore moved a face nothing touches, the output identical over the
+ * whole range 0 to 0.3, so it is a constant here, kept at the value the earlier
+ * reading used so that `mezzoforte` still carries the one observable quantity as
+ * `mezzoforte - MF_THICKNESS / 2`. The pin's real thickness wants an instrument.
+ */
+export const MF_THICKNESS = 0.06;
+
+export type StopState = { engaged: boolean; trappedAbove: boolean };
 
 export function newStopState(): StopState {
-  return { engaged: false, caught: false, trappedAbove: false };
+  return { engaged: false, trappedAbove: false };
 }
 
 /**
- * How far the bellows has pushed into the stop, signed so that a positive value
- * means it is past the face it is being held at. Zero when it is clear of it.
- *
- * A rigid wall would simply clamp, and the drawn line shows that is wrong: on
- * roll 3309 the line arriving at the hook from above overshoots the level it
- * settles at and springs back before coming to rest. So the contact is
- * compliant — the board arrives with momentum and the leaf and finger deflect —
- * and the model treats it as a stiff spring with damping rather than a clamp.
+ * The arrested position: the board is held at the rest on its own side of the
+ * pin. The hook itself does not move; what the line does on arrival is the
+ * model's business, not the stop's.
  */
-export function penetration(
-  state: StopState,
-  engaged: boolean,
-  moved: number,
-  level: number,
-  twoSided: boolean,
-  thickness = 0,
-): number {
-  if (!state.engaged || !engaged) return 0;
-  const upper = level + thickness / 2;
-  const lower = level - thickness / 2;
-  if (state.trappedAbove || state.caught) return moved < lower ? lower - moved : 0;
-  return twoSided && moved > upper ? moved - upper : 0;
-}
-
 export function limitAtStop(
   state: StopState,
   engaged: boolean,
   current: number,
   moved: number,
   level: number,
-  twoSided: boolean,
-  thickness = 0,
+  thickness: number,
 ): number {
-  const upper = level + thickness / 2;
-  const lower = level - thickness / 2;
-
   if (!engaged) {
     state.engaged = false;
-    state.caught = false;
     return moved;
   }
   if (!state.engaged) {
     state.engaged = true;
     state.trappedAbove = current >= level;
-    state.caught = current >= upper;
   }
-  if (current >= upper) state.caught = true;
-
-  // The two arrest levels are a hysteresis and not an excluded band: a bellows
-  // driven down onto the hook comes to rest a little below the nominal level, one
-  // driven up against it a little above. The hook itself does not move — the line
-  // rebounds off it rather than sinking into it, which `stopRestitution` in the
-  // model is for. Only the falling face is measured on this roll. A census of the
-  // 22 hook engagements finds every one entered from above, at the fortissimo
-  // rail, on both halves and over the whole roll: the falling arrests are 144
-  // (bass) and 206 (treble) arriving at 14 to 16 units/s and resting at
-  // 0.5752 +/- 0.0043 and 0.6188 +/- 0.0074. The upward approaches once read as
-  // arrivals from below are pauses in a creep, the fastest of them 3.8 units/s,
-  // and they scatter 0.031 to 0.032 above the falling rest rather than settling
-  // on a second face. So the pin's upper face is never reached here and its
-  // separation is not measured; `mfThickness` is pinned in `cli/settings.ts` for
-  // that reason. Welte has the pin blocking both ways, quoted in Hagemann's
-  // Einstellanleitung, which is why `mfTwoSided` stays set.
-  if (twoSided) return state.trappedAbove ? Math.max(moved, lower) : Math.min(moved, upper);
-  return state.caught ? Math.max(moved, lower) : moved;
+  return state.trappedAbove ? Math.max(moved, level - thickness / 2) : Math.min(moved, level + thickness / 2);
 }

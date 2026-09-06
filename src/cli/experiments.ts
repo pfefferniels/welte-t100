@@ -51,67 +51,26 @@ const VARIANTS: readonly Variant[] = [
   { label: "midi2exp, refitted, aperture ports", question: "does the round port help a linear model", model: midi2expModel, ports: "aperture", fit: true },
 
   { label: "pneumatic, full", question: "everything free", model: pneumaticModel, ports: "aperture", fit: true },
-  pneumatic("pneumatic, lean", "the null terms pinned, as the headline fit does", {
-    regulatorGain: 0,
-    supplyDroop: 0,
-    windRateGain: 1,
-    windTargetShift: 0,
-    assistYields: 0,
-    railGrip: 0,
-    sforzandoLatches: 0,
-    sforzandoSetsCrescendo: 0,
-    mfBarrier: 1,
-  }),
   pneumatic("pneumatic, alpha = 0 (constant rate)", "is a ramp enough", { alpha: 0 }),
   pneumatic("pneumatic, alpha = 1/2 (orifice)", "square-root flow", { alpha: 0.5 }),
   pneumatic("pneumatic, alpha = 1 (laminar)", "exponential approach", { alpha: 1 }),
 
   pneumatic("pneumatic, no inertia", "does the linkage need mass", { inertiaMs: 0 }),
-  pneumatic("pneumatic, the hook as a spring", "the bellows presses into it", { stopRestitution: 0 }),
-  pneumatic("pneumatic, the hook rigid", "the bellows rebounds off it", { stopStiffness: 0, stopDamping: 0 }),
+  pneumatic("pneumatic, no rebound", "does the bellows rebound off the hook", { stopRestitution: 0 }),
 
-  // Each of the four prices itself against the full model by being pinned at the
-  // value that removes it. A lift band of 1 is the model before the term existed.
-  pneumatic("pneumatic, valve lifts over the whole charge", "does the relay valve snap or ramp", { valveBand: 1, assistBand: 1 }),
-  pneumatic("pneumatic, one lift band for the sforzando only", "does the cancelling valve want its own", { assistBand: 1 }),
+  // Each term prices itself against the full model by being pinned at the value
+  // that removes it. A lift band of 1 is the model before the term existed.
+  pneumatic("pneumatic, valve lifts over the whole charge", "does the relay valve snap or ramp", { valveBand: 1 }),
   pneumatic("pneumatic, no through-flow load", "does the nuancing system load its own blower", { throughFlowLoad: 0 }),
-  pneumatic("pneumatic, no drag threshold", "does the linkage have friction to overcome", { dragThreshold: 0 }),
-  // The lean model pins railGrip to 0, so the pairing prices it: everything the
-  // lean model pins, with the grip free against the grip held shut.
-  pneumatic("pneumatic, lean plus a grip at the closed rail", "does a bellows need pulling off its stop", {
-    regulatorGain: 0,
-    supplyDroop: 0,
-    windRateGain: 1,
-    windTargetShift: 0,
-    assistYields: 0,
-    sforzandoLatches: 0,
-    sforzandoSetsCrescendo: 0,
-    mfBarrier: 1,
-  }),
   pneumatic("pneumatic, no lead", "is the drawn line offset from the punches", { leadRows: 0 }),
   pneumatic("pneumatic, M.F. pinned to 0.5", "is the hook at the printed gridline", { mezzoforte: 0.5 }),
-  pneumatic("pneumatic, no M.F. stop", "does the hook do anything", { mfBarrier: 0 }),
-  pneumatic("pneumatic, M.F. stop one-sided", "the roll's reading: a floor", { mfBarrier: 1, mfTwoSided: 0 }),
-  pneumatic("pneumatic, M.F. stop two-sided", "Hagmann's reading: a barrier", { mfBarrier: 1, mfTwoSided: 1 }),
-
-  pneumatic("pneumatic, sforzando momentary", "midi2exp's reading of the sforzando", { sforzandoLatches: 0 }),
-  pneumatic("pneumatic, sforzando latching", "Hagmann's reading of the sforzando", { sforzandoLatches: 1 }),
-  pneumatic("pneumatic, sforzando sets crescendo", "Hagmann's coupling of the two valves", { sforzandoSetsCrescendo: 1 }),
-  pneumatic("pneumatic, sforzando alone", "no coupling", { sforzandoSetsCrescendo: 0 }),
-  pneumatic("pneumatic, neither note-density term", "does what is sounding show in the line at all", { regulatorGain: 0, supplyDroop: 0 }),
-  pneumatic("pneumatic, note density as an offset", "the wrong shape: density added to the position", { supplyDroop: 0 }),
-  pneumatic("pneumatic, note density as a sagging supply", "the right shape: density slowing the closing", { regulatorGain: 0 }),
-  pneumatic("pneumatic, no Widerstand", "does the blower's two-speed control show", { windRateGain: 1, windTargetShift: 0 }),
   pneumatic("pneumatic, no puff threshold", "does a barely open port fire the relay", { tripThreshold: 0 }),
   pneumatic("pneumatic, no valve tail", "does a valve shut with its punch", { valveTailMs: 1 }),
   pneumatic("pneumatic, instant relay", "does the membrane chamber need to charge", { membraneFillMs: 0, tripThreshold: 0 }),
   pneumatic("pneumatic, no lead drift", "is the offset constant along the roll", { leadDriftRows: 0 }),
   pneumatic("pneumatic, scale linear in travel", "is the printed scale linear in bellows travel", { scaleWarp: 0 }),
-  pneumatic("pneumatic, one offset for every code", "do the codes sit at different offsets", { leadSforzandoOnRows: 0, leadCrescendoRows: 0, leadMezzoforteRows: 0 }),
-  pneumatic("pneumatic, offset not varying with level", "does the pen's swing move the offset", { leadPerLevelRows: 0 }),
+  pneumatic("pneumatic, one offset for every code", "do the codes sit at different offsets", { leadSforzandoOnRows: 0, leadCrescendoRows: 0 }),
   pneumatic("pneumatic, one charging time for both valves", "does the cancel valve charge more slowly than the setting valve", { assistFillMs: 30, membraneFillMs: 30 }),
-  pneumatic("pneumatic, rigid stops", "do the stops rebound", { stopStiffness: 0 }),
-  pneumatic("pneumatic, no pin thickness", "does the Mezzoforte finger have extent", { mfThickness: 0 }),
 
   {
     label: "pneumatic, one vacuum, two bores",

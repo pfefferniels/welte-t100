@@ -230,7 +230,7 @@ function plateauLevel(value: Float64Array, rate: Float64Array, held: Uint8Array)
  *
  * Every one of roll 3309's twenty-two engagements is made from the fortissimo
  * rail, so only this one face is observable and the pin's centre has to be
- * supplied from `mfThickness`. Classifying by the approach keeps the level from
+ * supplied as `MF_THICKNESS`. Classifying by the approach keeps the level from
  * being pulled about by stretches that crept into place, which is why the plain
  * plateau median above is used only to place the search band.
  */

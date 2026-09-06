@@ -16,7 +16,7 @@
  */
 
 import { latched, momentary, portOf, TRIP_THRESHOLD } from "./latch.ts";
-import { limitAtStop, newStopState, type StopState } from "./stop.ts";
+import { limitAtStop, MF_THICKNESS, newStopState, type StopState } from "./stop.ts";
 import {
   clamp,
   shiftedByRows,
@@ -147,7 +147,7 @@ export function fieldModel(field: VelocityField): Model {
       state.velocity = target + (state.velocity - target) * smoothing;
 
       const moved = state.x + state.velocity * dt;
-      const held = limitAtStop(state.stop, isMf[index] === 1, state.x, moved, mezzoforte, false);
+      const held = limitAtStop(state.stop, isMf[index] === 1, state.x, moved, mezzoforte, MF_THICKNESS);
       const next = clamp(held, p.piano!, p.forte!);
       if (next !== moved) state.velocity = 0;
       state.x = next;

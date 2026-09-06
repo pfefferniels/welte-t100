@@ -29,13 +29,3 @@ export declare function latched(on: Float64Array, off: Float64Array, threshold?:
 export declare function momentary(port: Float64Array, threshold?: number): Uint8Array;
 export declare function latchedControl(input: ModelInput, control: Control, initial?: number): Uint8Array;
 export declare function halfLabel(half: Half): string;
-/**
- * The Widerstand, which is punched in the Bass columns only.
- *
- * It is the blower's two-speed resistance, one thing serving the whole
- * instrument, so it acts on the Discant bellows as much as on the Bass even
- * though nothing is punched in the Discant columns to say so. Reading it from
- * the half in hand leaves the Discant with no wind state at all, which makes
- * both wind parameters unidentifiable there rather than merely unhelpful.
- */
-export declare function windResistanceOf(input: ModelInput, rows: number, drift: number): Uint8Array;

@@ -18,6 +18,7 @@ import { readFileSync } from "node:fs";
 import { Grid } from "../roll/grid.ts";
 import { aperturePorts } from "../roll/aperture.ts";
 import { pneumaticModel } from "../model/pneumatic.ts";
+import { MF_THICKNESS } from "../model/stop.ts";
 import type { Action, Control, Half, Perforation } from "../roll/expression.ts";
 import type { ModelInput, Parameters } from "../model/types.ts";
 
@@ -269,7 +270,7 @@ function main(): void {
 
   fits.forEach(({ half, params: fitted }) => {
     const params = { ...pneumaticModel.defaults, ...fitted };
-    const mezzoforte = params.mezzoforte! + params.mfThickness! / 2;
+    const mezzoforte = params.mezzoforte! + MF_THICKNESS / 2;
     const piano = params.piano!;
     console.log(`\n=== ${half}${path ? "" : " (model defaults)"} ===`);
     console.log(`piano ${piano.toFixed(3)}  M.F. face ${mezzoforte.toFixed(3)}  forte ${params.forte!.toFixed(3)}`);
