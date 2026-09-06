@@ -10,7 +10,7 @@
  * the spool's geometry and his measurements of it. `scanAxis` is the tempo map
  * the SUPRA file carries on track 0, one event every 3600 ticks, which compounds
  * the speed by a constant 0.22 % per foot from an undocumented constant that
- * midi2exp used before 2021 (`docs/prior-art.md` §E.3). The two agree on this
+ * midi2exp used before 2021 (`docs/sources.md` §1). The two agree on this
  * roll to within 1.6 % of the local step and 0.7 % of the total duration, so the
  * choice is a question of provenance rather than of fit.
  */

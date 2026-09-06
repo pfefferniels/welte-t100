@@ -22,7 +22,7 @@
  *
  * This is the acceleration the emulator runs on. It differs from the one in the
  * SUPRA tempo maps, which compound the speed by a constant 0.22 % per foot; see
- * `docs/prior-art.md` §E.3 and `docs/gottschewski.md`.
+ * `docs/sources.md` §1.
  */
 /** A red Welte playback roll, after Gottschewski pp. 135, 137 and rule 2 on p. 139. */
 export const WELTE_SPOOL = {

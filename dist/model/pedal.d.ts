@@ -61,7 +61,8 @@
 import { type ModelInput, type Parameters, type ParameterSpec } from "./types.ts";
 /**
  * The pedals leave no drawn line, so nothing here is fitted. Three arguments set
- * these numbers, and `docs/pedal.md` sets them out at length.
+ * these numbers; `docs/sources.md` §7 has the sources and `docs/measurements.md`
+ * §13 the bounds from the roll.
  *
  * `alpha` is carried over from the Nuancierbalg, whose fitted exponent is 1.02
  * in the bass and 0.77 in the treble: the same kind of bellows filling through

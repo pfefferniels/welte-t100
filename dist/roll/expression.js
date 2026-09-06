@@ -8,6 +8,7 @@
  * onto MIDI keys 14..23 (bass) and 104..113 (treble), mirrored, and puts them on
  * tracks 3 and 4 of the raw file.
  */
+export const HALVES = ["bass", "treble"];
 const BASS_CODES = new Map([
     [14, ["mezzoforte", "off"]],
     [15, ["mezzoforte", "on"]],
