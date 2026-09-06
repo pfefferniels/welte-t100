@@ -30,7 +30,7 @@ Performers and titles as the SUPRA index records them.
 
 "Observed" is the share of scan rows whose value the fit was allowed to see, which is where the
 tracer found ink or faint ink. Rows flagged as rule, hole or gap are masked. The shares are those
-of the round-1 traces the fits ran on. A second tracing round has since raised them on eight of
+of the round-1 traces the fits ran on. A second tracing round has since raised them on seven of
 the twelve halves and been fitted, which §10 compares.
 
 Three caveats travel with the traces. On 2739 the drawing is faint, and the low treble share is
@@ -422,34 +422,36 @@ The tracer was corrected twice after the round-1 traces were made, once for a pa
 gridline rather than paying to cross it and once for a gridline shoulder the mask did not cover.
 Every roll was traced again and fitted again with the same code, the same two seeds and the same
 320 generations. This section holds the two rounds against each other. Every figure in it was
-recomputed rather than read out of a table, and the recomputation turned up one defect in the
-delivered round-2 comparison that has to be stated first.
+recomputed from `docs/rolls-round1.json` and `docs/rolls-round2.json` rather than read out of a
+table. The first round-2 comparison paired the new fits with the old traces, which §10.1 records
+because the check that caught it is worth knowing about.
 
-### 10.1 What `docs/rolls-round2.json` actually compares
+### 10.1 A first comparison that read the wrong traces
+
+The first round-2 comparison compared the round-2 fits against the round-1 traces, and it is worth
+recording how that happened and how it showed, because the check that caught it is one the tool
+carries for the purpose.
 
 `src/cli/compare.ts` reads the fit files it is pointed at, and loads each roll's traced curves
-through `loadRoll`, which takes them from `out/<druid>/curves.csv` under the repository root. In
-the frozen copy that directory still holds the round-1 traces, byte-identical to the tracer
-repository's `out/`. The round-2 run therefore read the round-2 **fits** against the round-1
-**traces**.
-
-Two things show it, and neither depends on my reading of the code. The measured-constants block in
-`docs/rolls-round2.json` is byte-identical to round 1 on all twelve halves, which cannot happen if
-a different trace was read. And the file's own reproduction check, the column `compare.ts` carries
-for exactly this purpose, disagrees on all twelve halves by up to 0.0045, where the round-1 run
+through `loadRoll`, which takes them from `out/<druid>/curves.csv` under the repository root. That
+directory held the round-1 traces at the time, so the run paired new fits with old curves. Two
+things showed it, neither depending on a reading of the code. The measured-constants block was
+byte-identical to round 1 on all twelve halves, which cannot happen if a different trace was read.
+And the file's own reproduction check, which runs the recorded parameters through the model again
+on the fit's own mask, disagreed on all twelve halves by up to 0.0045, where the round-1 run had
 agreed to the last digit.
 
-So in `docs/rolls-round2.md` the constants table, the held-out RMSE column and the travel times
-are sound, because those come from the fit files or are pure functions of the parameters. The
-measured-constants table, the "RMSE recomputed" column and both transfer matrices are round-2
-constants scored against round-1 traces.
+The files have since been regenerated with `out/` pointed at the round-2 traces and the round-2
+refit of 3309 in the headline file, and `docs/rolls-round2.json` and `docs/rolls-round2.md` are now
+the clean comparison. Everything in this section is taken from them.
 
-The comparison below therefore uses a clean run I made in a scratch copy of the source pointed at
-the round-2 traces, with the round-2 fits in place of the headline file. Two things vouch for it.
-Run against the round-1 traces the same harness reproduces the measured block of
-`docs/rolls-round1.json` exactly on all twelve halves. Run against the round-2 traces its
-reproduction check closes to 3·10⁻¹⁸, machine precision. Regenerating the delivered file needs
-only that `out/` hold the round-2 traces when `compare.ts` runs.
+They were checked against an independent rebuild made in a scratch copy of the source, and the two
+agree exactly. All 144 transfer cells are identical to the last bit, as are the travel times, the
+fitted parameters and the held-out scores. The regenerated file's measured block now differs from
+round 1 on all twelve halves and matches a separate run of `src/truth/measure.ts` over the round-2
+traces on all twelve. Its reproduction check closes to 3·10⁻¹⁸, machine precision, against 0.0045
+before the regeneration. The same scratch harness run against the round-1 traces reproduces the
+measured block of `docs/rolls-round1.json` exactly, which is what licenses it as a control.
 
 ### 10.2 Fit quality
 
@@ -498,9 +500,9 @@ test, the histogram returning a fullest bin whatever the line does, and the wide
 mask is the obvious way for that bin to move. The fit did not follow it far, 0.0304 to 0.0229. I
 would not read a change of instrument into it.
 
-Coverage rises on eight halves and falls on four. 2739's bass gains most, 72.7 % to 77.8 %, and
-its treble is unchanged at 51.7 %, which confirms that the missing discant rows there are the
-drawing and not the tracer. 3357 gains 1.3 and 3.3 points, 1478 gains 0.5 and 0.9, 1348 gains 0.8
+Coverage rises on seven halves and falls on five. 2739's bass gains most, 72.7 % to 77.8 %, while
+its treble holds at 51.7 % to the tenth of a point, which confirms that the missing discant rows
+there are the drawing and not the tracer. 3357 gains 1.3 and 3.3 points, 1478 gains 0.5 and 0.9, 1348 gains 0.8
 and 1.1. 3309 and 1474 lose a few tenths in both halves.
 
 ### 10.4 The fitted constants moved, the cross-roll picture did not
@@ -550,14 +552,14 @@ undecided.
 ### 10.5 Which round the tables should be read from
 
 The tables in §1 to §6 should go on being read as round 1, and `docs/rolls-round1.md` is the file
-to quote. The reason is not that round 1 is the better tracing. It is that `rolls-round1.json` is
-the only delivered comparison whose three sections rest on one set of traces, so its constants, its
-measured constants and its transfer matrices can be read together. `docs/rolls-round2.md` cannot be
-quoted that way until it is regenerated with the round-2 traces in `out/`, and until then only its
-constants table, its held-out RMSE column and its travel times are safe to cite.
+to quote. Both comparisons are now internally consistent, so this is a choice about which to
+present rather than a constraint. Round 1 keeps it because it is the round the published
+comparison page renders and the round every figure in §1 to §6 was computed from, and because
+nothing in the argument would change if it were swapped. `docs/rolls-round2.md` may now be quoted
+in full.
 
 Nothing in the argument turns on the choice. The two rounds agree on every cross-roll conclusion,
 and where they differ round 2 is the tidier of the two, having lost the one asymptote that sat
-above its own rail. When the round-2 comparison is regenerated cleanly, the tables, this document
-and `artifacts/rolls-summary.json` should move to it together rather than one at a time, since the
-one thing worth avoiding is a document that quotes two rounds in adjacent sentences.
+above its own rail. Whenever the move is made, the tables, this document and
+`artifacts/rolls-summary.json` should move together rather than one at a time, since the one thing
+worth avoiding is a document that quotes two rounds in adjacent sentences.
