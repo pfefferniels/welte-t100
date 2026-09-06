@@ -13,21 +13,21 @@
         "bass": {
           "half": "bass",
           "rails": {
-            "piano": 0.0175,
+            "piano": -0.012499999999999997,
             "forte": 0.9125000000000001
           },
           "hook": {
-            "level": 0.57528,
-            "arrivals": 151,
-            "spread": 0.008706953477923052,
-            "plateau": 0.57534
+            "level": 0.57559,
+            "arrivals": 149,
+            "spread": 0.007666809298326137,
+            "plateau": 0.5757650000000001
           },
           "lead": {
             "aheadRows": 65,
-            "falls": 222,
+            "falls": 221,
             "iqrRows": 3
           },
-          "observedRows": 185245
+          "observedRows": 184277
         },
         "treble": {
           "half": "treble",
@@ -36,68 +36,68 @@
             "forte": 0.9524999999999999
           },
           "hook": {
-            "level": 0.6167,
-            "arrivals": 112,
-            "spread": 0.00784745356389066,
-            "plateau": 0.61707
+            "level": 0.6178,
+            "arrivals": 107,
+            "spread": 0.00755697529875525,
+            "plateau": 0.6186499999999999
           },
           "lead": {
             "aheadRows": 46,
-            "falls": 274,
+            "falls": 268,
             "iqrRows": 7
           },
-          "observedRows": 184768
+          "observedRows": 183976
         }
       },
       "constants": {
         "bass": {
           "piano": {
-            "value": 0.0175,
+            "value": -0.012499999999999997,
             "pinned": true,
-            "evidence": "rest histogram over 185245 observed rows"
+            "evidence": "rest histogram over 184277 observed rows"
           },
           "forte": {
             "value": 0.9125000000000001,
             "pinned": true,
-            "evidence": "rest histogram over 185245 observed rows"
+            "evidence": "rest histogram over 184277 observed rows"
           },
           "mezzoforte": {
-            "value": 0.60528,
+            "value": 0.6055900000000001,
             "pinned": true,
-            "evidence": "151 arrivals, sd 0.0087"
+            "evidence": "149 arrivals, sd 0.0077"
           },
           "leadRows": {
             "value": -65,
             "pinned": true,
-            "evidence": "222 collapses, iqr 3.0"
+            "evidence": "221 collapses, iqr 3.0"
           }
         },
         "treble": {
           "piano": {
             "value": 0.022500000000000006,
             "pinned": true,
-            "evidence": "rest histogram over 184768 observed rows"
+            "evidence": "rest histogram over 183976 observed rows"
           },
           "forte": {
             "value": 0.9524999999999999,
             "pinned": true,
-            "evidence": "rest histogram over 184768 observed rows"
+            "evidence": "rest histogram over 183976 observed rows"
           },
           "mezzoforte": {
-            "value": 0.6467,
+            "value": 0.6478,
             "pinned": true,
-            "evidence": "112 arrivals, sd 0.0078"
+            "evidence": "107 arrivals, sd 0.0076"
           },
           "leadRows": {
             "value": -46,
             "pinned": true,
-            "evidence": "274 collapses, iqr 7.0"
+            "evidence": "268 collapses, iqr 7.0"
           }
         }
       },
       "registration": {
         "bass": {
-          "piano": 0.0175,
+          "piano": -0.012499999999999997,
           "forte": 0.9125000000000001,
           "leadRows": -65
         },
@@ -327,36 +327,36 @@
             "forte": 0.8025
           },
           "hook": {
-            "level": 0.60684,
-            "arrivals": 5,
-            "spread": 0.005413130702283109,
+            "level": 0.6068575,
+            "arrivals": 4,
+            "spread": 0.004705048319358691,
             "plateau": 0.61443
           },
           "lead": {
             "aheadRows": 41,
-            "falls": 112,
+            "falls": 124,
             "iqrRows": 5.25
           },
-          "observedRows": 105293
+          "observedRows": 112703
         },
         "treble": {
           "half": "treble",
           "rails": {
-            "piano": 0.022500000000000006,
+            "piano": 0.0175,
             "forte": 0.8574999999999999
           },
           "hook": {
             "level": 0.6510199999999999,
             "arrivals": 8,
-            "spread": 0.0031311337303762884,
+            "spread": 0.003143033715616176,
             "plateau": 0.652285
           },
           "lead": {
-            "aheadRows": 60.5,
-            "falls": 42,
+            "aheadRows": 60,
+            "falls": 39,
             "iqrRows": 5
           },
-          "observedRows": 74882
+          "observedRows": 74862
         }
       },
       "constants": {
@@ -364,34 +364,34 @@
           "piano": {
             "value": 0.022500000000000006,
             "pinned": true,
-            "evidence": "rest histogram over 105293 observed rows"
+            "evidence": "rest histogram over 112703 observed rows"
           },
           "forte": {
             "value": 0.8025,
             "pinned": true,
-            "evidence": "rest histogram over 105293 observed rows"
+            "evidence": "rest histogram over 112703 observed rows"
           },
           "mezzoforte": {
-            "value": 0.6368400000000001,
+            "value": 0.6368575000000001,
             "pinned": false,
-            "evidence": "5 arrivals, sd 0.0054"
+            "evidence": "4 arrivals, sd 0.0047"
           },
           "leadRows": {
             "value": -41,
             "pinned": true,
-            "evidence": "112 collapses, iqr 5.3"
+            "evidence": "124 collapses, iqr 5.3"
           }
         },
         "treble": {
           "piano": {
-            "value": 0.022500000000000006,
+            "value": 0.0175,
             "pinned": true,
-            "evidence": "rest histogram over 74882 observed rows"
+            "evidence": "rest histogram over 74862 observed rows"
           },
           "forte": {
             "value": 0.8574999999999999,
             "pinned": true,
-            "evidence": "rest histogram over 74882 observed rows"
+            "evidence": "rest histogram over 74862 observed rows"
           },
           "mezzoforte": {
             "value": 0.68102,
@@ -399,9 +399,9 @@
             "evidence": "8 arrivals, sd 0.0031"
           },
           "leadRows": {
-            "value": -60.5,
+            "value": -60,
             "pinned": true,
-            "evidence": "42 collapses, iqr 5.0"
+            "evidence": "39 collapses, iqr 5.0"
           }
         }
       },
@@ -412,9 +412,9 @@
           "leadRows": -41
         },
         "treble": {
-          "piano": 0.022500000000000006,
+          "piano": 0.0175,
           "forte": 0.8574999999999999,
-          "leadRows": -60.5
+          "leadRows": -60
         }
       },
       "spread": {
@@ -633,7 +633,7 @@
         "bass": {
           "half": "bass",
           "rails": {
-            "piano": 0.022500000000000006,
+            "piano": 0.0175,
             "forte": 0.8975
           },
           "hook": {
@@ -643,11 +643,11 @@
             "plateau": null
           },
           "lead": {
-            "aheadRows": 79,
+            "aheadRows": 78,
             "falls": 32,
-            "iqrRows": 5.25
+            "iqrRows": 6.25
           },
-          "observedRows": 183532
+          "observedRows": 185113
         },
         "treble": {
           "half": "treble",
@@ -664,22 +664,22 @@
           "lead": {
             "aheadRows": 85,
             "falls": 58,
-            "iqrRows": 5
+            "iqrRows": 4.75
           },
-          "observedRows": 198910
+          "observedRows": 201332
         }
       },
       "constants": {
         "bass": {
           "piano": {
-            "value": 0.022500000000000006,
+            "value": 0.0175,
             "pinned": true,
-            "evidence": "rest histogram over 183532 observed rows"
+            "evidence": "rest histogram over 185113 observed rows"
           },
           "forte": {
             "value": 0.8975,
             "pinned": true,
-            "evidence": "rest histogram over 183532 observed rows"
+            "evidence": "rest histogram over 185113 observed rows"
           },
           "mezzoforte": {
             "value": null,
@@ -687,21 +687,21 @@
             "evidence": "0 arrivals, sd —"
           },
           "leadRows": {
-            "value": -79,
+            "value": -78,
             "pinned": true,
-            "evidence": "32 collapses, iqr 5.3"
+            "evidence": "32 collapses, iqr 6.3"
           }
         },
         "treble": {
           "piano": {
             "value": 0.0325,
             "pinned": true,
-            "evidence": "rest histogram over 198910 observed rows"
+            "evidence": "rest histogram over 201332 observed rows"
           },
           "forte": {
             "value": 0.8875,
             "pinned": true,
-            "evidence": "rest histogram over 198910 observed rows"
+            "evidence": "rest histogram over 201332 observed rows"
           },
           "mezzoforte": {
             "value": null,
@@ -711,15 +711,15 @@
           "leadRows": {
             "value": -85,
             "pinned": true,
-            "evidence": "58 collapses, iqr 5.0"
+            "evidence": "58 collapses, iqr 4.8"
           }
         }
       },
       "registration": {
         "bass": {
-          "piano": 0.022500000000000006,
+          "piano": 0.0175,
           "forte": 0.8975,
-          "leadRows": -79
+          "leadRows": -78
         },
         "treble": {
           "piano": 0.0325,
@@ -947,36 +947,36 @@
             "forte": 0.8674999999999999
           },
           "hook": {
-            "level": 0.62707,
-            "arrivals": 45,
-            "spread": 0.012998279116867741,
-            "plateau": 0.62335
+            "level": 0.62719,
+            "arrivals": 47,
+            "spread": 0.01411220728980099,
+            "plateau": 0.62356
           },
           "lead": {
-            "aheadRows": 63,
-            "falls": 125,
-            "iqrRows": 6
+            "aheadRows": 62,
+            "falls": 123,
+            "iqrRows": 5.5
           },
-          "observedRows": 242134
+          "observedRows": 245536
         },
         "treble": {
           "half": "treble",
           "rails": {
-            "piano": 0.037500000000000006,
+            "piano": 0.02750000000000001,
             "forte": 0.8725
           },
           "hook": {
             "level": 0.53858,
             "arrivals": 39,
-            "spread": 0.024826998129607765,
-            "plateau": 0.54481
+            "spread": 0.02491761096348419,
+            "plateau": 0.5448474999999999
           },
           "lead": {
             "aheadRows": 19,
-            "falls": 320,
+            "falls": 331,
             "iqrRows": 6
           },
-          "observedRows": 230048
+          "observedRows": 238414
         }
       },
       "constants": {
@@ -984,44 +984,44 @@
           "piano": {
             "value": 0.0475,
             "pinned": true,
-            "evidence": "rest histogram over 242134 observed rows"
+            "evidence": "rest histogram over 245536 observed rows"
           },
           "forte": {
             "value": 0.8674999999999999,
             "pinned": true,
-            "evidence": "rest histogram over 242134 observed rows"
+            "evidence": "rest histogram over 245536 observed rows"
           },
           "mezzoforte": {
-            "value": 0.65707,
+            "value": 0.65719,
             "pinned": true,
-            "evidence": "45 arrivals, sd 0.0130"
+            "evidence": "47 arrivals, sd 0.0141"
           },
           "leadRows": {
-            "value": -63,
+            "value": -62,
             "pinned": true,
-            "evidence": "125 collapses, iqr 6.0"
+            "evidence": "123 collapses, iqr 5.5"
           }
         },
         "treble": {
           "piano": {
-            "value": 0.037500000000000006,
+            "value": 0.02750000000000001,
             "pinned": true,
-            "evidence": "rest histogram over 230048 observed rows"
+            "evidence": "rest histogram over 238414 observed rows"
           },
           "forte": {
             "value": 0.8725,
             "pinned": true,
-            "evidence": "rest histogram over 230048 observed rows"
+            "evidence": "rest histogram over 238414 observed rows"
           },
           "mezzoforte": {
             "value": 0.56858,
             "pinned": true,
-            "evidence": "39 arrivals, sd 0.0248"
+            "evidence": "39 arrivals, sd 0.0249"
           },
           "leadRows": {
             "value": -19,
             "pinned": true,
-            "evidence": "320 collapses, iqr 6.0"
+            "evidence": "331 collapses, iqr 6.0"
           }
         }
       },
@@ -1029,10 +1029,10 @@
         "bass": {
           "piano": 0.0475,
           "forte": 0.8674999999999999,
-          "leadRows": -63
+          "leadRows": -62
         },
         "treble": {
-          "piano": 0.037500000000000006,
+          "piano": 0.02750000000000001,
           "forte": 0.8725,
           "leadRows": -19
         }
@@ -1257,17 +1257,17 @@
             "forte": 0.9225000000000001
           },
           "hook": {
-            "level": 0.52415,
-            "arrivals": 111,
-            "spread": 0.03954765432031673,
-            "plateau": 0.530095
+            "level": 0.52634,
+            "arrivals": 118,
+            "spread": 0.047547400906739486,
+            "plateau": 0.5515
           },
           "lead": {
             "aheadRows": 61,
-            "falls": 139,
-            "iqrRows": 5
+            "falls": 135,
+            "iqrRows": 4
           },
-          "observedRows": 359096
+          "observedRows": 358918
         },
         "treble": {
           "half": "treble",
@@ -1277,16 +1277,16 @@
           },
           "hook": {
             "level": 0.58972,
-            "arrivals": 126,
-            "spread": 0.028947069884567835,
-            "plateau": 0.59001
+            "arrivals": 128,
+            "spread": 0.028816196441302764,
+            "plateau": 0.5900000000000001
           },
           "lead": {
             "aheadRows": 44,
-            "falls": 227,
-            "iqrRows": 9.5
+            "falls": 224,
+            "iqrRows": 10
           },
-          "observedRows": 361488
+          "observedRows": 361192
         }
       },
       "constants": {
@@ -1294,44 +1294,44 @@
           "piano": {
             "value": 0.0325,
             "pinned": true,
-            "evidence": "rest histogram over 359096 observed rows"
+            "evidence": "rest histogram over 358918 observed rows"
           },
           "forte": {
             "value": 0.9225000000000001,
             "pinned": true,
-            "evidence": "rest histogram over 359096 observed rows"
+            "evidence": "rest histogram over 358918 observed rows"
           },
           "mezzoforte": {
-            "value": 0.55415,
+            "value": 0.5563400000000001,
             "pinned": true,
-            "evidence": "111 arrivals, sd 0.0395"
+            "evidence": "118 arrivals, sd 0.0475"
           },
           "leadRows": {
             "value": -61,
             "pinned": true,
-            "evidence": "139 collapses, iqr 5.0"
+            "evidence": "135 collapses, iqr 4.0"
           }
         },
         "treble": {
           "piano": {
             "value": 0.0875,
             "pinned": true,
-            "evidence": "rest histogram over 361488 observed rows"
+            "evidence": "rest histogram over 361192 observed rows"
           },
           "forte": {
             "value": 0.9225000000000001,
             "pinned": true,
-            "evidence": "rest histogram over 361488 observed rows"
+            "evidence": "rest histogram over 361192 observed rows"
           },
           "mezzoforte": {
             "value": 0.61972,
             "pinned": true,
-            "evidence": "126 arrivals, sd 0.0289"
+            "evidence": "128 arrivals, sd 0.0288"
           },
           "leadRows": {
             "value": -44,
             "pinned": true,
-            "evidence": "227 collapses, iqr 9.5"
+            "evidence": "224 collapses, iqr 10.0"
           }
         }
       },
@@ -1568,16 +1568,16 @@
           },
           "hook": {
             "level": 0.55654,
-            "arrivals": 87,
-            "spread": 0.009073307600166548,
-            "plateau": 0.556565
+            "arrivals": 85,
+            "spread": 0.009180750699416923,
+            "plateau": 0.555785
           },
           "lead": {
-            "aheadRows": 60,
-            "falls": 196,
+            "aheadRows": 59,
+            "falls": 197,
             "iqrRows": 4
           },
-          "observedRows": 430979
+          "observedRows": 432926
         },
         "treble": {
           "half": "treble",
@@ -1586,17 +1586,17 @@
             "forte": 0.8625
           },
           "hook": {
-            "level": 0.532725,
-            "arrivals": 136,
-            "spread": 0.00905607381328745,
-            "plateau": 0.53359
+            "level": 0.5322075,
+            "arrivals": 156,
+            "spread": 0.008876790526708539,
+            "plateau": 0.53312
           },
           "lead": {
-            "aheadRows": 46,
-            "falls": 271,
-            "iqrRows": 5.5
+            "aheadRows": 45.5,
+            "falls": 270,
+            "iqrRows": 5
           },
-          "observedRows": 428723
+          "observedRows": 432540
         }
       },
       "constants": {
@@ -1604,44 +1604,44 @@
           "piano": {
             "value": 0.04250000000000001,
             "pinned": true,
-            "evidence": "rest histogram over 430979 observed rows"
+            "evidence": "rest histogram over 432926 observed rows"
           },
           "forte": {
             "value": 0.8925000000000001,
             "pinned": true,
-            "evidence": "rest histogram over 430979 observed rows"
+            "evidence": "rest histogram over 432926 observed rows"
           },
           "mezzoforte": {
             "value": 0.5865400000000001,
             "pinned": true,
-            "evidence": "87 arrivals, sd 0.0091"
+            "evidence": "85 arrivals, sd 0.0092"
           },
           "leadRows": {
-            "value": -60,
+            "value": -59,
             "pinned": true,
-            "evidence": "196 collapses, iqr 4.0"
+            "evidence": "197 collapses, iqr 4.0"
           }
         },
         "treble": {
           "piano": {
             "value": 0.0325,
             "pinned": true,
-            "evidence": "rest histogram over 428723 observed rows"
+            "evidence": "rest histogram over 432540 observed rows"
           },
           "forte": {
             "value": 0.8625,
             "pinned": true,
-            "evidence": "rest histogram over 428723 observed rows"
+            "evidence": "rest histogram over 432540 observed rows"
           },
           "mezzoforte": {
-            "value": 0.562725,
+            "value": 0.5622075,
             "pinned": true,
-            "evidence": "136 arrivals, sd 0.0091"
+            "evidence": "156 arrivals, sd 0.0089"
           },
           "leadRows": {
-            "value": -46,
+            "value": -45.5,
             "pinned": true,
-            "evidence": "271 collapses, iqr 5.5"
+            "evidence": "270 collapses, iqr 5.0"
           }
         }
       },
@@ -1649,12 +1649,12 @@
         "bass": {
           "piano": 0.04250000000000001,
           "forte": 0.8925000000000001,
-          "leadRows": -60
+          "leadRows": -59
         },
         "treble": {
           "piano": 0.0325,
           "forte": 0.8625,
-          "leadRows": -46
+          "leadRows": -45.5
         }
       },
       "spread": {
@@ -1868,1608 +1868,1608 @@
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 185245,
-      "rmse": 0.0324700128801261,
-      "mae": 0.018239149168321915,
-      "correlation": 0.9918134586479455,
-      "bias": -0.004028190192319454,
-      "heldOutRmse": 0.02772911047880131
+      "rows": 184277,
+      "rmse": 0.032559869711043514,
+      "mae": 0.018281379786478612,
+      "correlation": 0.9917912268877005,
+      "bias": -0.004178328182056643,
+      "heldOutRmse": 0.027949637549372196
     },
     {
       "from": "jq774vx6544",
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 185245,
-      "rmse": 0.037051485342282926,
-      "mae": 0.02063795006421147,
-      "correlation": 0.989545206289003,
-      "bias": -0.004378395649884347,
-      "heldOutRmse": 0.032994827889740626
+      "rows": 184277,
+      "rmse": 0.04024259774552048,
+      "mae": 0.023194908726222433,
+      "correlation": 0.9890945925207032,
+      "bias": -0.009995796967736621,
+      "heldOutRmse": 0.036999842231656095
     },
     {
       "from": "jq774vx6544",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 184768,
-      "rmse": 0.04349154909646218,
-      "mae": 0.019609874029367456,
-      "correlation": 0.987105557075847,
-      "bias": -0.00307310058107441,
-      "heldOutRmse": 0.03591041432419299
+      "rows": 183976,
+      "rmse": 0.04516361798354011,
+      "mae": 0.019847390253751575,
+      "correlation": 0.9861351521830392,
+      "bias": -0.0031284974128373026,
+      "heldOutRmse": 0.03893609526900396
     },
     {
       "from": "jq774vx6544",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 184768,
-      "rmse": 0.06827508240924003,
-      "mae": 0.033411494612461116,
-      "correlation": 0.9684105351335562,
-      "bias": -0.00371788141481178,
-      "heldOutRmse": 0.06363928415752522
+      "rows": 183976,
+      "rmse": 0.06893641588648058,
+      "mae": 0.03336126598088191,
+      "correlation": 0.9678640836542319,
+      "bias": -0.0037727350859619465,
+      "heldOutRmse": 0.06452102886207278
     },
     {
       "from": "jq774vx6544",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 105293,
-      "rmse": 0.08561313533622888,
-      "mae": 0.05612865827806415,
-      "correlation": 0.9308760717554636,
-      "bias": 0.03446698087879811
+      "rows": 112703,
+      "rmse": 0.08373825952494267,
+      "mae": 0.05337521680260381,
+      "correlation": 0.9333868500269009,
+      "bias": 0.03317093519440316
     },
     {
       "from": "jq774vx6544",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 105293,
-      "rmse": 0.0572964076916991,
-      "mae": 0.04206548157232731,
-      "correlation": 0.9756613842349658,
-      "bias": 0.034448563777568594
+      "rows": 112703,
+      "rmse": 0.0565873394333315,
+      "mae": 0.04007079577395191,
+      "correlation": 0.9754116158374375,
+      "bias": 0.03307879486488965
     },
     {
       "from": "jq774vx6544",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 74882,
-      "rmse": 0.06900686220929274,
-      "mae": 0.04931474275176484,
-      "correlation": 0.9654207686024125,
-      "bias": 0.011231565215892322
+      "rows": 74862,
+      "rmse": 0.06856351012836619,
+      "mae": 0.04911769254415405,
+      "correlation": 0.9659465063743463,
+      "bias": 0.011142357179095931
     },
     {
       "from": "jq774vx6544",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 74882,
-      "rmse": 0.0691077333253928,
-      "mae": 0.050959847677904194,
-      "correlation": 0.966253713832586,
-      "bias": 0.008086820918887913
+      "rows": 74862,
+      "rmse": 0.06844022004897746,
+      "mae": 0.05010469038764417,
+      "correlation": 0.9664467294620692,
+      "bias": 0.005233119892623296
     },
     {
       "from": "jq774vx6544",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 183532,
-      "rmse": 0.05741084608210492,
-      "mae": 0.03911168489407761,
-      "correlation": 0.9452590504007672,
-      "bias": -0.011678570550583644
+      "rows": 185113,
+      "rmse": 0.056639074260982594,
+      "mae": 0.038498711278691554,
+      "correlation": 0.9469396933565468,
+      "bias": -0.010838592116846445
     },
     {
       "from": "jq774vx6544",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 183532,
-      "rmse": 0.05654874470936602,
-      "mae": 0.03931366593339346,
-      "correlation": 0.9471121571945725,
-      "bias": -0.01163087715445986
+      "rows": 185113,
+      "rmse": 0.05568091663493503,
+      "mae": 0.03840843641971044,
+      "correlation": 0.9497417922400969,
+      "bias": -0.013179727964541987
     },
     {
       "from": "jq774vx6544",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 198910,
-      "rmse": 0.08669213202039061,
-      "mae": 0.055788325035787664,
-      "correlation": 0.8878119721733762,
-      "bias": -0.02119120683837104
+      "rows": 201332,
+      "rmse": 0.08605661759213853,
+      "mae": 0.05500357081279049,
+      "correlation": 0.8893001748628706,
+      "bias": -0.020550259055784795
     },
     {
       "from": "jq774vx6544",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 198910,
-      "rmse": 0.07095196945324067,
-      "mae": 0.048360653774820926,
-      "correlation": 0.9239849655918513,
-      "bias": -0.01531974796995261
+      "rows": 201332,
+      "rmse": 0.07056422225573102,
+      "mae": 0.0478966107342248,
+      "correlation": 0.9246677673556246,
+      "bias": -0.014702604073857222
     },
     {
       "from": "jq774vx6544",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 242134,
-      "rmse": 0.06573504191692749,
-      "mae": 0.04519381118878244,
-      "correlation": 0.9769327652451747,
-      "bias": 0.022089326942779593
+      "rows": 245536,
+      "rmse": 0.0583848943538566,
+      "mae": 0.042289965635041324,
+      "correlation": 0.9818557442856164,
+      "bias": 0.020064202237699807
     },
     {
       "from": "jq774vx6544",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 242134,
-      "rmse": 0.06782740351661658,
-      "mae": 0.04461399124945371,
-      "correlation": 0.9770754853958101,
-      "bias": 0.031376294575934195
+      "rows": 245536,
+      "rmse": 0.061589696551864415,
+      "mae": 0.0423307025519386,
+      "correlation": 0.981685058506461,
+      "bias": 0.029796655475442593
     },
     {
       "from": "jq774vx6544",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 230048,
-      "rmse": 0.1067225977847186,
-      "mae": 0.07917513358745001,
-      "correlation": 0.9674874796939228,
-      "bias": 0.06867600106702222
+      "rows": 238414,
+      "rmse": 0.10527327877924408,
+      "mae": 0.07703020396939969,
+      "correlation": 0.9677108016410744,
+      "bias": 0.06678343706509392
     },
     {
       "from": "jq774vx6544",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 230048,
-      "rmse": 0.11627148251579043,
-      "mae": 0.07558073969474524,
-      "correlation": 0.9513882222710861,
-      "bias": 0.07386275719922976
+      "rows": 238414,
+      "rmse": 0.11202509368541201,
+      "mae": 0.07137305506178876,
+      "correlation": 0.9532027498567142,
+      "bias": 0.06708984650248127
     },
     {
       "from": "jq774vx6544",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 359096,
-      "rmse": 0.06179420696964727,
-      "mae": 0.04623111182079724,
-      "correlation": 0.9773434916405652,
-      "bias": 0.0044322678386620835
+      "rows": 358918,
+      "rmse": 0.061871800714272236,
+      "mae": 0.046302663036903516,
+      "correlation": 0.9772553778246411,
+      "bias": 0.004503726811523369
     },
     {
       "from": "jq774vx6544",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 359096,
-      "rmse": 0.059319061887188614,
-      "mae": 0.043757131923841265,
-      "correlation": 0.9796727330084186,
-      "bias": 0.00897647659517362
+      "rows": 358918,
+      "rmse": 0.059127172706030774,
+      "mae": 0.04369124194756143,
+      "correlation": 0.979784399229444,
+      "bias": 0.009042410101948001
     },
     {
       "from": "jq774vx6544",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 361488,
-      "rmse": 0.07608416071815939,
-      "mae": 0.051060924950368236,
-      "correlation": 0.9723491608459113,
-      "bias": -0.018193100862838627
+      "rows": 361192,
+      "rmse": 0.07622934680632186,
+      "mae": 0.05109071689489838,
+      "correlation": 0.9722567140064786,
+      "bias": -0.01831507811605777
     },
     {
       "from": "jq774vx6544",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 361488,
-      "rmse": 0.07285155117185953,
-      "mae": 0.043872195289180176,
-      "correlation": 0.9684902698530425,
-      "bias": -0.0036916245580633227
+      "rows": 361192,
+      "rmse": 0.0727550509086208,
+      "mae": 0.043791521453463975,
+      "correlation": 0.9685986461021564,
+      "bias": -0.003824253589789365
     },
     {
       "from": "jq774vx6544",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 430979,
-      "rmse": 0.0763362821200969,
-      "mae": 0.05774540682362076,
-      "correlation": 0.9797401499505362,
-      "bias": 0.04984663448862081
+      "rows": 432926,
+      "rmse": 0.0769398801455995,
+      "mae": 0.0579385952199297,
+      "correlation": 0.9791372991557694,
+      "bias": 0.04982147734454455
     },
     {
       "from": "jq774vx6544",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 430979,
-      "rmse": 0.07935310600048832,
-      "mae": 0.05860761548351495,
-      "correlation": 0.9804773019536427,
-      "bias": 0.0563781927485074
+      "rows": 432926,
+      "rmse": 0.07974503400348236,
+      "mae": 0.0586996884639814,
+      "correlation": 0.9800625527620045,
+      "bias": 0.05634218538156622
     },
     {
       "from": "jq774vx6544",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 428723,
-      "rmse": 0.09564750712060244,
-      "mae": 0.0624233643657989,
-      "correlation": 0.966351688533821,
-      "bias": 0.05186664109807018
+      "rows": 432540,
+      "rmse": 0.0958223617525773,
+      "mae": 0.06255781530400158,
+      "correlation": 0.9663256082908178,
+      "bias": 0.05235414127644822
     },
     {
       "from": "jq774vx6544",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 428723,
-      "rmse": 0.10385225016242695,
-      "mae": 0.06348211885803613,
-      "correlation": 0.9524581325363355,
-      "bias": 0.05382189334723068
+      "rows": 432540,
+      "rmse": 0.10433508024384518,
+      "mae": 0.0638670555022285,
+      "correlation": 0.9521527885163824,
+      "bias": 0.05439692427177335
     },
     {
       "from": "ws250sr1272",
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 185245,
-      "rmse": 0.10010981970795685,
-      "mae": 0.06975640532899852,
-      "correlation": 0.926467440606015,
-      "bias": -0.032647660798346204
+      "rows": 184277,
+      "rmse": 0.10005298465976677,
+      "mae": 0.06974684271274366,
+      "correlation": 0.9268618155675765,
+      "bias": -0.03291117820274235
     },
     {
       "from": "ws250sr1272",
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 185245,
-      "rmse": 0.07057028722085319,
-      "mae": 0.04599942574581095,
-      "correlation": 0.9718377196941197,
-      "bias": -0.03827205674083616
+      "rows": 184277,
+      "rmse": 0.07466091076869841,
+      "mae": 0.05039825279920306,
+      "correlation": 0.9715368451224649,
+      "bias": -0.04391840744067881
     },
     {
       "from": "ws250sr1272",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 184768,
-      "rmse": 0.11367686050306623,
-      "mae": 0.07668654002188484,
-      "correlation": 0.9116344747574398,
-      "bias": -0.005332573854567298
+      "rows": 183976,
+      "rmse": 0.1144291788015668,
+      "mae": 0.07697432354936004,
+      "correlation": 0.9106270864434325,
+      "bias": -0.005234968050880329
     },
     {
       "from": "ws250sr1272",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 184768,
-      "rmse": 0.10069958621199086,
-      "mae": 0.06335321351365202,
-      "correlation": 0.9312136727565902,
-      "bias": -0.000053128654343598555
+      "rows": 183976,
+      "rmse": 0.10133569228299368,
+      "mae": 0.06334880072585822,
+      "correlation": 0.9304680870232316,
+      "bias": 0.000005266062638012407
     },
     {
       "from": "ws250sr1272",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 105293,
-      "rmse": 0.025282646860914252,
-      "mae": 0.016377774190195923,
-      "correlation": 0.9927026162287116,
-      "bias": -0.0021313243266203323,
-      "heldOutRmse": 0.027220578096324884
+      "rows": 112703,
+      "rmse": 0.024971341193927084,
+      "mae": 0.01586140478268188,
+      "correlation": 0.9928263008985073,
+      "bias": -0.002321322015798079,
+      "heldOutRmse": 0.026915660365945344
     },
     {
       "from": "ws250sr1272",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 105293,
-      "rmse": 0.027597465905483533,
-      "mae": 0.0177569539815321,
-      "correlation": 0.9914071400131503,
-      "bias": 0.004021306201642958,
-      "heldOutRmse": 0.029398089438736938
+      "rows": 112703,
+      "rmse": 0.027114021076242476,
+      "mae": 0.016759197723730242,
+      "correlation": 0.9916403673690236,
+      "bias": 0.00408804865582518,
+      "heldOutRmse": 0.02886815099865236
     },
     {
       "from": "ws250sr1272",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 74882,
-      "rmse": 0.023269457390738008,
-      "mae": 0.016810192721295487,
-      "correlation": 0.9960250333154079,
-      "bias": -0.001126774197453233,
-      "heldOutRmse": 0.02575353434630197
+      "rows": 74862,
+      "rmse": 0.0229513889782354,
+      "mae": 0.01669234627701203,
+      "correlation": 0.9961438883742931,
+      "bias": -0.0012723994827891398,
+      "heldOutRmse": 0.025263212701008557
     },
     {
       "from": "ws250sr1272",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 74882,
-      "rmse": 0.030724942450936828,
-      "mae": 0.02125240444622892,
-      "correlation": 0.994781738165727,
-      "bias": 0.005031790891600703,
-      "heldOutRmse": 0.03191009412604484
+      "rows": 74862,
+      "rmse": 0.029358739107347903,
+      "mae": 0.01964480371749955,
+      "correlation": 0.995006375441527,
+      "bias": 0.002142249664799951,
+      "heldOutRmse": 0.03033355400016887
     },
     {
       "from": "ws250sr1272",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 183532,
-      "rmse": 0.08042259304030218,
-      "mae": 0.05890130691878243,
-      "correlation": 0.9364540667710164,
-      "bias": -0.05200209577601255
+      "rows": 185113,
+      "rmse": 0.07965097590187961,
+      "mae": 0.05764155074835515,
+      "correlation": 0.9371701813723234,
+      "bias": -0.050789080679839345
     },
     {
       "from": "ws250sr1272",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 183532,
-      "rmse": 0.07116544034450015,
-      "mae": 0.05193978733383748,
-      "correlation": 0.9584139694258993,
-      "bias": -0.047468999106060915
+      "rows": 185113,
+      "rmse": 0.07200925348020733,
+      "mae": 0.05309600129346979,
+      "correlation": 0.9599013805618433,
+      "bias": -0.04940133058328813
     },
     {
       "from": "ws250sr1272",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 198910,
-      "rmse": 0.0708402730322906,
-      "mae": 0.05307623139803737,
-      "correlation": 0.9523351395098368,
-      "bias": -0.0449555703806843
+      "rows": 201332,
+      "rmse": 0.0701214786393883,
+      "mae": 0.05243323506970192,
+      "correlation": 0.953147169334384,
+      "bias": -0.04419867978156435
     },
     {
       "from": "ws250sr1272",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 198910,
-      "rmse": 0.05125401412618276,
-      "mae": 0.03567453074332315,
-      "correlation": 0.9736245383029937,
-      "bias": -0.0289622656867263
+      "rows": 201332,
+      "rmse": 0.05104909559624882,
+      "mae": 0.035376317984165614,
+      "correlation": 0.9734572574827783,
+      "bias": -0.028094120988559276
     },
     {
       "from": "ws250sr1272",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 242134,
-      "rmse": 0.0764043139969162,
-      "mae": 0.0439496100576505,
-      "correlation": 0.96445263308432,
-      "bias": -0.008671974346024573
+      "rows": 245536,
+      "rmse": 0.07082285255410259,
+      "mae": 0.04121789834601845,
+      "correlation": 0.9696446190622288,
+      "bias": -0.009712134353248128
     },
     {
       "from": "ws250sr1272",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 242134,
-      "rmse": 0.05743250559811767,
-      "mae": 0.031521731251222485,
-      "correlation": 0.9793144636288759,
-      "bias": 0.006109663290850224
+      "rows": 245536,
+      "rmse": 0.05167102301848823,
+      "mae": 0.02957652349180336,
+      "correlation": 0.9835014970680991,
+      "bias": 0.005316682302300836
     },
     {
       "from": "ws250sr1272",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 230048,
-      "rmse": 0.13880926729033358,
-      "mae": 0.09524164591226125,
-      "correlation": 0.9222691318609415,
-      "bias": 0.06591907680244023
+      "rows": 238414,
+      "rmse": 0.1374516903855861,
+      "mae": 0.09339845210581682,
+      "correlation": 0.9226355262920996,
+      "bias": 0.06370035959637609
     },
     {
       "from": "ws250sr1272",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 230048,
-      "rmse": 0.11721651048477186,
-      "mae": 0.07987940791181468,
-      "correlation": 0.9582398344632737,
-      "bias": 0.07794996611275368
+      "rows": 238414,
+      "rmse": 0.11444892353624601,
+      "mae": 0.07628791586889203,
+      "correlation": 0.9584327995558978,
+      "bias": 0.071940266869239
     },
     {
       "from": "ws250sr1272",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 359096,
-      "rmse": 0.09893146433316988,
-      "mae": 0.07648732700941341,
-      "correlation": 0.9488706801454185,
-      "bias": -0.03715084547903479
+      "rows": 358918,
+      "rmse": 0.09864097596459549,
+      "mae": 0.07631767118920814,
+      "correlation": 0.9491183003997495,
+      "bias": -0.0370664758678272
     },
     {
       "from": "ws250sr1272",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 359096,
-      "rmse": 0.09173163817348876,
-      "mae": 0.0646667664012647,
-      "correlation": 0.9544736919108456,
-      "bias": -0.030588241598689624
+      "rows": 358918,
+      "rmse": 0.09165357524109514,
+      "mae": 0.06460456300705733,
+      "correlation": 0.9544709875674517,
+      "bias": -0.03053060947817258
     },
     {
       "from": "ws250sr1272",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 361488,
-      "rmse": 0.07903370879905165,
-      "mae": 0.05526548110381213,
-      "correlation": 0.9656985588503774,
-      "bias": -0.002112994391736835
+      "rows": 361192,
+      "rmse": 0.0792895831784183,
+      "mae": 0.05535677893739934,
+      "correlation": 0.965483716168353,
+      "bias": -0.002295238524238499
     },
     {
       "from": "ws250sr1272",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 361488,
-      "rmse": 0.06657213288208087,
-      "mae": 0.043311951121506,
-      "correlation": 0.9748688156905686,
-      "bias": 0.015772163907272523
+      "rows": 361192,
+      "rmse": 0.06664721286713293,
+      "mae": 0.04331710036960771,
+      "correlation": 0.9747946984043282,
+      "bias": 0.015601043485960548
     },
     {
       "from": "ws250sr1272",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 430979,
-      "rmse": 0.0812704341067907,
-      "mae": 0.06078029628062907,
-      "correlation": 0.9626262801850273,
-      "bias": 0.025424138365911165
+      "rows": 432926,
+      "rmse": 0.08109013926272694,
+      "mae": 0.060606580742368944,
+      "correlation": 0.962767619036683,
+      "bias": 0.025310109695436046
     },
     {
       "from": "ws250sr1272",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 430979,
-      "rmse": 0.07438687112385527,
-      "mae": 0.052117485135818355,
-      "correlation": 0.972767791447117,
-      "bias": 0.034659723412557485
+      "rows": 432926,
+      "rmse": 0.07467087144024435,
+      "mae": 0.052132674513402734,
+      "correlation": 0.9725025839667368,
+      "bias": 0.034616985765214395
     },
     {
       "from": "ws250sr1272",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 428723,
-      "rmse": 0.11306694600017629,
-      "mae": 0.0758519483341983,
-      "correlation": 0.9487444741284461,
-      "bias": 0.05423945498499033
+      "rows": 432540,
+      "rmse": 0.11333887511542351,
+      "mae": 0.0761218200751394,
+      "correlation": 0.9486907033102443,
+      "bias": 0.05489190670456474
     },
     {
       "from": "ws250sr1272",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 428723,
-      "rmse": 0.11266669075347131,
-      "mae": 0.07153778499327654,
-      "correlation": 0.9474852948623246,
-      "bias": 0.06183707821612951
+      "rows": 432540,
+      "rmse": 0.11300937973604082,
+      "mae": 0.07195636368608009,
+      "correlation": 0.9474785809733047,
+      "bias": 0.06251958713252607
     },
     {
       "from": "jn038xx9588",
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 185245,
-      "rmse": 0.10518508822888542,
-      "mae": 0.07572399564134838,
-      "correlation": 0.9150226241646595,
-      "bias": 0.016958489896472216
+      "rows": 184277,
+      "rmse": 0.10475819075076326,
+      "mae": 0.07529035394266878,
+      "correlation": 0.9156650093401455,
+      "bias": 0.016398912911979546
     },
     {
       "from": "jn038xx9588",
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 185245,
-      "rmse": 0.08008104941811614,
-      "mae": 0.062059953617892495,
-      "correlation": 0.951184608534476,
-      "bias": 0.014807087283973274
+      "rows": 184277,
+      "rmse": 0.0800912819367331,
+      "mae": 0.06223835767176088,
+      "correlation": 0.9515858525991288,
+      "bias": 0.01045742399687638
     },
     {
       "from": "jn038xx9588",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 184768,
-      "rmse": 0.15517190852965643,
-      "mae": 0.0985740824504747,
-      "correlation": 0.8278855122569923,
-      "bias": 0.005465368764995157
+      "rows": 183976,
+      "rmse": 0.15553498598978946,
+      "mae": 0.09890737433845304,
+      "correlation": 0.8274947634772052,
+      "bias": 0.005706206256614758
     },
     {
       "from": "jn038xx9588",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 184768,
-      "rmse": 0.08737695277473045,
-      "mae": 0.055716306849584105,
-      "correlation": 0.9474823765289919,
-      "bias": 0.0074472136361181124
+      "rows": 183976,
+      "rmse": 0.08811842931468696,
+      "mae": 0.05587684590371686,
+      "correlation": 0.9467187419959487,
+      "bias": 0.007406623292670688
     },
     {
       "from": "jn038xx9588",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 105293,
-      "rmse": 0.1292066345213873,
-      "mae": 0.08863998361565822,
-      "correlation": 0.8609077423441462,
-      "bias": 0.054992768483169994
+      "rows": 112703,
+      "rmse": 0.12542634844139278,
+      "mae": 0.08525910157197047,
+      "correlation": 0.8682475506771801,
+      "bias": 0.04961389626040966
     },
     {
       "from": "jn038xx9588",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 105293,
-      "rmse": 0.09150850417958027,
-      "mae": 0.07523293744009213,
-      "correlation": 0.9613809143212322,
-      "bias": 0.06933305969796372
+      "rows": 112703,
+      "rmse": 0.08855079877273851,
+      "mae": 0.07054246887616615,
+      "correlation": 0.9620329680050171,
+      "bias": 0.06506832744958435
     },
     {
       "from": "jn038xx9588",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 74882,
-      "rmse": 0.07031893316078651,
-      "mae": 0.044991686320812,
-      "correlation": 0.9665184471510495,
-      "bias": 0.021023108239908668
+      "rows": 74862,
+      "rmse": 0.07039625369531434,
+      "mae": 0.04469669108390448,
+      "correlation": 0.9663463327082614,
+      "bias": 0.02066611177999644
     },
     {
       "from": "jn038xx9588",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 74882,
-      "rmse": 0.04752235543982398,
-      "mae": 0.03850673981241003,
-      "correlation": 0.9889799891167006,
-      "bias": 0.01967452030005094
+      "rows": 74862,
+      "rmse": 0.046239761726837234,
+      "mae": 0.03680271808796317,
+      "correlation": 0.9891029673222448,
+      "bias": 0.017806948245051746
     },
     {
       "from": "jn038xx9588",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 183532,
-      "rmse": 0.02943169574509259,
-      "mae": 0.021060214006106043,
-      "correlation": 0.9853038437168479,
-      "bias": -0.0020774656706151347,
-      "heldOutRmse": 0.02966849391745868
+      "rows": 185113,
+      "rmse": 0.028371141644543314,
+      "mae": 0.020677376491097063,
+      "correlation": 0.9863691055646436,
+      "bias": -0.002016113702333001,
+      "heldOutRmse": 0.027920379322488056
     },
     {
       "from": "jn038xx9588",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 183532,
-      "rmse": 0.032710325426849235,
-      "mae": 0.025190926187560955,
-      "correlation": 0.9836843044183915,
-      "bias": 0.010853886457208967,
-      "heldOutRmse": 0.03164189191249964
+      "rows": 185113,
+      "rmse": 0.031362748859172784,
+      "mae": 0.02366361370535071,
+      "correlation": 0.9845259349173352,
+      "bias": 0.008920338121327453,
+      "heldOutRmse": 0.029802770193374278
     },
     {
       "from": "jn038xx9588",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 198910,
-      "rmse": 0.033271626856426414,
-      "mae": 0.023374361135860527,
-      "correlation": 0.9828981596940424,
-      "bias": -0.003925543785641381,
-      "heldOutRmse": 0.03706238541680275
+      "rows": 201332,
+      "rmse": 0.033657150262007336,
+      "mae": 0.023233600714335598,
+      "correlation": 0.9825293627949649,
+      "bias": -0.003552565037810348,
+      "heldOutRmse": 0.03759663995849535
     },
     {
       "from": "jn038xx9588",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 198910,
-      "rmse": 0.03342787709947649,
-      "mae": 0.02352954662656008,
-      "correlation": 0.982611719374475,
-      "bias": 0.0017708392599241093,
-      "heldOutRmse": 0.036671788031419544
+      "rows": 201332,
+      "rmse": 0.03388483687156293,
+      "mae": 0.023600545848415727,
+      "correlation": 0.9822486947912118,
+      "bias": 0.002201417882655713,
+      "heldOutRmse": 0.037272201744000096
     },
     {
       "from": "jn038xx9588",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 242134,
-      "rmse": 0.10783057592385935,
-      "mae": 0.07790480038821086,
-      "correlation": 0.9367151262379446,
-      "bias": 0.021743850191615403
+      "rows": 245536,
+      "rmse": 0.103791061011666,
+      "mae": 0.07538691155627739,
+      "correlation": 0.9410990672442673,
+      "bias": 0.019394446533287937
     },
     {
       "from": "jn038xx9588",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 242134,
-      "rmse": 0.1029262662180308,
-      "mae": 0.07337171639935602,
-      "correlation": 0.9462268105407274,
-      "bias": 0.04469199082495169
+      "rows": 245536,
+      "rmse": 0.09842553026030937,
+      "mae": 0.07065723879182575,
+      "correlation": 0.9510971848769318,
+      "bias": 0.04309449337951949
     },
     {
       "from": "jn038xx9588",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 230048,
-      "rmse": 0.17296392184007808,
-      "mae": 0.1174750001232055,
-      "correlation": 0.8640231545639114,
-      "bias": 0.08922077026154124
+      "rows": 238414,
+      "rmse": 0.1714738832504772,
+      "mae": 0.11515671324207905,
+      "correlation": 0.864891991216151,
+      "bias": 0.08729437997281032
     },
     {
       "from": "jn038xx9588",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 230048,
-      "rmse": 0.12887487236820874,
-      "mae": 0.09437196792901217,
-      "correlation": 0.9529722208716859,
-      "bias": 0.09382827808411216
+      "rows": 238414,
+      "rmse": 0.12624696334253574,
+      "mae": 0.09058410349174888,
+      "correlation": 0.9528811856426782,
+      "bias": 0.0886881565552271
     },
     {
       "from": "jn038xx9588",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 359096,
-      "rmse": 0.10294932691576528,
-      "mae": 0.07336905922655189,
-      "correlation": 0.9427105326237378,
-      "bias": 0.033378009570395356
+      "rows": 358918,
+      "rmse": 0.10305737743826383,
+      "mae": 0.07335247478379454,
+      "correlation": 0.9424252144508735,
+      "bias": 0.033272345869958
     },
     {
       "from": "jn038xx9588",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 359096,
-      "rmse": 0.08585475954286836,
-      "mae": 0.06305984230864604,
-      "correlation": 0.9638191448894731,
-      "bias": 0.037423978853210194
+      "rows": 358918,
+      "rmse": 0.08557547661174894,
+      "mae": 0.06285014630496523,
+      "correlation": 0.963995019918218,
+      "bias": 0.03728615252663719
     },
     {
       "from": "jn038xx9588",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 361488,
-      "rmse": 0.1036110379485873,
-      "mae": 0.06496195927488259,
-      "correlation": 0.9374723856787726,
-      "bias": 0.008853708940554914
+      "rows": 361192,
+      "rmse": 0.10377174602076142,
+      "mae": 0.0650196062781922,
+      "correlation": 0.9372834243320995,
+      "bias": 0.00865351097976568
     },
     {
       "from": "jn038xx9588",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 361488,
-      "rmse": 0.07091973265743393,
-      "mae": 0.04440052038011402,
-      "correlation": 0.9726060836736873,
-      "bias": 0.021774616417383597
+      "rows": 361192,
+      "rmse": 0.07094757122256226,
+      "mae": 0.044407465011946104,
+      "correlation": 0.972556572615881,
+      "bias": 0.02159462066563048
     },
     {
       "from": "jn038xx9588",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 430979,
-      "rmse": 0.1321555857083461,
-      "mae": 0.09275229690602232,
-      "correlation": 0.9194375585092947,
-      "bias": 0.06328886580920316
+      "rows": 432926,
+      "rmse": 0.13286786380181803,
+      "mae": 0.09320664701732473,
+      "correlation": 0.9182717488091875,
+      "bias": 0.06333877288806188
     },
     {
       "from": "jn038xx9588",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 430979,
-      "rmse": 0.12946449652401568,
-      "mae": 0.09250572843574482,
-      "correlation": 0.933441067897328,
-      "bias": 0.07901380477706711
+      "rows": 432926,
+      "rmse": 0.12952732145067197,
+      "mae": 0.09258413191568875,
+      "correlation": 0.9333330718631552,
+      "bias": 0.07901682257970216
     },
     {
       "from": "jn038xx9588",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 428723,
-      "rmse": 0.1345074792753966,
-      "mae": 0.09088387078172379,
-      "correlation": 0.9238131258973908,
-      "bias": 0.07479178750895464
+      "rows": 432540,
+      "rmse": 0.13472804710358824,
+      "mae": 0.09107824169234735,
+      "correlation": 0.923632088071948,
+      "bias": 0.07516474444667202
     },
     {
       "from": "jn038xx9588",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 428723,
-      "rmse": 0.11808810921935176,
-      "mae": 0.08212130811763262,
-      "correlation": 0.9488841698518079,
-      "bias": 0.07667709599709259
+      "rows": 432540,
+      "rmse": 0.11825819186518122,
+      "mae": 0.08236336411724872,
+      "correlation": 0.9488914943006058,
+      "bias": 0.07704238303689415
     },
     {
       "from": "kw215gn3365",
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 185245,
-      "rmse": 0.07255304594617311,
-      "mae": 0.0571878362562752,
-      "correlation": 0.9691911661541237,
-      "bias": -0.03736643574219184
+      "rows": 184277,
+      "rmse": 0.07264244261884834,
+      "mae": 0.05722864379802733,
+      "correlation": 0.9691701581547578,
+      "bias": -0.037402019909251634
     },
     {
       "from": "kw215gn3365",
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 185245,
-      "rmse": 0.07735600547191314,
-      "mae": 0.05699393467172432,
-      "correlation": 0.9677004040101003,
-      "bias": -0.03940840003093163
+      "rows": 184277,
+      "rmse": 0.08295213447372073,
+      "mae": 0.06187556432413274,
+      "correlation": 0.9669349613062299,
+      "bias": -0.045315074838960454
     },
     {
       "from": "kw215gn3365",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 184768,
-      "rmse": 0.1564465171618536,
-      "mae": 0.12797168459977265,
-      "correlation": 0.9192221827894503,
-      "bias": -0.11453698703866083
+      "rows": 183976,
+      "rmse": 0.1565293192491171,
+      "mae": 0.12802968737618864,
+      "correlation": 0.9192858132428744,
+      "bias": -0.11446296304097313
     },
     {
       "from": "kw215gn3365",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 184768,
-      "rmse": 0.16350960817812588,
-      "mae": 0.13189440064203353,
-      "correlation": 0.9174282154946156,
-      "bias": -0.12241368122089422
+      "rows": 183976,
+      "rmse": 0.16354438061731044,
+      "mae": 0.13182996398037744,
+      "correlation": 0.917480615268057,
+      "bias": -0.12232251388024303
     },
     {
       "from": "kw215gn3365",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 105293,
-      "rmse": 0.07290089737862292,
-      "mae": 0.046350889668374445,
-      "correlation": 0.9374089008105946,
-      "bias": -0.00628003955378894
+      "rows": 112703,
+      "rmse": 0.07219245692990003,
+      "mae": 0.04576717750923392,
+      "correlation": 0.9377509982977225,
+      "bias": -0.0035556275386127716
     },
     {
       "from": "kw215gn3365",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 105293,
-      "rmse": 0.050712959020459455,
-      "mae": 0.03654028083222997,
-      "correlation": 0.9738201638732417,
-      "bias": -0.0172620434570843
+      "rows": 112703,
+      "rmse": 0.05043083035724584,
+      "mae": 0.03487266774012057,
+      "correlation": 0.9732358308421515,
+      "bias": -0.01527985725321978
     },
     {
       "from": "kw215gn3365",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 74882,
-      "rmse": 0.10242303883107592,
-      "mae": 0.05944819801641973,
-      "correlation": 0.9423479839179462,
-      "bias": -0.036161162423739374
+      "rows": 74862,
+      "rmse": 0.10216132083103792,
+      "mae": 0.05931927113210145,
+      "correlation": 0.9430166007482587,
+      "bias": -0.03610516240548799
     },
     {
       "from": "kw215gn3365",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 74882,
-      "rmse": 0.08775072808423016,
-      "mae": 0.0532259819572614,
-      "correlation": 0.9698784001378172,
-      "bias": -0.0397070984356166
+      "rows": 74862,
+      "rmse": 0.08868395398538859,
+      "mae": 0.053792808626771806,
+      "correlation": 0.9698688846095049,
+      "bias": -0.04282104639135241
     },
     {
       "from": "kw215gn3365",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 183532,
-      "rmse": 0.08562518851386777,
-      "mae": 0.061144904514455437,
-      "correlation": 0.9156871416860715,
-      "bias": -0.04634176555805254
+      "rows": 185113,
+      "rmse": 0.08493007526374026,
+      "mae": 0.06087258218299966,
+      "correlation": 0.916308613712753,
+      "bias": -0.04473690562317784
     },
     {
       "from": "kw215gn3365",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 183532,
-      "rmse": 0.09067709074992994,
-      "mae": 0.0667546706811168,
-      "correlation": 0.9239736277557431,
-      "bias": -0.060090715130884036
+      "rows": 185113,
+      "rmse": 0.09105343963724201,
+      "mae": 0.0673440860358073,
+      "correlation": 0.926887665709414,
+      "bias": -0.061676145410141305
     },
     {
       "from": "kw215gn3365",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 198910,
-      "rmse": 0.11589783489902923,
-      "mae": 0.08127710185601594,
-      "correlation": 0.8798696473290386,
-      "bias": -0.07249480510913887
+      "rows": 201332,
+      "rmse": 0.11497028878061401,
+      "mae": 0.08016180289317294,
+      "correlation": 0.8813678827136678,
+      "bias": -0.07106680772036608
     },
     {
       "from": "kw215gn3365",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 198910,
-      "rmse": 0.10202033196657703,
-      "mae": 0.07375459728982349,
-      "correlation": 0.9437093992795489,
-      "bias": -0.07080275251114229
+      "rows": 201332,
+      "rmse": 0.10127376348494205,
+      "mae": 0.0728632021714101,
+      "correlation": 0.944018642018243,
+      "bias": -0.06938065612361516
     },
     {
       "from": "kw215gn3365",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 242134,
-      "rmse": 0.04684040232565242,
-      "mae": 0.020253861254281413,
-      "correlation": 0.9862770898477253,
-      "bias": 0.000868649414975957,
-      "heldOutRmse": 0.02945860651788385
+      "rows": 245536,
+      "rmse": 0.03895870280292647,
+      "mae": 0.018791943944797135,
+      "correlation": 0.9904928797081477,
+      "bias": -0.00014433329600159857,
+      "heldOutRmse": 0.024928908762387268
     },
     {
       "from": "kw215gn3365",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 242134,
-      "rmse": 0.04719164006921845,
-      "mae": 0.02028527671635961,
-      "correlation": 0.9860624133929529,
-      "bias": 0.002587498029877902,
-      "heldOutRmse": 0.029798207554820117
+      "rows": 245536,
+      "rmse": 0.039393504430627696,
+      "mae": 0.01895811178822443,
+      "correlation": 0.9902816810895348,
+      "bias": 0.0016060080337735837,
+      "heldOutRmse": 0.02549070416385385
     },
     {
       "from": "kw215gn3365",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 230048,
-      "rmse": 0.017007910190362248,
-      "mae": 0.01161779810809415,
-      "correlation": 0.997766621793847,
-      "bias": -0.00042184512201458264,
-      "heldOutRmse": 0.017511589881967014
+      "rows": 238414,
+      "rmse": 0.01682120786617375,
+      "mae": 0.011294319277198163,
+      "correlation": 0.9978048023499869,
+      "bias": -0.00024750927484804675,
+      "heldOutRmse": 0.01711969001894023
     },
     {
       "from": "kw215gn3365",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 230048,
-      "rmse": 0.05197464296112487,
-      "mae": 0.025004104410500105,
-      "correlation": 0.979051936294275,
-      "bias": 0.004464788075258618,
-      "heldOutRmse": 0.053619428106521004
+      "rows": 238414,
+      "rmse": 0.05051310425986812,
+      "mae": 0.024542338521176182,
+      "correlation": 0.9800278869848692,
+      "bias": -0.0012241600019593536,
+      "heldOutRmse": 0.05181180725716356
     },
     {
       "from": "kw215gn3365",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 359096,
-      "rmse": 0.0718547393465559,
-      "mae": 0.06000848738146568,
-      "correlation": 0.9739015446334244,
-      "bias": -0.02807654026655101
+      "rows": 358918,
+      "rmse": 0.07194140632513216,
+      "mae": 0.06010894976713184,
+      "correlation": 0.9737439434748243,
+      "bias": -0.027926114066981558
     },
     {
       "from": "kw215gn3365",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 359096,
-      "rmse": 0.06637227336580995,
-      "mae": 0.05233571993653373,
-      "correlation": 0.9788502574435103,
-      "bias": -0.02024917841534024
+      "rows": 358918,
+      "rmse": 0.06629863121220105,
+      "mae": 0.05232199095019874,
+      "correlation": 0.9788565572324754,
+      "bias": -0.02008715466779089
     },
     {
       "from": "kw215gn3365",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 361488,
-      "rmse": 0.12398832221564876,
-      "mae": 0.10182457214526199,
-      "correlation": 0.9635346961932523,
-      "bias": -0.09663986701012314
+      "rows": 361192,
+      "rmse": 0.12406000438379289,
+      "mae": 0.10181946304069647,
+      "correlation": 0.9635899873250707,
+      "bias": -0.0967539685301958
     },
     {
       "from": "kw215gn3365",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 361488,
-      "rmse": 0.11205410700233455,
-      "mae": 0.0816847971782331,
-      "correlation": 0.9580623487429594,
-      "bias": -0.07483274375611122
+      "rows": 361192,
+      "rmse": 0.11212591822885089,
+      "mae": 0.08167629129296688,
+      "correlation": 0.9581091287986648,
+      "bias": -0.07494896796227245
     },
     {
       "from": "kw215gn3365",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 430979,
-      "rmse": 0.050438719334838615,
-      "mae": 0.039764300071629025,
-      "correlation": 0.9899937961863119,
-      "bias": 0.030572018654304065
+      "rows": 432926,
+      "rmse": 0.051255188575198445,
+      "mae": 0.03998668095617973,
+      "correlation": 0.9894423061308668,
+      "bias": 0.0304889822570549
     },
     {
       "from": "kw215gn3365",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 430979,
-      "rmse": 0.04909148136907781,
-      "mae": 0.03711422931313023,
-      "correlation": 0.9913964440026077,
-      "bias": 0.0314419968586028
+      "rows": 432926,
+      "rmse": 0.04973527007088626,
+      "mae": 0.03714732798010953,
+      "correlation": 0.9909576407290114,
+      "bias": 0.03135765499543033
     },
     {
       "from": "kw215gn3365",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 428723,
-      "rmse": 0.07402765107582109,
-      "mae": 0.03455638023898751,
-      "correlation": 0.962810528193933,
-      "bias": -0.012245057365548625
+      "rows": 432540,
+      "rmse": 0.07403366790646765,
+      "mae": 0.03424143005387639,
+      "correlation": 0.9627335627671861,
+      "bias": -0.011919139686744844
     },
     {
       "from": "kw215gn3365",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 428723,
-      "rmse": 0.06937223956202675,
-      "mae": 0.03070642136792312,
-      "correlation": 0.9671694380455449,
-      "bias": -0.010430788341384297
+      "rows": 432540,
+      "rmse": 0.06969245543224793,
+      "mae": 0.030711808090248913,
+      "correlation": 0.9668004789904034,
+      "bias": -0.010131861876657867
     },
     {
       "from": "ns598kr8616",
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 185245,
-      "rmse": 0.09312427207249574,
-      "mae": 0.06637921913148583,
-      "correlation": 0.9498705024087571,
-      "bias": -0.04911676041563479
+      "rows": 184277,
+      "rmse": 0.0932604288063444,
+      "mae": 0.06649138888558928,
+      "correlation": 0.9498205713835575,
+      "bias": -0.049188002810705456
     },
     {
       "from": "ns598kr8616",
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 185245,
-      "rmse": 0.09527553445493715,
-      "mae": 0.06826392760451956,
-      "correlation": 0.948750817483364,
-      "bias": -0.05128588090303067
+      "rows": 184277,
+      "rmse": 0.10179528890224528,
+      "mae": 0.07369554796887366,
+      "correlation": 0.9467333924274268,
+      "bias": -0.058545862427137836
     },
     {
       "from": "ns598kr8616",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 184768,
-      "rmse": 0.07649345914062884,
-      "mae": 0.05186846741080576,
-      "correlation": 0.9613544135855203,
-      "bias": -0.0034342200314570414
+      "rows": 183976,
+      "rmse": 0.07736919165318827,
+      "mae": 0.05204609386779907,
+      "correlation": 0.960690488431989,
+      "bias": -0.0034213833790289216
     },
     {
       "from": "ns598kr8616",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 184768,
-      "rmse": 0.08026772641225295,
-      "mae": 0.053688535605911816,
-      "correlation": 0.955446985674207,
-      "bias": -0.0039660551724287185
+      "rows": 183976,
+      "rmse": 0.08090632753487184,
+      "mae": 0.05368547391005983,
+      "correlation": 0.9549693054504667,
+      "bias": -0.003953740312211225
     },
     {
       "from": "ns598kr8616",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 105293,
-      "rmse": 0.06358817191176071,
-      "mae": 0.04173063203939825,
-      "correlation": 0.9535665132304616,
-      "bias": -0.000847609745240341
+      "rows": 112703,
+      "rmse": 0.06251984268035135,
+      "mae": 0.04001173667300305,
+      "correlation": 0.9546755163415711,
+      "bias": 0.00029374630283543235
     },
     {
       "from": "ns598kr8616",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 105293,
-      "rmse": 0.054940858973999945,
-      "mae": 0.037932818353521455,
-      "correlation": 0.9657949628903003,
-      "bias": 0.0029194873313022323
+      "rows": 112703,
+      "rmse": 0.05435000170078804,
+      "mae": 0.03617227163007322,
+      "correlation": 0.9661646089909787,
+      "bias": 0.003545832479225819
     },
     {
       "from": "ns598kr8616",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 74882,
-      "rmse": 0.0761153345510901,
-      "mae": 0.06458556424320505,
-      "correlation": 0.977427949765543,
-      "bias": 0.04351229526327773
+      "rows": 74862,
+      "rmse": 0.07581035812668611,
+      "mae": 0.06451371121694074,
+      "correlation": 0.9779143195306508,
+      "bias": 0.04349902183962572
     },
     {
       "from": "ns598kr8616",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 74882,
-      "rmse": 0.06497411974309664,
-      "mae": 0.05776091556055581,
-      "correlation": 0.9852417349008019,
-      "bias": 0.029961197233617877
+      "rows": 74862,
+      "rmse": 0.06430919153281277,
+      "mae": 0.05714867986619016,
+      "correlation": 0.9853684314237753,
+      "bias": 0.02908317611795405
     },
     {
       "from": "ns598kr8616",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 183532,
-      "rmse": 0.07479511454479756,
-      "mae": 0.04963249345627762,
-      "correlation": 0.9296557985936081,
-      "bias": -0.030136956446865676
+      "rows": 185113,
+      "rmse": 0.07408553249808812,
+      "mae": 0.049069086490201974,
+      "correlation": 0.9312172081531536,
+      "bias": -0.028969127162088028
     },
     {
       "from": "ns598kr8616",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 183532,
-      "rmse": 0.07160517130015696,
-      "mae": 0.04754573065802379,
-      "correlation": 0.9400572576635924,
-      "bias": -0.03118259990706274
+      "rows": 185113,
+      "rmse": 0.07176933257146277,
+      "mae": 0.04731340727439263,
+      "correlation": 0.9410349692051128,
+      "bias": -0.032441188158887024
     },
     {
       "from": "ns598kr8616",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 198910,
-      "rmse": 0.08200938045610202,
-      "mae": 0.05779657528893357,
-      "correlation": 0.8980049850752858,
-      "bias": -0.008860283152011952
+      "rows": 201332,
+      "rmse": 0.0818702189909911,
+      "mae": 0.05807045624222388,
+      "correlation": 0.899048062710371,
+      "bias": -0.007474353473183353
     },
     {
       "from": "ns598kr8616",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 198910,
-      "rmse": 0.06536604015009073,
-      "mae": 0.050938659291455725,
-      "correlation": 0.9468050226064837,
-      "bias": -0.016586397890325368
+      "rows": 201332,
+      "rmse": 0.06547117826456933,
+      "mae": 0.051220111423499075,
+      "correlation": 0.9467260061460636,
+      "bias": -0.01530048752737856
     },
     {
       "from": "ns598kr8616",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 242134,
-      "rmse": 0.07656732618722174,
-      "mae": 0.05429782022098564,
-      "correlation": 0.9627177410683332,
-      "bias": -0.0016583377754071586
+      "rows": 245536,
+      "rmse": 0.07098871950298066,
+      "mae": 0.05126335564558881,
+      "correlation": 0.968116447520006,
+      "bias": -0.0028172383822638344
     },
     {
       "from": "ns598kr8616",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 242134,
-      "rmse": 0.07432604906614283,
-      "mae": 0.05031661571797167,
-      "correlation": 0.9652879024697013,
-      "bias": 0.009380199185466707
+      "rows": 245536,
+      "rmse": 0.06961001886970772,
+      "mae": 0.04823958478011656,
+      "correlation": 0.9699486052951154,
+      "bias": 0.008481139484307584
     },
     {
       "from": "ns598kr8616",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 230048,
-      "rmse": 0.11811563587188303,
-      "mae": 0.09752856300725012,
-      "correlation": 0.9659408902219743,
-      "bias": 0.09509650912982368
+      "rows": 238414,
+      "rmse": 0.1174876209759584,
+      "mae": 0.09715349585247253,
+      "correlation": 0.9660442297651812,
+      "bias": 0.09462136354075024
     },
     {
       "from": "ns598kr8616",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 230048,
-      "rmse": 0.10933510929049048,
-      "mae": 0.0859443744048275,
-      "correlation": 0.9667763236973563,
-      "bias": 0.08584842999969303
+      "rows": 238414,
+      "rmse": 0.10706969649725774,
+      "mae": 0.08393107241115218,
+      "correlation": 0.9678824363214507,
+      "bias": 0.08383099802594313
     },
     {
       "from": "ns598kr8616",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 359096,
-      "rmse": 0.02695253246826016,
-      "mae": 0.018437447680977822,
-      "correlation": 0.9956714923409394,
-      "bias": 0.0004646963656574901,
-      "heldOutRmse": 0.02324610033054631
+      "rows": 358918,
+      "rmse": 0.026760000792977183,
+      "mae": 0.018273224008369098,
+      "correlation": 0.995726798560224,
+      "bias": 0.00047300912311318115,
+      "heldOutRmse": 0.023398713996276736
     },
     {
       "from": "ns598kr8616",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 359096,
-      "rmse": 0.02902709003446814,
-      "mae": 0.01960287417452302,
-      "correlation": 0.9950401023471772,
-      "bias": 0.00271108993269399,
-      "heldOutRmse": 0.02599028804466215
+      "rows": 358918,
+      "rmse": 0.028527230596522412,
+      "mae": 0.019282777350912845,
+      "correlation": 0.995203810482039,
+      "bias": 0.002701893574008044,
+      "heldOutRmse": 0.025724788371680865
     },
     {
       "from": "ns598kr8616",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 361488,
-      "rmse": 0.052111985421467014,
-      "mae": 0.026380187775063457,
-      "correlation": 0.9838300087520373,
-      "bias": -0.003373313217669369,
-      "heldOutRmse": 0.04388084355875341
+      "rows": 361192,
+      "rmse": 0.05226712834088642,
+      "mae": 0.026402502003957662,
+      "correlation": 0.9837509121208444,
+      "bias": -0.0035208830877575125,
+      "heldOutRmse": 0.04393966357465567
     },
     {
       "from": "ns598kr8616",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 361488,
-      "rmse": 0.053243141891775564,
-      "mae": 0.02691923504484442,
-      "correlation": 0.9830962399563444,
-      "bias": -0.0028914563390689536,
-      "heldOutRmse": 0.04500186096923296
+      "rows": 361192,
+      "rmse": 0.05328772636329114,
+      "mae": 0.026882049040314514,
+      "correlation": 0.9830867802475898,
+      "bias": -0.0030405845778474134,
+      "heldOutRmse": 0.044914883259907085
     },
     {
       "from": "ns598kr8616",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 430979,
-      "rmse": 0.0773159405496333,
-      "mae": 0.0571917247246955,
-      "correlation": 0.9709004644768863,
-      "bias": 0.03679504449195894
+      "rows": 432926,
+      "rmse": 0.07746233104164095,
+      "mae": 0.05716714463899936,
+      "correlation": 0.9707704882560603,
+      "bias": 0.036802892409070635
     },
     {
       "from": "ns598kr8616",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 430979,
-      "rmse": 0.08064638668879807,
-      "mae": 0.057439883837408515,
-      "correlation": 0.9707048456239453,
-      "bias": 0.04308644777097177
+      "rows": 432926,
+      "rmse": 0.08099566161851908,
+      "mae": 0.05757665031198967,
+      "correlation": 0.9703622927295265,
+      "bias": 0.043083931606544654
     },
     {
       "from": "ns598kr8616",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 428723,
-      "rmse": 0.09588558210377654,
-      "mae": 0.06974776137295645,
-      "correlation": 0.9658438549236,
-      "bias": 0.06418606498028755
+      "rows": 432540,
+      "rmse": 0.09608127913650141,
+      "mae": 0.06992360325853213,
+      "correlation": 0.9657170719313068,
+      "bias": 0.06439811514881451
     },
     {
       "from": "ns598kr8616",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 428723,
-      "rmse": 0.09356592598171075,
-      "mae": 0.06193475141680183,
-      "correlation": 0.9596756796689639,
-      "bias": 0.05394953996309469
+      "rows": 432540,
+      "rmse": 0.09388672124479147,
+      "mae": 0.0622073752835791,
+      "correlation": 0.9594448331410106,
+      "bias": 0.05424288657726651
     },
     {
       "from": "ym773gh2267",
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 185245,
-      "rmse": 0.11168470733736464,
-      "mae": 0.08476697514607225,
-      "correlation": 0.9580418457664283,
-      "bias": -0.08218056790326411
+      "rows": 184277,
+      "rmse": 0.11161852479023927,
+      "mae": 0.0847438235060192,
+      "correlation": 0.9581248015164309,
+      "bias": -0.08210038554912046
     },
     {
       "from": "ym773gh2267",
       "onto": "jq774vx6544",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 185245,
-      "rmse": 0.12805072731931944,
-      "mae": 0.09723750690266406,
-      "correlation": 0.9384147369221825,
-      "bias": -0.08648111744958736
+      "rows": 184277,
+      "rmse": 0.13445326542341818,
+      "mae": 0.10346065587093013,
+      "correlation": 0.9389964691043075,
+      "bias": -0.09318613965232637
     },
     {
       "from": "ym773gh2267",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 184768,
-      "rmse": 0.12143139823996048,
-      "mae": 0.0992536841719267,
-      "correlation": 0.9623802974518892,
-      "bias": -0.09582109716187132
+      "rows": 183976,
+      "rmse": 0.12199504931780536,
+      "mae": 0.0996175420818258,
+      "correlation": 0.9616666727523904,
+      "bias": -0.0958322344869686
     },
     {
       "from": "ym773gh2267",
       "onto": "jq774vx6544",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 184768,
-      "rmse": 0.1360186685343526,
-      "mae": 0.10737824605108374,
-      "correlation": 0.9412597661646847,
-      "bias": -0.10029781675276507
+      "rows": 183976,
+      "rmse": 0.1362742887514911,
+      "mae": 0.10750637906760932,
+      "correlation": 0.9409214941730557,
+      "bias": -0.10025940045168806
     },
     {
       "from": "ym773gh2267",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 105293,
-      "rmse": 0.08935940825994736,
-      "mae": 0.06198128137798055,
-      "correlation": 0.9272065688430663,
-      "bias": -0.04295682616576291
+      "rows": 112703,
+      "rmse": 0.0871720645437538,
+      "mae": 0.05970059269353998,
+      "correlation": 0.9271934482971732,
+      "bias": -0.03851525877621116
     },
     {
       "from": "ym773gh2267",
       "onto": "ws250sr1272",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 105293,
-      "rmse": 0.07977773000151527,
-      "mae": 0.061366009805313586,
-      "correlation": 0.9569613107116011,
-      "bias": -0.051124082159426695
+      "rows": 112703,
+      "rmse": 0.0775530340617201,
+      "mae": 0.05767925286684607,
+      "correlation": 0.9567360517577556,
+      "bias": -0.04726209450072859
     },
     {
       "from": "ym773gh2267",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 74882,
-      "rmse": 0.07402523791148957,
-      "mae": 0.04852213237111651,
-      "correlation": 0.9728240397272715,
-      "bias": -0.01890542018377287
+      "rows": 74862,
+      "rmse": 0.07383827081414523,
+      "mae": 0.048473861169273776,
+      "correlation": 0.973180210889108,
+      "bias": -0.01885521281903201
     },
     {
       "from": "ym773gh2267",
       "onto": "ws250sr1272",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 74882,
-      "rmse": 0.07179507047894128,
-      "mae": 0.04496326972851611,
-      "correlation": 0.9777943306210203,
-      "bias": -0.028254256782516713
+      "rows": 74862,
+      "rmse": 0.0724126952448422,
+      "mae": 0.045092027641286385,
+      "correlation": 0.9779285450961408,
+      "bias": -0.031296271355956376
     },
     {
       "from": "ym773gh2267",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 183532,
-      "rmse": 0.11140422567895865,
-      "mae": 0.08086107211739497,
-      "correlation": 0.8798316063303327,
-      "bias": -0.07308170555458508
+      "rows": 185113,
+      "rmse": 0.1103805663413833,
+      "mae": 0.08020232451144603,
+      "correlation": 0.8798645313515561,
+      "bias": -0.07108855669835662
     },
     {
       "from": "ym773gh2267",
       "onto": "jn038xx9588",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 183532,
-      "rmse": 0.11718656119817124,
-      "mae": 0.08748249742428904,
-      "correlation": 0.8869274856432372,
-      "bias": -0.08438022235319087
+      "rows": 185113,
+      "rmse": 0.11807186605492494,
+      "mae": 0.08870141640251575,
+      "correlation": 0.8888756195182232,
+      "bias": -0.08600997310210315
     },
     {
       "from": "ym773gh2267",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 198910,
-      "rmse": 0.09196555806436396,
-      "mae": 0.06290325419174717,
-      "correlation": 0.9135937772884393,
-      "bias": -0.05162093242882074
+      "rows": 201332,
+      "rmse": 0.0912205832957354,
+      "mae": 0.06229241301546341,
+      "correlation": 0.9146802147940785,
+      "bias": -0.0503709732009866
     },
     {
       "from": "ym773gh2267",
       "onto": "jn038xx9588",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 198910,
-      "rmse": 0.08074730844580998,
-      "mae": 0.05924279700909823,
-      "correlation": 0.9579750707335948,
-      "bias": -0.05478512967419791
+      "rows": 201332,
+      "rmse": 0.08022361642345699,
+      "mae": 0.058591907003412776,
+      "correlation": 0.9579783675328458,
+      "bias": -0.05359206608843134
     },
     {
       "from": "ym773gh2267",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 242134,
-      "rmse": 0.06143446285693229,
-      "mae": 0.039346599474784236,
-      "correlation": 0.9804834100270691,
-      "bias": -0.026282773940989518
+      "rows": 245536,
+      "rmse": 0.05534564602329625,
+      "mae": 0.03708213943710652,
+      "correlation": 0.9852467182522493,
+      "bias": -0.026790356902357412
     },
     {
       "from": "ym773gh2267",
       "onto": "kw215gn3365",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 242134,
-      "rmse": 0.06701948713160942,
-      "mae": 0.039514219166550055,
-      "correlation": 0.9742784221322207,
-      "bias": -0.02123440623218256
+      "rows": 245536,
+      "rmse": 0.06200502801598309,
+      "mae": 0.0376689651697402,
+      "correlation": 0.9787082129354144,
+      "bias": -0.02151338570301971
     },
     {
       "from": "ym773gh2267",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 230048,
-      "rmse": 0.06187916363555201,
-      "mae": 0.03614209894160971,
-      "correlation": 0.9735489389133726,
-      "bias": 0.01820809655774096
+      "rows": 238414,
+      "rmse": 0.061758390790678054,
+      "mae": 0.036054352089912735,
+      "correlation": 0.9733798161767258,
+      "bias": 0.01812717846008701
     },
     {
       "from": "ym773gh2267",
       "onto": "kw215gn3365",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 230048,
-      "rmse": 0.04962705746840387,
-      "mae": 0.02739197710812743,
-      "correlation": 0.9839345613874846,
-      "bias": 0.018249296703888532
+      "rows": 238414,
+      "rmse": 0.04697738047011687,
+      "mae": 0.025377448426763063,
+      "correlation": 0.9847972996691887,
+      "bias": 0.012373315277737903
     },
     {
       "from": "ym773gh2267",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 359096,
-      "rmse": 0.08575268993633015,
-      "mae": 0.06539352100905339,
-      "correlation": 0.9759892630143467,
-      "bias": -0.05272403677966494
+      "rows": 358918,
+      "rmse": 0.0856045442879354,
+      "mae": 0.06524358014435276,
+      "correlation": 0.9760391203679403,
+      "bias": -0.052583381954190336
     },
     {
       "from": "ym773gh2267",
       "onto": "ns598kr8616",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 359096,
-      "rmse": 0.08934535543947182,
-      "mae": 0.06579712149531548,
-      "correlation": 0.9739478380337518,
-      "bias": -0.04825268930723456
+      "rows": 358918,
+      "rmse": 0.08892936694221847,
+      "mae": 0.06545228501401566,
+      "correlation": 0.9742841603573369,
+      "bias": -0.04814293904575951
     },
     {
       "from": "ym773gh2267",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 361488,
-      "rmse": 0.10024531546152042,
-      "mae": 0.08079918570654916,
-      "correlation": 0.9740049682895368,
-      "bias": -0.07564514564791365
+      "rows": 361192,
+      "rmse": 0.10050683671838578,
+      "mae": 0.08088794499105433,
+      "correlation": 0.9738212988024806,
+      "bias": -0.07577041251222989
     },
     {
       "from": "ym773gh2267",
       "onto": "ns598kr8616",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 361488,
-      "rmse": 0.09108527511676495,
-      "mae": 0.06471999370420581,
-      "correlation": 0.9683748787877837,
-      "bias": -0.05504228446459426
+      "rows": 361192,
+      "rmse": 0.09122881096412352,
+      "mae": 0.06474606842665154,
+      "correlation": 0.9683326248189265,
+      "bias": -0.05517624790441031
     },
     {
       "from": "ym773gh2267",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "as fitted",
-      "rows": 430979,
-      "rmse": 0.018625265434670937,
-      "mae": 0.011721069277357455,
-      "correlation": 0.9978480503750708,
-      "bias": 0.00008838655451945916,
-      "heldOutRmse": 0.020765343504084464
+      "rows": 432926,
+      "rmse": 0.020030795973116362,
+      "mae": 0.011735907368130315,
+      "correlation": 0.9975085104895379,
+      "bias": -0.000011461349583141097,
+      "heldOutRmse": 0.021911601629598754
     },
     {
       "from": "ym773gh2267",
       "onto": "ym773gh2267",
       "half": "bass",
       "variant": "re-registered",
-      "rows": 430979,
-      "rmse": 0.03266801592590482,
-      "mae": 0.01697625185602599,
-      "correlation": 0.9934055198846691,
-      "bias": 0.0024333586015069125,
-      "heldOutRmse": 0.0339355780042946
+      "rows": 432926,
+      "rmse": 0.033590565935773344,
+      "mae": 0.017108948226174085,
+      "correlation": 0.9930198699394742,
+      "bias": 0.0023263804859761797,
+      "heldOutRmse": 0.03464348763244475
     },
     {
       "from": "ym773gh2267",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "as fitted",
-      "rows": 428723,
-      "rmse": 0.060759103117649524,
-      "mae": 0.02283910663772888,
-      "correlation": 0.9745790905918978,
-      "bias": 0.005381977441881415,
-      "heldOutRmse": 0.05207343778969911
+      "rows": 432540,
+      "rmse": 0.060915995939956245,
+      "mae": 0.02271709594979484,
+      "correlation": 0.9744444126715378,
+      "bias": 0.00555484867876439,
+      "heldOutRmse": 0.05194685713377842
     },
     {
       "from": "ym773gh2267",
       "onto": "ym773gh2267",
       "half": "treble",
       "variant": "re-registered",
-      "rows": 428723,
-      "rmse": 0.06281125151882791,
-      "mae": 0.024701549879716376,
-      "correlation": 0.9726980189420665,
-      "bias": 0.003145969173235824,
-      "heldOutRmse": 0.05404592369776685
+      "rows": 432540,
+      "rmse": 0.06310304447308931,
+      "mae": 0.0246592968441497,
+      "correlation": 0.9724313705530805,
+      "bias": 0.003320041723505463,
+      "heldOutRmse": 0.054085798463525736
     }
   ],
   "travel": [
@@ -4127,73 +4127,73 @@
       "druid": "jq774vx6544",
       "half": "bass",
       "recorded": 0.027949637549372196,
-      "here": 0.02772911047880131
+      "here": 0.027949637549372196
     },
     {
       "druid": "jq774vx6544",
       "half": "treble",
       "recorded": 0.03893609526900396,
-      "here": 0.03591041432419299
+      "here": 0.03893609526900396
     },
     {
       "druid": "ws250sr1272",
       "half": "bass",
       "recorded": 0.026915660365945344,
-      "here": 0.027220578096324884
+      "here": 0.026915660365945344
     },
     {
       "druid": "ws250sr1272",
       "half": "treble",
       "recorded": 0.025263212701008557,
-      "here": 0.02575353434630197
+      "here": 0.025263212701008557
     },
     {
       "druid": "jn038xx9588",
       "half": "bass",
       "recorded": 0.027920379322488056,
-      "here": 0.02966849391745868
+      "here": 0.027920379322488056
     },
     {
       "druid": "jn038xx9588",
       "half": "treble",
       "recorded": 0.03759663995849535,
-      "here": 0.03706238541680275
+      "here": 0.03759663995849535
     },
     {
       "druid": "kw215gn3365",
       "half": "bass",
       "recorded": 0.024928908762387268,
-      "here": 0.02945860651788385
+      "here": 0.024928908762387268
     },
     {
       "druid": "kw215gn3365",
       "half": "treble",
       "recorded": 0.01711969001894023,
-      "here": 0.017511589881967014
+      "here": 0.01711969001894023
     },
     {
       "druid": "ns598kr8616",
       "half": "bass",
       "recorded": 0.023398713996276733,
-      "here": 0.02324610033054631
+      "here": 0.023398713996276736
     },
     {
       "druid": "ns598kr8616",
       "half": "treble",
       "recorded": 0.04393966357465567,
-      "here": 0.04388084355875341
+      "here": 0.04393966357465567
     },
     {
       "druid": "ym773gh2267",
       "half": "bass",
       "recorded": 0.021911601629598754,
-      "here": 0.020765343504084464
+      "here": 0.021911601629598754
     },
     {
       "druid": "ym773gh2267",
       "half": "treble",
       "recorded": 0.05194685713377842,
-      "here": 0.05207343778969911
+      "here": 0.05194685713377842
     }
   ]
 }

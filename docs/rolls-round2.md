@@ -112,54 +112,54 @@ roll cannot settle is left to the fit rather than pinned at a number nothing sup
 
 | roll | half | parameter | measured | fitted | pinned | evidence |
 | --- | --- | --- | ---: | ---: | --- | --- |
-| jq774vx6544 | bass | `piano` | 0.0175 | 0.0229 | yes | rest histogram over 185245 observed rows |
-| jq774vx6544 | bass | `forte` | 0.9125 | 0.9053 | yes | rest histogram over 185245 observed rows |
-| jq774vx6544 | bass | `mezzoforte` | 0.6053 | 0.6868 | yes | 151 arrivals, sd 0.0087 |
-| jq774vx6544 | bass | `leadRows` | -65.0000 | -69.0275 | yes | 222 collapses, iqr 3.0 |
-| jq774vx6544 | treble | `piano` | 0.0225 | 0.0247 | yes | rest histogram over 184768 observed rows |
-| jq774vx6544 | treble | `forte` | 0.9525 | 0.9461 | yes | rest histogram over 184768 observed rows |
-| jq774vx6544 | treble | `mezzoforte` | 0.6467 | 0.7462 | yes | 112 arrivals, sd 0.0078 |
-| jq774vx6544 | treble | `leadRows` | -46.0000 | -58.2248 | yes | 274 collapses, iqr 7.0 |
-| ws250sr1272 | bass | `piano` | 0.0225 | 0.0123 | yes | rest histogram over 105293 observed rows |
-| ws250sr1272 | bass | `forte` | 0.8025 | 0.8350 | yes | rest histogram over 105293 observed rows |
-| ws250sr1272 | bass | `mezzoforte` | 0.6368 | 0.7336 | left to the fit | 5 arrivals, sd 0.0054 |
-| ws250sr1272 | bass | `leadRows` | -41.0000 | -43.5147 | yes | 112 collapses, iqr 5.3 |
-| ws250sr1272 | treble | `piano` | 0.0225 | 0.0039 | yes | rest histogram over 74882 observed rows |
-| ws250sr1272 | treble | `forte` | 0.8575 | 0.9234 | yes | rest histogram over 74882 observed rows |
+| jq774vx6544 | bass | `piano` | -0.0125 | 0.0229 | yes | rest histogram over 184277 observed rows |
+| jq774vx6544 | bass | `forte` | 0.9125 | 0.9053 | yes | rest histogram over 184277 observed rows |
+| jq774vx6544 | bass | `mezzoforte` | 0.6056 | 0.6868 | yes | 149 arrivals, sd 0.0077 |
+| jq774vx6544 | bass | `leadRows` | -65.0000 | -69.0275 | yes | 221 collapses, iqr 3.0 |
+| jq774vx6544 | treble | `piano` | 0.0225 | 0.0247 | yes | rest histogram over 183976 observed rows |
+| jq774vx6544 | treble | `forte` | 0.9525 | 0.9461 | yes | rest histogram over 183976 observed rows |
+| jq774vx6544 | treble | `mezzoforte` | 0.6478 | 0.7462 | yes | 107 arrivals, sd 0.0076 |
+| jq774vx6544 | treble | `leadRows` | -46.0000 | -58.2248 | yes | 268 collapses, iqr 7.0 |
+| ws250sr1272 | bass | `piano` | 0.0225 | 0.0123 | yes | rest histogram over 112703 observed rows |
+| ws250sr1272 | bass | `forte` | 0.8025 | 0.8350 | yes | rest histogram over 112703 observed rows |
+| ws250sr1272 | bass | `mezzoforte` | 0.6369 | 0.7336 | left to the fit | 4 arrivals, sd 0.0047 |
+| ws250sr1272 | bass | `leadRows` | -41.0000 | -43.5147 | yes | 124 collapses, iqr 5.3 |
+| ws250sr1272 | treble | `piano` | 0.0175 | 0.0039 | yes | rest histogram over 74862 observed rows |
+| ws250sr1272 | treble | `forte` | 0.8575 | 0.9234 | yes | rest histogram over 74862 observed rows |
 | ws250sr1272 | treble | `mezzoforte` | 0.6810 | 0.7499 | left to the fit | 8 arrivals, sd 0.0031 |
-| ws250sr1272 | treble | `leadRows` | -60.5000 | -62.9143 | yes | 42 collapses, iqr 5.0 |
-| jn038xx9588 | bass | `piano` | 0.0225 | -0.0130 | yes | rest histogram over 183532 observed rows |
-| jn038xx9588 | bass | `forte` | 0.8975 | 0.8725 | yes | rest histogram over 183532 observed rows |
+| ws250sr1272 | treble | `leadRows` | -60.0000 | -62.9143 | yes | 39 collapses, iqr 5.0 |
+| jn038xx9588 | bass | `piano` | 0.0175 | -0.0130 | yes | rest histogram over 185113 observed rows |
+| jn038xx9588 | bass | `forte` | 0.8975 | 0.8725 | yes | rest histogram over 185113 observed rows |
 | jn038xx9588 | bass | `mezzoforte` | — | 0.7062 | left to the fit | 0 arrivals, sd — |
-| jn038xx9588 | bass | `leadRows` | -79.0000 | -84.9847 | yes | 32 collapses, iqr 5.3 |
-| jn038xx9588 | treble | `piano` | 0.0325 | 0.0199 | yes | rest histogram over 198910 observed rows |
-| jn038xx9588 | treble | `forte` | 0.8875 | 0.9057 | yes | rest histogram over 198910 observed rows |
+| jn038xx9588 | bass | `leadRows` | -78.0000 | -84.9847 | yes | 32 collapses, iqr 6.3 |
+| jn038xx9588 | treble | `piano` | 0.0325 | 0.0199 | yes | rest histogram over 201332 observed rows |
+| jn038xx9588 | treble | `forte` | 0.8875 | 0.9057 | yes | rest histogram over 201332 observed rows |
 | jn038xx9588 | treble | `mezzoforte` | — | 0.7500 | left to the fit | 0 arrivals, sd — |
-| jn038xx9588 | treble | `leadRows` | -85.0000 | -85.2523 | yes | 58 collapses, iqr 5.0 |
-| kw215gn3365 | bass | `piano` | 0.0475 | 0.0442 | yes | rest histogram over 242134 observed rows |
-| kw215gn3365 | bass | `forte` | 0.8675 | 0.8629 | yes | rest histogram over 242134 observed rows |
-| kw215gn3365 | bass | `mezzoforte` | 0.6571 | 0.6864 | yes | 45 arrivals, sd 0.0130 |
-| kw215gn3365 | bass | `leadRows` | -63.0000 | -65.2006 | yes | 125 collapses, iqr 6.0 |
-| kw215gn3365 | treble | `piano` | 0.0375 | 0.0284 | yes | rest histogram over 230048 observed rows |
-| kw215gn3365 | treble | `forte` | 0.8725 | 0.8668 | yes | rest histogram over 230048 observed rows |
-| kw215gn3365 | treble | `mezzoforte` | 0.5686 | 0.6718 | yes | 39 arrivals, sd 0.0248 |
-| kw215gn3365 | treble | `leadRows` | -19.0000 | -39.3026 | yes | 320 collapses, iqr 6.0 |
-| ns598kr8616 | bass | `piano` | 0.0325 | 0.0259 | yes | rest histogram over 359096 observed rows |
-| ns598kr8616 | bass | `forte` | 0.9225 | 0.9108 | yes | rest histogram over 359096 observed rows |
-| ns598kr8616 | bass | `mezzoforte` | 0.5542 | 0.6656 | yes | 111 arrivals, sd 0.0395 |
-| ns598kr8616 | bass | `leadRows` | -61.0000 | -65.2248 | yes | 139 collapses, iqr 5.0 |
-| ns598kr8616 | treble | `piano` | 0.0875 | 0.0740 | yes | rest histogram over 361488 observed rows |
-| ns598kr8616 | treble | `forte` | 0.9225 | 0.9274 | yes | rest histogram over 361488 observed rows |
-| ns598kr8616 | treble | `mezzoforte` | 0.6197 | 0.6872 | yes | 126 arrivals, sd 0.0289 |
-| ns598kr8616 | treble | `leadRows` | -44.0000 | -49.5522 | yes | 227 collapses, iqr 9.5 |
-| ym773gh2267 | bass | `piano` | 0.0425 | 0.0383 | yes | rest histogram over 430979 observed rows |
-| ym773gh2267 | bass | `forte` | 0.8925 | 0.8818 | yes | rest histogram over 430979 observed rows |
-| ym773gh2267 | bass | `mezzoforte` | 0.5865 | 0.6582 | yes | 87 arrivals, sd 0.0091 |
-| ym773gh2267 | bass | `leadRows` | -60.0000 | -74.1046 | yes | 196 collapses, iqr 4.0 |
-| ym773gh2267 | treble | `piano` | 0.0325 | 0.0373 | yes | rest histogram over 428723 observed rows |
-| ym773gh2267 | treble | `forte` | 0.8625 | 0.8715 | yes | rest histogram over 428723 observed rows |
-| ym773gh2267 | treble | `mezzoforte` | 0.5627 | 0.6415 | yes | 136 arrivals, sd 0.0091 |
-| ym773gh2267 | treble | `leadRows` | -46.0000 | -53.3686 | yes | 271 collapses, iqr 5.5 |
+| jn038xx9588 | treble | `leadRows` | -85.0000 | -85.2523 | yes | 58 collapses, iqr 4.8 |
+| kw215gn3365 | bass | `piano` | 0.0475 | 0.0442 | yes | rest histogram over 245536 observed rows |
+| kw215gn3365 | bass | `forte` | 0.8675 | 0.8629 | yes | rest histogram over 245536 observed rows |
+| kw215gn3365 | bass | `mezzoforte` | 0.6572 | 0.6864 | yes | 47 arrivals, sd 0.0141 |
+| kw215gn3365 | bass | `leadRows` | -62.0000 | -65.2006 | yes | 123 collapses, iqr 5.5 |
+| kw215gn3365 | treble | `piano` | 0.0275 | 0.0284 | yes | rest histogram over 238414 observed rows |
+| kw215gn3365 | treble | `forte` | 0.8725 | 0.8668 | yes | rest histogram over 238414 observed rows |
+| kw215gn3365 | treble | `mezzoforte` | 0.5686 | 0.6718 | yes | 39 arrivals, sd 0.0249 |
+| kw215gn3365 | treble | `leadRows` | -19.0000 | -39.3026 | yes | 331 collapses, iqr 6.0 |
+| ns598kr8616 | bass | `piano` | 0.0325 | 0.0259 | yes | rest histogram over 358918 observed rows |
+| ns598kr8616 | bass | `forte` | 0.9225 | 0.9108 | yes | rest histogram over 358918 observed rows |
+| ns598kr8616 | bass | `mezzoforte` | 0.5563 | 0.6656 | yes | 118 arrivals, sd 0.0475 |
+| ns598kr8616 | bass | `leadRows` | -61.0000 | -65.2248 | yes | 135 collapses, iqr 4.0 |
+| ns598kr8616 | treble | `piano` | 0.0875 | 0.0740 | yes | rest histogram over 361192 observed rows |
+| ns598kr8616 | treble | `forte` | 0.9225 | 0.9274 | yes | rest histogram over 361192 observed rows |
+| ns598kr8616 | treble | `mezzoforte` | 0.6197 | 0.6872 | yes | 128 arrivals, sd 0.0288 |
+| ns598kr8616 | treble | `leadRows` | -44.0000 | -49.5522 | yes | 224 collapses, iqr 10.0 |
+| ym773gh2267 | bass | `piano` | 0.0425 | 0.0383 | yes | rest histogram over 432926 observed rows |
+| ym773gh2267 | bass | `forte` | 0.8925 | 0.8818 | yes | rest histogram over 432926 observed rows |
+| ym773gh2267 | bass | `mezzoforte` | 0.5865 | 0.6582 | yes | 85 arrivals, sd 0.0092 |
+| ym773gh2267 | bass | `leadRows` | -59.0000 | -74.1046 | yes | 197 collapses, iqr 4.0 |
+| ym773gh2267 | treble | `piano` | 0.0325 | 0.0373 | yes | rest histogram over 432540 observed rows |
+| ym773gh2267 | treble | `forte` | 0.8625 | 0.8715 | yes | rest histogram over 432540 observed rows |
+| ym773gh2267 | treble | `mezzoforte` | 0.5622 | 0.6415 | yes | 156 arrivals, sd 0.0089 |
+| ym773gh2267 | treble | `leadRows` | -45.5000 | -53.3686 | yes | 270 collapses, iqr 5.0 |
 
 Held-out agreement, on the alternating blocks the fit never saw. The recomputed column runs the
 recorded parameters through the model again on the same mask, so a roll whose two RMSE columns
@@ -167,18 +167,18 @@ disagree has a fit file written under code that no longer produces it.
 
 | roll | half | rows | RMSE | RMSE recomputed | MAE | r | bias | seeds | summed RMSE between seeds |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| jq774vx6544 | bass | 90234 | 0.0279 | 0.0277 | 0.0186 | 0.994 | -0.0067 | 1, 2 | 0.0004 |
-| jq774vx6544 | treble | 90501 | 0.0389 | 0.0359 | 0.0200 | 0.989 | -0.0021 | 1, 2 | 0.0004 |
-| ws250sr1272 | bass | 57110 | 0.0269 | 0.0272 | 0.0170 | 0.992 | -0.0041 | 1, 2 | 0.0054 |
-| ws250sr1272 | treble | 38401 | 0.0253 | 0.0258 | 0.0184 | 0.995 | -0.0007 | 1, 2 | 0.0054 |
-| jn038xx9588 | bass | 91469 | 0.0279 | 0.0297 | 0.0205 | 0.984 | -0.0044 | 1, 2 | 0.0001 |
-| jn038xx9588 | treble | 99788 | 0.0376 | 0.0371 | 0.0261 | 0.977 | -0.0072 | 1, 2 | 0.0001 |
-| kw215gn3365 | bass | 121203 | 0.0249 | 0.0295 | 0.0172 | 0.996 | -0.0033 | 1, 2 | 0.0011 |
-| kw215gn3365 | treble | 117653 | 0.0171 | 0.0175 | 0.0114 | 0.998 | -0.0002 | 1, 2 | 0.0011 |
-| ns598kr8616 | bass | 179505 | 0.0234 | 0.0232 | 0.0175 | 0.997 | 0.0013 | 1, 2 | 0.0001 |
+| jq774vx6544 | bass | 90234 | 0.0279 | 0.0279 | 0.0186 | 0.994 | -0.0067 | 1, 2 | 0.0004 |
+| jq774vx6544 | treble | 90501 | 0.0389 | 0.0389 | 0.0200 | 0.989 | -0.0021 | 1, 2 | 0.0004 |
+| ws250sr1272 | bass | 57110 | 0.0269 | 0.0269 | 0.0170 | 0.992 | -0.0041 | 1, 2 | 0.0054 |
+| ws250sr1272 | treble | 38401 | 0.0253 | 0.0253 | 0.0184 | 0.995 | -0.0007 | 1, 2 | 0.0054 |
+| jn038xx9588 | bass | 91469 | 0.0279 | 0.0279 | 0.0205 | 0.984 | -0.0044 | 1, 2 | 0.0001 |
+| jn038xx9588 | treble | 99788 | 0.0376 | 0.0376 | 0.0261 | 0.977 | -0.0072 | 1, 2 | 0.0001 |
+| kw215gn3365 | bass | 121203 | 0.0249 | 0.0249 | 0.0172 | 0.996 | -0.0033 | 1, 2 | 0.0011 |
+| kw215gn3365 | treble | 117653 | 0.0171 | 0.0171 | 0.0114 | 0.998 | -0.0002 | 1, 2 | 0.0011 |
+| ns598kr8616 | bass | 179505 | 0.0234 | 0.0234 | 0.0175 | 0.997 | 0.0013 | 1, 2 | 0.0001 |
 | ns598kr8616 | treble | 179137 | 0.0439 | 0.0439 | 0.0247 | 0.989 | -0.0036 | 1, 2 | 0.0001 |
-| ym773gh2267 | bass | 215322 | 0.0219 | 0.0208 | 0.0128 | 0.997 | -0.0001 | 1, 2 | 0.0019 |
-| ym773gh2267 | treble | 215810 | 0.0519 | 0.0521 | 0.0216 | 0.982 | 0.0056 | 1, 2 | 0.0019 |
+| ym773gh2267 | bass | 215322 | 0.0219 | 0.0219 | 0.0128 | 0.997 | -0.0001 | 1, 2 | 0.0019 |
+| ym773gh2267 | treble | 215810 | 0.0519 | 0.0519 | 0.0216 | 0.982 | 0.0056 | 1, 2 | 0.0019 |
 
 ## 2. Transfer
 
@@ -198,45 +198,45 @@ measures them, and taking them from the column's fit would make the transfer par
 
 | constants of ↓ on → | jq774vx6544 | ws250sr1272 | jn038xx9588 | kw215gn3365 | ns598kr8616 | ym773gh2267 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| jq774vx6544 | 0.0325 (0.0277) | 0.0856 | 0.0574 | 0.0657 | 0.0618 | 0.0763 |
-| ws250sr1272 | 0.1001 | 0.0253 (0.0272) | 0.0804 | 0.0764 | 0.0989 | 0.0813 |
-| jn038xx9588 | 0.1052 | 0.1292 | 0.0294 (0.0297) | 0.1078 | 0.1029 | 0.1322 |
-| kw215gn3365 | 0.0726 | 0.0729 | 0.0856 | 0.0468 (0.0295) | 0.0719 | 0.0504 |
-| ns598kr8616 | 0.0931 | 0.0636 | 0.0748 | 0.0766 | 0.0270 (0.0232) | 0.0773 |
-| ym773gh2267 | 0.1117 | 0.0894 | 0.1114 | 0.0614 | 0.0858 | 0.0186 (0.0208) |
+| jq774vx6544 | 0.0326 (0.0279) | 0.0837 | 0.0566 | 0.0584 | 0.0619 | 0.0769 |
+| ws250sr1272 | 0.1001 | 0.0250 (0.0269) | 0.0797 | 0.0708 | 0.0986 | 0.0811 |
+| jn038xx9588 | 0.1048 | 0.1254 | 0.0284 (0.0279) | 0.1038 | 0.1031 | 0.1329 |
+| kw215gn3365 | 0.0726 | 0.0722 | 0.0849 | 0.0390 (0.0249) | 0.0719 | 0.0513 |
+| ns598kr8616 | 0.0933 | 0.0625 | 0.0741 | 0.0710 | 0.0268 (0.0234) | 0.0775 |
+| ym773gh2267 | 0.1116 | 0.0872 | 0.1104 | 0.0553 | 0.0856 | 0.0200 (0.0219) |
 
 **as fitted, treble**
 
 | constants of ↓ on → | jq774vx6544 | ws250sr1272 | jn038xx9588 | kw215gn3365 | ns598kr8616 | ym773gh2267 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| jq774vx6544 | 0.0435 (0.0359) | 0.0690 | 0.0867 | 0.1067 | 0.0761 | 0.0956 |
-| ws250sr1272 | 0.1137 | 0.0233 (0.0258) | 0.0708 | 0.1388 | 0.0790 | 0.1131 |
-| jn038xx9588 | 0.1552 | 0.0703 | 0.0333 (0.0371) | 0.1730 | 0.1036 | 0.1345 |
-| kw215gn3365 | 0.1564 | 0.1024 | 0.1159 | 0.0170 (0.0175) | 0.1240 | 0.0740 |
-| ns598kr8616 | 0.0765 | 0.0761 | 0.0820 | 0.1181 | 0.0521 (0.0439) | 0.0959 |
-| ym773gh2267 | 0.1214 | 0.0740 | 0.0920 | 0.0619 | 0.1002 | 0.0608 (0.0521) |
+| jq774vx6544 | 0.0452 (0.0389) | 0.0686 | 0.0861 | 0.1053 | 0.0762 | 0.0958 |
+| ws250sr1272 | 0.1144 | 0.0230 (0.0253) | 0.0701 | 0.1375 | 0.0793 | 0.1133 |
+| jn038xx9588 | 0.1555 | 0.0704 | 0.0337 (0.0376) | 0.1715 | 0.1038 | 0.1347 |
+| kw215gn3365 | 0.1565 | 0.1022 | 0.1150 | 0.0168 (0.0171) | 0.1241 | 0.0740 |
+| ns598kr8616 | 0.0774 | 0.0758 | 0.0819 | 0.1175 | 0.0523 (0.0439) | 0.0961 |
+| ym773gh2267 | 0.1220 | 0.0738 | 0.0912 | 0.0618 | 0.1005 | 0.0609 (0.0519) |
 
 **re-registered, bass**
 
 | constants of ↓ on → | jq774vx6544 | ws250sr1272 | jn038xx9588 | kw215gn3365 | ns598kr8616 | ym773gh2267 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| jq774vx6544 | 0.0371 (0.0330) | 0.0573 | 0.0565 | 0.0678 | 0.0593 | 0.0794 |
-| ws250sr1272 | 0.0706 | 0.0276 (0.0294) | 0.0712 | 0.0574 | 0.0917 | 0.0744 |
-| jn038xx9588 | 0.0801 | 0.0915 | 0.0327 (0.0316) | 0.1029 | 0.0859 | 0.1295 |
-| kw215gn3365 | 0.0774 | 0.0507 | 0.0907 | 0.0472 (0.0298) | 0.0664 | 0.0491 |
-| ns598kr8616 | 0.0953 | 0.0549 | 0.0716 | 0.0743 | 0.0290 (0.0260) | 0.0806 |
-| ym773gh2267 | 0.1281 | 0.0798 | 0.1172 | 0.0670 | 0.0893 | 0.0327 (0.0339) |
+| jq774vx6544 | 0.0402 (0.0370) | 0.0566 | 0.0557 | 0.0616 | 0.0591 | 0.0797 |
+| ws250sr1272 | 0.0747 | 0.0271 (0.0289) | 0.0720 | 0.0517 | 0.0917 | 0.0747 |
+| jn038xx9588 | 0.0801 | 0.0886 | 0.0314 (0.0298) | 0.0984 | 0.0856 | 0.1295 |
+| kw215gn3365 | 0.0830 | 0.0504 | 0.0911 | 0.0394 (0.0255) | 0.0663 | 0.0497 |
+| ns598kr8616 | 0.1018 | 0.0544 | 0.0718 | 0.0696 | 0.0285 (0.0257) | 0.0810 |
+| ym773gh2267 | 0.1345 | 0.0776 | 0.1181 | 0.0620 | 0.0889 | 0.0336 (0.0346) |
 
 **re-registered, treble**
 
 | constants of ↓ on → | jq774vx6544 | ws250sr1272 | jn038xx9588 | kw215gn3365 | ns598kr8616 | ym773gh2267 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| jq774vx6544 | 0.0683 (0.0636) | 0.0691 | 0.0710 | 0.1163 | 0.0729 | 0.1039 |
-| ws250sr1272 | 0.1007 | 0.0307 (0.0319) | 0.0513 | 0.1172 | 0.0666 | 0.1127 |
-| jn038xx9588 | 0.0874 | 0.0475 | 0.0334 (0.0367) | 0.1289 | 0.0709 | 0.1181 |
-| kw215gn3365 | 0.1635 | 0.0878 | 0.1020 | 0.0520 (0.0536) | 0.1121 | 0.0694 |
-| ns598kr8616 | 0.0803 | 0.0650 | 0.0654 | 0.1093 | 0.0532 (0.0450) | 0.0936 |
-| ym773gh2267 | 0.1360 | 0.0718 | 0.0807 | 0.0496 | 0.0911 | 0.0628 (0.0540) |
+| jq774vx6544 | 0.0689 (0.0645) | 0.0684 | 0.0706 | 0.1120 | 0.0728 | 0.1043 |
+| ws250sr1272 | 0.1013 | 0.0294 (0.0303) | 0.0510 | 0.1144 | 0.0666 | 0.1130 |
+| jn038xx9588 | 0.0881 | 0.0462 | 0.0339 (0.0373) | 0.1262 | 0.0709 | 0.1183 |
+| kw215gn3365 | 0.1635 | 0.0887 | 0.1013 | 0.0505 (0.0518) | 0.1121 | 0.0697 |
+| ns598kr8616 | 0.0809 | 0.0643 | 0.0655 | 0.1071 | 0.0533 (0.0449) | 0.0939 |
+| ym773gh2267 | 0.1363 | 0.0724 | 0.0802 | 0.0470 | 0.0912 | 0.0631 (0.0541) |
 
 ## 3. Travel times
 
