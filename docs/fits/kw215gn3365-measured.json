@@ -1,0 +1,58 @@
+{
+  "druid": "kw215gn3365",
+  "mfThickness": 0.06,
+  "measured": {
+    "bass": {
+      "half": "bass",
+      "rails": {
+        "piano": 0.0475,
+        "forte": 0.8425
+      },
+      "hook": {
+        "level": 0.60922,
+        "arrivals": 5,
+        "spread": 0.00919143818996788,
+        "plateau": 0.608785
+      },
+      "lead": {
+        "aheadRows": 56.5,
+        "falls": 10,
+        "iqrRows": 2.5
+      },
+      "observedRows": 57372
+    },
+    "treble": {
+      "half": "treble",
+      "rails": {
+        "piano": 0.02750000000000001,
+        "forte": 0.8725
+      },
+      "hook": {
+        "level": 0.530115,
+        "arrivals": 3,
+        "spread": 0.0004639743766871645,
+        "plateau": 0.5306200000000001
+      },
+      "lead": {
+        "aheadRows": 19,
+        "falls": 151,
+        "iqrRows": 3
+      },
+      "observedRows": 61915
+    }
+  },
+  "parameters": {
+    "bass": {
+      "piano": 0.0475,
+      "forte": 0.8425,
+      "mezzoforte": 0.63922,
+      "leadRows": -56.5
+    },
+    "treble": {
+      "piano": 0.02750000000000001,
+      "forte": 0.8725,
+      "mezzoforte": 0.560115,
+      "leadRows": -19
+    }
+  }
+}

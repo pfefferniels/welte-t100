@@ -1,0 +1,127 @@
+{
+  "model": "pneumatic",
+  "druid": "ym773gh2267",
+  "ports": "aperture",
+  "generations": 320,
+  "seed": 2,
+  "measured": {
+    "bass": {
+      "piano": 0.04250000000000001,
+      "forte": 0.8925000000000001,
+      "mezzoforte": 0.5865400000000001,
+      "leadRows": -60
+    },
+    "treble": {
+      "piano": 0.0325,
+      "forte": 0.8625,
+      "mezzoforte": 0.562725,
+      "leadRows": -46
+    }
+  },
+  "results": [
+    {
+      "half": "bass",
+      "params": {
+        "alpha": 1.4344626111157306,
+        "piano": 0.03858271583728122,
+        "forte": 0.8820301344287348,
+        "mezzoforte": 0.6636249818672241,
+        "crescendoRate": 0.9267851457829362,
+        "crescendoTarget": 0.7687886219927061,
+        "releaseRate": 0.8106231539816133,
+        "releaseTarget": -0.48266650715335835,
+        "sforzandoRate": 1.0535732929105976,
+        "sforzandoTarget": 2.5048621765855636,
+        "sforzandoAssistRate": 26.29218542531953,
+        "tripThreshold": 0.381052664455714,
+        "membraneFillMs": 4.728587056908753,
+        "assistFillMs": 19.245545140986174,
+        "valveTailMs": 188.5464570233536,
+        "inertiaMs": 13.60245419374259,
+        "leadRows": -72.71563492765954,
+        "leadSforzandoOnRows": -2.3428065888479663,
+        "leadCrescendoRows": 20.991250531596897,
+        "leadMezzoforteRows": 12.637396980999089,
+        "leadPerLevelRows": 7.285440707398526,
+        "leadDriftRows": 0.8410033148760446,
+        "valveBand": 0.388749609823033,
+        "throughFlowLoad": 0.06864217255874726,
+        "scaleWarp": 0.8692285921809279,
+        "stopRestitution": 0.7649966072192508,
+        "assistLatches": 0.42615773973028376
+      },
+      "train": {
+        "n": 217306,
+        "rmse": 0.01638270711877855,
+        "mae": 0.010810845068856705,
+        "medianAbs": 0.007027433060903358,
+        "p90Abs": 0.02515959468293627,
+        "bias": -0.0000016178148819398575,
+        "correlation": 0.9983200362913908
+      },
+      "test": {
+        "n": 213673,
+        "rmse": 0.02035967296473836,
+        "mae": 0.012637746271562524,
+        "medianAbs": 0.008308942056127366,
+        "p90Abs": 0.02763728416271878,
+        "bias": -0.00020592185189187762,
+        "correlation": 0.9974535938210259
+      },
+      "evaluations": 61250,
+      "seconds": 7130.871055757001
+    },
+    {
+      "half": "treble",
+      "params": {
+        "alpha": 1.0266050609099164,
+        "piano": 0.037966733648789365,
+        "forte": 0.8704439872029572,
+        "mezzoforte": 0.6510298861915912,
+        "crescendoRate": 0.5868497345381252,
+        "crescendoTarget": 0.8011134706974907,
+        "releaseRate": 0.6264692902900911,
+        "releaseTarget": -0.17862191591255364,
+        "sforzandoRate": 1.1072150719171674,
+        "sforzandoTarget": 2.985772882310373,
+        "sforzandoAssistRate": 51.01238986300183,
+        "tripThreshold": 0.15734847497863638,
+        "membraneFillMs": 4.7691363370291615,
+        "assistFillMs": 35.871957224416754,
+        "valveTailMs": 67.4864032493461,
+        "inertiaMs": 12.232207216036004,
+        "leadRows": -53.59264972251128,
+        "leadSforzandoOnRows": -3.571373179054542,
+        "leadCrescendoRows": 22.53778004267827,
+        "leadMezzoforteRows": 5.9989798762972635,
+        "leadPerLevelRows": -1.5182815485991015,
+        "leadDriftRows": -3.264869113072762,
+        "valveBand": 0.4908968417088204,
+        "throughFlowLoad": 0.24658060196313952,
+        "scaleWarp": 1.0253638831800922,
+        "stopRestitution": 0.2097852111742846,
+        "assistLatches": 0.017628170430939914
+      },
+      "train": {
+        "n": 214510,
+        "rmse": 0.06837693373431099,
+        "mae": 0.023591097451344387,
+        "medianAbs": 0.008823659130928557,
+        "p90Abs": 0.038766480294732744,
+        "bias": 0.005500281147414612,
+        "correlation": 0.9662781840520033
+      },
+      "test": {
+        "n": 214213,
+        "rmse": 0.052815593555053164,
+        "mae": 0.02140616925670266,
+        "medianAbs": 0.009855464299908578,
+        "p90Abs": 0.04085668922061199,
+        "bias": 0.0054095925619162665,
+        "correlation": 0.9816529242679176
+      },
+      "evaluations": 59659,
+      "seconds": 6596.104662761999
+    }
+  ]
+}

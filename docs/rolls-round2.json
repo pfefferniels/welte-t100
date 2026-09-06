@@ -1,0 +1,4199 @@
+{
+  "model": "pneumatic",
+  "rolls": [
+    {
+      "druid": "jq774vx6544",
+      "fit": "docs/fit-pneumatic.json",
+      "ports": "aperture",
+      "seed": 2,
+      "generations": 320,
+      "rows": 198630,
+      "axis": "spool, 22.25 cm at 100 % effect",
+      "measured": {
+        "bass": {
+          "half": "bass",
+          "rails": {
+            "piano": 0.0175,
+            "forte": 0.9125000000000001
+          },
+          "hook": {
+            "level": 0.57528,
+            "arrivals": 151,
+            "spread": 0.008706953477923052,
+            "plateau": 0.57534
+          },
+          "lead": {
+            "aheadRows": 65,
+            "falls": 222,
+            "iqrRows": 3
+          },
+          "observedRows": 185245
+        },
+        "treble": {
+          "half": "treble",
+          "rails": {
+            "piano": 0.022500000000000006,
+            "forte": 0.9524999999999999
+          },
+          "hook": {
+            "level": 0.6167,
+            "arrivals": 112,
+            "spread": 0.00784745356389066,
+            "plateau": 0.61707
+          },
+          "lead": {
+            "aheadRows": 46,
+            "falls": 274,
+            "iqrRows": 7
+          },
+          "observedRows": 184768
+        }
+      },
+      "constants": {
+        "bass": {
+          "piano": {
+            "value": 0.0175,
+            "pinned": true,
+            "evidence": "rest histogram over 185245 observed rows"
+          },
+          "forte": {
+            "value": 0.9125000000000001,
+            "pinned": true,
+            "evidence": "rest histogram over 185245 observed rows"
+          },
+          "mezzoforte": {
+            "value": 0.60528,
+            "pinned": true,
+            "evidence": "151 arrivals, sd 0.0087"
+          },
+          "leadRows": {
+            "value": -65,
+            "pinned": true,
+            "evidence": "222 collapses, iqr 3.0"
+          }
+        },
+        "treble": {
+          "piano": {
+            "value": 0.022500000000000006,
+            "pinned": true,
+            "evidence": "rest histogram over 184768 observed rows"
+          },
+          "forte": {
+            "value": 0.9524999999999999,
+            "pinned": true,
+            "evidence": "rest histogram over 184768 observed rows"
+          },
+          "mezzoforte": {
+            "value": 0.6467,
+            "pinned": true,
+            "evidence": "112 arrivals, sd 0.0078"
+          },
+          "leadRows": {
+            "value": -46,
+            "pinned": true,
+            "evidence": "274 collapses, iqr 7.0"
+          }
+        }
+      },
+      "registration": {
+        "bass": {
+          "piano": 0.0175,
+          "forte": 0.9125000000000001,
+          "leadRows": -65
+        },
+        "treble": {
+          "piano": 0.022500000000000006,
+          "forte": 0.9524999999999999,
+          "leadRows": -46
+        }
+      },
+      "spread": {
+        "seeds": [
+          1,
+          2
+        ],
+        "perParameter": {
+          "bass": {
+            "alpha": 0.028357676446280067,
+            "piano": 0.003193995502695904,
+            "forte": 0.00044849269585689466,
+            "mezzoforte": 0.0011298202422262982,
+            "crescendoRate": 0.010039649583773125,
+            "crescendoTarget": 0.002405160905089021,
+            "releaseRate": 0.01603088559154231,
+            "releaseTarget": 0.01641343207769297,
+            "sforzandoRate": 0.004894724442849219,
+            "sforzandoTarget": 0.056627375512105615,
+            "sforzandoAssistRate": 3.368834295025838,
+            "assistYields": null,
+            "tripThreshold": 0.09819275716601839,
+            "membraneFillMs": 2.0655670826242685,
+            "assistFillMs": 3.185636454074614,
+            "valveTailMs": 33.29291126746958,
+            "inertiaMs": 2.357475210504326,
+            "leadRows": 0.971411671768621,
+            "leadSforzandoOnRows": 1.9565354469910146,
+            "leadCrescendoRows": 0.7675446248406672,
+            "leadMezzoforteRows": 2.990716262413141,
+            "leadPerLevelRows": 1.7588746152052712,
+            "leadDriftRows": 1.8353171812296138,
+            "valveBand": 0.016124682169274117,
+            "assistBand": null,
+            "throughFlowLoad": 0.002614237018141591,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.007558805783448808,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.5283660242056303,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.171109490919393,
+            "sforzandoSetsCrescendo": null
+          },
+          "treble": {
+            "alpha": 0.20061701120174624,
+            "piano": 0.0023640426671804084,
+            "forte": 0.001378675402120666,
+            "mezzoforte": 0.0010159335018621318,
+            "crescendoRate": 0.092142430590614,
+            "crescendoTarget": 0.015532454204046586,
+            "releaseRate": 0.12680173191892352,
+            "releaseTarget": 0.12540514272293687,
+            "sforzandoRate": 0.35537111598702187,
+            "sforzandoTarget": 0.24889265311316588,
+            "sforzandoAssistRate": 1.7052447515186273,
+            "assistYields": null,
+            "tripThreshold": 0.01150092170132512,
+            "membraneFillMs": 2.4532225999302604,
+            "assistFillMs": 7.8158758525254655,
+            "valveTailMs": 0.4398881538025492,
+            "inertiaMs": 0.9375329478646304,
+            "leadRows": 0.5179436835979487,
+            "leadSforzandoOnRows": 0.4387701969781439,
+            "leadCrescendoRows": 1.1573621274112225,
+            "leadMezzoforteRows": 0.3909774813867717,
+            "leadPerLevelRows": 0.5185969522838532,
+            "leadDriftRows": 1.087421003088787,
+            "valveBand": 0.02156248497086176,
+            "assistBand": null,
+            "throughFlowLoad": 0.010818438135583891,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.019811979363427712,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.42675957454996016,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.072176222669115,
+            "sforzandoSetsCrescendo": null
+          }
+        },
+        "heldOutRmse": 0.00044219354049564175
+      },
+      "fitted": {
+        "bass": {
+          "half": "bass",
+          "params": {
+            "alpha": 1.3753897503179497,
+            "piano": 0.022925311445034218,
+            "forte": 0.9052944484382052,
+            "mezzoforte": 0.6867853730764747,
+            "crescendoRate": 1.4102565368935032,
+            "crescendoTarget": 0.8109226817867798,
+            "releaseRate": 0.759702896209881,
+            "releaseTarget": -0.3787647830629013,
+            "sforzandoRate": 1.3041986586692285,
+            "sforzandoTarget": 2.690826600175721,
+            "sforzandoAssistRate": 20.515724440397697,
+            "tripThreshold": 0.5150781472736814,
+            "membraneFillMs": 1.1976701383581876,
+            "assistFillMs": 5.437240241661528,
+            "valveTailMs": 136.8890277080961,
+            "inertiaMs": 14.40474260155289,
+            "leadRows": -69.02749972663631,
+            "leadSforzandoOnRows": -6.546260700615664,
+            "leadCrescendoRows": 5.706458059227272,
+            "leadMezzoforteRows": 20.32867898749967,
+            "leadPerLevelRows": -4.24590574047105,
+            "leadDriftRows": 2.0721415900987914,
+            "valveBand": 0.031226680340826707,
+            "throughFlowLoad": 0.12268969107938457,
+            "scaleWarp": 0.8627367556070249,
+            "stopRestitution": 0.5520592556424853,
+            "assistLatches": 0.22806244017685492
+          },
+          "train": {
+            "n": 94043,
+            "rmse": 0.036439116739641716,
+            "mae": 0.017986084486344603,
+            "medianAbs": 0.00995461948142018,
+            "p90Abs": 0.03734531144503422,
+            "bias": -0.0017668272931232474,
+            "correlation": 0.9883343129195019
+          },
+          "test": {
+            "n": 90234,
+            "rmse": 0.027949637549372196,
+            "mae": 0.01858914023055157,
+            "medianAbs": 0.012624646276619966,
+            "p90Abs": 0.040772922286404674,
+            "bias": -0.00669162447943861,
+            "correlation": 0.9943858508665937
+          },
+          "evaluations": 60889,
+          "seconds": 3109.860950357
+        },
+        "treble": {
+          "half": "treble",
+          "params": {
+            "alpha": 1.4562716664522777,
+            "piano": 0.024731194226742102,
+            "forte": 0.9461403849688977,
+            "mezzoforte": 0.7462064112635833,
+            "crescendoRate": 0.88872648989904,
+            "crescendoTarget": 0.8893009189814434,
+            "releaseRate": 0.6417641832095125,
+            "releaseTarget": -0.340249459313231,
+            "sforzandoRate": 0.9883870597372126,
+            "sforzandoTarget": 2.948699028918186,
+            "sforzandoAssistRate": 59.18492431778076,
+            "tripThreshold": 0.11474313790947367,
+            "membraneFillMs": 16.457412230742076,
+            "assistFillMs": 61.48654744083201,
+            "valveTailMs": 48.16442253720956,
+            "inertiaMs": 12.591509511853948,
+            "leadRows": -58.22477436146371,
+            "leadSforzandoOnRows": -3.7417525285603355,
+            "leadCrescendoRows": 2.004611751030706,
+            "leadMezzoforteRows": -8.803636268673005,
+            "leadPerLevelRows": -3.937555576498985,
+            "leadDriftRows": 11.127474332011795,
+            "valveBand": 0.0326495974082437,
+            "throughFlowLoad": 0.1348332614944883,
+            "scaleWarp": 1.0568276454581165,
+            "stopRestitution": 0.14275126953131037,
+            "assistLatches": 0.4163269935898984
+          },
+          "train": {
+            "n": 93475,
+            "rmse": 0.050466049797404246,
+            "mae": 0.01966944295721782,
+            "medianAbs": 0.008153034558144867,
+            "p90Abs": 0.03903498929309496,
+            "bias": -0.004123358368178682,
+            "correlation": 0.9824850836991287
+          },
+          "test": {
+            "n": 90501,
+            "rmse": 0.03893609526900396,
+            "mae": 0.020031185168099604,
+            "medianAbs": 0.010408432094331177,
+            "p90Abs": 0.04614718405020968,
+            "bias": -0.0021009438189485137,
+            "correlation": 0.9893288654588325
+          },
+          "evaluations": 60900,
+          "seconds": 3144.909872164
+        }
+      }
+    },
+    {
+      "druid": "ws250sr1272",
+      "fit": "docs/fits-round2/ws250sr1272.json",
+      "ports": "aperture",
+      "seed": 1,
+      "generations": 320,
+      "rows": 144882,
+      "axis": "spool, 22.25 cm at 100 % effect",
+      "measured": {
+        "bass": {
+          "half": "bass",
+          "rails": {
+            "piano": 0.022500000000000006,
+            "forte": 0.8025
+          },
+          "hook": {
+            "level": 0.60684,
+            "arrivals": 5,
+            "spread": 0.005413130702283109,
+            "plateau": 0.61443
+          },
+          "lead": {
+            "aheadRows": 41,
+            "falls": 112,
+            "iqrRows": 5.25
+          },
+          "observedRows": 105293
+        },
+        "treble": {
+          "half": "treble",
+          "rails": {
+            "piano": 0.022500000000000006,
+            "forte": 0.8574999999999999
+          },
+          "hook": {
+            "level": 0.6510199999999999,
+            "arrivals": 8,
+            "spread": 0.0031311337303762884,
+            "plateau": 0.652285
+          },
+          "lead": {
+            "aheadRows": 60.5,
+            "falls": 42,
+            "iqrRows": 5
+          },
+          "observedRows": 74882
+        }
+      },
+      "constants": {
+        "bass": {
+          "piano": {
+            "value": 0.022500000000000006,
+            "pinned": true,
+            "evidence": "rest histogram over 105293 observed rows"
+          },
+          "forte": {
+            "value": 0.8025,
+            "pinned": true,
+            "evidence": "rest histogram over 105293 observed rows"
+          },
+          "mezzoforte": {
+            "value": 0.6368400000000001,
+            "pinned": false,
+            "evidence": "5 arrivals, sd 0.0054"
+          },
+          "leadRows": {
+            "value": -41,
+            "pinned": true,
+            "evidence": "112 collapses, iqr 5.3"
+          }
+        },
+        "treble": {
+          "piano": {
+            "value": 0.022500000000000006,
+            "pinned": true,
+            "evidence": "rest histogram over 74882 observed rows"
+          },
+          "forte": {
+            "value": 0.8574999999999999,
+            "pinned": true,
+            "evidence": "rest histogram over 74882 observed rows"
+          },
+          "mezzoforte": {
+            "value": 0.68102,
+            "pinned": false,
+            "evidence": "8 arrivals, sd 0.0031"
+          },
+          "leadRows": {
+            "value": -60.5,
+            "pinned": true,
+            "evidence": "42 collapses, iqr 5.0"
+          }
+        }
+      },
+      "registration": {
+        "bass": {
+          "piano": 0.022500000000000006,
+          "forte": 0.8025,
+          "leadRows": -41
+        },
+        "treble": {
+          "piano": 0.022500000000000006,
+          "forte": 0.8574999999999999,
+          "leadRows": -60.5
+        }
+      },
+      "spread": {
+        "seeds": [
+          1,
+          2
+        ],
+        "perParameter": {
+          "bass": {
+            "alpha": 0.04436036241503183,
+            "piano": 0.0067633358174715285,
+            "forte": 0.010058453133962253,
+            "mezzoforte": 0.01639516222243842,
+            "crescendoRate": 0.10715274935194918,
+            "crescendoTarget": 0.0135584861534076,
+            "releaseRate": 0.20179357319404745,
+            "releaseTarget": 0.2938220917469692,
+            "sforzandoRate": 2.4076911230111606,
+            "sforzandoTarget": 0.495731511693666,
+            "sforzandoAssistRate": 32.37137890817442,
+            "assistYields": null,
+            "tripThreshold": 0.31119096976486066,
+            "membraneFillMs": 6.458592968899005,
+            "assistFillMs": 128.25956596695346,
+            "valveTailMs": 62.47863208938592,
+            "inertiaMs": 25.184267196203216,
+            "leadRows": 17.11108281626305,
+            "leadSforzandoOnRows": 14.896845845116037,
+            "leadCrescendoRows": 5.255371368527442,
+            "leadMezzoforteRows": 8.338807138888182,
+            "leadPerLevelRows": 0.12119092721476044,
+            "leadDriftRows": 0.6550842167190654,
+            "valveBand": 0.46223067834906056,
+            "assistBand": null,
+            "throughFlowLoad": 0.19999153471405012,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.35841536807317564,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.5279624471946189,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.09743797391855408,
+            "sforzandoSetsCrescendo": null
+          },
+          "treble": {
+            "alpha": 0.059446022807602805,
+            "piano": 0.0033636473967766337,
+            "forte": 0.02291905153392615,
+            "mezzoforte": 0.00006225490488176444,
+            "crescendoRate": 0.16573873772604086,
+            "crescendoTarget": 0.6454315977781773,
+            "releaseRate": 0.027889111421843915,
+            "releaseTarget": 0.0013985666233026443,
+            "sforzandoRate": 0.4752930353947722,
+            "sforzandoTarget": 0.3557877314917324,
+            "sforzandoAssistRate": 6.723029734284141,
+            "assistYields": null,
+            "tripThreshold": 0.0644157495161749,
+            "membraneFillMs": 27.28156038569219,
+            "assistFillMs": 20.71082609609726,
+            "valveTailMs": 9.13517991878632,
+            "inertiaMs": 12.206676862149264,
+            "leadRows": 2.3807141324399197,
+            "leadSforzandoOnRows": 5.836454872464627,
+            "leadCrescendoRows": 0.9385593187788039,
+            "leadMezzoforteRows": 15.031843175917757,
+            "leadPerLevelRows": 10.974373969463738,
+            "leadDriftRows": 4.667396076347214,
+            "valveBand": 0.05300160479116289,
+            "assistBand": null,
+            "throughFlowLoad": 0.0011679413591214962,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.10223748620122408,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.11075561704482628,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.43202523325080827,
+            "sforzandoSetsCrescendo": null
+          }
+        },
+        "heldOutRmse": 0.005408169294408016
+      },
+      "fitted": {
+        "bass": {
+          "half": "bass",
+          "params": {
+            "alpha": 0.5986591805950746,
+            "piano": 0.012259241782441374,
+            "forte": 0.8349546104843978,
+            "mezzoforte": 0.7336048377775616,
+            "crescendoRate": 0.9917221733372535,
+            "crescendoTarget": 0.7269903975910269,
+            "releaseRate": 0.7724606768267346,
+            "releaseTarget": -0.11146887941103623,
+            "sforzandoRate": 3.50511300635562,
+            "sforzandoTarget": 1.4828185787703763,
+            "sforzandoAssistRate": 15.351974108205276,
+            "tripThreshold": 0.35157103183107796,
+            "membraneFillMs": 6.608208348303952,
+            "assistFillMs": 0.7012316932931585,
+            "valveTailMs": 104.03296926701138,
+            "inertiaMs": 0.18961429453759185,
+            "leadRows": -43.51469925881616,
+            "leadSforzandoOnRows": -2.7894000416930718,
+            "leadCrescendoRows": 28.546683676238167,
+            "leadMezzoforteRows": 3.117169951376648,
+            "leadPerLevelRows": 10.126149096628906,
+            "leadDriftRows": 1.9311367697140718,
+            "valveBand": 0.03860755294448585,
+            "throughFlowLoad": 0.31996200192427654,
+            "scaleWarp": 1.5510512785510209,
+            "stopRestitution": 0.09817094453358158,
+            "assistLatches": 0.16967490353051407
+          },
+          "train": {
+            "n": 55593,
+            "rmse": 0.02280197539059227,
+            "mae": 0.014690866904783318,
+            "medianAbs": 0.009854348691990727,
+            "p90Abs": 0.030186440900262856,
+            "bias": -0.0005427463216510439,
+            "correlation": 0.9939967265066704
+          },
+          "test": {
+            "n": 57110,
+            "rmse": 0.026915660365945344,
+            "mae": 0.017000849927945604,
+            "medianAbs": 0.011580836610633732,
+            "p90Abs": 0.03338464806936933,
+            "bias": -0.004052653806460295,
+            "correlation": 0.9917833018479453
+          },
+          "evaluations": 61862,
+          "seconds": 2325.717273066
+        },
+        "treble": {
+          "half": "treble",
+          "params": {
+            "alpha": 0.5553733873671571,
+            "piano": 0.0038580224879900837,
+            "forte": 0.923432206721633,
+            "mezzoforte": 0.7499377450951182,
+            "crescendoRate": 0.44291837481693,
+            "crescendoTarget": 0.8907589709849764,
+            "releaseRate": 0.49485667843432135,
+            "releaseTarget": -0.016069649807894684,
+            "sforzandoRate": 4.712365142850964,
+            "sforzandoTarget": 1.8206712552369728,
+            "sforzandoAssistRate": 19.5072719687111,
+            "tripThreshold": 0.015524185246200356,
+            "membraneFillMs": 26.84144668956461,
+            "assistFillMs": 29.09839685810336,
+            "valveTailMs": 21.558257729797052,
+            "inertiaMs": 0.06882390422728812,
+            "leadRows": -62.91427186447177,
+            "leadSforzandoOnRows": -7.473743709164097,
+            "leadCrescendoRows": 24.337968855045652,
+            "leadMezzoforteRows": -34.78530303550898,
+            "leadPerLevelRows": 8.157335376837558,
+            "leadDriftRows": -0.0068132818357079334,
+            "valveBand": 0.9962125455437741,
+            "throughFlowLoad": 0.0014695243137342097,
+            "scaleWarp": 1.1051547136369322,
+            "stopRestitution": 0.516463075379122,
+            "assistLatches": 0.4891776765124187
+          },
+          "train": {
+            "n": 36461,
+            "rmse": 0.020232940698114536,
+            "mae": 0.014920842963284924,
+            "medianAbs": 0.011892778928906613,
+            "p90Abs": 0.030373197814610637,
+            "bias": -0.0019097790655819395,
+            "correlation": 0.9973895638845524
+          },
+          "test": {
+            "n": 38401,
+            "rmse": 0.025263212701008557,
+            "mae": 0.01837435409768913,
+            "medianAbs": 0.014631977512009916,
+            "p90Abs": 0.03764431502876364,
+            "bias": -0.0006672200091240589,
+            "correlation": 0.9945592116809809
+          },
+          "evaluations": 61942,
+          "seconds": 2338.6195096059996
+        }
+      }
+    },
+    {
+      "druid": "jn038xx9588",
+      "fit": "docs/fits-round2/jn038xx9588.json",
+      "ports": "aperture",
+      "seed": 1,
+      "generations": 320,
+      "rows": 212390,
+      "axis": "spool, 22.25 cm at 100 % effect",
+      "measured": {
+        "bass": {
+          "half": "bass",
+          "rails": {
+            "piano": 0.022500000000000006,
+            "forte": 0.8975
+          },
+          "hook": {
+            "level": null,
+            "arrivals": 0,
+            "spread": null,
+            "plateau": null
+          },
+          "lead": {
+            "aheadRows": 79,
+            "falls": 32,
+            "iqrRows": 5.25
+          },
+          "observedRows": 183532
+        },
+        "treble": {
+          "half": "treble",
+          "rails": {
+            "piano": 0.0325,
+            "forte": 0.8875
+          },
+          "hook": {
+            "level": null,
+            "arrivals": 0,
+            "spread": null,
+            "plateau": null
+          },
+          "lead": {
+            "aheadRows": 85,
+            "falls": 58,
+            "iqrRows": 5
+          },
+          "observedRows": 198910
+        }
+      },
+      "constants": {
+        "bass": {
+          "piano": {
+            "value": 0.022500000000000006,
+            "pinned": true,
+            "evidence": "rest histogram over 183532 observed rows"
+          },
+          "forte": {
+            "value": 0.8975,
+            "pinned": true,
+            "evidence": "rest histogram over 183532 observed rows"
+          },
+          "mezzoforte": {
+            "value": null,
+            "pinned": false,
+            "evidence": "0 arrivals, sd —"
+          },
+          "leadRows": {
+            "value": -79,
+            "pinned": true,
+            "evidence": "32 collapses, iqr 5.3"
+          }
+        },
+        "treble": {
+          "piano": {
+            "value": 0.0325,
+            "pinned": true,
+            "evidence": "rest histogram over 198910 observed rows"
+          },
+          "forte": {
+            "value": 0.8875,
+            "pinned": true,
+            "evidence": "rest histogram over 198910 observed rows"
+          },
+          "mezzoforte": {
+            "value": null,
+            "pinned": false,
+            "evidence": "0 arrivals, sd —"
+          },
+          "leadRows": {
+            "value": -85,
+            "pinned": true,
+            "evidence": "58 collapses, iqr 5.0"
+          }
+        }
+      },
+      "registration": {
+        "bass": {
+          "piano": 0.022500000000000006,
+          "forte": 0.8975,
+          "leadRows": -79
+        },
+        "treble": {
+          "piano": 0.0325,
+          "forte": 0.8875,
+          "leadRows": -85
+        }
+      },
+      "spread": {
+        "seeds": [
+          1,
+          2
+        ],
+        "perParameter": {
+          "bass": {
+            "alpha": 0.008089697739498414,
+            "piano": 0.010187465442354339,
+            "forte": 0.003110133249974556,
+            "mezzoforte": 0.0011522963876622327,
+            "crescendoRate": 0.004552763329814136,
+            "crescendoTarget": 0.0031099259099216514,
+            "releaseRate": 0.008577744140184196,
+            "releaseTarget": 0.03287378708431935,
+            "sforzandoRate": 13.895409105758755,
+            "sforzandoTarget": 0.7040287133551792,
+            "sforzandoAssistRate": 2.264919831299398,
+            "assistYields": null,
+            "tripThreshold": 0.11845053612512611,
+            "membraneFillMs": 66.00507804555802,
+            "assistFillMs": 2.592003447580435,
+            "valveTailMs": 31.35206250248215,
+            "inertiaMs": 6.833060252574976,
+            "leadRows": 3.8994117958841628,
+            "leadSforzandoOnRows": 1.7534134616893633,
+            "leadCrescendoRows": 2.8508968421710605,
+            "leadMezzoforteRows": 73.21099184137252,
+            "leadPerLevelRows": 10.92010257079355,
+            "leadDriftRows": 1.1963477518475605,
+            "valveBand": 0.12773904566379257,
+            "assistBand": null,
+            "throughFlowLoad": 0.516834608916731,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.062248917162220696,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.5122199093471322,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.019765412686299267,
+            "sforzandoSetsCrescendo": null
+          },
+          "treble": {
+            "alpha": 0.0052541373133738745,
+            "piano": 0.0007165058773134017,
+            "forte": 0.0057848265449118585,
+            "mezzoforte": 0.0000959822160934154,
+            "crescendoRate": 0.015792854245418764,
+            "crescendoTarget": 0.0170721547310686,
+            "releaseRate": 0.013038575385510565,
+            "releaseTarget": 0.001182633725310158,
+            "sforzandoRate": 0.18879361285517549,
+            "sforzandoTarget": 0.1735722706908085,
+            "sforzandoAssistRate": 1.6237400889301057,
+            "assistYields": null,
+            "tripThreshold": 0.15301060294538865,
+            "membraneFillMs": 0.17798421877386333,
+            "assistFillMs": 12.458176656785046,
+            "valveTailMs": 18.007676614184852,
+            "inertiaMs": 0.5129166371543608,
+            "leadRows": 0.06655518820279838,
+            "leadSforzandoOnRows": 0.7488559952908362,
+            "leadCrescendoRows": 1.2690147991689003,
+            "leadMezzoforteRows": 50.495311410675136,
+            "leadPerLevelRows": 2.3314614017320334,
+            "leadDriftRows": 2.0871223794068428,
+            "valveBand": 0.0631259786545939,
+            "assistBand": null,
+            "throughFlowLoad": 0.04416047061556838,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.07030442407443971,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.08973354327578553,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.04071373523580343,
+            "sforzandoSetsCrescendo": null
+          }
+        },
+        "heldOutRmse": 0.00009305705009890475
+      },
+      "fitted": {
+        "bass": {
+          "half": "bass",
+          "params": {
+            "alpha": 0.623021688731388,
+            "piano": -0.013002266270750781,
+            "forte": 0.8725373172141988,
+            "mezzoforte": 0.7061656373993694,
+            "crescendoRate": 1.0390622718147,
+            "crescendoTarget": 0.8725372718263442,
+            "releaseRate": 0.714471580297587,
+            "releaseTarget": -0.01300234104197625,
+            "sforzandoRate": 3.750057752831064,
+            "sforzandoTarget": 1.9742411112125082,
+            "sforzandoAssistRate": 18.417134743115284,
+            "tripThreshold": 0.12573934358857738,
+            "membraneFillMs": 0.010607991485944074,
+            "assistFillMs": 18.54425983576697,
+            "valveTailMs": 57.04444942965624,
+            "inertiaMs": 0.44808674708809615,
+            "leadRows": -84.9847349297471,
+            "leadSforzandoOnRows": 6.954182918377451,
+            "leadCrescendoRows": 23.14160599045472,
+            "leadMezzoforteRows": 39.084098579961505,
+            "leadPerLevelRows": 1.590766751404856,
+            "leadDriftRows": 2.0138257085782962,
+            "valveBand": 0.829817363579754,
+            "throughFlowLoad": 0.5722407730223007,
+            "scaleWarp": 1.8309000408626956,
+            "stopRestitution": 0.573469863962232,
+            "assistLatches": 0.042412279154238716
+          },
+          "train": {
+            "n": 93644,
+            "rmse": 0.02880462514113154,
+            "mae": 0.02087592223896908,
+            "medianAbs": 0.015121368369889452,
+            "p90Abs": 0.045997552862757425,
+            "bias": 0.0003491774088164261,
+            "correlation": 0.9880296754919898
+          },
+          "test": {
+            "n": 91469,
+            "rmse": 0.027920379322488056,
+            "mae": 0.02047410961364335,
+            "medianAbs": 0.015950820972635837,
+            "p90Abs": 0.04126201368808859,
+            "bias": -0.004437648001521771,
+            "correlation": 0.9841959669807243
+          },
+          "evaluations": 61885,
+          "seconds": 3495.4878024869995
+        },
+        "treble": {
+          "half": "treble",
+          "params": {
+            "alpha": 0.69197135646717,
+            "piano": 0.019867770068754165,
+            "forte": 0.9057272216506992,
+            "mezzoforte": 0.7499701118229172,
+            "crescendoRate": 0.5035316899609049,
+            "crescendoTarget": 0.9069182838124715,
+            "releaseRate": 0.5548317454634166,
+            "releaseTarget": 0.02419325741190212,
+            "sforzandoRate": 2.2692911742351716,
+            "sforzandoTarget": 2.933658794931059,
+            "sforzandoAssistRate": 23.674911279282984,
+            "tripThreshold": 0.21876236043479055,
+            "membraneFillMs": 0.002977016942287941,
+            "assistFillMs": 27.735272586230383,
+            "valveTailMs": 55.540464764755065,
+            "inertiaMs": 1.5485433341136334,
+            "leadRows": -85.25226269348475,
+            "leadSforzandoOnRows": -8.372282627962324,
+            "leadCrescendoRows": 13.647867366403325,
+            "leadMezzoforteRows": -10.330842635710956,
+            "leadPerLevelRows": 3.9820326201222516,
+            "leadDriftRows": -10.9508805983208,
+            "valveBand": 0.8970841712554891,
+            "throughFlowLoad": 0.6717767802925171,
+            "scaleWarp": 1.2960271839201034,
+            "stopRestitution": 0.6203804794743545,
+            "assistLatches": 0.029731440671444093
+          },
+          "train": {
+            "n": 101544,
+            "rmse": 0.029273783444304088,
+            "mae": 0.020462249291467626,
+            "medianAbs": 0.01326353854729869,
+            "p90Abs": 0.04764056695280121,
+            "bias": 0.00006876273131868927,
+            "correlation": 0.9877705567875601
+          },
+          "test": {
+            "n": 99788,
+            "rmse": 0.03759663995849535,
+            "mae": 0.026053720457027536,
+            "medianAbs": 0.01629958456193604,
+            "p90Abs": 0.06260955325394445,
+            "bias": -0.007237618420866728,
+            "correlation": 0.9767700740269292
+          },
+          "evaluations": 61767,
+          "seconds": 3408.7263006820003
+        }
+      }
+    },
+    {
+      "druid": "kw215gn3365",
+      "fit": "docs/fits-round2/kw215gn3365.json",
+      "ports": "aperture",
+      "seed": 2,
+      "generations": 320,
+      "rows": 252498,
+      "axis": "spool, 22.25 cm at 100 % effect",
+      "measured": {
+        "bass": {
+          "half": "bass",
+          "rails": {
+            "piano": 0.0475,
+            "forte": 0.8674999999999999
+          },
+          "hook": {
+            "level": 0.62707,
+            "arrivals": 45,
+            "spread": 0.012998279116867741,
+            "plateau": 0.62335
+          },
+          "lead": {
+            "aheadRows": 63,
+            "falls": 125,
+            "iqrRows": 6
+          },
+          "observedRows": 242134
+        },
+        "treble": {
+          "half": "treble",
+          "rails": {
+            "piano": 0.037500000000000006,
+            "forte": 0.8725
+          },
+          "hook": {
+            "level": 0.53858,
+            "arrivals": 39,
+            "spread": 0.024826998129607765,
+            "plateau": 0.54481
+          },
+          "lead": {
+            "aheadRows": 19,
+            "falls": 320,
+            "iqrRows": 6
+          },
+          "observedRows": 230048
+        }
+      },
+      "constants": {
+        "bass": {
+          "piano": {
+            "value": 0.0475,
+            "pinned": true,
+            "evidence": "rest histogram over 242134 observed rows"
+          },
+          "forte": {
+            "value": 0.8674999999999999,
+            "pinned": true,
+            "evidence": "rest histogram over 242134 observed rows"
+          },
+          "mezzoforte": {
+            "value": 0.65707,
+            "pinned": true,
+            "evidence": "45 arrivals, sd 0.0130"
+          },
+          "leadRows": {
+            "value": -63,
+            "pinned": true,
+            "evidence": "125 collapses, iqr 6.0"
+          }
+        },
+        "treble": {
+          "piano": {
+            "value": 0.037500000000000006,
+            "pinned": true,
+            "evidence": "rest histogram over 230048 observed rows"
+          },
+          "forte": {
+            "value": 0.8725,
+            "pinned": true,
+            "evidence": "rest histogram over 230048 observed rows"
+          },
+          "mezzoforte": {
+            "value": 0.56858,
+            "pinned": true,
+            "evidence": "39 arrivals, sd 0.0248"
+          },
+          "leadRows": {
+            "value": -19,
+            "pinned": true,
+            "evidence": "320 collapses, iqr 6.0"
+          }
+        }
+      },
+      "registration": {
+        "bass": {
+          "piano": 0.0475,
+          "forte": 0.8674999999999999,
+          "leadRows": -63
+        },
+        "treble": {
+          "piano": 0.037500000000000006,
+          "forte": 0.8725,
+          "leadRows": -19
+        }
+      },
+      "spread": {
+        "seeds": [
+          1,
+          2
+        ],
+        "perParameter": {
+          "bass": {
+            "alpha": 0.0002939700480149021,
+            "piano": 0.00024664666212772385,
+            "forte": 0.001702534898823882,
+            "mezzoforte": 0.012388808649490657,
+            "crescendoRate": 0.05894207911912808,
+            "crescendoTarget": 0.006895456903908026,
+            "releaseRate": 0.004423555177096361,
+            "releaseTarget": 0.01366938277121571,
+            "sforzandoRate": 0.6513186253978223,
+            "sforzandoTarget": 0.5268996714730272,
+            "sforzandoAssistRate": 5.0934582456943325,
+            "assistYields": null,
+            "tripThreshold": 0.10430262051834563,
+            "membraneFillMs": 6.66355607818637,
+            "assistFillMs": 5.611750651492068,
+            "valveTailMs": 11.590643557840366,
+            "inertiaMs": 2.025198639780769,
+            "leadRows": 0.29188861023916957,
+            "leadSforzandoOnRows": 0.8156203072191701,
+            "leadCrescendoRows": 0.6350921688851785,
+            "leadMezzoforteRows": 96.2069160571321,
+            "leadPerLevelRows": 0.2875754906642527,
+            "leadDriftRows": 0.17682989709470576,
+            "valveBand": 0.08984169713238163,
+            "assistBand": null,
+            "throughFlowLoad": 0.04051257861936414,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.15480744329705542,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.16171477187341488,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.23921591080501897,
+            "sforzandoSetsCrescendo": null
+          },
+          "treble": {
+            "alpha": 0.021995957174712144,
+            "piano": 0.00000873371291990055,
+            "forte": 0.00012054352301527071,
+            "mezzoforte": 0.00005352774904132662,
+            "crescendoRate": 0.008176851180592748,
+            "crescendoTarget": 0.00481156296793972,
+            "releaseRate": 0.02259734493308735,
+            "releaseTarget": 0.027691661285150715,
+            "sforzandoRate": 0.019278959360807035,
+            "sforzandoTarget": 0.01254883447586197,
+            "sforzandoAssistRate": 30.50319188541291,
+            "assistYields": null,
+            "tripThreshold": 0.0931940657536984,
+            "membraneFillMs": 11.647607844162508,
+            "assistFillMs": 23.325356574266543,
+            "valveTailMs": 22.210250274345313,
+            "inertiaMs": 25.43513233394284,
+            "leadRows": 6.090856813238545,
+            "leadSforzandoOnRows": 0.050936910272544544,
+            "leadCrescendoRows": 9.235525961143232,
+            "leadMezzoforteRows": 147.32044532148808,
+            "leadPerLevelRows": 0.02059254176349512,
+            "leadDriftRows": 1.7412738494503586,
+            "valveBand": 0.006478605578009181,
+            "assistBand": null,
+            "throughFlowLoad": 0.010788446376185895,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.007958757953907547,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.22212392230765854,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.12049919146713103,
+            "sforzandoSetsCrescendo": null
+          }
+        },
+        "heldOutRmse": 0.0011484021517158272
+      },
+      "fitted": {
+        "bass": {
+          "half": "bass",
+          "params": {
+            "alpha": 1.2487001139258176,
+            "piano": 0.04416412804036067,
+            "forte": 0.8628768801740125,
+            "mezzoforte": 0.6863807188369743,
+            "crescendoRate": 0.9593072168823636,
+            "crescendoTarget": 0.7285565375022913,
+            "releaseRate": 0.7216233697932446,
+            "releaseTarget": -0.40683181819010095,
+            "sforzandoRate": 2.0260251334708697,
+            "sforzandoTarget": 2.0125004242817073,
+            "sforzandoAssistRate": 30.698222876296036,
+            "tripThreshold": 0.21390354542665732,
+            "membraneFillMs": 7.0929325654409485,
+            "assistFillMs": 9.601398005386727,
+            "valveTailMs": 59.61870332129028,
+            "inertiaMs": 1.1927717502648103,
+            "leadRows": -65.20060179472759,
+            "leadSforzandoOnRows": -9.567904205479927,
+            "leadCrescendoRows": 0.20583478004058842,
+            "leadMezzoforteRows": -16.206916057132112,
+            "leadPerLevelRows": -9.103669107623572,
+            "leadDriftRows": 20.84424255131718,
+            "valveBand": 0.1517124564704105,
+            "throughFlowLoad": 0.13528631106514832,
+            "scaleWarp": 0.5628396079150983,
+            "stopRestitution": 0.5022614991656988,
+            "assistLatches": 0.029738074803878738
+          },
+          "train": {
+            "n": 124333,
+            "rmse": 0.04890343595160636,
+            "mae": 0.02029999047271724,
+            "medianAbs": 0.012811564535894826,
+            "p90Abs": 0.03569092647463776,
+            "bias": 0.0029673397585517182,
+            "correlation": 0.985681351881526
+          },
+          "test": {
+            "n": 121203,
+            "rmse": 0.024928908762387268,
+            "mae": 0.01724495295483877,
+            "medianAbs": 0.013083036639725654,
+            "p90Abs": 0.035901774418814356,
+            "bias": -0.0033363635748875106,
+            "correlation": 0.9960292471091257
+          },
+          "evaluations": 60794,
+          "seconds": 3966.2985644
+        },
+        "treble": {
+          "half": "treble",
+          "params": {
+            "alpha": 1.3786892101714399,
+            "piano": 0.028426406868006376,
+            "forte": 0.8668301731082072,
+            "mezzoforte": 0.6717770997656443,
+            "crescendoRate": 0.7803390241146378,
+            "crescendoTarget": 0.7391046818681526,
+            "releaseRate": 0.4562050851580125,
+            "releaseTarget": -0.38703254477846405,
+            "sforzandoRate": 0.8163247112263268,
+            "sforzandoTarget": 2.908901195431546,
+            "sforzandoAssistRate": 55.322208054761205,
+            "tripThreshold": 0.021819283666296988,
+            "membraneFillMs": 20.970178203165297,
+            "assistFillMs": 28.7801077797357,
+            "valveTailMs": 18.45098994530659,
+            "inertiaMs": 26.18719474748663,
+            "leadRows": -39.302580510886365,
+            "leadSforzandoOnRows": -7.160812739686129,
+            "leadCrescendoRows": -5.659687654656269,
+            "leadMezzoforteRows": 72.55937576407902,
+            "leadPerLevelRows": -5.86291480969264,
+            "leadDriftRows": 16.43260301043969,
+            "valveBand": 0.044943987891489935,
+            "throughFlowLoad": 0.20139783650077375,
+            "scaleWarp": 1.2770452225603877,
+            "stopRestitution": 0.620899581866403,
+            "assistLatches": 0.22164719998686597
+          },
+          "train": {
+            "n": 120761,
+            "rmse": 0.01652522359338577,
+            "mae": 0.011200298107859274,
+            "medianAbs": 0.007846236733130146,
+            "p90Abs": 0.02466126925603282,
+            "bias": -0.0002644652814545214,
+            "correlation": 0.9980429653831666
+          },
+          "test": {
+            "n": 117653,
+            "rmse": 0.01711969001894023,
+            "mae": 0.011390824172359584,
+            "medianAbs": 0.007771218395488985,
+            "p90Abs": 0.024364595681513848,
+            "bias": -0.00023010534707885706,
+            "correlation": 0.9975333867610735
+          },
+          "evaluations": 59133,
+          "seconds": 3921.540627538
+        }
+      }
+    },
+    {
+      "druid": "ns598kr8616",
+      "fit": "docs/fits-round2/ns598kr8616.json",
+      "ports": "aperture",
+      "seed": 2,
+      "generations": 320,
+      "rows": 381304,
+      "axis": "spool, 22.25 cm at 100 % effect",
+      "measured": {
+        "bass": {
+          "half": "bass",
+          "rails": {
+            "piano": 0.0325,
+            "forte": 0.9225000000000001
+          },
+          "hook": {
+            "level": 0.52415,
+            "arrivals": 111,
+            "spread": 0.03954765432031673,
+            "plateau": 0.530095
+          },
+          "lead": {
+            "aheadRows": 61,
+            "falls": 139,
+            "iqrRows": 5
+          },
+          "observedRows": 359096
+        },
+        "treble": {
+          "half": "treble",
+          "rails": {
+            "piano": 0.0875,
+            "forte": 0.9225000000000001
+          },
+          "hook": {
+            "level": 0.58972,
+            "arrivals": 126,
+            "spread": 0.028947069884567835,
+            "plateau": 0.59001
+          },
+          "lead": {
+            "aheadRows": 44,
+            "falls": 227,
+            "iqrRows": 9.5
+          },
+          "observedRows": 361488
+        }
+      },
+      "constants": {
+        "bass": {
+          "piano": {
+            "value": 0.0325,
+            "pinned": true,
+            "evidence": "rest histogram over 359096 observed rows"
+          },
+          "forte": {
+            "value": 0.9225000000000001,
+            "pinned": true,
+            "evidence": "rest histogram over 359096 observed rows"
+          },
+          "mezzoforte": {
+            "value": 0.55415,
+            "pinned": true,
+            "evidence": "111 arrivals, sd 0.0395"
+          },
+          "leadRows": {
+            "value": -61,
+            "pinned": true,
+            "evidence": "139 collapses, iqr 5.0"
+          }
+        },
+        "treble": {
+          "piano": {
+            "value": 0.0875,
+            "pinned": true,
+            "evidence": "rest histogram over 361488 observed rows"
+          },
+          "forte": {
+            "value": 0.9225000000000001,
+            "pinned": true,
+            "evidence": "rest histogram over 361488 observed rows"
+          },
+          "mezzoforte": {
+            "value": 0.61972,
+            "pinned": true,
+            "evidence": "126 arrivals, sd 0.0289"
+          },
+          "leadRows": {
+            "value": -44,
+            "pinned": true,
+            "evidence": "227 collapses, iqr 9.5"
+          }
+        }
+      },
+      "registration": {
+        "bass": {
+          "piano": 0.0325,
+          "forte": 0.9225000000000001,
+          "leadRows": -61
+        },
+        "treble": {
+          "piano": 0.0875,
+          "forte": 0.9225000000000001,
+          "leadRows": -44
+        }
+      },
+      "spread": {
+        "seeds": [
+          1,
+          2
+        ],
+        "perParameter": {
+          "bass": {
+            "alpha": 0.025912446237089215,
+            "piano": 0.0024536431862174322,
+            "forte": 0.0012195596939369446,
+            "mezzoforte": 0.007384970408181868,
+            "crescendoRate": 0.02854451837744032,
+            "crescendoTarget": 0.0018463229044675122,
+            "releaseRate": 0.03602057402702874,
+            "releaseTarget": 0.04631302253635891,
+            "sforzandoRate": 0.061035739017363255,
+            "sforzandoTarget": 0.04115534540285615,
+            "sforzandoAssistRate": 25.121693629623792,
+            "assistYields": null,
+            "tripThreshold": 0.2751022415240045,
+            "membraneFillMs": 3.9845634139434862,
+            "assistFillMs": 23.67842920323373,
+            "valveTailMs": 75.90089767189117,
+            "inertiaMs": 0.8775001973397121,
+            "leadRows": 1.0960147929622082,
+            "leadSforzandoOnRows": 0.2487833101214001,
+            "leadCrescendoRows": 2.636616427834955,
+            "leadMezzoforteRows": 47.6494894023015,
+            "leadPerLevelRows": 1.366687219062566,
+            "leadDriftRows": 2.028508457055009,
+            "valveBand": 0.46839050894623857,
+            "assistBand": null,
+            "throughFlowLoad": 0.03201407555573481,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.08278361952747582,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.32517187107324047,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.40748165895997823,
+            "sforzandoSetsCrescendo": null
+          },
+          "treble": {
+            "alpha": 0.012150952631913015,
+            "piano": 0.019470887037380154,
+            "forte": 0.00022104550538237788,
+            "mezzoforte": 0.0012885325194209596,
+            "crescendoRate": 0.0035145481075288254,
+            "crescendoTarget": 0.0005823805059381737,
+            "releaseRate": 0.013591719676865344,
+            "releaseTarget": 0.005077284979769628,
+            "sforzandoRate": 0.21205652981313916,
+            "sforzandoTarget": 0.26680209549229783,
+            "sforzandoAssistRate": 0.7493803542157007,
+            "assistYields": null,
+            "tripThreshold": 0.03822312663063655,
+            "membraneFillMs": 4.54131227169335,
+            "assistFillMs": 2.3881599395342885,
+            "valveTailMs": 6.3004949138988735,
+            "inertiaMs": 1.552323703911087,
+            "leadRows": 0.4718170702051836,
+            "leadSforzandoOnRows": 1.5309538337882937,
+            "leadCrescendoRows": 1.3045041583604196,
+            "leadMezzoforteRows": 18.11790701999872,
+            "leadPerLevelRows": 1.288093510641235,
+            "leadDriftRows": 0.196550611274386,
+            "valveBand": 0.06871430668385764,
+            "assistBand": null,
+            "throughFlowLoad": 0.003431579587635768,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.015766179648691758,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.5952067529280436,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.24269936648202917,
+            "sforzandoSetsCrescendo": null
+          }
+        },
+        "heldOutRmse": 0.00011470382249617606
+      },
+      "fitted": {
+        "bass": {
+          "half": "bass",
+          "params": {
+            "alpha": 0.9647961940518062,
+            "piano": 0.025926900630061256,
+            "forte": 0.9107884298965012,
+            "mezzoforte": 0.6656294746617349,
+            "crescendoRate": 0.6148021315012803,
+            "crescendoTarget": 0.8686872290546047,
+            "releaseRate": 0.5371026482826189,
+            "releaseTarget": -0.16284060233190714,
+            "sforzandoRate": 4.082182094222032,
+            "sforzandoTarget": 1.248680679210822,
+            "sforzandoAssistRate": 50.914135601347674,
+            "tripThreshold": 0.28605042445222356,
+            "membraneFillMs": 4.032379948753249,
+            "assistFillMs": 39.02874823783678,
+            "valveTailMs": 44.47164437721348,
+            "inertiaMs": 13.104604975863232,
+            "leadRows": -65.22482739451767,
+            "leadSforzandoOnRows": -6.357075156515114,
+            "leadCrescendoRows": 16.59296349714391,
+            "leadMezzoforteRows": 52.76686618025014,
+            "leadPerLevelRows": -15.291925141062945,
+            "leadDriftRows": 0.1924356919799895,
+            "valveBand": 0.40894869909964937,
+            "throughFlowLoad": 0.06341336105022258,
+            "scaleWarp": 1.190876421463352,
+            "stopRestitution": 0.41029119924744023,
+            "assistLatches": 0.4203028648786402
+          },
+          "train": {
+            "n": 179413,
+            "rmse": 0.029745284035614855,
+            "mae": 0.019058676679719756,
+            "medianAbs": 0.01598922400995384,
+            "p90Abs": 0.03700385201086342,
+            "bias": -0.00040037503333106877,
+            "correlation": 0.9946320740839211
+          },
+          "test": {
+            "n": 179505,
+            "rmse": 0.023398713996276733,
+            "mae": 0.017488173897648878,
+            "medianAbs": 0.013980057512984145,
+            "p90Abs": 0.03657225164079841,
+            "bias": 0.0013459456522356252,
+            "correlation": 0.9967913368913303
+          },
+          "evaluations": 59791,
+          "seconds": 6097.9241175160005
+        },
+        "treble": {
+          "half": "treble",
+          "params": {
+            "alpha": 0.5730699062100415,
+            "piano": 0.0739887174933502,
+            "forte": 0.9274455080242483,
+            "mezzoforte": 0.6872417800563358,
+            "crescendoRate": 0.389033103919627,
+            "crescendoTarget": 0.9269758729288571,
+            "releaseRate": 0.8140093090606657,
+            "releaseTarget": 0.09821381118217135,
+            "sforzandoRate": 1.9849518733435083,
+            "sforzandoTarget": 2.4795894480537877,
+            "sforzandoAssistRate": 14.95706586658191,
+            "tripThreshold": 0.1091213370408554,
+            "membraneFillMs": 0.5817602769981763,
+            "assistFillMs": 2.7475934052067714,
+            "valveTailMs": 35.03120280575304,
+            "inertiaMs": 3.3249587947558656,
+            "leadRows": -49.5521887083141,
+            "leadSforzandoOnRows": -6.571236369576701,
+            "leadCrescendoRows": 15.711168723480103,
+            "leadMezzoforteRows": 23.912291264485265,
+            "leadPerLevelRows": -1.1510466537158335,
+            "leadDriftRows": 12.106982478242028,
+            "valveBand": 0.3894436747354199,
+            "throughFlowLoad": 0.0014286990153252951,
+            "scaleWarp": 0.6765233899573239,
+            "stopRestitution": 0.7611133774602643,
+            "assistLatches": 0.011006049143373432
+          },
+          "train": {
+            "n": 182055,
+            "rmse": 0.05933102312408927,
+            "mae": 0.028123098802888234,
+            "medianAbs": 0.013349741475828347,
+            "p90Abs": 0.057547002777009686,
+            "bias": -0.003426827829701145,
+            "correlation": 0.9781159663278606
+          },
+          "test": {
+            "n": 179137,
+            "rmse": 0.04393966357465567,
+            "mae": 0.024653878044476912,
+            "medianAbs": 0.013890643224447441,
+            "p90Abs": 0.05494201199478137,
+            "bias": -0.0036164704315528513,
+            "correlation": 0.9890791213368242
+          },
+          "evaluations": 60833,
+          "seconds": 6034.998281448999
+        }
+      }
+    },
+    {
+      "druid": "ym773gh2267",
+      "fit": "docs/fits-round2/ym773gh2267.json",
+      "ports": "aperture",
+      "seed": 2,
+      "generations": 320,
+      "rows": 442749,
+      "axis": "spool, 22.25 cm at 100 % effect",
+      "measured": {
+        "bass": {
+          "half": "bass",
+          "rails": {
+            "piano": 0.04250000000000001,
+            "forte": 0.8925000000000001
+          },
+          "hook": {
+            "level": 0.55654,
+            "arrivals": 87,
+            "spread": 0.009073307600166548,
+            "plateau": 0.556565
+          },
+          "lead": {
+            "aheadRows": 60,
+            "falls": 196,
+            "iqrRows": 4
+          },
+          "observedRows": 430979
+        },
+        "treble": {
+          "half": "treble",
+          "rails": {
+            "piano": 0.0325,
+            "forte": 0.8625
+          },
+          "hook": {
+            "level": 0.532725,
+            "arrivals": 136,
+            "spread": 0.00905607381328745,
+            "plateau": 0.53359
+          },
+          "lead": {
+            "aheadRows": 46,
+            "falls": 271,
+            "iqrRows": 5.5
+          },
+          "observedRows": 428723
+        }
+      },
+      "constants": {
+        "bass": {
+          "piano": {
+            "value": 0.04250000000000001,
+            "pinned": true,
+            "evidence": "rest histogram over 430979 observed rows"
+          },
+          "forte": {
+            "value": 0.8925000000000001,
+            "pinned": true,
+            "evidence": "rest histogram over 430979 observed rows"
+          },
+          "mezzoforte": {
+            "value": 0.5865400000000001,
+            "pinned": true,
+            "evidence": "87 arrivals, sd 0.0091"
+          },
+          "leadRows": {
+            "value": -60,
+            "pinned": true,
+            "evidence": "196 collapses, iqr 4.0"
+          }
+        },
+        "treble": {
+          "piano": {
+            "value": 0.0325,
+            "pinned": true,
+            "evidence": "rest histogram over 428723 observed rows"
+          },
+          "forte": {
+            "value": 0.8625,
+            "pinned": true,
+            "evidence": "rest histogram over 428723 observed rows"
+          },
+          "mezzoforte": {
+            "value": 0.562725,
+            "pinned": true,
+            "evidence": "136 arrivals, sd 0.0091"
+          },
+          "leadRows": {
+            "value": -46,
+            "pinned": true,
+            "evidence": "271 collapses, iqr 5.5"
+          }
+        }
+      },
+      "registration": {
+        "bass": {
+          "piano": 0.04250000000000001,
+          "forte": 0.8925000000000001,
+          "leadRows": -60
+        },
+        "treble": {
+          "piano": 0.0325,
+          "forte": 0.8625,
+          "leadRows": -46
+        }
+      },
+      "spread": {
+        "seeds": [
+          1,
+          2
+        ],
+        "perParameter": {
+          "bass": {
+            "alpha": 0.010065926990627805,
+            "piano": 0.00010696437115135377,
+            "forte": 0.0003650522947761248,
+            "mezzoforte": 0.0019355456287964978,
+            "crescendoRate": 0.020967797713793757,
+            "crescendoTarget": 0.0020940235212961733,
+            "releaseRate": 0.03343057583870657,
+            "releaseTarget": 0.026175071570898822,
+            "sforzandoRate": 0.05449720950719206,
+            "sforzandoTarget": 0.2702380204381223,
+            "sforzandoAssistRate": 30.874567233001464,
+            "assistYields": null,
+            "tripThreshold": 0.09590613843579854,
+            "membraneFillMs": 17.017972548151775,
+            "assistFillMs": 20.48115021845807,
+            "valveTailMs": 51.718347556638065,
+            "inertiaMs": 4.979789071962504,
+            "leadRows": 3.375109788004224,
+            "leadSforzandoOnRows": 9.547536771569849,
+            "leadCrescendoRows": 2.104520921297528,
+            "leadMezzoforteRows": 9.939657662566546,
+            "leadPerLevelRows": 9.048371279980088,
+            "leadDriftRows": 0.9800811114887447,
+            "valveBand": 0.49801440878502107,
+            "assistBand": null,
+            "throughFlowLoad": 0.02255247989491086,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.029683059983287796,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.26452797838937386,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.18357938061496437,
+            "sforzandoSetsCrescendo": null
+          },
+          "treble": {
+            "alpha": 0.20220509132079867,
+            "piano": 0.016550321303302706,
+            "forte": 0.003245793400939334,
+            "mezzoforte": 0.005343249647491222,
+            "crescendoRate": 0.07929781825563298,
+            "crescendoTarget": 0.01812531914423887,
+            "releaseRate": 0.07992874137644557,
+            "releaseTarget": 0.13319698565690533,
+            "sforzandoRate": 0.45875458617778464,
+            "sforzandoTarget": 0.3916767099967311,
+            "sforzandoAssistRate": 1.8622371068608459,
+            "assistYields": null,
+            "tripThreshold": 0.14607181679976877,
+            "membraneFillMs": 0.2942527472780214,
+            "assistFillMs": 2.5404776104215507,
+            "valveTailMs": 50.2613224921749,
+            "inertiaMs": 0.7361827553230675,
+            "leadRows": 0.7226792834333793,
+            "leadSforzandoOnRows": 1.8323806646072884,
+            "leadCrescendoRows": 1.398041382682024,
+            "leadMezzoforteRows": 13.13504671341279,
+            "leadPerLevelRows": 0.5798149364180887,
+            "leadDriftRows": 1.2556512083942368,
+            "valveBand": 0.07271014200134518,
+            "assistBand": null,
+            "throughFlowLoad": 0.011036263121845469,
+            "dragThreshold": null,
+            "railGrip": null,
+            "scaleWarp": 0.07189076536686978,
+            "regulatorGain": null,
+            "supplyDroop": null,
+            "windRateGain": null,
+            "windTargetShift": null,
+            "mfBarrier": null,
+            "mfTwoSided": null,
+            "mfThickness": null,
+            "stopRestitution": 0.3219998610575223,
+            "stopStiffness": null,
+            "stopDamping": null,
+            "sforzandoLatches": null,
+            "assistLatches": 0.3576594831025819,
+            "sforzandoSetsCrescendo": null
+          }
+        },
+        "heldOutRmse": 0.0018830811557650345
+      },
+      "fitted": {
+        "bass": {
+          "half": "bass",
+          "params": {
+            "alpha": 1.4177225958618715,
+            "piano": 0.03828979351082839,
+            "forte": 0.8818392219832064,
+            "mezzoforte": 0.6581581493682274,
+            "crescendoRate": 0.9010999857174461,
+            "crescendoTarget": 0.7650266853664904,
+            "releaseRate": 0.8643990913252682,
+            "releaseTarget": -0.4500894540403589,
+            "sforzandoRate": 1.1257321454598523,
+            "sforzandoTarget": 2.3797142375257856,
+            "sforzandoAssistRate": 74.28797949447556,
+            "tripThreshold": 0.20674849802159873,
+            "membraneFillMs": 18.311751594292907,
+            "assistFillMs": 56.13952010493561,
+            "valveTailMs": 128.73038177405027,
+            "inertiaMs": 21.731203963746534,
+            "leadRows": -74.10459507204712,
+            "leadSforzandoOnRows": -7.425132095810367,
+            "leadCrescendoRows": 18.39885636285655,
+            "leadMezzoforteRows": 11.296365935325632,
+            "leadPerLevelRows": 1.8391905950703802,
+            "leadDriftRows": -0.1376878138390345,
+            "valveBand": 0.29119489369538915,
+            "throughFlowLoad": 0.06000098193855565,
+            "scaleWarp": 0.8094992248603798,
+            "stopRestitution": 0.7406109549245707,
+            "assistLatches": 0.0910677220516795
+          },
+          "train": {
+            "n": 217604,
+            "rmse": 0.017977056380759884,
+            "mae": 0.010724414200788589,
+            "medianAbs": 0.006929145494338637,
+            "p90Abs": 0.024673437327829773,
+            "bias": 0.00010025287647738602,
+            "correlation": 0.9979801806340222
+          },
+          "test": {
+            "n": 215322,
+            "rmse": 0.021911601629598754,
+            "mae": 0.012758120422006254,
+            "medianAbs": 0.008251644958180024,
+            "p90Abs": 0.02772068561213624,
+            "bias": -0.00012435953206197474,
+            "correlation": 0.9970379317509269
+          },
+          "evaluations": 61057,
+          "seconds": 6965.838454129
+        },
+        "treble": {
+          "half": "treble",
+          "params": {
+            "alpha": 0.9394745236661155,
+            "piano": 0.03728810813975877,
+            "forte": 0.8715392458081757,
+            "mezzoforte": 0.6415460581548532,
+            "crescendoRate": 0.5390757455232795,
+            "crescendoTarget": 0.7954649711067135,
+            "releaseRate": 0.7070202376831605,
+            "releaseTarget": -0.09793120495887177,
+            "sforzandoRate": 1.2266016179639103,
+            "sforzandoTarget": 2.9622269683108895,
+            "sforzandoAssistRate": 51.46716796661203,
+            "tripThreshold": 0.40697810807268076,
+            "membraneFillMs": 1.3041326054962838,
+            "assistFillMs": 20.16754147836564,
+            "valveTailMs": 136.93992288414836,
+            "inertiaMs": 10.003465234505354,
+            "leadRows": -53.36859492390161,
+            "leadSforzandoOnRows": -3.3299860146925377,
+            "leadCrescendoRows": 23.234139738661284,
+            "leadMezzoforteRows": 26.5510503598274,
+            "leadPerLevelRows": -4.040386719788548,
+            "leadDriftRows": -2.677437572015335,
+            "valveBand": 0.6268582671062565,
+            "throughFlowLoad": 0.25488163775636696,
+            "scaleWarp": 0.9204572799437074,
+            "stopRestitution": 0.7730251073653345,
+            "assistLatches": 0.37376523388018296
+          },
+          "train": {
+            "n": 216730,
+            "rmse": 0.06869311541240518,
+            "mae": 0.023859279741970624,
+            "medianAbs": 0.0091392458081756,
+            "p90Abs": 0.03924819703751072,
+            "bias": 0.0055397084662475345,
+            "correlation": 0.9658892789960023
+          },
+          "test": {
+            "n": 215810,
+            "rmse": 0.05194685713377842,
+            "mae": 0.02157004301769102,
+            "medianAbs": 0.010208453494915393,
+            "p90Abs": 0.041683210458749585,
+            "bias": 0.005570053434145296,
+            "correlation": 0.982293254937543
+          },
+          "evaluations": 58483,
+          "seconds": 6380.935186125
+        }
+      }
+    }
+  ],
+  "transfer": [
+    {
+      "from": "jq774vx6544",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 185245,
+      "rmse": 0.0324700128801261,
+      "mae": 0.018239149168321915,
+      "correlation": 0.9918134586479455,
+      "bias": -0.004028190192319454,
+      "heldOutRmse": 0.02772911047880131
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 185245,
+      "rmse": 0.037051485342282926,
+      "mae": 0.02063795006421147,
+      "correlation": 0.989545206289003,
+      "bias": -0.004378395649884347,
+      "heldOutRmse": 0.032994827889740626
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 184768,
+      "rmse": 0.04349154909646218,
+      "mae": 0.019609874029367456,
+      "correlation": 0.987105557075847,
+      "bias": -0.00307310058107441,
+      "heldOutRmse": 0.03591041432419299
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 184768,
+      "rmse": 0.06827508240924003,
+      "mae": 0.033411494612461116,
+      "correlation": 0.9684105351335562,
+      "bias": -0.00371788141481178,
+      "heldOutRmse": 0.06363928415752522
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 105293,
+      "rmse": 0.08561313533622888,
+      "mae": 0.05612865827806415,
+      "correlation": 0.9308760717554636,
+      "bias": 0.03446698087879811
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 105293,
+      "rmse": 0.0572964076916991,
+      "mae": 0.04206548157232731,
+      "correlation": 0.9756613842349658,
+      "bias": 0.034448563777568594
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 74882,
+      "rmse": 0.06900686220929274,
+      "mae": 0.04931474275176484,
+      "correlation": 0.9654207686024125,
+      "bias": 0.011231565215892322
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 74882,
+      "rmse": 0.0691077333253928,
+      "mae": 0.050959847677904194,
+      "correlation": 0.966253713832586,
+      "bias": 0.008086820918887913
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 183532,
+      "rmse": 0.05741084608210492,
+      "mae": 0.03911168489407761,
+      "correlation": 0.9452590504007672,
+      "bias": -0.011678570550583644
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 183532,
+      "rmse": 0.05654874470936602,
+      "mae": 0.03931366593339346,
+      "correlation": 0.9471121571945725,
+      "bias": -0.01163087715445986
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 198910,
+      "rmse": 0.08669213202039061,
+      "mae": 0.055788325035787664,
+      "correlation": 0.8878119721733762,
+      "bias": -0.02119120683837104
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 198910,
+      "rmse": 0.07095196945324067,
+      "mae": 0.048360653774820926,
+      "correlation": 0.9239849655918513,
+      "bias": -0.01531974796995261
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 242134,
+      "rmse": 0.06573504191692749,
+      "mae": 0.04519381118878244,
+      "correlation": 0.9769327652451747,
+      "bias": 0.022089326942779593
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 242134,
+      "rmse": 0.06782740351661658,
+      "mae": 0.04461399124945371,
+      "correlation": 0.9770754853958101,
+      "bias": 0.031376294575934195
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 230048,
+      "rmse": 0.1067225977847186,
+      "mae": 0.07917513358745001,
+      "correlation": 0.9674874796939228,
+      "bias": 0.06867600106702222
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 230048,
+      "rmse": 0.11627148251579043,
+      "mae": 0.07558073969474524,
+      "correlation": 0.9513882222710861,
+      "bias": 0.07386275719922976
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 359096,
+      "rmse": 0.06179420696964727,
+      "mae": 0.04623111182079724,
+      "correlation": 0.9773434916405652,
+      "bias": 0.0044322678386620835
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 359096,
+      "rmse": 0.059319061887188614,
+      "mae": 0.043757131923841265,
+      "correlation": 0.9796727330084186,
+      "bias": 0.00897647659517362
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 361488,
+      "rmse": 0.07608416071815939,
+      "mae": 0.051060924950368236,
+      "correlation": 0.9723491608459113,
+      "bias": -0.018193100862838627
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 361488,
+      "rmse": 0.07285155117185953,
+      "mae": 0.043872195289180176,
+      "correlation": 0.9684902698530425,
+      "bias": -0.0036916245580633227
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 430979,
+      "rmse": 0.0763362821200969,
+      "mae": 0.05774540682362076,
+      "correlation": 0.9797401499505362,
+      "bias": 0.04984663448862081
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 430979,
+      "rmse": 0.07935310600048832,
+      "mae": 0.05860761548351495,
+      "correlation": 0.9804773019536427,
+      "bias": 0.0563781927485074
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 428723,
+      "rmse": 0.09564750712060244,
+      "mae": 0.0624233643657989,
+      "correlation": 0.966351688533821,
+      "bias": 0.05186664109807018
+    },
+    {
+      "from": "jq774vx6544",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 428723,
+      "rmse": 0.10385225016242695,
+      "mae": 0.06348211885803613,
+      "correlation": 0.9524581325363355,
+      "bias": 0.05382189334723068
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 185245,
+      "rmse": 0.10010981970795685,
+      "mae": 0.06975640532899852,
+      "correlation": 0.926467440606015,
+      "bias": -0.032647660798346204
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 185245,
+      "rmse": 0.07057028722085319,
+      "mae": 0.04599942574581095,
+      "correlation": 0.9718377196941197,
+      "bias": -0.03827205674083616
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 184768,
+      "rmse": 0.11367686050306623,
+      "mae": 0.07668654002188484,
+      "correlation": 0.9116344747574398,
+      "bias": -0.005332573854567298
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 184768,
+      "rmse": 0.10069958621199086,
+      "mae": 0.06335321351365202,
+      "correlation": 0.9312136727565902,
+      "bias": -0.000053128654343598555
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 105293,
+      "rmse": 0.025282646860914252,
+      "mae": 0.016377774190195923,
+      "correlation": 0.9927026162287116,
+      "bias": -0.0021313243266203323,
+      "heldOutRmse": 0.027220578096324884
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 105293,
+      "rmse": 0.027597465905483533,
+      "mae": 0.0177569539815321,
+      "correlation": 0.9914071400131503,
+      "bias": 0.004021306201642958,
+      "heldOutRmse": 0.029398089438736938
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 74882,
+      "rmse": 0.023269457390738008,
+      "mae": 0.016810192721295487,
+      "correlation": 0.9960250333154079,
+      "bias": -0.001126774197453233,
+      "heldOutRmse": 0.02575353434630197
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 74882,
+      "rmse": 0.030724942450936828,
+      "mae": 0.02125240444622892,
+      "correlation": 0.994781738165727,
+      "bias": 0.005031790891600703,
+      "heldOutRmse": 0.03191009412604484
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 183532,
+      "rmse": 0.08042259304030218,
+      "mae": 0.05890130691878243,
+      "correlation": 0.9364540667710164,
+      "bias": -0.05200209577601255
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 183532,
+      "rmse": 0.07116544034450015,
+      "mae": 0.05193978733383748,
+      "correlation": 0.9584139694258993,
+      "bias": -0.047468999106060915
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 198910,
+      "rmse": 0.0708402730322906,
+      "mae": 0.05307623139803737,
+      "correlation": 0.9523351395098368,
+      "bias": -0.0449555703806843
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 198910,
+      "rmse": 0.05125401412618276,
+      "mae": 0.03567453074332315,
+      "correlation": 0.9736245383029937,
+      "bias": -0.0289622656867263
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 242134,
+      "rmse": 0.0764043139969162,
+      "mae": 0.0439496100576505,
+      "correlation": 0.96445263308432,
+      "bias": -0.008671974346024573
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 242134,
+      "rmse": 0.05743250559811767,
+      "mae": 0.031521731251222485,
+      "correlation": 0.9793144636288759,
+      "bias": 0.006109663290850224
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 230048,
+      "rmse": 0.13880926729033358,
+      "mae": 0.09524164591226125,
+      "correlation": 0.9222691318609415,
+      "bias": 0.06591907680244023
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 230048,
+      "rmse": 0.11721651048477186,
+      "mae": 0.07987940791181468,
+      "correlation": 0.9582398344632737,
+      "bias": 0.07794996611275368
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 359096,
+      "rmse": 0.09893146433316988,
+      "mae": 0.07648732700941341,
+      "correlation": 0.9488706801454185,
+      "bias": -0.03715084547903479
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 359096,
+      "rmse": 0.09173163817348876,
+      "mae": 0.0646667664012647,
+      "correlation": 0.9544736919108456,
+      "bias": -0.030588241598689624
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 361488,
+      "rmse": 0.07903370879905165,
+      "mae": 0.05526548110381213,
+      "correlation": 0.9656985588503774,
+      "bias": -0.002112994391736835
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 361488,
+      "rmse": 0.06657213288208087,
+      "mae": 0.043311951121506,
+      "correlation": 0.9748688156905686,
+      "bias": 0.015772163907272523
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 430979,
+      "rmse": 0.0812704341067907,
+      "mae": 0.06078029628062907,
+      "correlation": 0.9626262801850273,
+      "bias": 0.025424138365911165
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 430979,
+      "rmse": 0.07438687112385527,
+      "mae": 0.052117485135818355,
+      "correlation": 0.972767791447117,
+      "bias": 0.034659723412557485
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 428723,
+      "rmse": 0.11306694600017629,
+      "mae": 0.0758519483341983,
+      "correlation": 0.9487444741284461,
+      "bias": 0.05423945498499033
+    },
+    {
+      "from": "ws250sr1272",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 428723,
+      "rmse": 0.11266669075347131,
+      "mae": 0.07153778499327654,
+      "correlation": 0.9474852948623246,
+      "bias": 0.06183707821612951
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 185245,
+      "rmse": 0.10518508822888542,
+      "mae": 0.07572399564134838,
+      "correlation": 0.9150226241646595,
+      "bias": 0.016958489896472216
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 185245,
+      "rmse": 0.08008104941811614,
+      "mae": 0.062059953617892495,
+      "correlation": 0.951184608534476,
+      "bias": 0.014807087283973274
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 184768,
+      "rmse": 0.15517190852965643,
+      "mae": 0.0985740824504747,
+      "correlation": 0.8278855122569923,
+      "bias": 0.005465368764995157
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 184768,
+      "rmse": 0.08737695277473045,
+      "mae": 0.055716306849584105,
+      "correlation": 0.9474823765289919,
+      "bias": 0.0074472136361181124
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 105293,
+      "rmse": 0.1292066345213873,
+      "mae": 0.08863998361565822,
+      "correlation": 0.8609077423441462,
+      "bias": 0.054992768483169994
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 105293,
+      "rmse": 0.09150850417958027,
+      "mae": 0.07523293744009213,
+      "correlation": 0.9613809143212322,
+      "bias": 0.06933305969796372
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 74882,
+      "rmse": 0.07031893316078651,
+      "mae": 0.044991686320812,
+      "correlation": 0.9665184471510495,
+      "bias": 0.021023108239908668
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 74882,
+      "rmse": 0.04752235543982398,
+      "mae": 0.03850673981241003,
+      "correlation": 0.9889799891167006,
+      "bias": 0.01967452030005094
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 183532,
+      "rmse": 0.02943169574509259,
+      "mae": 0.021060214006106043,
+      "correlation": 0.9853038437168479,
+      "bias": -0.0020774656706151347,
+      "heldOutRmse": 0.02966849391745868
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 183532,
+      "rmse": 0.032710325426849235,
+      "mae": 0.025190926187560955,
+      "correlation": 0.9836843044183915,
+      "bias": 0.010853886457208967,
+      "heldOutRmse": 0.03164189191249964
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 198910,
+      "rmse": 0.033271626856426414,
+      "mae": 0.023374361135860527,
+      "correlation": 0.9828981596940424,
+      "bias": -0.003925543785641381,
+      "heldOutRmse": 0.03706238541680275
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 198910,
+      "rmse": 0.03342787709947649,
+      "mae": 0.02352954662656008,
+      "correlation": 0.982611719374475,
+      "bias": 0.0017708392599241093,
+      "heldOutRmse": 0.036671788031419544
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 242134,
+      "rmse": 0.10783057592385935,
+      "mae": 0.07790480038821086,
+      "correlation": 0.9367151262379446,
+      "bias": 0.021743850191615403
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 242134,
+      "rmse": 0.1029262662180308,
+      "mae": 0.07337171639935602,
+      "correlation": 0.9462268105407274,
+      "bias": 0.04469199082495169
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 230048,
+      "rmse": 0.17296392184007808,
+      "mae": 0.1174750001232055,
+      "correlation": 0.8640231545639114,
+      "bias": 0.08922077026154124
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 230048,
+      "rmse": 0.12887487236820874,
+      "mae": 0.09437196792901217,
+      "correlation": 0.9529722208716859,
+      "bias": 0.09382827808411216
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 359096,
+      "rmse": 0.10294932691576528,
+      "mae": 0.07336905922655189,
+      "correlation": 0.9427105326237378,
+      "bias": 0.033378009570395356
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 359096,
+      "rmse": 0.08585475954286836,
+      "mae": 0.06305984230864604,
+      "correlation": 0.9638191448894731,
+      "bias": 0.037423978853210194
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 361488,
+      "rmse": 0.1036110379485873,
+      "mae": 0.06496195927488259,
+      "correlation": 0.9374723856787726,
+      "bias": 0.008853708940554914
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 361488,
+      "rmse": 0.07091973265743393,
+      "mae": 0.04440052038011402,
+      "correlation": 0.9726060836736873,
+      "bias": 0.021774616417383597
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 430979,
+      "rmse": 0.1321555857083461,
+      "mae": 0.09275229690602232,
+      "correlation": 0.9194375585092947,
+      "bias": 0.06328886580920316
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 430979,
+      "rmse": 0.12946449652401568,
+      "mae": 0.09250572843574482,
+      "correlation": 0.933441067897328,
+      "bias": 0.07901380477706711
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 428723,
+      "rmse": 0.1345074792753966,
+      "mae": 0.09088387078172379,
+      "correlation": 0.9238131258973908,
+      "bias": 0.07479178750895464
+    },
+    {
+      "from": "jn038xx9588",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 428723,
+      "rmse": 0.11808810921935176,
+      "mae": 0.08212130811763262,
+      "correlation": 0.9488841698518079,
+      "bias": 0.07667709599709259
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 185245,
+      "rmse": 0.07255304594617311,
+      "mae": 0.0571878362562752,
+      "correlation": 0.9691911661541237,
+      "bias": -0.03736643574219184
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 185245,
+      "rmse": 0.07735600547191314,
+      "mae": 0.05699393467172432,
+      "correlation": 0.9677004040101003,
+      "bias": -0.03940840003093163
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 184768,
+      "rmse": 0.1564465171618536,
+      "mae": 0.12797168459977265,
+      "correlation": 0.9192221827894503,
+      "bias": -0.11453698703866083
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 184768,
+      "rmse": 0.16350960817812588,
+      "mae": 0.13189440064203353,
+      "correlation": 0.9174282154946156,
+      "bias": -0.12241368122089422
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 105293,
+      "rmse": 0.07290089737862292,
+      "mae": 0.046350889668374445,
+      "correlation": 0.9374089008105946,
+      "bias": -0.00628003955378894
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 105293,
+      "rmse": 0.050712959020459455,
+      "mae": 0.03654028083222997,
+      "correlation": 0.9738201638732417,
+      "bias": -0.0172620434570843
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 74882,
+      "rmse": 0.10242303883107592,
+      "mae": 0.05944819801641973,
+      "correlation": 0.9423479839179462,
+      "bias": -0.036161162423739374
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 74882,
+      "rmse": 0.08775072808423016,
+      "mae": 0.0532259819572614,
+      "correlation": 0.9698784001378172,
+      "bias": -0.0397070984356166
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 183532,
+      "rmse": 0.08562518851386777,
+      "mae": 0.061144904514455437,
+      "correlation": 0.9156871416860715,
+      "bias": -0.04634176555805254
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 183532,
+      "rmse": 0.09067709074992994,
+      "mae": 0.0667546706811168,
+      "correlation": 0.9239736277557431,
+      "bias": -0.060090715130884036
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 198910,
+      "rmse": 0.11589783489902923,
+      "mae": 0.08127710185601594,
+      "correlation": 0.8798696473290386,
+      "bias": -0.07249480510913887
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 198910,
+      "rmse": 0.10202033196657703,
+      "mae": 0.07375459728982349,
+      "correlation": 0.9437093992795489,
+      "bias": -0.07080275251114229
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 242134,
+      "rmse": 0.04684040232565242,
+      "mae": 0.020253861254281413,
+      "correlation": 0.9862770898477253,
+      "bias": 0.000868649414975957,
+      "heldOutRmse": 0.02945860651788385
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 242134,
+      "rmse": 0.04719164006921845,
+      "mae": 0.02028527671635961,
+      "correlation": 0.9860624133929529,
+      "bias": 0.002587498029877902,
+      "heldOutRmse": 0.029798207554820117
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 230048,
+      "rmse": 0.017007910190362248,
+      "mae": 0.01161779810809415,
+      "correlation": 0.997766621793847,
+      "bias": -0.00042184512201458264,
+      "heldOutRmse": 0.017511589881967014
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 230048,
+      "rmse": 0.05197464296112487,
+      "mae": 0.025004104410500105,
+      "correlation": 0.979051936294275,
+      "bias": 0.004464788075258618,
+      "heldOutRmse": 0.053619428106521004
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 359096,
+      "rmse": 0.0718547393465559,
+      "mae": 0.06000848738146568,
+      "correlation": 0.9739015446334244,
+      "bias": -0.02807654026655101
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 359096,
+      "rmse": 0.06637227336580995,
+      "mae": 0.05233571993653373,
+      "correlation": 0.9788502574435103,
+      "bias": -0.02024917841534024
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 361488,
+      "rmse": 0.12398832221564876,
+      "mae": 0.10182457214526199,
+      "correlation": 0.9635346961932523,
+      "bias": -0.09663986701012314
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 361488,
+      "rmse": 0.11205410700233455,
+      "mae": 0.0816847971782331,
+      "correlation": 0.9580623487429594,
+      "bias": -0.07483274375611122
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 430979,
+      "rmse": 0.050438719334838615,
+      "mae": 0.039764300071629025,
+      "correlation": 0.9899937961863119,
+      "bias": 0.030572018654304065
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 430979,
+      "rmse": 0.04909148136907781,
+      "mae": 0.03711422931313023,
+      "correlation": 0.9913964440026077,
+      "bias": 0.0314419968586028
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 428723,
+      "rmse": 0.07402765107582109,
+      "mae": 0.03455638023898751,
+      "correlation": 0.962810528193933,
+      "bias": -0.012245057365548625
+    },
+    {
+      "from": "kw215gn3365",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 428723,
+      "rmse": 0.06937223956202675,
+      "mae": 0.03070642136792312,
+      "correlation": 0.9671694380455449,
+      "bias": -0.010430788341384297
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 185245,
+      "rmse": 0.09312427207249574,
+      "mae": 0.06637921913148583,
+      "correlation": 0.9498705024087571,
+      "bias": -0.04911676041563479
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 185245,
+      "rmse": 0.09527553445493715,
+      "mae": 0.06826392760451956,
+      "correlation": 0.948750817483364,
+      "bias": -0.05128588090303067
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 184768,
+      "rmse": 0.07649345914062884,
+      "mae": 0.05186846741080576,
+      "correlation": 0.9613544135855203,
+      "bias": -0.0034342200314570414
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 184768,
+      "rmse": 0.08026772641225295,
+      "mae": 0.053688535605911816,
+      "correlation": 0.955446985674207,
+      "bias": -0.0039660551724287185
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 105293,
+      "rmse": 0.06358817191176071,
+      "mae": 0.04173063203939825,
+      "correlation": 0.9535665132304616,
+      "bias": -0.000847609745240341
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 105293,
+      "rmse": 0.054940858973999945,
+      "mae": 0.037932818353521455,
+      "correlation": 0.9657949628903003,
+      "bias": 0.0029194873313022323
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 74882,
+      "rmse": 0.0761153345510901,
+      "mae": 0.06458556424320505,
+      "correlation": 0.977427949765543,
+      "bias": 0.04351229526327773
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 74882,
+      "rmse": 0.06497411974309664,
+      "mae": 0.05776091556055581,
+      "correlation": 0.9852417349008019,
+      "bias": 0.029961197233617877
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 183532,
+      "rmse": 0.07479511454479756,
+      "mae": 0.04963249345627762,
+      "correlation": 0.9296557985936081,
+      "bias": -0.030136956446865676
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 183532,
+      "rmse": 0.07160517130015696,
+      "mae": 0.04754573065802379,
+      "correlation": 0.9400572576635924,
+      "bias": -0.03118259990706274
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 198910,
+      "rmse": 0.08200938045610202,
+      "mae": 0.05779657528893357,
+      "correlation": 0.8980049850752858,
+      "bias": -0.008860283152011952
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 198910,
+      "rmse": 0.06536604015009073,
+      "mae": 0.050938659291455725,
+      "correlation": 0.9468050226064837,
+      "bias": -0.016586397890325368
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 242134,
+      "rmse": 0.07656732618722174,
+      "mae": 0.05429782022098564,
+      "correlation": 0.9627177410683332,
+      "bias": -0.0016583377754071586
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 242134,
+      "rmse": 0.07432604906614283,
+      "mae": 0.05031661571797167,
+      "correlation": 0.9652879024697013,
+      "bias": 0.009380199185466707
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 230048,
+      "rmse": 0.11811563587188303,
+      "mae": 0.09752856300725012,
+      "correlation": 0.9659408902219743,
+      "bias": 0.09509650912982368
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 230048,
+      "rmse": 0.10933510929049048,
+      "mae": 0.0859443744048275,
+      "correlation": 0.9667763236973563,
+      "bias": 0.08584842999969303
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 359096,
+      "rmse": 0.02695253246826016,
+      "mae": 0.018437447680977822,
+      "correlation": 0.9956714923409394,
+      "bias": 0.0004646963656574901,
+      "heldOutRmse": 0.02324610033054631
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 359096,
+      "rmse": 0.02902709003446814,
+      "mae": 0.01960287417452302,
+      "correlation": 0.9950401023471772,
+      "bias": 0.00271108993269399,
+      "heldOutRmse": 0.02599028804466215
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 361488,
+      "rmse": 0.052111985421467014,
+      "mae": 0.026380187775063457,
+      "correlation": 0.9838300087520373,
+      "bias": -0.003373313217669369,
+      "heldOutRmse": 0.04388084355875341
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 361488,
+      "rmse": 0.053243141891775564,
+      "mae": 0.02691923504484442,
+      "correlation": 0.9830962399563444,
+      "bias": -0.0028914563390689536,
+      "heldOutRmse": 0.04500186096923296
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 430979,
+      "rmse": 0.0773159405496333,
+      "mae": 0.0571917247246955,
+      "correlation": 0.9709004644768863,
+      "bias": 0.03679504449195894
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 430979,
+      "rmse": 0.08064638668879807,
+      "mae": 0.057439883837408515,
+      "correlation": 0.9707048456239453,
+      "bias": 0.04308644777097177
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 428723,
+      "rmse": 0.09588558210377654,
+      "mae": 0.06974776137295645,
+      "correlation": 0.9658438549236,
+      "bias": 0.06418606498028755
+    },
+    {
+      "from": "ns598kr8616",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 428723,
+      "rmse": 0.09356592598171075,
+      "mae": 0.06193475141680183,
+      "correlation": 0.9596756796689639,
+      "bias": 0.05394953996309469
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 185245,
+      "rmse": 0.11168470733736464,
+      "mae": 0.08476697514607225,
+      "correlation": 0.9580418457664283,
+      "bias": -0.08218056790326411
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "jq774vx6544",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 185245,
+      "rmse": 0.12805072731931944,
+      "mae": 0.09723750690266406,
+      "correlation": 0.9384147369221825,
+      "bias": -0.08648111744958736
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 184768,
+      "rmse": 0.12143139823996048,
+      "mae": 0.0992536841719267,
+      "correlation": 0.9623802974518892,
+      "bias": -0.09582109716187132
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "jq774vx6544",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 184768,
+      "rmse": 0.1360186685343526,
+      "mae": 0.10737824605108374,
+      "correlation": 0.9412597661646847,
+      "bias": -0.10029781675276507
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 105293,
+      "rmse": 0.08935940825994736,
+      "mae": 0.06198128137798055,
+      "correlation": 0.9272065688430663,
+      "bias": -0.04295682616576291
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ws250sr1272",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 105293,
+      "rmse": 0.07977773000151527,
+      "mae": 0.061366009805313586,
+      "correlation": 0.9569613107116011,
+      "bias": -0.051124082159426695
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 74882,
+      "rmse": 0.07402523791148957,
+      "mae": 0.04852213237111651,
+      "correlation": 0.9728240397272715,
+      "bias": -0.01890542018377287
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ws250sr1272",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 74882,
+      "rmse": 0.07179507047894128,
+      "mae": 0.04496326972851611,
+      "correlation": 0.9777943306210203,
+      "bias": -0.028254256782516713
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 183532,
+      "rmse": 0.11140422567895865,
+      "mae": 0.08086107211739497,
+      "correlation": 0.8798316063303327,
+      "bias": -0.07308170555458508
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "jn038xx9588",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 183532,
+      "rmse": 0.11718656119817124,
+      "mae": 0.08748249742428904,
+      "correlation": 0.8869274856432372,
+      "bias": -0.08438022235319087
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 198910,
+      "rmse": 0.09196555806436396,
+      "mae": 0.06290325419174717,
+      "correlation": 0.9135937772884393,
+      "bias": -0.05162093242882074
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "jn038xx9588",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 198910,
+      "rmse": 0.08074730844580998,
+      "mae": 0.05924279700909823,
+      "correlation": 0.9579750707335948,
+      "bias": -0.05478512967419791
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 242134,
+      "rmse": 0.06143446285693229,
+      "mae": 0.039346599474784236,
+      "correlation": 0.9804834100270691,
+      "bias": -0.026282773940989518
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "kw215gn3365",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 242134,
+      "rmse": 0.06701948713160942,
+      "mae": 0.039514219166550055,
+      "correlation": 0.9742784221322207,
+      "bias": -0.02123440623218256
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 230048,
+      "rmse": 0.06187916363555201,
+      "mae": 0.03614209894160971,
+      "correlation": 0.9735489389133726,
+      "bias": 0.01820809655774096
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "kw215gn3365",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 230048,
+      "rmse": 0.04962705746840387,
+      "mae": 0.02739197710812743,
+      "correlation": 0.9839345613874846,
+      "bias": 0.018249296703888532
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 359096,
+      "rmse": 0.08575268993633015,
+      "mae": 0.06539352100905339,
+      "correlation": 0.9759892630143467,
+      "bias": -0.05272403677966494
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ns598kr8616",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 359096,
+      "rmse": 0.08934535543947182,
+      "mae": 0.06579712149531548,
+      "correlation": 0.9739478380337518,
+      "bias": -0.04825268930723456
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 361488,
+      "rmse": 0.10024531546152042,
+      "mae": 0.08079918570654916,
+      "correlation": 0.9740049682895368,
+      "bias": -0.07564514564791365
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ns598kr8616",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 361488,
+      "rmse": 0.09108527511676495,
+      "mae": 0.06471999370420581,
+      "correlation": 0.9683748787877837,
+      "bias": -0.05504228446459426
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "as fitted",
+      "rows": 430979,
+      "rmse": 0.018625265434670937,
+      "mae": 0.011721069277357455,
+      "correlation": 0.9978480503750708,
+      "bias": 0.00008838655451945916,
+      "heldOutRmse": 0.020765343504084464
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ym773gh2267",
+      "half": "bass",
+      "variant": "re-registered",
+      "rows": 430979,
+      "rmse": 0.03266801592590482,
+      "mae": 0.01697625185602599,
+      "correlation": 0.9934055198846691,
+      "bias": 0.0024333586015069125,
+      "heldOutRmse": 0.0339355780042946
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "as fitted",
+      "rows": 428723,
+      "rmse": 0.060759103117649524,
+      "mae": 0.02283910663772888,
+      "correlation": 0.9745790905918978,
+      "bias": 0.005381977441881415,
+      "heldOutRmse": 0.05207343778969911
+    },
+    {
+      "from": "ym773gh2267",
+      "onto": "ym773gh2267",
+      "half": "treble",
+      "variant": "re-registered",
+      "rows": 428723,
+      "rmse": 0.06281125151882791,
+      "mae": 0.024701549879716376,
+      "correlation": 0.9726980189420665,
+      "bias": 0.003145969173235824,
+      "heldOutRmse": 0.05404592369776685
+    }
+  ],
+  "travel": [
+    {
+      "druid": "jq774vx6544",
+      "half": "bass",
+      "span": "slow crescendo, P to M.F.",
+      "from": "0.023",
+      "to": "0.687",
+      "ms": "2068",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "bass",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.687",
+      "to": "0.023",
+      "ms": "1514",
+      "schmitz": "—"
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "bass",
+      "span": "sforzando, P to F",
+      "from": "0.023",
+      "to": "0.905",
+      "ms": "230",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "bass",
+      "span": "sforzando release, F to P",
+      "from": "0.905",
+      "to": "0.023",
+      "ms": "65",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "bass",
+      "span": "slow crescendo, P to F",
+      "from": "0.023",
+      "to": "0.905",
+      "ms": "30000",
+      "schmitz": "—"
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "bass",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.687",
+      "to": "0.295",
+      "ms": "1560",
+      "schmitz": "≈ 700"
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "treble",
+      "span": "slow crescendo, P to M.F.",
+      "from": "0.025",
+      "to": "0.746",
+      "ms": "3352",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "treble",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.746",
+      "to": "0.025",
+      "ms": "2121",
+      "schmitz": "—"
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "treble",
+      "span": "sforzando, P to F",
+      "from": "0.025",
+      "to": "0.946",
+      "ms": "256",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "treble",
+      "span": "sforzando release, F to P",
+      "from": "0.946",
+      "to": "0.025",
+      "ms": "26",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "treble",
+      "span": "slow crescendo, P to F",
+      "from": "0.025",
+      "to": "0.946",
+      "ms": "30000",
+      "schmitz": "—"
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "treble",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.746",
+      "to": "0.347",
+      "ms": "1901",
+      "schmitz": "≈ 700"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "bass",
+      "span": "slow crescendo, P to M.F.",
+      "from": "0.012",
+      "to": "0.734",
+      "ms": "never reached",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "bass",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.734",
+      "to": "0.012",
+      "ms": "1620",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "bass",
+      "span": "sforzando, P to F",
+      "from": "0.012",
+      "to": "0.835",
+      "ms": "233",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "bass",
+      "span": "sforzando release, F to P",
+      "from": "0.835",
+      "to": "0.012",
+      "ms": "89",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "bass",
+      "span": "slow crescendo, P to F",
+      "from": "0.012",
+      "to": "0.835",
+      "ms": "never reached",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "bass",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.734",
+      "to": "0.423",
+      "ms": "997",
+      "schmitz": "≈ 700"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "treble",
+      "span": "slow crescendo, P to M.F.",
+      "from": "0.004",
+      "to": "0.750",
+      "ms": "2690",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "treble",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.750",
+      "to": "0.004",
+      "ms": "3240",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "treble",
+      "span": "sforzando, P to F",
+      "from": "0.004",
+      "to": "0.923",
+      "ms": "168",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "treble",
+      "span": "sforzando release, F to P",
+      "from": "0.923",
+      "to": "0.004",
+      "ms": "92",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "treble",
+      "span": "slow crescendo, P to F",
+      "from": "0.004",
+      "to": "0.923",
+      "ms": "never reached",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "treble",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.750",
+      "to": "0.468",
+      "ms": "1449",
+      "schmitz": "≈ 700"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "bass",
+      "span": "slow crescendo, P to M.F.",
+      "from": "-0.013",
+      "to": "0.706",
+      "ms": "1140",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "bass",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.706",
+      "to": "-0.013",
+      "ms": "3271",
+      "schmitz": "—"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "bass",
+      "span": "sforzando, P to F",
+      "from": "-0.013",
+      "to": "0.873",
+      "ms": "183",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "bass",
+      "span": "sforzando release, F to P",
+      "from": "0.873",
+      "to": "-0.013",
+      "ms": "137",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "bass",
+      "span": "slow crescendo, P to F",
+      "from": "-0.013",
+      "to": "0.873",
+      "ms": "never reached",
+      "schmitz": "—"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "bass",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.706",
+      "to": "0.442",
+      "ms": "1030",
+      "schmitz": "≈ 700"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "treble",
+      "span": "slow crescendo, P to M.F.",
+      "from": "0.020",
+      "to": "0.750",
+      "ms": "2569",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "treble",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.750",
+      "to": "0.020",
+      "ms": "never reached",
+      "schmitz": "—"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "treble",
+      "span": "sforzando, P to F",
+      "from": "0.020",
+      "to": "0.906",
+      "ms": "210",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "treble",
+      "span": "sforzando release, F to P",
+      "from": "0.906",
+      "to": "0.020",
+      "ms": "never reached",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "treble",
+      "span": "slow crescendo, P to F",
+      "from": "0.020",
+      "to": "0.906",
+      "ms": "5403",
+      "schmitz": "—"
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "treble",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.750",
+      "to": "0.483",
+      "ms": "1405",
+      "schmitz": "≈ 700"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "bass",
+      "span": "slow crescendo, P to M.F.",
+      "from": "0.044",
+      "to": "0.686",
+      "ms": "4605",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "bass",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.686",
+      "to": "0.044",
+      "ms": "1342",
+      "schmitz": "—"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "bass",
+      "span": "sforzando, P to F",
+      "from": "0.044",
+      "to": "0.863",
+      "ms": "240",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "bass",
+      "span": "sforzando release, F to P",
+      "from": "0.863",
+      "to": "0.044",
+      "ms": "36",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "bass",
+      "span": "slow crescendo, P to F",
+      "from": "0.044",
+      "to": "0.863",
+      "ms": "30000",
+      "schmitz": "—"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "bass",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.686",
+      "to": "0.284",
+      "ms": "1539",
+      "schmitz": "≈ 700"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "treble",
+      "span": "slow crescendo, P to M.F.",
+      "from": "0.028",
+      "to": "0.672",
+      "ms": "5550",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "treble",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.672",
+      "to": "0.028",
+      "ms": "2408",
+      "schmitz": "—"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "treble",
+      "span": "sforzando, P to F",
+      "from": "0.028",
+      "to": "0.867",
+      "ms": "301",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "treble",
+      "span": "sforzando release, F to P",
+      "from": "0.867",
+      "to": "0.028",
+      "ms": "23",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "treble",
+      "span": "slow crescendo, P to F",
+      "from": "0.028",
+      "to": "0.867",
+      "ms": "30000",
+      "schmitz": "—"
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "treble",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.672",
+      "to": "0.282",
+      "ms": "2608",
+      "schmitz": "≈ 700"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "bass",
+      "span": "slow crescendo, P to M.F.",
+      "from": "0.026",
+      "to": "0.666",
+      "ms": "2244",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "bass",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.666",
+      "to": "0.026",
+      "ms": "2666",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "bass",
+      "span": "sforzando, P to F",
+      "from": "0.026",
+      "to": "0.911",
+      "ms": "310",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "bass",
+      "span": "sforzando release, F to P",
+      "from": "0.911",
+      "to": "0.026",
+      "ms": "33",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "bass",
+      "span": "slow crescendo, P to F",
+      "from": "0.026",
+      "to": "0.911",
+      "ms": "30000",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "bass",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.666",
+      "to": "0.361",
+      "ms": "1817",
+      "schmitz": "≈ 700"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "treble",
+      "span": "slow crescendo, P to M.F.",
+      "from": "0.074",
+      "to": "0.687",
+      "ms": "2353",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "treble",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.687",
+      "to": "0.074",
+      "ms": "never reached",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "treble",
+      "span": "sforzando, P to F",
+      "from": "0.074",
+      "to": "0.927",
+      "ms": "293",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "treble",
+      "span": "sforzando release, F to P",
+      "from": "0.927",
+      "to": "0.074",
+      "ms": "never reached",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "treble",
+      "span": "slow crescendo, P to F",
+      "from": "0.074",
+      "to": "0.927",
+      "ms": "never reached",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "treble",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.687",
+      "to": "0.471",
+      "ms": "798",
+      "schmitz": "≈ 700"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "bass",
+      "span": "slow crescendo, P to M.F.",
+      "from": "0.038",
+      "to": "0.658",
+      "ms": "3725",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "bass",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.658",
+      "to": "0.038",
+      "ms": "1083",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "bass",
+      "span": "sforzando, P to F",
+      "from": "0.038",
+      "to": "0.882",
+      "ms": "306",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "bass",
+      "span": "sforzando release, F to P",
+      "from": "0.882",
+      "to": "0.038",
+      "ms": "15",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "bass",
+      "span": "slow crescendo, P to F",
+      "from": "0.038",
+      "to": "0.882",
+      "ms": "30000",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "bass",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.658",
+      "to": "0.250",
+      "ms": "1376",
+      "schmitz": "≈ 700"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "treble",
+      "span": "slow crescendo, P to M.F.",
+      "from": "0.037",
+      "to": "0.642",
+      "ms": "2773",
+      "schmitz": "1300 to 1400"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "treble",
+      "span": "slow decrescendo, M.F. to P",
+      "from": "0.642",
+      "to": "0.037",
+      "ms": "2242",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "treble",
+      "span": "sforzando, P to F",
+      "from": "0.037",
+      "to": "0.872",
+      "ms": "289",
+      "schmitz": "≈ 200"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "treble",
+      "span": "sforzando release, F to P",
+      "from": "0.872",
+      "to": "0.037",
+      "ms": "36",
+      "schmitz": "≈ 150"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "treble",
+      "span": "slow crescendo, P to F",
+      "from": "0.037",
+      "to": "0.872",
+      "ms": "30000",
+      "schmitz": "—"
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "treble",
+      "span": "slow decrescendo, e-folding from M.F.",
+      "from": "0.642",
+      "to": "0.370",
+      "ms": "1348",
+      "schmitz": "≈ 700"
+    }
+  ],
+  "reproduction": [
+    {
+      "druid": "jq774vx6544",
+      "half": "bass",
+      "recorded": 0.027949637549372196,
+      "here": 0.02772911047880131
+    },
+    {
+      "druid": "jq774vx6544",
+      "half": "treble",
+      "recorded": 0.03893609526900396,
+      "here": 0.03591041432419299
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "bass",
+      "recorded": 0.026915660365945344,
+      "here": 0.027220578096324884
+    },
+    {
+      "druid": "ws250sr1272",
+      "half": "treble",
+      "recorded": 0.025263212701008557,
+      "here": 0.02575353434630197
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "bass",
+      "recorded": 0.027920379322488056,
+      "here": 0.02966849391745868
+    },
+    {
+      "druid": "jn038xx9588",
+      "half": "treble",
+      "recorded": 0.03759663995849535,
+      "here": 0.03706238541680275
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "bass",
+      "recorded": 0.024928908762387268,
+      "here": 0.02945860651788385
+    },
+    {
+      "druid": "kw215gn3365",
+      "half": "treble",
+      "recorded": 0.01711969001894023,
+      "here": 0.017511589881967014
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "bass",
+      "recorded": 0.023398713996276733,
+      "here": 0.02324610033054631
+    },
+    {
+      "druid": "ns598kr8616",
+      "half": "treble",
+      "recorded": 0.04393966357465567,
+      "here": 0.04388084355875341
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "bass",
+      "recorded": 0.021911601629598754,
+      "here": 0.020765343504084464
+    },
+    {
+      "druid": "ym773gh2267",
+      "half": "treble",
+      "recorded": 0.05194685713377842,
+      "here": 0.05207343778969911
+    }
+  ]
+}
