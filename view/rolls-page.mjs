@@ -193,7 +193,14 @@ function normalisedKey(text) {
  */
 function readSummary(path) {
   if (!path) {
-    return { headline: undefined, limitations: [], byDruid: new Map(), verdicts: new Map(), present: false };
+    return {
+      headline: undefined,
+      limitations: [],
+      byDruid: new Map(),
+      verdicts: new Map(),
+      later: undefined,
+      present: false,
+    };
   }
   const file = JSON.parse(readFileSync(path, "utf8"));
   const rolls = firstOf(file, ["rolls", "byRoll", "rollSummaries"]) ?? [];
@@ -211,6 +218,7 @@ function readSummary(path) {
     limitations: firstOf(file, ["limitations", "caveats"]) ?? [],
     byDruid: new Map(entries),
     verdicts: verdictsFrom(listed),
+    later: firstOf(file, ["roundTwo", "round2", "nextRound"]),
     present: true,
   };
 }
@@ -648,6 +656,97 @@ ${rows}
 </tbody></table></div>`;
 }
 
+// ----------------------------------------------------------------- a later round
+
+/** The later round keys its numbers by whatever names the roll, so try each. */
+function forRoll(source, roll) {
+  if (!source) return undefined;
+  return source[String(roll.welte)] ?? source[roll.druid] ?? source[roll.tag];
+}
+
+/**
+ * Round 1 beside round 2, in the two quantities the block's own note allows to be
+ * quoted from a comparison that has not been regenerated on its traces.
+ */
+function laterTable(later, rolls) {
+  const rmse = firstOf(later, ["heldOutRmseRound2", "heldOutRmse", "rmse"]);
+  const spread = firstOf(later, ["seedSpreadRound2", "seedSpread", "spread"]);
+  const columns = [
+    rmse && {
+      head: "held-out RMSE, round 1",
+      subs: HALVES.map((half) => half.label),
+      cells: (roll) => HALVES.map((half) => fixed(roll.fitted[half.key].test.rmse, 4)),
+    },
+    rmse && {
+      head: "held-out RMSE, round 2",
+      subs: HALVES.map((half) => half.label),
+      cells: (roll) => HALVES.map((half) => fixed(finiteOr(forRoll(rmse, roll)?.[half.key]), 4)),
+    },
+    spread && {
+      head: "seed spread",
+      subs: ["round 1", "round 2"],
+      cells: (roll) => [fixed(roll.spread?.heldOutRmse, 4), fixed(finiteOr(forRoll(spread, roll)), 4)],
+    },
+  ].filter(Boolean);
+  if (columns.length === 0) return "";
+
+  const head = `<tr><th rowspan="2">roll</th>${columns
+    .map((column) => `<th class="num" colspan="${column.subs.length}">${escaped(column.head)}</th>`)
+    .join("")}</tr>`;
+  const subHead = `<tr>${columns
+    .flatMap((column) => column.subs.map((sub) => `<th class="num">${escaped(sub)}</th>`))
+    .join("")}</tr>`;
+  const rows = rolls
+    .map(
+      (roll) =>
+        `<tr><th scope="row">${escaped(roll.tag)}</th>${columns
+          .flatMap((column) => column.cells(roll))
+          .map((cell) => `<td class="num">${escaped(cell)}</td>`)
+          .join("")}</tr>`,
+    )
+    .join("\n");
+  return `<div class="scroll"><table><thead>${head}${subHead}</thead><tbody>
+${rows}
+</tbody></table></div>`;
+}
+
+/** Where the later round's own files stand, in whichever of these the block carries. */
+function laterProvenance(later) {
+  const notes = [
+    ["status", firstOf(later, ["status"])],
+    ["files", firstOf(later, ["source", "files"])],
+    ["verification", firstOf(later, ["verification", "crossChecks"])],
+  ].filter(([, said]) => typeof said === "string");
+  const command = firstOf(later, ["regenerate", "command"]);
+  if (notes.length === 0 && !command) return "";
+  return `<details>
+      <summary>Where the round-2 comparison stands</summary>
+      <dl class="per-roll">${notes
+        .map(([label, said]) => `<dt>${escaped(label)}</dt><dd>${escaped(said)}</dd>`)
+        .join("")}</dl>
+      ${command ? `<pre class="command">${escaped(command)}</pre>` : ""}
+    </details>`;
+}
+
+function laterSection(later, rolls) {
+  if (!later) return "";
+  const verdict = firstOf(later, ["verdict", "summary"]);
+  const changed = firstOf(later, ["whatChanged", "changes"]);
+  const why = firstOf(later, ["why", "caveat", "caveats"]);
+  const readFrom = firstOf(later, ["tablesReadFrom"]) ?? 1;
+  return `<section id="round-two">
+    <h2>Round 2</h2>
+    <p class="caption">Everything above is the round-${readFrom} comparison, the one every figure in the three
+    sections above was computed from. A second fit was run on improved traces, and what it settles is carried
+    here.</p>
+    ${verdict ? `<p class="verdict">${escaped(verdict)}</p>` : ""}
+    ${changed ? `<p class="caption">${escaped(changed)}</p>` : ""}
+    ${laterTable(later, rolls)}
+    ${why ? `<p class="caption">${escaped(why)}</p>` : ""}
+    ${laterProvenance(later)}
+  </section>`;
+}
+
 // ------------------------------------------------------------------- the roll list
 
 function rollTable(rolls) {
@@ -781,7 +880,7 @@ tbody th { font-weight: 600; }
 tbody tr:last-child td, tbody tr:last-child th { border-bottom: none; }
 .share { color: var(--ink-faint); font-size: 11.5px; }
 .wrap { white-space: normal; max-width: 26ch; line-height: 1.35; }
-table.rolls thead th[colspan] { text-align: center; border-bottom: none; padding-bottom: 0; }
+thead th[colspan] { text-align: center; border-bottom: none; padding-bottom: 0; }
 table.rolls tbody th { vertical-align: top; }
 .tag-chip {
   display: inline-block; padding: 1px 7px; border-radius: 3px;
@@ -823,7 +922,7 @@ summary { cursor: pointer; font-size: 12.5px; color: var(--ink-muted); }
 summary:focus-visible { outline: 2px solid var(--bass); outline-offset: 3px; }
 .table-head { font-family: var(--sans); font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em;
   text-transform: uppercase; color: var(--ink-faint); margin: 16px 0 4px; }
-.per-roll { display: grid; grid-template-columns: 6ch 1fr; gap: 7px 14px; margin: 14px 0 4px;
+.per-roll { display: grid; grid-template-columns: max-content 1fr; gap: 7px 14px; margin: 14px 0 4px;
   font-size: 13px; line-height: 1.5; max-width: 88ch; }
 .per-roll dt { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--ink-muted); }
 .per-roll dd { margin: 0; color: var(--ink-soft); }
@@ -849,6 +948,10 @@ ${rampClasses}
 .ramp .steps .swatch:first-child { border-radius: 2px 0 0 2px; }
 .ramp .steps .swatch:last-child { border-radius: 0 2px 2px 0; }
 .note-inline { color: var(--ink-faint); }
+
+.command { margin: 8px 0 0; padding: 10px 12px; background: var(--wash); border: 1px solid var(--rule);
+  border-radius: 3px; overflow-x: auto; font-size: 11.5px; line-height: 1.6; color: var(--ink-soft);
+  white-space: pre-wrap; word-break: break-word; }
 
 .absent { color: var(--ink-faint); font-size: 11.5px; }
 table.travel th.wrap { white-space: normal; max-width: 15ch; vertical-align: bottom; }
@@ -956,6 +1059,8 @@ ${HALVES.map((half) => heatMap(rolls, index, half, variant, domain)).join("\n")}
     ${travelVerdict ? `<p class="verdict">${escaped(travelVerdict)}</p>` : ""}
     ${travelTable(rolls, data.travel)}
   </section>
+
+${laterSection(summary.later, rolls)}
 
   <section class="closing">
     <h3>Reading the seed spread</h3>
