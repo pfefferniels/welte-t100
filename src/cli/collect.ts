@@ -17,6 +17,7 @@ import type { Agreement } from "../eval/metrics.ts";
 import type { Parameters } from "../model/types.ts";
 import { pneumaticModel } from "../model/pneumatic.ts";
 import { describeTraversals } from "../model/timings.ts";
+import { HEADLINE_DRUID } from "./settings.ts";
 import type { Half } from "../roll/expression.ts";
 
 type Row = {
@@ -170,7 +171,7 @@ function main(): void {
     writeFileSync(
       "docs/fit-pneumatic.json",
       JSON.stringify(
-        { model: pneumaticModel.name, druid: "jq774vx6544", ports: "aperture", results: full },
+        { model: pneumaticModel.name, druid: HEADLINE_DRUID, ports: "aperture", results: full },
         null,
         2,
       ),

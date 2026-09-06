@@ -20,6 +20,7 @@ import { basename, dirname } from "node:path";
 
 import { loadRoll } from "../roll/load.ts";
 import { readRollFile, rollPorts } from "../roll/ports.ts";
+import { HEADLINE_DRUID, outputFor } from "./settings.ts";
 import { halfPedalling, pedalDefaults, pedalSpans, runPedals, tiedToRise } from "../model/pedal.ts";
 import { DAMPER_CC, SOFT_CC } from "../midi/pedal.ts";
 import type { PedalInput, PedalSpan, PedalTravel } from "../model/pedal.ts";
@@ -421,7 +422,7 @@ function source(): Source {
     const name = basename(raw).replace(/(_parser)?[-_]?raw\.mid$/i, "");
     return { name, roll: parsed.roll, grid: parsed.grid, input: parsed, punches: parsed.perforations };
   }
-  const druid = option("druid", "jq774vx6544");
+  const druid = option("druid", HEADLINE_DRUID);
   const loaded = loadRoll(druid);
   return {
     name: druid,
@@ -781,7 +782,7 @@ function main(): void {
   const from = source();
   const params = parameters();
   const travel = runPedals(from.input, params);
-  const outPath = option("out", "docs/pedal-page.html");
+  const outPath = option("out", outputFor(from.name, "pedal-page", "html"));
 
   const html = page(from, travel, params, option("piece", from.name), option("roll", from.name));
   mkdirSync(dirname(outPath), { recursive: true });

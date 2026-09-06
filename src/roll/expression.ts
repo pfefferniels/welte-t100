@@ -14,6 +14,8 @@ import type { TrackEvent } from "./smf.ts";
 
 export type Half = "bass" | "treble";
 
+export const HALVES: readonly Half[] = ["bass", "treble"];
+
 /**
  * `windResistance` is Hagmann's *Widerstand ab/an* (Anhang 10, p. 178), the
  * two-speed control of the blower, which midi2exp and pianolatron both read as

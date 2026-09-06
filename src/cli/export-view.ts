@@ -27,6 +27,7 @@ import { alternatingBlocks } from "../eval/split.ts";
 import { midi2expModel } from "../model/midi2exp.ts";
 import { pneumaticModel } from "../model/pneumatic.ts";
 import { clamp, type Model, type Parameters } from "../model/types.ts";
+import { HEADLINE_DRUID } from "./settings.ts";
 import type { Half, Perforation } from "../roll/expression.ts";
 
 const MODELS: ReadonlyMap<string, Model> = new Map([
@@ -160,9 +161,10 @@ function halfBundle(loaded: ReturnType<typeof loadRoll>, model: Model, fit: FitF
 function main(): void {
   const fitPath = option("fit", "");
   const fit = readFit(fitPath);
-  const druid = option("druid", fit.druid ?? "jq774vx6544");
+  const druid = option("druid", fit.druid ?? HEADLINE_DRUID);
   const ports = option("ports", fit.ports ?? "aperture") as PortModel;
-  const out = option("out", "view/data.js");
+  // The page loads `data.js` by name, so only the headline roll may claim it.
+  const out = option("out", druid === HEADLINE_DRUID ? "view/data.js" : `view/data-${druid}.js`);
 
   const model = MODELS.get(option("model", fit.model ?? pneumaticModel.name));
   if (!model) throw new Error(`unknown model; have ${[...MODELS.keys()].join(", ")}`);

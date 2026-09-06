@@ -8,9 +8,34 @@
  */
 
 import type { Parameters } from "../model/types.ts";
-import type { Half } from "../roll/expression.ts";
+import { HALVES, type Half } from "../roll/expression.ts";
+import type { LoadedRoll } from "../roll/load.ts";
 import { WELTE_SPOOL } from "../roll/spool.ts";
 import type { AxisChoice } from "../roll/timing.ts";
+import { measureRoll, parametersOf, withheldFrom, type Evidence } from "../truth/measure.ts";
+
+/**
+ * Roll 3309, Backhaus playing the *Militärmarsch*: the roll everything here was
+ * measured and fitted on, and the one whose fit the library ships. Other rolls
+ * pass through the same commands with `--druid`.
+ */
+export const HEADLINE_DRUID = "jq774vx6544";
+
+/**
+ * Where a roll's fit is written and looked for. The headline roll keeps the
+ * name the library and the viewer already know; every other roll gets a file of
+ * its own, so a second roll can never overwrite the published fit.
+ */
+export function fitPathFor(druid: string): string {
+  return druid === HEADLINE_DRUID ? "docs/fit-pneumatic.json" : `docs/fits/${druid}.json`;
+}
+
+/** The same rule for a command's other output, which is named after the command. */
+export function outputFor(druid: string, command: string, extension = "json"): string {
+  return druid === HEADLINE_DRUID
+    ? `docs/${command}.${extension}`
+    : `docs/fits/${druid}-${command}.${extension}`;
+}
 
 /**
  * The time axis a command was asked for: `--timing scan` for the tempo map in the
@@ -35,12 +60,6 @@ export function axisFrom(argv: readonly string[]): AxisChoice {
   };
 }
 
-/**
- * What `docs/empirics.md` measures directly, per half: the two rails from where
- * the line comes to rest, the level the Mezzoforte finger arrests it at, and the
- * offset from the punches. `mezzoforte` here is the pin's centre, so the measured
- * arrest face is `mezzoforte + mfThickness / 2`.
- */
 /**
  * Parameters the ablation has already shown to do nothing, pinned so the search
  * does not spend its effort on them. Each is still in the model's spec, so
@@ -102,10 +121,39 @@ export const SETTLED: Parameters = {
   mfThickness: 0.06,
 };
 
-export const MEASURED: Record<Half, Parameters> = {
-  // The measured level is where the line comes to rest having fallen, which is
-  // the lower of the pin's two faces, and the two faces lie 0.06 apart, so half
-  // of that is added here to give the centre that `mfThickness` is pinned around.
+/**
+ * The four constants of whichever roll is in hand: the two rails from where the
+ * line comes to rest, the level the Mezzoforte finger arrests it at, and the
+ * offset from the punches. `src/truth/measure.ts` reads them off the roll, so
+ * roll 3309 goes the same way as any other.
+ *
+ * The arrest face is the one observable quantity, and `mezzoforte` is the pin's
+ * centre, half of the pinned `mfThickness` below it.
+ */
+export type RollConstants = {
+  /** Pinned in the fit's first stage, per half. Only what this roll shows. */
+  readonly pinned: Record<Half, Parameters>;
+  /** What it does not show, so the fit can say why it is fitting them. */
+  readonly withheld: Record<Half, readonly Evidence[]>;
+};
+
+export function constantsOf(loaded: LoadedRoll): RollConstants {
+  const measured = measureRoll(loaded);
+  const thickness = SETTLED.mfThickness ?? 0;
+  const perHalf = <T,>(of: (half: Half) => T): Record<Half, T> =>
+    Object.fromEntries(HALVES.map((half) => [half, of(half)])) as Record<Half, T>;
+  return {
+    pinned: perHalf((half) => parametersOf(measured[half], thickness)),
+    withheld: perHalf((half) => withheldFrom(measured[half])),
+  };
+}
+
+/**
+ * The same four, as `docs/measurements.md` prints them for roll 3309 from the Python
+ * under `analysis/`. Nothing fits against these: `src/truth/measure.test.ts`
+ * holds them as the expectation the TypeScript measurement has to reproduce.
+ */
+export const MEASURED_3309: Record<Half, Parameters> = {
   bass: { piano: 0.017, forte: 0.912, mezzoforte: 0.5752 + 0.03, leadRows: -65 },
   treble: { piano: 0.022, forte: 0.952, mezzoforte: 0.6169 + 0.03, leadRows: -46 },
 };

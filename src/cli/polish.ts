@@ -1,7 +1,7 @@
 /**
  * Sweep each coordinate of an existing fit.
  *
- *   node src/cli/polish.ts --fit docs/fit-pneumatic.json [--timing scan] [--out other.json]
+ *   node src/cli/polish.ts [--druid D] [--fit FILE] [--timing scan] [--out other.json]
  *
  * The cluster runs whatever source was synced to it, so a fit that came back
  * before `coordinateDescent` was added to `fitModel` has not had it. Applying it
@@ -24,7 +24,7 @@ import { boundsOf } from "../eval/fitting.ts";
 import { parametersFrom, parameterVector } from "../model/types.ts";
 import { pneumaticModel } from "../model/pneumatic.ts";
 import { withFixed } from "../model/types.ts";
-import { axisFrom, SETTLED } from "./settings.ts";
+import { HEADLINE_DRUID, axisFrom, fitPathFor, SETTLED } from "./settings.ts";
 import { loadRoll } from "../roll/load.ts";
 import { halfOf } from "../truth/curves.ts";
 
@@ -34,10 +34,10 @@ function option(name: string, fallback: string): string {
 }
 
 function main(): void {
-  const path = option("fit", "docs/fit-pneumatic.json");
+  const path = option("fit", fitPathFor(option("druid", HEADLINE_DRUID)));
   const out = option("out", path);
   const file = JSON.parse(readFileSync(path, "utf8"));
-  const loaded = loadRoll(file.druid ?? "jq774vx6544", axisFrom(process.argv));
+  const loaded = loadRoll(option("druid", file.druid ?? HEADLINE_DRUID), axisFrom(process.argv));
   const model = withFixed(pneumaticModel, SETTLED as Record<string, number>, pneumaticModel.name);
 
   for (const result of file.results) {

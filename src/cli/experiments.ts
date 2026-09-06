@@ -20,7 +20,8 @@ import { pneumaticModel } from "../model/pneumatic.ts";
 import { constantModel } from "../model/reference.ts";
 import { estimateField, fieldModel } from "../model/field.ts";
 import { withFixed, withTied, type Model, type ModelInput } from "../model/types.ts";
-import type { Half } from "../roll/expression.ts";
+import { HEADLINE_DRUID, outputFor } from "./settings.ts";
+import { HALVES } from "../roll/expression.ts";
 import type { TracedCurve } from "../truth/curves.ts";
 import type { Mask } from "../eval/metrics.ts";
 
@@ -148,18 +149,16 @@ const VARIANTS: readonly Variant[] = [
   { label: "pneumatic, punches slid 30 s", question: "control: score without alignment", model: pneumaticModel, ports: "aperture", fit: true, shiftRows: 18000 },
 ];
 
-const HALVES: readonly Half[] = ["bass", "treble"];
-
 function option(name: string, fallback: string): string {
   const at = process.argv.indexOf(`--${name}`);
   return at >= 0 ? (process.argv[at + 1] ?? fallback) : fallback;
 }
 
 function main(): void {
-  const druid = option("druid", "jq774vx6544");
+  const druid = option("druid", HEADLINE_DRUID);
   const generations = Number(option("generations", "70"));
   const only = option("only", "");
-  const out = option("out", "docs/experiments.json");
+  const out = option("out", outputFor(druid, "experiments"));
 
   const [part, parts] = option("slice", "0/1").split("/").map(Number) as [number, number];
   // `--index` picks one variant by position and `--half` one keyboard half, so a

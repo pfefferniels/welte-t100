@@ -1,7 +1,7 @@
 /**
  * Where the model is wrong, broken down by what the mechanism was doing.
  *
- *   node src/cli/residuals.ts [--fit docs/fit-pneumatic.json] [--half bass|treble]
+ *   node src/cli/residuals.ts [--druid D] [--fit FILE] [--half bass|treble]
  *
  * An overall error number hides whether a model is uniformly a little off or
  * good everywhere except in one regime. This prints the second thing.
@@ -10,6 +10,7 @@
 import { readFileSync } from "node:fs";
 
 import { loadRoll } from "../roll/load.ts";
+import { HEADLINE_DRUID, fitPathFor } from "./settings.ts";
 import { halfOf } from "../truth/curves.ts";
 import { agreement, intersect, type Mask } from "../eval/metrics.ts";
 import { alternatingBlocks } from "../eval/split.ts";
@@ -55,8 +56,8 @@ function worstWindows(
 }
 
 function main(): void {
-  const druid = option("druid", "jq774vx6544");
-  const fitPath = option("fit", "docs/fit-pneumatic.json");
+  const druid = option("druid", HEADLINE_DRUID);
+  const fitPath = option("fit", fitPathFor(druid));
   const loaded = loadRoll(druid);
   const fit = JSON.parse(readFileSync(fitPath, "utf8")) as {
     results: { half: Half; params: Parameters }[];

@@ -29,6 +29,7 @@ import { basename, dirname } from "node:path";
 
 import { loadRoll } from "../roll/load.ts";
 import { readRollFile, rollPorts } from "../roll/ports.ts";
+import { HEADLINE_DRUID } from "./settings.ts";
 import { halfPedalling, pedalDefaults, pedalSpans, runPedals, tiedToRise } from "../model/pedal.ts";
 import { pedalMessages, type PedalMode } from "../midi/pedal.ts";
 import { noteOff, noteOn, setTempo, trackName, writeSmf, type MidiTrack } from "../midi/write.ts";
@@ -143,7 +144,7 @@ function source(): Source {
     const parsed = rollPorts(readRollFile(raw, basename(raw)));
     return { name: basename(raw), roll: parsed.roll, grid: parsed.grid, input: parsed };
   }
-  const druid = option("druid", "jq774vx6544");
+  const druid = option("druid", HEADLINE_DRUID);
   const loaded = loadRoll(druid);
   // Neither pedal belongs to a keyboard half, and `PedalInput` sees only the
   // grid and the ports, so which half is asked for here makes no difference.

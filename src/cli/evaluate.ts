@@ -1,7 +1,7 @@
 /**
  * Run every registered model against the drawn line and print how they compare.
  *
- *   node src/cli/evaluate.ts [druid] [--fit docs/fit-pneumatic.json]
+ *   node src/cli/evaluate.ts [druid | --druid D] [--fit docs/fit-pneumatic.json]
  *                            [--timing scan] [--effect 0.8] [--revolution 4.64]
  *
  * With no `--fit` every model runs on its published constants. A fit file
@@ -19,7 +19,7 @@
 import { readFileSync } from "node:fs";
 
 import { loadRoll, type PortModel } from "../roll/load.ts";
-import { axisFrom } from "./settings.ts";
+import { HEADLINE_DRUID, axisFrom } from "./settings.ts";
 import { halfOf } from "../truth/curves.ts";
 import { agreement, bestLag } from "../eval/metrics.ts";
 import { midi2expModel } from "../model/midi2exp.ts";
@@ -52,9 +52,11 @@ function fittedParameters(path: string | undefined): (model: Model, half: Half) 
 }
 
 function main(): void {
-  const druid = process.argv[2]?.startsWith("--") ? "jq774vx6544" : (process.argv[2] ?? "jq774vx6544");
-  const at = process.argv.indexOf("--fit");
-  const parameters = fittedParameters(at >= 0 ? process.argv[at + 1] : undefined);
+  const named = process.argv[2]?.startsWith("--") ? undefined : process.argv[2];
+  const at = process.argv.indexOf("--druid");
+  const druid = (at >= 0 ? process.argv[at + 1] : named) ?? HEADLINE_DRUID;
+  const fitAt = process.argv.indexOf("--fit");
+  const parameters = fittedParameters(fitAt >= 0 ? process.argv[fitAt + 1] : undefined);
   const loaded = loadRoll(druid, axisFrom(process.argv));
   const secondsPerRow =
     (loaded.grid.seconds.at(-1)! - loaded.grid.seconds[0]!) / (loaded.grid.length - 1);

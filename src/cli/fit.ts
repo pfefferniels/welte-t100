@@ -6,6 +6,11 @@
  *
  * Fitting is on alternating blocks and the reported score is on the blocks left
  * out, so a model with more parameters does not win by memorising the roll.
+ *
+ * The result goes to `docs/fits/<druid>.json` unless `--out` says otherwise,
+ * roll 3309 included. `docs/fit-pneumatic.json` holds the published headline
+ * fit and is written by hand or by `src/cli/collect.ts`, so no run on a short
+ * budget can displace it.
  */
 
 import { writeFileSync, mkdirSync } from "node:fs";
@@ -17,34 +22,56 @@ import { alternatingBlocks } from "../eval/split.ts";
 import { fitModel } from "../eval/fitting.ts";
 import { midi2expModel } from "../model/midi2exp.ts";
 import { pneumaticModel } from "../model/pneumatic.ts";
-import { MEASURED, SETTLED } from "./settings.ts";
+import { HEADLINE_DRUID, SETTLED, constantsOf } from "./settings.ts";
 import { describeTraversals } from "../model/timings.ts";
 import { withFixed, type Model, type Parameters } from "../model/types.ts";
-import type { Half } from "../roll/expression.ts";
+import { HALVES, type Half } from "../roll/expression.ts";
 
 const MODELS: ReadonlyMap<string, Model> = new Map([
   [midi2expModel.name, midi2expModel],
   [pneumaticModel.name, pneumaticModel],
 ]);
 
-const HALVES: readonly Half[] = ["bass", "treble"];
-
 function option(name: string, fallback: string): string {
   const at = process.argv.indexOf(`--${name}`);
   return at >= 0 ? (process.argv[at + 1] ?? fallback) : fallback;
 }
 
-function fitHalf(
-  model: Model,
-  loaded: ReturnType<typeof loadRoll>,
-  half: Half,
-  ports: PortModel,
-  generations: number,
-  seed: number,
-  settled: Parameters,
-  huber: number,
-) {
-  const input = loaded.inputFor(half, ports);
+type FitRun = {
+  readonly model: Model;
+  readonly loaded: ReturnType<typeof loadRoll>;
+  readonly ports: PortModel;
+  readonly generations: number;
+  readonly seed: number;
+  /** Pinned throughout, because the ablation has shown them to do nothing. */
+  readonly settled: Parameters;
+  /** Read off this roll, per half. Held in stage 1 and released in stage 2. */
+  readonly measured: Record<Half, Parameters>;
+  readonly huber: number;
+};
+
+/**
+ * The measured constants this model can actually be pinned at. A value outside
+ * a parameter's own box would hold the search at a point it may not visit, so
+ * it is reported and left to the fit instead.
+ */
+function insideSpec(model: Model, measured: Parameters, half: Half): Parameters {
+  const box = new Map(model.spec.map((entry) => [entry.name, entry]));
+  return Object.fromEntries(
+    Object.entries(measured).filter(([name, value]) => {
+      const entry = box.get(name);
+      if (!entry || (value >= entry.lower && value <= entry.upper)) return true;
+      console.error(
+        `  ${half} measures ${name} at ${value.toPrecision(4)}, outside ${entry.lower} to ${entry.upper}: left to the fit`,
+      );
+      return false;
+    }),
+  );
+}
+
+function fitHalf(run: FitRun, half: Half) {
+  const { model, loaded, generations, seed, huber } = run;
+  const input = loaded.inputFor(half, run.ports);
   const truth = halfOf(loaded.curves, half);
   const masks = alternatingBlocks(loaded.grid, truth.observed);
   const report = (line: string): void => {
@@ -55,8 +82,8 @@ function fitHalf(
   // level the hook arrests at, the offset from the punches. Making the search
   // rediscover them wastes most of its effort, so the first stage holds them and
   // fits only what is not measured, and the second releases everything from there.
-  const lean = model.name === pneumaticModel.name ? withFixed(model, settled, model.name) : model;
-  const measured = MEASURED[half];
+  const lean = model.name === pneumaticModel.name ? withFixed(model, run.settled, model.name) : model;
+  const measured = insideSpec(lean, run.measured[half], half);
   const first = fitModel(withFixed(lean, measured), input, truth, masks, {
     generations: Math.round(generations * 0.6),
     seed,
@@ -70,7 +97,14 @@ function fitHalf(
     startFrom: { ...measured, ...first.params },
     report: (line) => report(`stage 2 ${line}`),
   });
-  return { half, ...result, output: undefined };
+  // Both stages, so that the cost reported is the cost of the fit.
+  return {
+    half,
+    ...result,
+    evaluations: first.evaluations + result.evaluations,
+    seconds: first.seconds + result.seconds,
+    output: undefined,
+  };
 }
 
 function main(): void {
@@ -78,14 +112,26 @@ function main(): void {
   const model = MODELS.get(name);
   if (!model) throw new Error(`unknown model ${name}; have ${[...MODELS.keys()].join(", ")}`);
 
-  const druid = option("druid", "jq774vx6544");
+  const druid = option("druid", HEADLINE_DRUID);
   const ports = option("ports", "aperture") as PortModel;
   const generations = Number(option("generations", "160"));
   const seed = Number(option("seed", "1"));
-  const out = option("out", "");
+  // Never the headline file, whatever the roll: promoting a fit is a decision.
+  const out = option("out", `docs/fits/${druid}.json`);
 
   const loaded = loadRoll(druid);
   console.error(`fitting ${model.name} on ${druid} (${ports} ports, ${generations} generations)`);
+
+  // Only what this roll shows is pinned in stage 1; anything it cannot settle
+  // stays free from the start, and is named here so a thin roll is visible.
+  const constants = constantsOf(loaded);
+  HALVES.forEach((half) => {
+    const shown = Object.entries(constants.pinned[half]).map(([name, value]) => `${name} ${value.toPrecision(4)}`);
+    console.error(`  measured ${half}: ${shown.join(", ") || "nothing"}`);
+    constants.withheld[half].forEach((entry) => {
+      console.error(`  ${half} leaves ${entry.names.join(" and ")} to the fit: no ${entry.wanted}`);
+    });
+  });
 
   // `--settle a,b` pins further parameters at their defaults, which is how a
   // control run is made: the same model and budget with a candidate term held
@@ -101,13 +147,17 @@ function main(): void {
   const huber = Number(option("huber", "0"));
   if (huber > 0) console.error(`robust objective, residuals past ${huber} charged linearly`);
 
-  const results = HALVES.map((half) => fitHalf(model, loaded, half, ports, generations, seed, settled, huber));
+  const run: FitRun = { model, loaded, ports, generations, seed, settled, measured: constants.pinned, huber };
+  const results = HALVES.map((half) => fitHalf(run, half));
 
   // Write before printing anything. Four completed fits were once lost to a
   // TypeError in the summary table below, which ran first.
   if (out) {
     mkdirSync(dirname(out), { recursive: true });
-    writeFileSync(out, JSON.stringify({ model: model.name, druid, ports, generations, seed, results }, null, 2));
+    writeFileSync(
+      out,
+      JSON.stringify({ model: model.name, druid, ports, generations, seed, measured: constants.pinned, results }, null, 2),
+    );
     console.error(`wrote ${out}`);
   }
 
