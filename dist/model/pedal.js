@@ -79,12 +79,12 @@ const SETTLED = 0.95;
  * the same kind of conduit, so the same flow law, and its mean until something
  * better turns up.
  *
- * The travel times are bounded from the roll rather than from Hagmann, who
- * gives none. On roll 3309 the shortest release-and-retake of the damper pedal
- * is 212 ms from the "ab" punch to the next "an", and the fifth percentile of
- * the 267 lifts is 248 ms. An editor does not punch a lift the instrument
- * cannot make, so a full fall of appreciably more than 200 ms is hard to
- * defend. Welte's controls 9b and 9c bound it the same way from the other side,
+ * The travel times are bounded from the rolls rather than from Hagmann, who
+ * gives none. Across the six lined rolls the shortest release-and-retake of the
+ * damper pedal, from the "ab" punch to the next "an", runs from 142 ms on 1474
+ * to 210 ms on 3309, and the fifth percentile of the lifts from 187 to 247 ms.
+ * An editor does not punch a lift the instrument cannot make, so a full fall of
+ * appreciably more than 200 ms is hard to defend. Welte's controls 9b and 9c bound it the same way from the other side,
  * requiring four notes of a moderate figure to be cleanly separated by the
  * pedal and four short ones to be joined by it, but they name no note values
  * for the scale roll's own figures and so give an order of magnitude, not a

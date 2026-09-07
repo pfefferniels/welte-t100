@@ -2,10 +2,11 @@
  * How far each tracker-bar port is actually open, row by row.
  *
  * A perforation does not switch a port on and off. The hole in the paper and the
- * hole in the tracker bar are both round and of comparable size — about 20.9 px
- * and 16.7 px here — so the port opens over the roughly 17 px it takes the two
- * to slide across each other, which at this roll's speed is some 28 ms, of the
- * same order as the mechanism's own fast time constants. The open area is the
+ * hole in the tracker bar are both round and of comparable size, 19.8 to 20.9 px
+ * on the six lined rolls against 16.7 px, so the port opens over the roughly
+ * 17 px it takes the two to slide across each other, which at a red Welte's
+ * paper speed is some 28 ms, of the same order as the mechanism's own fast time
+ * constants. The open area is the
  * lens where the two circles overlap; a longer perforation is a stadium, and
  * while its straight flank covers the port the area is simply the port's own.
  *
@@ -17,14 +18,14 @@
 /** Welte's tracker bore, in mm. */
 export const TRACKER_BORE_MM = 1.413;
 /**
- * The resolution of the Stanford scan of roll 3309, in rows per inch of paper.
- * Every constant here that is stated in rows, the geometry below included, is
+ * The resolution of the Stanford scans, in rows per inch of paper; the six lined
+ * rolls all share it. Every constant here that is stated in rows, the geometry below included, is
  * stated at this pitch, so a roll measured in millimetres is put on the same
  * grid by `geometryInMm` rather than on one of its own.
  */
 export const ROWS_PER_INCH = 300.25;
 export const ROWS_PER_MM = ROWS_PER_INCH / 25.4;
-/** Roll 3309. */
+/** Roll 3309; the six lined rolls scan between 19.8 and 20.9 px. */
 export const DEFAULT_GEOMETRY = {
     punchDiameterPx: 20.86,
     trackerDiameterPx: TRACKER_BORE_MM * ROWS_PER_MM,

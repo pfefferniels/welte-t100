@@ -14,10 +14,11 @@ export declare const HALVES: readonly Half[];
 /**
  * `windResistance` is Hagmann's *Widerstand ab/an* (Anhang 10, p. 178), the
  * two-speed control of the blower, which midi2exp and pianolatron both read as
- * the motor switch. On roll 3309 it is worked twenty-two times at musical
- * junctures, so it is plainly an expression device and not a transport control:
- * it changes the blower's output, and with it both the vacuum delivered to the
- * note pneumatics and the vacuum available in the relay to move the bellows.
+ * the motor switch. Five of the six lined rolls work it, switching it on up to a
+ * dozen times each, and on roll 3309 at musical junctures, so it is plainly an
+ * expression device and not a transport control: it changes the blower's output,
+ * and with it both the vacuum delivered to the note pneumatics and the vacuum
+ * available in the relay to move the bellows.
  */
 export type Control = "mezzoforte" | "crescendo" | "sforzando" | "hammerRail" | "sustainPedal" | "windResistance" | "rewind" | "electricCutoff";
 export type Action = "on" | "off";

@@ -45,33 +45,33 @@ export type Model = {
 export declare function simulate<S>(length: number, state: S, advance: (state: S, index: number) => number): Float64Array;
 export declare function clamp(value: number, low: number, high: number): number;
 /**
+ * The series slid along the paper with the shift allowed to change along the
+ * roll. The offset between the drawn line and its punches is not constant:
+ * measured by thirds on the six lined rolls it shrinks on three of the twelve
+ * halves, by up to 17 scan rows on 3357's treble, grows on three and holds on
+ * the rest, and the two halves of one roll can differ. `drift` is the total
+ * change from the first row to the last.
+ */
+export declare function shiftedByDriftingRows(series: Float64Array, rows: number, drift: number): Float64Array;
+/**
  * The series slid along the paper, interpolating between rows. A negative shift
  * moves the model earlier, which is what is needed to meet a drawn line that
  * runs ahead of its punches. The shift is in scan rows rather than milliseconds
  * because the measured offset holds better as a distance on the paper than as a
  * duration, and because a fixed offset is what a layout would produce.
  */
-/**
- * The same, with the shift allowed to change along the roll. The offset between
- * the drawn line and its punches is not quite constant — measured across the
- * thirds of roll 3309 it runs 67, 65, 64 scan rows in the bass and 53, 47, 44 in
- * the treble — which is what two passes of the paper through machines whose
- * transport does not quite agree would produce. `drift` is the total change from
- * the first row to the last.
- */
-export declare function shiftedByDriftingRows(series: Float64Array, rows: number, drift: number): Float64Array;
 export declare function shiftedByRows(series: Float64Array, rows: number): Float64Array;
 export declare function parameterVector(spec: readonly ParameterSpec[], params: Parameters): number[];
 export declare function parametersFrom(spec: readonly ParameterSpec[], vector: readonly number[]): Parameters;
+/**
+ * The same model with one parameter forced to follow another, for testing a
+ * regulation Welte prescribed: the crescendo and sforzando pairs are each
+ * adjusted to open and close in the same time.
+ */
+export declare function withTied(model: Model, ties: Readonly<Record<string, string>>, name?: string): Model;
 /**
  * The same model with some parameters nailed down, so an ablation asks one
  * question at a time: the pinned values are held while everything else refits
  * around them.
  */
-/**
- * The same model with one parameter forced to follow another, for testing a
- * regulation Welte prescribed — the crescendo and sforzando pairs are each
- * adjusted to open and close in the same time.
- */
-export declare function withTied(model: Model, ties: Readonly<Record<string, string>>, name?: string): Model;
 export declare function withFixed(model: Model, fixed: Parameters, name?: string): Model;

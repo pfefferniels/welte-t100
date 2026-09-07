@@ -58,10 +58,11 @@ import { limitAtStop, MF_THICKNESS, newStopState } from "./stop.js";
 import { clamp, simulate } from "./types.js";
 /**
  * Bounds are set a few times wider than what `empirics/docs/measurements.md` measures off
- * this roll, not as wide as the arithmetic allows. Wider than that only enlarges
+ * roll 3309, not as wide as the arithmetic allows. Wider than that only enlarges
  * the space the search has to cross without adding any candidate the mechanism
  * could produce, and a fitted value sitting on a bound is reported rather than
- * hidden, so a bound that turns out to be wrong will show.
+ * hidden, so a bound that turns out to be wrong will show. On the six lined
+ * rolls a few values do sit there, which the empirics' `docs/rolls.md` records.
  */
 const SPEC = [
     { name: "alpha", lower: 0, upper: 2, unit: "1", note: "flow-law exponent: 0 constant rate, ½ orifice, 1 laminar" },
@@ -90,7 +91,7 @@ const SPEC = [
     { name: "stopRestitution", lower: 0, upper: 0.9, unit: "1", note: "how much of its speed the bellows keeps when it rebounds off the rigid hook" },
 ];
 /**
- * Read off roll 3309 directly rather than guessed: the rails and the hook's
+ * Where every fit starts, read off roll 3309 directly rather than guessed: the rails and the hook's
  * arrest face from where the line comes to rest, the two slow conductances and
  * the crescendo's asymptote from the exponential fitted to rate against position,
  * the two fast conductances from the plateau rate of the fast episodes, and the
@@ -104,7 +105,9 @@ const SPEC = [
  * range above it. `empirics/docs/measurements.md` has the measurements; the
  * figures are the average of the two halves, since one set of defaults has to
  * serve both. Fitting moves them, but not far, and this is what the model
- * predicts before any fitting at all.
+ * predicts before any fitting at all. A playback runs on the presets and the
+ * consensus in `instruments.ts`, fitted to each of the six lined rolls and
+ * pooled over them. These defaults are only where each fit starts.
  */
 const DEFAULTS = {
     alpha: 1,
@@ -163,10 +166,11 @@ function run(input, params) {
     const restitution = p.stopRestitution;
     // How far past the trip threshold a membrane chamber must charge before its
     // valve is fully lifted, as a share of the range that remains. The sforzando
-    // valve lifts over a fitted band, about a sixth of the charge on roll 3309; the
-    // cancelling valve over the whole of it, which is what lets a short cancel
-    // return the bellows only part of the way, as Welte's controls 4c and 4d
-    // require. A band of the cancel's own was priced and rejected.
+    // valve lifts over a fitted band, about a sixth of the charge on roll 3309 and
+    // anywhere from a hundredth to nine tenths across the six lined rolls. The
+    // cancelling valve lifts over the whole of it, which is what lets a short
+    // cancel return the bellows only part of the way, as Welte's controls 4c and
+    // 4d require. A band of the cancel's own was priced and rejected.
     const lift = (share) => {
         const band = (1 - trip) * share;
         return (open) => (open <= trip ? 0 : Math.min((open - trip) / band, 1));
@@ -245,7 +249,8 @@ function run(input, params) {
         // than sinking past it. Over fifteen clean arrivals in the Bass of roll 3309
         // the drawn line rises 0.021 above the level it settles at and falls 0.011
         // below; a spring it presses into gives 0.009 and 0.032, the wrong way round,
-        // and this gives 0.025 and 0.000. The two rails are not treated this way: they
+        // and this gives 0.025 and 0.000. The restitution is fitted per roll and runs
+        // from 0.05 to 0.90 across the six. The two rails are not treated this way: they
         // show no rebound, but they are also never approached at more than 10 units/s
         // against 20 and more at the hook, so the roll cannot say whether they are
         // compliant.

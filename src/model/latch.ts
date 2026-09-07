@@ -24,6 +24,8 @@ export function portOf(input: ModelInput, control: Control, action: "on" | "off"
  * different codes: measured on roll 3309 the sforzando-on code sits 5.8 ms
  * (bass) and 10.7 ms (treble) later than the sforzando-off code, both sharp
  * enough to place, and the crescendo codes tens of milliseconds earlier again.
+ * Fitted on the six lined rolls, each of the two relative offsets keeps that
+ * sign on nine of the twelve halves, the rest undecided between seeds.
  * One offset for the whole half therefore mis-places most of the roll. Sliding
  * each port by its own amount is also the right place to do it: the offset
  * belongs to how the paper was laid out, which is an input to the mechanism, not

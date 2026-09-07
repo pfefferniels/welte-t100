@@ -22,19 +22,12 @@ export function clamp(value, low, high) {
     return Math.min(Math.max(value, low), high);
 }
 /**
- * The series slid along the paper, interpolating between rows. A negative shift
- * moves the model earlier, which is what is needed to meet a drawn line that
- * runs ahead of its punches. The shift is in scan rows rather than milliseconds
- * because the measured offset holds better as a distance on the paper than as a
- * duration, and because a fixed offset is what a layout would produce.
- */
-/**
- * The same, with the shift allowed to change along the roll. The offset between
- * the drawn line and its punches is not quite constant — measured across the
- * thirds of roll 3309 it runs 67, 65, 64 scan rows in the bass and 53, 47, 44 in
- * the treble — which is what two passes of the paper through machines whose
- * transport does not quite agree would produce. `drift` is the total change from
- * the first row to the last.
+ * The series slid along the paper with the shift allowed to change along the
+ * roll. The offset between the drawn line and its punches is not constant:
+ * measured by thirds on the six lined rolls it shrinks on three of the twelve
+ * halves, by up to 17 scan rows on 3357's treble, grows on three and holds on
+ * the rest, and the two halves of one roll can differ. `drift` is the total
+ * change from the first row to the last.
  */
 export function shiftedByDriftingRows(series, rows, drift) {
     if (drift === 0)
@@ -50,6 +43,13 @@ export function shiftedByDriftingRows(series, rows, drift) {
     }
     return shifted;
 }
+/**
+ * The series slid along the paper, interpolating between rows. A negative shift
+ * moves the model earlier, which is what is needed to meet a drawn line that
+ * runs ahead of its punches. The shift is in scan rows rather than milliseconds
+ * because the measured offset holds better as a distance on the paper than as a
+ * duration, and because a fixed offset is what a layout would produce.
+ */
 export function shiftedByRows(series, rows) {
     if (rows === 0)
         return series;
@@ -73,13 +73,8 @@ export function parametersFrom(spec, vector) {
     return Object.fromEntries(spec.map((entry, index) => [entry.name, vector[index] ?? 0]));
 }
 /**
- * The same model with some parameters nailed down, so an ablation asks one
- * question at a time: the pinned values are held while everything else refits
- * around them.
- */
-/**
  * The same model with one parameter forced to follow another, for testing a
- * regulation Welte prescribed — the crescendo and sforzando pairs are each
+ * regulation Welte prescribed: the crescendo and sforzando pairs are each
  * adjusted to open and close in the same time.
  */
 export function withTied(model, ties, name = model.name) {
@@ -96,6 +91,11 @@ export function withTied(model, ties, name = model.name) {
         },
     };
 }
+/**
+ * The same model with some parameters nailed down, so an ablation asks one
+ * question at a time: the pinned values are held while everything else refits
+ * around them.
+ */
 export function withFixed(model, fixed, name = model.name) {
     const free = model.spec.filter((entry) => !(entry.name in fixed));
     return {
