@@ -70,6 +70,7 @@ import {
   runPedals, travelBetweenRails, type Half,
 } from "welte-t100-emulator";
 
+// The punched code as the open area of each tracker port, row by row, on the spool's time axis.
 const roll = readRoll("jq774vx6544", readFileSync("jq774vx6544_raw.mid"));
 const punches = perforations(roll);
 const lastRow = Math.max(...punches.map((punch) => punch.rowOff));
@@ -82,8 +83,15 @@ const travelOf = (half: Half) => {
   const params = instrumentParameters(half);
   return travelBetweenRails(pneumaticModel.run({ grid, half, ports }, params), params);
 };
-const nuance = { bass: travelOf("bass"), treble: travelOf("treble") }; // 0 open (P.P.), 1 closed (F.F.), per row
-const pedals = runPedals({ grid, ports }); // damper and hammer rail, 0 to 1, per row
+
+// Bellows travel per row: 0 fully open (P.P.), 1 fully closed (F.F.).
+const nuance = {
+  bass: travelOf("bass"),
+  treble: travelOf("treble"),
+};
+
+// Damper and hammer rail per row, 0 at rest to 1 fully moved.
+const pedals = runPedals({ grid, ports });
 ```
 
 A roll that is not a SUPRA scan needs only its punches in scan rows and a `Grid` of seconds,
