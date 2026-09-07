@@ -16,7 +16,12 @@ different bore through which the bellows fills and empties, the wind chamber the
 and the Mezzoforte stop that arrests the travel. The conductance of each conduit, the
 thresholds and time constants of the valves, and the weight of every further term were fitted
 by differential evolution with a Nelder–Mead polish against the expression lines of six rolls,
-and scored on the blocks of each roll left out of the fit.
+and scored on the blocks of each roll left out of the fit. One roll's constants do not transfer
+to another's line, so the library ships the six settings as presets, named by Welte number, and
+beside them a consensus: one instrument fitted to all six lines at once, each roll keeping only
+where its pen sat on the paper. The consensus is the default, meant for the many rolls that
+carry no lines, and on the held-out blocks it misses each line by two to four times what the
+roll's own fit does.
 
 This emulator also implements Gottschewski's model of roll acceleration (*Die Interpretation
 als Kunstwerk*, Laaber 1996, pp. 135–137) and makes an assumption about the pedals' travel
@@ -145,7 +150,11 @@ chosen, so the family contains the prior art as a special case. The fitted value
 - **Lead of line differs by code and drifts along the roll.** Gottschewski observed that
   the lines run ahead of the punches. The sforzando-on code appears 6 and 11 ms later than
   the sforzando-off code, while the crescendo codes show different offsets again. The offset
-  is more consistent as a distance on the paper than as a time interval, and it gradually
-  decreases along the roll - just as one would expect if the paper had passed through two
-  machines whose transport speeds were slightly different.
+  is more consistent as a distance on the paper than as a time interval. Along the roll it
+  drifts by up to a few rows per 100 000 rows of paper, in either direction, and often by
+  different amounts in the two halves: it shrinks on three of the twelve halves, grows on
+  three and holds on the rest. A drift of either sign would follow if the roll under the
+  pens ran on a transport of its own, separate from the instrument whose bellows moved
+  them, and the half-specific part may be each valve's own delay against the accelerating
+  paper. Neither is established.
 
