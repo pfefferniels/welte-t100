@@ -147,14 +147,8 @@ chosen, so the family contains the prior art as a special case. The fitted value
   above the rests arriving from above, the opposite of the rigid hook of finite thickness
   Schmitz draws, and what a stop that yields in the direction it is pushed would give. The
   rising rests are 13 and 7.
-- **Lead of line differs by code and drifts along the roll.** Gottschewski observed that
-  the lines run ahead of the punches. The sforzando-on code appears 6 and 11 ms later than
-  the sforzando-off code, while the crescendo codes show different offsets again. The offset
-  is more consistent as a distance on the paper than as a time interval. Along the roll it
-  drifts by up to a few rows per 100 000 rows of paper, in either direction, and often by
-  different amounts in the two halves: it shrinks on three of the twelve halves, grows on
-  three and holds on the rest. A drift of either sign would follow if the roll under the
-  pens ran on a transport of its own, separate from the instrument whose bellows moved
-  them, and the half-specific part may be each valve's own delay against the accelerating
-  paper. Neither is established.
+- **Lead of line drifts along the roll.** Gottschewski observed that
+  the lines run ahead of the punches. Along the roll it
+  drifts by up to a few rows per 100 000 rows of paper, in either direction equally, and often by
+  different amounts in the two halves.
 
