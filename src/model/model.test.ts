@@ -6,7 +6,6 @@ import { portKey, type PortKey } from "../roll/aperture.ts";
 import { latched, momentary } from "./latch.ts";
 import { limitAtStop, MF_THICKNESS, newStopState } from "./stop.ts";
 import { pneumaticModel } from "./pneumatic.ts";
-import { midi2expModel } from "./midi2exp.ts";
 import { shiftedByRows, type ModelInput, type Parameters } from "./types.ts";
 import { traversals } from "./timings.ts";
 
@@ -148,13 +147,6 @@ test("a long cancel returns the bellows further than a short one", () => {
   const long = fall(220);
   assert.ok(long > short + 0.02, `long cancel ${long.toFixed(3)} should exceed short ${short.toFixed(3)}`);
   assert.ok(short > 0.005, "a short cancel still does something");
-});
-
-test("midi2exp reduces to its published constants", () => {
-  const out = midi2expModel.run(input({ [portKey("bass", "crescendo", "on")]: [[0, 20]] }), midi2expModel.defaults);
-  const rate = (out[600]! - out[0]!) / 1;
-  const expected = (midi2expModel.defaults.mezzoforte! - midi2expModel.defaults.piano!) / 2.38;
-  assert.ok(Math.abs(rate - expected) < 0.01, `${rate} against ${expected}`);
 });
 
 test("travel times invert the flow law", () => {

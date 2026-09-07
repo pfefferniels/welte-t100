@@ -11,7 +11,6 @@ export { meaningOf, type Action, type CodeMeaning, type Control, type Half, type
 export { aperturePorts, DEFAULT_GEOMETRY, DEFAULT_PUNCH_MM, geometryInMm, portKey, portSeries, ROWS_PER_INCH, ROWS_PER_MM, TRACKER_BORE_MM, type PortGeometry, type PortKey, } from "./roll/aperture.ts";
 export { noteDensity } from "./roll/density.ts";
 export { pneumaticModel } from "./model/pneumatic.ts";
-export { midi2expModel } from "./model/midi2exp.ts";
 export { DRAWING_APPARATUS, mezzoforteTravel, playbackParameters, travelBetweenRails } from "./model/playback.ts";
 export { CONSENSUS, PRESETS, instrumentOf, instrumentParameters, type HalfProvenance, type Instrument, type InstrumentChoice, type Provenance, type RollNumber, } from "./model/instruments.ts";
 export { inTravelUnits, onPrintedScale } from "./model/units.ts";
@@ -21,7 +20,7 @@ export { halfPedalling, pedalDefaults, pedalSpec, pedalSpans, runPedals, tiedToR
 export { DAMPER_CC, levelChanges, SOFT_CC, type ControllerOptions, type LevelChange, type PedalMode, } from "./midi/pedal.ts";
 export { pixels, pixelsPerInch, readRoll, type AxisChoice, type Roll } from "./roll/timing.ts";
 export { HALVES, noteOnsets, perforations, type Perforation } from "./roll/expression.ts";
-export { binaryPorts } from "./roll/aperture.ts";
+export { slots, type Slot } from "./roll/aperture.ts";
 export { clamp, parametersFrom, parameterVector, shiftedByRows, simulate, withFixed, withTied } from "./model/types.ts";
 export { latched, momentary, portOf, TRIP_THRESHOLD } from "./model/latch.ts";
 export { limitAtStop, MF_THICKNESS, newStopState, type StopState } from "./model/stop.ts";

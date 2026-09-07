@@ -75,7 +75,7 @@ and a standard MIDI file writer.
 | --- | --- |
 | `src/index.ts` | the library surface, built into `dist/` |
 | `src/roll/` | the roll as input: a MIDI reader, the take-up spool that sets the time axis, the expression code, the tracker-bar aperture |
-| `src/model/` | the models, the Mezzoforte stop they share, the pedals, and the instruments playback runs as; `instruments.data.ts` is generated from the fits |
+| `src/model/` | the pneumatic model, the Mezzoforte stop, the pedals, and the instruments playback runs as; `instruments.data.ts` is generated from the fits |
 | `src/midi/` | the pedals as controller messages, and a standard MIDI file writer |
 | `docs/sources.md` | what the sources say, by topic: Hagmann 1984 and Welte's regulation controls, Schmitz 1981, Gottschewski, the patents, `midi2exp` and `pianolatron` |
 | `roll-nuance-tracer/empirics/` | the fitting: traced lines, measurements, the fits and the consensus, the ablation, the reports, the overlay viewer, the Python analysis, the SLURM scripts |

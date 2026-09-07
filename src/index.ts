@@ -32,7 +32,6 @@ export {
 export { noteDensity } from "./roll/density.ts";
 
 export { pneumaticModel } from "./model/pneumatic.ts";
-export { midi2expModel } from "./model/midi2exp.ts";
 export { DRAWING_APPARATUS, mezzoforteTravel, playbackParameters, travelBetweenRails } from "./model/playback.ts";
 export {
   CONSENSUS,
@@ -75,7 +74,7 @@ export {
 // and the stop for controls that bypass the models, and a MIDI file to write into.
 export { pixels, pixelsPerInch, readRoll, type AxisChoice, type Roll } from "./roll/timing.ts";
 export { HALVES, noteOnsets, perforations, type Perforation } from "./roll/expression.ts";
-export { binaryPorts } from "./roll/aperture.ts";
+export { slots, type Slot } from "./roll/aperture.ts";
 export { clamp, parametersFrom, parameterVector, shiftedByRows, simulate, withFixed, withTied } from "./model/types.ts";
 export { latched, momentary, portOf, TRIP_THRESHOLD } from "./model/latch.ts";
 export { limitAtStop, MF_THICKNESS, newStopState, type StopState } from "./model/stop.ts";

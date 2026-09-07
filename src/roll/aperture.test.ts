@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 import { Grid } from "./grid.ts";
-import { aperturePorts, binaryPorts, DEFAULT_GEOMETRY, portKey } from "./aperture.ts";
+import { aperturePorts, DEFAULT_GEOMETRY, portKey } from "./aperture.ts";
 import type { Perforation } from "./expression.ts";
 
 const START = 1000;
@@ -64,13 +64,4 @@ test("overlapping perforations are one slot in the paper", () => {
   const series = aperturePorts(grid(), [punch(1100, 1150), punch(1140, 1200)]).get(KEY)!;
   assert.ok(Math.max(...series) <= 1);
   assert.equal(series[1145 - START], 1);
-});
-
-test("the binary model is midi2exp's: open on the ink, extended at the tail only", () => {
-  const series = binaryPorts(grid(), [punch(1100, 1200)]).get(KEY)!;
-  const extension = Math.round(DEFAULT_GEOMETRY.trackerDiameterPx * 0.75);
-  assert.equal(series[1099 - START], 0);
-  assert.equal(series[1100 - START], 1);
-  assert.equal(series[1200 + extension - START], 1);
-  assert.equal(series[1200 + extension + 1 - START], 0);
 });

@@ -11,8 +11,8 @@
  *
  * midi2exp instead keeps the port binary and lengthens every perforation by
  * 0.75 tracker diameters at its tail end, which comes to a similar total open
- * time but places it about 11 ms late. `binaryPort` reproduces that for the
- * baseline model.
+ * time but places it about 11 ms late; the empirics carry that reading as the
+ * baseline's port.
  */
 import type { Grid } from "./grid.ts";
 import type { Action, Control, Half, Punch } from "./expression.ts";
@@ -55,6 +55,4 @@ export type Slot = {
 export declare function slots(punches: readonly Punch[]): Slot[];
 /** Continuous open fraction per grid row, keyed by half, control and action. */
 export declare function aperturePorts(grid: Grid, punches: readonly Punch[], geometry?: PortGeometry): Map<PortKey, Float64Array>;
-/** midi2exp's model: fully open for the ink, plus a fixed tail extension. */
-export declare function binaryPorts(grid: Grid, punches: readonly Punch[], geometry?: PortGeometry, extensionFraction?: number): Map<PortKey, Float64Array>;
 export declare function portSeries(ports: ReadonlyMap<PortKey, Float64Array>, key: PortKey, length: number): Float64Array;

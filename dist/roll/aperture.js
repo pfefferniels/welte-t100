@@ -11,8 +11,8 @@
  *
  * midi2exp instead keeps the port binary and lengthens every perforation by
  * 0.75 tracker diameters at its tail end, which comes to a similar total open
- * time but places it about 11 ms late. `binaryPort` reproduces that for the
- * baseline model.
+ * time but places it about 11 ms late; the empirics carry that reading as the
+ * baseline's port.
  */
 /** Welte's tracker bore, in mm. */
 export const TRACKER_BORE_MM = 1.413;
@@ -103,17 +103,6 @@ export function aperturePorts(grid, punches, geometry = DEFAULT_GEOMETRY) {
         });
     };
     slots(punches).forEach(stamp);
-    return ports;
-}
-/** midi2exp's model: fully open for the ink, plus a fixed tail extension. */
-export function binaryPorts(grid, punches, geometry = DEFAULT_GEOMETRY, extensionFraction = 0.75) {
-    const extension = Math.round(geometry.trackerDiameterPx * extensionFraction);
-    const ports = new Map();
-    slots(punches).forEach((slot) => {
-        const series = ports.get(slot.key) ?? new Float64Array(grid.length);
-        ports.set(slot.key, series);
-        series.fill(1, grid.indexOfRow(slot.rowOn), grid.indexOfRow(slot.rowOff + extension) + 1);
-    });
     return ports;
 }
 export function portSeries(ports, key, length) {

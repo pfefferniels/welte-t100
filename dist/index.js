@@ -11,7 +11,6 @@ export { meaningOf, } from "./roll/expression.js";
 export { aperturePorts, DEFAULT_GEOMETRY, DEFAULT_PUNCH_MM, geometryInMm, portKey, portSeries, ROWS_PER_INCH, ROWS_PER_MM, TRACKER_BORE_MM, } from "./roll/aperture.js";
 export { noteDensity } from "./roll/density.js";
 export { pneumaticModel } from "./model/pneumatic.js";
-export { midi2expModel } from "./model/midi2exp.js";
 export { DRAWING_APPARATUS, mezzoforteTravel, playbackParameters, travelBetweenRails } from "./model/playback.js";
 export { CONSENSUS, PRESETS, instrumentOf, instrumentParameters, } from "./model/instruments.js";
 export { inTravelUnits, onPrintedScale } from "./model/units.js";
@@ -23,7 +22,7 @@ export { DAMPER_CC, levelChanges, SOFT_CC, } from "./midi/pedal.js";
 // and the stop for controls that bypass the models, and a MIDI file to write into.
 export { pixels, pixelsPerInch, readRoll } from "./roll/timing.js";
 export { HALVES, noteOnsets, perforations } from "./roll/expression.js";
-export { binaryPorts } from "./roll/aperture.js";
+export { slots } from "./roll/aperture.js";
 export { clamp, parametersFrom, parameterVector, shiftedByRows, simulate, withFixed, withTied } from "./model/types.js";
 export { latched, momentary, portOf, TRIP_THRESHOLD } from "./model/latch.js";
 export { limitAtStop, MF_THICKNESS, newStopState } from "./model/stop.js";
