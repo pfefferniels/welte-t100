@@ -117,92 +117,35 @@ chosen, so the family contains the prior art as a special case. The fitted value
 
 ## Observations
 
-What the measurements and the fitting found that, as far as I can see, no source states.
-Everything below is measured on roll 3309 (Backhaus, Schubert's *Militärmarsch*) unless six
-rolls are named.
-
-- **The line records the position of the bellows.** Every attack is followed some 30 to 50 ms
-  later by a small dip in the line, and the dip vanishes on the rows where the bellows is
-  demonstrably pinned at the Mezzoforte hook. A trace of the delivered vacuum would carry the
-  regulator's note-locked corrections there, a trace of the bellows cannot. Schmitz's account
-  of the pens is consistent with this. It is an argument rather than a demonstration.
-- **The flow law can be measured.** In the phase plane of rate against position a constant
-  rate, which `midi2exp` and `pianolatron` assume, is rejected by a factor of four to eleven
-  in every slow state. The slow decrescendo is exponential, as Gottschewski saw by eye. The
-  slow crescendo lies between exponential and orifice flow. The fitted exponent settles near 1
-  on some rolls and near 0.6 on others, and it is nearly degenerate with the release
-  asymptote, so the two should be read as one quantity.
-- **The Mezzoforte stop is a regulated setting, not the printed gridline.** The face the line
-  rests on lies 0.08 and 0.12 of the scale above the printed M.F. line, is steady within one
-  hold to 0.002, and drifts between holds in lockstep with the F rail, so it is the whole
-  traced line drifting against the print. Pinning the stop to the midpoint costs the fit 0.009
-  and 0.020. Across the four rolls with enough arrivals the face spans 0.08 to 0.10 of the
-  scale. That is the clearest evidence in the material that the instruments were set
-  differently from roll to roll, and it rests on counted arrivals rather than on a search.
-- **The stop rebounds, and its two levels are the other way round.** Arrivals at the hook
-  faster than 5 units/s overshoot and swing back once, a damped bounce of period about 32 ms
-  that has settled by 50 ms. The rails show nothing of the kind. Rests arriving from below lie
-  above the rests arriving from above, the opposite of the rigid hook of finite thickness
-  Schmitz draws, and what a stop that yields in the direction it is pushed would give. The
-  rising rests are 13 and 7.
-- **The fall is four times the rise.** The sforzando release runs at about four times the
-  rate of the sforzando closing, on 51 and 81 clean episodes each way. Welte's own control 6c
-  requires the two increments equal, so the instrument that drew this line did not satisfy it.
-  Against the line, `midi2exp`'s 300 ms fast crescendo is of the right order and its 400 ms
-  fast decrescendo is six to seven times too slow.
-- **The crescendo latch speeds the sforzando up.** With the crescendo set, a sforzando closes
-  faster by about 1.1 units/s. Conduit 39 admitting air whenever the crescendo is cancelled
-  predicts about two thirds of that gap, and the rest grows with position. The model carries
-  the remainder as a load the nuancing system puts on its own blower, which is a proposal
-  rather than a reading, and the crescendo-off episodes it rests on are few.
-- **The relay valve has a threshold, a tail and a band.** A fast excursion takes 50 to 110 ms
-  to reach full rate, which is the valve opening. Making the valve shut with its punch costs
-  the fit 0.013 and 0.038, and charging the cancelling valve as fast as the setting valve
-  costs 0.015 in the bass. The setting valve lifts over about a sixth of the charge above its
-  threshold, so its conductance stops following the port's open area, which takes 25 ms to
-  slide across the bore.
-- **The lead of the line differs by code and drifts along the roll.** Gottschewski saw the
-  lines run ahead of their punches. The sforzando-on code sits 6 and 11 ms later than the
-  sforzando-off code, the crescendo codes differ again, and the offset holds better as a
-  distance on the paper than as a time and shrinks along the roll, as two passes through
-  machines whose transport does not quite agree would produce. It is not a registration
-  error: where a punch has removed the paper under the line, the gap sits inside the punch
-  with equal insets at both ends. Across the six rolls the lead spans 66 scan rows.
-- **No roll's constants describe another roll's line.** Each of the six rolls fits about as
+- **Differently regulated instruments.** Each of the six rolls fits about as
   well as 3309, with held-out errors between 0.017 and 0.053 of the scale, and a foreign
   roll's constants score two to three times worse than the roll's own. Re-registering the
-  rails and the lead removes about a tenth of the excess. The two Samaroff rolls, adjacent in
-  the catalogue, resemble each other no more than any other pair, and Gottschewski dates the
-  SUPRA copy of 1478 to 1923 against another copy of 1920, so one recording did not mean one
-  drawing. That is why the presets are named by roll rather than by year, and why the
-  consensus is what one instrument can do for all six rolls rather than what any of them did.
+  rails and the lead removes about a tenth of the excess.
 - **Bass sits below treble on all six rolls.** Both the crescendo and the sforzando asymptotes
   are lower in the bass than in the treble on every roll. Under a sign test that is p = 0.03
   each, uncorrected, with nine parameters examined, so it is suggestive at most. It points the
   same way as Hagemann's measurement that the discant dome travels further than the bass dome
   for the same change of vacuum (*Das Mechanische Musikinstrument* 80, 2001, p. 26).
-- **The roll decides two questions the sources split on.** A latching sforzando, Hagmann's
-  reading by analogy with the crescendo, scores 0.15 and 0.19 against 0.03 and 0.05 for a
-  valve that acts per pulse, and the punching re-triggers the on-line where a latch would
-  already be set in 63 % and 39 % of cases. A sforzando that also set the crescendo would give
-  one fast rate where the line shows two, and the two codes are not paired in the punching
-  above chance.
-- **Neither the note density nor the time axis shows in the line.** A shared blower should
-  slow the closing states under dense playing and leave the opening states alone. The fast
-  crescendo shows no such slope, and the Widerstand is worth nothing measurable. The spool
-  law, SUPRA's tempo map and a constant paper speed differ by 0.0003 on a fit whose refit
-  noise is 0.003, so the line cannot decide the acceleration and the choice of Gottschewski's
-  law rests on provenance.
-- **The pedals travel.** No source gives a travel time. The shortest release-and-retake of the
-  damper pedal on 3309 is 212 ms from the off-punch to the next on-punch, and an editor does
-  not punch a lift the instrument cannot make, so a full fall much beyond 200 ms is hard to
-  defend. With that travel, Hagmann's conjecture of half-pedalling by superimposed commands is
-  possible on this roll and not demonstrated by it.
+- **Fall is four times the rise.** The sforzando release runs at about four times the
+  rate of the sforzando closing, on 51 and 81 clean episodes each way. Welte's own control 6c
+  requires the two increments equal, so the instruments that drew the lines did not satisfy it.
+  Against the line, `midi2exp`'s 300 ms fast crescendo is of the right order and its 400 ms
+  fast decrescendo is six to seven times too slow.
+- **Crescendo latch speeds the sforzando up.** With the crescendo set, a sforzando closes
+  faster by about 1.1 units/s. Conduit 39 admitting air whenever the crescendo is cancelled
+  predicts about two thirds of that gap, and the rest grows with position. The model carries
+  the remainder as a load the nuancing system puts on its own blower, which is a proposal
+  rather than a reading, and the crescendo-off episodes it rests on are few.
+- **Mezzoforte stop rebounds.** Arrivals at the hook
+  faster than 5 units/s overshoot and swing back once, a damped bounce of period about 32 ms
+  that has settled by 50 ms. The rails show nothing of the kind. Rests arriving from below lie
+  above the rests arriving from above, the opposite of the rigid hook of finite thickness
+  Schmitz draws, and what a stop that yields in the direction it is pushed would give. The
+  rising rests are 13 and 7.
+- **Lead of line differs by code and drifts along the roll.** Gottschewski observed that
+  the lines run ahead of the punches. The sforzando-on code appears 6 and 11 ms later than
+  the sforzando-off code, while the crescendo codes show different offsets again. The offset
+  is more consistent as a distance on the paper than as a time interval, and it gradually
+  decreases along the roll - just as one would expect if the paper had passed through two
+  machines whose transport speeds were slightly different.
 
-Two things remain open. Bass and treble disagree on several numbers that ought to match if the
-two halves share a mechanism, among them the closed rail, the hook face, the lead and the fast
-crescendo's rate. Some of that may be the calibration of the printed scale, whose F.F. gridline
-is shared between the halves, and some may be real, and the two have not been separated. And
-fitting on alternating blocks of a roll and scoring on the blocks left out guards against a
-model memorising the roll, but it does not make the constants general, as the transfer between
-rolls shows.
