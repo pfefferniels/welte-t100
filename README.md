@@ -13,15 +13,11 @@ diminuendos are far from linear. This emulator follows Gottschewski's proposal.
 It derives the travel of the two *Nuancierbälge* from the punched expression code by
 modelling the pneumatics that move them: the valves the code operates, the conduits of
 different bore through which the bellows fills and empties, the wind chamber they draw on,
-and the Mezzoforte stop that arrests the travel. The conductance of each conduit, the
-thresholds and time constants of the valves, and the weight of every further term were fitted
-by differential evolution with a Nelder–Mead polish against the expression lines of six rolls,
-and scored on the blocks of each roll left out of the fit. One roll's constants do not transfer
-to another's line, so the library ships the six settings as presets, named by Welte number, and
-beside them a consensus: one instrument fitted to all six lines at once, each roll keeping only
-where its pen sat on the paper. The consensus is the default, meant for the many rolls that
-carry no lines, and on the held-out blocks it misses each line by two to four times what the
-roll's own fit does.
+and the Mezzoforte stop that arrests the travel. Their constants were fitted by differential
+evolution with a Nelder–Mead polish against the expression lines of six rolls, and scored on
+the blocks of each roll left out of the fit. The library ships the six different instrument
+settings as presets, named by Welte number, and beside them a consensus: one instrument fitted
+to all six lines at once. The consensus is the default.
 
 This emulator also implements Gottschewski's model of roll acceleration (*Die Interpretation
 als Kunstwerk*, Laaber 1996, pp. 135–137) and makes an assumption about the pedals' travel
@@ -129,10 +125,10 @@ chosen, so the family contains the prior art as a special case. The fitted value
 
 ## Observations
 
-- **Differently regulated instruments.** Each of the six rolls fits about as
-  well as 3309, with held-out errors between 0.017 and 0.053 of the scale, and a foreign
-  roll's constants score two to three times worse than the roll's own. Re-registering the
-  rails and the lead removes about a tenth of the excess.
+- **Differently regulated instruments.** Each of the six rolls fits about as well as 3309,
+  with held-out errors between 0.017 and 0.053 of the scale, and a foreign roll's constants
+  score two to three times worse than the roll's own. Re-registering the rails and the lead
+  removes about a tenth of the excess.
 - **Bass sits below treble on all six rolls.** Both the crescendo and the sforzando asymptotes
   are lower in the bass than in the treble on every roll. Under a sign test that is p = 0.03
   each, uncorrected, with nine parameters examined, so it is suggestive at most. It points the
@@ -148,14 +144,13 @@ chosen, so the family contains the prior art as a special case. The fitted value
   predicts about two thirds of that gap, and the rest grows with position. The model carries
   the remainder as a load the nuancing system puts on its own blower, which is a proposal
   rather than a reading, and the crescendo-off episodes it rests on are few.
-- **Mezzoforte stop rebounds.** Arrivals at the hook
-  faster than 5 units/s overshoot and swing back once, a damped bounce of period about 32 ms
-  that has settled by 50 ms. The rails show nothing of the kind. Rests arriving from below lie
-  above the rests arriving from above, the opposite of the rigid hook of finite thickness
-  Schmitz draws, and what a stop that yields in the direction it is pushed would give. The
-  rising rests are 13 and 7.
-- **Lead of line drifts along the roll.** Gottschewski observed that
-  the lines run ahead of the punches. Along the roll it
-  drifts by up to a few rows per 100 000 rows of paper, in either direction equally, and often by
-  different amounts in the two halves.
+- **Mezzoforte stop rebounds.** Arrivals at the hook faster than 5 units/s overshoot and swing
+  back once, a damped bounce of period about 32 ms that has settled by 50 ms. The rails show
+  nothing of the kind. Rests arriving from below lie above the rests arriving from above, the
+  opposite of the rigid hook of finite thickness Schmitz draws, and what a stop that yields in
+  the direction it is pushed would give. The rising rests are 13 and 7.
+- **Lead of line drifts along the roll.** Gottschewski observed that the lines run ahead of
+  the punches. Along the roll the lead drifts by up to a few rows per 100 000 rows of paper,
+  in either direction, as often one way as the other, and often by different amounts in the
+  two halves.
 
