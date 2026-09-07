@@ -9,7 +9,6 @@ export { circumferenceAt, paperAt, paperSeconds, paperSpeed, WELTE_SPOOL, type S
 export { Grid } from "./roll/grid.ts";
 export { meaningOf, type Action, type CodeMeaning, type Control, type Half, type Punch, } from "./roll/expression.ts";
 export { aperturePorts, DEFAULT_GEOMETRY, DEFAULT_PUNCH_MM, geometryInMm, portKey, portSeries, ROWS_PER_INCH, ROWS_PER_MM, TRACKER_BORE_MM, type PortGeometry, type PortKey, } from "./roll/aperture.ts";
-export { noteDensity } from "./roll/density.ts";
 export { pneumaticModel } from "./model/pneumatic.ts";
 export { DRAWING_APPARATUS, mezzoforteTravel, playbackParameters, travelBetweenRails } from "./model/playback.ts";
 export { CONSENSUS, PRESETS, instrumentOf, instrumentParameters, type HalfProvenance, type Instrument, type InstrumentChoice, type Provenance, type RollNumber, } from "./model/instruments.ts";
@@ -18,7 +17,7 @@ export type { Model, ModelInput, Parameters, ParameterSpec } from "./model/types
 export { halfPedalling, pedalDefaults, pedalSpec, pedalSpans, runPedals, tiedToRise, type HalfPedalling, type PedalInput, type PedalSpan, type PedalTravel, } from "./model/pedal.ts";
 export { DAMPER_CC, levelChanges, SOFT_CC, type ControllerOptions, type LevelChange, type PedalMode, } from "./midi/pedal.ts";
 export { pixels, pixelsPerInch, readRoll, type AxisChoice, type Roll } from "./roll/timing.ts";
-export { HALVES, noteOnsets, perforations, type Perforation } from "./roll/expression.ts";
+export { HALVES, perforations, type Perforation } from "./roll/expression.ts";
 export { slots, type Slot } from "./roll/aperture.ts";
 export { clamp, parametersFrom, parameterVector, shiftedByRows, simulate, withFixed, withTied } from "./model/types.ts";
 export { latched, momentary, portOf, TRIP_THRESHOLD } from "./model/latch.ts";

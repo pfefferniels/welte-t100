@@ -50,4 +50,3 @@ export type Perforation = Punch & {
     readonly secondsOff: number;
 };
 export declare function perforations(roll: Roll): Perforation[];
-export declare function noteOnsets(roll: Roll, half: Half): number[];

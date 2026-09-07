@@ -14,14 +14,6 @@ export type ModelInput = {
     readonly grid: Grid;
     readonly half: Half;
     readonly ports: ReadonlyMap<PortKey, Float64Array>;
-    /** Note onsets per second in this half. */
-    readonly noteDensity: Float64Array;
-    /**
-     * Note onsets per second over both halves. The blower is one supply feeding
-     * both the note pneumatics and the relay, so what loads it is everything
-     * sounding, not only this half.
-     */
-    readonly totalNoteDensity: Float64Array;
 };
 export type Parameters = Readonly<Record<string, number>>;
 export type ParameterSpec = {

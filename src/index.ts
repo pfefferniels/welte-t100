@@ -29,7 +29,6 @@ export {
   type PortGeometry,
   type PortKey,
 } from "./roll/aperture.ts";
-export { noteDensity } from "./roll/density.ts";
 
 export { pneumaticModel } from "./model/pneumatic.ts";
 export { DRAWING_APPARATUS, mezzoforteTravel, playbackParameters, travelBetweenRails } from "./model/playback.ts";
@@ -72,7 +71,7 @@ export {
 // perforations of the code, the transforms a fit applies to a model, the valves
 // and the stop for controls that bypass the models, and a MIDI file to write into.
 export { pixels, pixelsPerInch, readRoll, type AxisChoice, type Roll } from "./roll/timing.ts";
-export { HALVES, noteOnsets, perforations, type Perforation } from "./roll/expression.ts";
+export { HALVES, perforations, type Perforation } from "./roll/expression.ts";
 export { slots, type Slot } from "./roll/aperture.ts";
 export { clamp, parametersFrom, parameterVector, shiftedByRows, simulate, withFixed, withTied } from "./model/types.ts";
 export { latched, momentary, portOf, TRIP_THRESHOLD } from "./model/latch.ts";

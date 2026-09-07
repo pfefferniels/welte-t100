@@ -28,8 +28,4 @@ export class Grid {
     indexOfRow(row) {
         return Math.min(Math.max(Math.round(row) - this.startRow, 0), this.length - 1);
     }
-    /** Fractional grid index, for a row that need not be an integer. Not clamped. */
-    positionOfRow(row) {
-        return row - this.startRow;
-    }
 }

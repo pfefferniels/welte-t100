@@ -19,8 +19,7 @@ function input(ports: Partial<Record<string, [number, number][]>>): ModelInput {
     (spans ?? []).forEach(([from, to]) => series.fill(1, from, to));
     map.set(key as PortKey, series);
   });
-  const quiet = new Float64Array(LENGTH);
-  return { grid, half: "bass", ports: map, noteDensity: quiet, totalNoteDensity: quiet };
+  return { grid, half: "bass", ports: map };
 }
 
 test("a latch holds until it is cancelled", () => {

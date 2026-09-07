@@ -62,7 +62,7 @@ The emulator follows Anhang 10 (`src/roll/expression.ts`).
 the vacuum available both to the notes and to the relay (Hagmann pp. 73–75, p. 98 n. 29).
 Gottschewski takes it for a device that only reduces motor noise and „hat keine störenden
 Auswirkungen auf das System" (1996, p. 28 n. 26). midi2exp and pianolatron ignore it. The
-emulator carries it as a term (`windRateGain`, `windTargetShift`), and the ablation finds it worth
+emulator carried it as a term (`windRateGain`, `windTargetShift`) until the ablation found it worth
 nothing measurable on roll 3309 (`experiments.md`).
 
 **Dimensions.** The paper is 328 mm wide. Perforations are 2.2 mm in diameter until about 1910
@@ -178,8 +178,8 @@ exists to detect it), and on the T-100 the roll answers with the Widerstand. No 
 spring rate, response time or vacuum figure is given anywhere. The one vacuum figure in the book,
 28 mbar (p. 72), is the organ's magazine bellows. Brougher's restorer targets are 5 in WC for the
 first intensity and 35 or 32 in WC maximum, with mezzoforte at 0.6 of the maximum and the hook
-adding no more than 2 in (2011). The emulator's `supplyDroop` tests a sag with note density, and
-roll 3309 shows none (`measurements.md` §9).
+adding no more than 2 in (2011). A sag with note density was carried as a term (`supplyDroop`)
+and priced away, roll 3309 showing none (`measurements.md` §9).
 
 ## 3. The Nuancierbalg and its paths
 
@@ -412,8 +412,8 @@ travel. It is listed so that the omission is deliberate.
   which closes „mehr oder minder rasch" with the vacuum (p. 105), form the map from vacuum to
   hammer speed. The Hammerleiste (holes 7/8) shifts the hammer rail independently (p. 105).
 - **Both halves load one blower** (p. 96), so a loud left hand could slow the right hand's
-  crescendo. The emulator passes the total note density to both halves for this reason. The roll
-  shows no such effect (`measurements.md` §9).
+  crescendo. The roll shows no such effect (`measurements.md` §9), and the emulator carries no
+  note-density term.
 - **Forte is a soft limit.** The bellows closes against its own spring, so a sagged vacuum may
   not close it fully (this repository's inference from p. 96).
 

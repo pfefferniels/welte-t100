@@ -81,7 +81,3 @@ export function perforations(roll) {
     })
         .sort((a, b) => a.tickOn - b.tickOn || a.key - b.key);
 }
-export function noteOnsets(roll, half) {
-    const track = roll.smf.tracks[half === "bass" ? 1 : 2] ?? [];
-    return track.filter((event) => event.kind === "note-on").map((event) => event.tick);
-}

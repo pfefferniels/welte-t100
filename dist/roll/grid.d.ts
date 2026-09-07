@@ -17,6 +17,4 @@ export declare class Grid {
     rowAt(index: number): number;
     /** Nearest grid index to a pixel row, clamped to the grid. */
     indexOfRow(row: number): number;
-    /** Fractional grid index, for a row that need not be an integer. Not clamped. */
-    positionOfRow(row: number): number;
 }

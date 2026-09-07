@@ -135,8 +135,3 @@ export function perforations(roll: Roll): Perforation[] {
     })
     .sort((a, b) => a.tickOn - b.tickOn || a.key - b.key);
 }
-
-export function noteOnsets(roll: Roll, half: Half): number[] {
-  const track = roll.smf.tracks[half === "bass" ? 1 : 2] ?? [];
-  return track.filter((event) => event.kind === "note-on").map((event) => event.tick);
-}
