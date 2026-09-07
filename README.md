@@ -1,15 +1,14 @@
-# Welte-Mignon T-100 expression emulator
+# Welte-Mignon T-100 Emulator
 
-A few red Welte rolls of the late production period carry drawn *expression lines*. Hans-W.
-Schmitz states, without giving a source, that they were drawn onto the finished rolls by two pens
-coupled to the two *Nuancierbälge* while the roll was played back (*Das Mechanische
-Musikinstrument* 19, 1981, p. 5), and Hermann Gottschewski restated that reading in 2024.
-Gottschewski's proposal at the 3rd Global Piano Roll Meeting was to
-read the rules of the mechanism off such lines and then emulate the lines by software, so
-that emulated lines can serve to evaluate the many rolls that carry none. He also observed
-that the Welte crescendos are far from linear, the slow diminuendo resembling an exponential
-decay ([Sydney, 26 July 2024](https://www.youtube.com/watch?v=lNn3OrWgGgM)). This emulator
-follows that proposal.
+A few red Welte rolls of the late production period carry drawn *expression lines*. According
+to Hans-W. Schmitz they were drawn onto the finished rolls by two pens coupled to the two
+*Nuancierbälge* while the roll was played back („Welte-Mignon und Hupfeld DEA", *Das
+Mechanische Musikinstrument* 19, 1981, pp. 4–5). Hermann Gottschewski's [proposal at the 3rd
+Global Piano Roll Meeting 2024](https://www.youtube.com/watch?v=lNn3OrWgGgM) was to read the
+rules of the mechanism off such lines and then emulate the lines by software. He observed
+several differences from common emulators such as SUPRA's
+[midi2exp](https://github.com/pianoroll/midi2exp), for example that the Welte crescendos and
+diminuendos are far from linear. This emulator follows Gottschewski's proposal.
 
 It derives the travel of the two *Nuancierbälge* from the punched expression code by
 modelling the pneumatics that move them: the valves the code operates, the conduits of
@@ -17,9 +16,16 @@ different bore through which the bellows fills and empties, the wind chamber the
 and the Mezzoforte stop that arrests the travel. The conductance of each conduit, the
 thresholds and time constants of the valves, and the weight of every further term were fitted
 by differential evolution with a Nelder–Mead polish against the expression lines of six rolls,
-and scored on the blocks of each roll left out of the fit. That fitting, with the traced
-lines, the measurements, the ablation, the reports and the cluster jobs, lives in `empirics/`
-of the `roll-nuance-tracer` repository. This repository is the library it produces.
+and scored on the blocks of each roll left out of the fit. The fitting, with the traced lines,
+the measurements and the reports, lives in `empirics/` of
+[roll-nuance-tracer](https://github.com/pfefferniels/roll-nuance-tracer). This repository is
+the library it produces.
+
+This emulator also implements Gottschewski's model of roll acceleration (*Die Interpretation
+als Kunstwerk*, Laaber 1996, pp. 135–137) and makes an assumption about the pedals' travel
+based on the pneumatic description by Peter Hagmann (*Das Welte-Mignon-Klavier, die
+Welte-Philharmonie-Orgel und die Anfänge der Reproduktion von Musik*, Diss. Freiburg i. Ue.
+1984, pp. 106–107).
 
 ## Using it as a library
 
@@ -33,7 +39,8 @@ npm run build        # writes dist/, which is what the package exports
 ```
 
 `dist/` is committed, so a dependency on a checkout of this repository needs no build of its
-own, which is how linked-rolls and the empirics are developed against it:
+own, which is how [linked-rolls](https://github.com/pfefferniels/linked-rolls) and the empirics
+are developed against it:
 
 ```json
 "welte-t100-emulator": "file:../welte-t100"
@@ -47,29 +54,43 @@ its fits and written into this tree; the same build and commit follow.
 Releases go out through `.github/workflows/publish.yml`: raise the version in `package.json`,
 commit, and push a tag `v<version>`, or run the workflow from the Actions tab.
 
-`src/index.ts` is the whole surface: the spool law (`paperSeconds`, `paperAt`, `WELTE_SPOOL`),
-the sample grid and the tracker-bar ports (`Grid`, `aperturePorts`, `geometryInMm`), the two
-mechanisms (`pneumaticModel`, `runPedals`), and the instruments the nuancing mechanism can run
-as. A caller chooses one of three things with `instrumentParameters(half, choice)`: the
-consensus, which is one instrument fitted to all six lined rolls at once and the default;
-a preset, the setting that drew one particular roll, named by its Welte number
-(`{ preset: "3309" }`); or explicit parameters over either (`{ parameters: { alpha: 1 } }`).
-`PRESETS` and `CONSENSUS` carry the sets with their provenance: what each was fitted to, how
-well it scores on blocks it never saw, how far two seeds disagree, and what the roll's trace
-could not witness. Every set is in bellows travel, the rails at 0 and 1 and the terms that
-describe the drawing apparatus switched off, since a playback instrument reads the punches
-where they are; `onPrintedScale` puts a set onto a roll whose rails sit elsewhere, and
-`inTravelUnits` brings a fit back. The presets are not keyed by year: across the six rolls no
-constant follows the catalogue number, and the lines were drawn on copies, so one roll's year
-is not its drawing's. Nothing in the library reads a file.
-[linked-rolls](https://github.com/pfefferniels/linked-rolls) runs its emulation on it.
+## Example
 
-Below those names the surface also carries what an analysis of the mechanism reaches for: the
-SUPRA MIDI reader (`readRoll`), the perforations of the code, the transforms a fit applies to
-a model (`withFixed`, `withTied`, `parameterVector`), the valves and the stop on their own,
-and a standard MIDI file writer.
+A SUPRA raw MIDI carries one tick per scan row and the roll's metadata. The emulator reads its
+bytes, sets the time axis from the spool law, turns the expression perforations into the open
+area of each tracker port row by row, and runs the two mechanisms on that grid. Nothing in
+the library reads a file itself.
 
-## What is in here
+```ts
+import { readFileSync } from "node:fs";
+import {
+  aperturePorts, Grid, instrumentParameters, noteDensity, noteOnsets, perforations,
+  pneumaticModel, readRoll, runPedals, travelBetweenRails, type Half,
+} from "welte-t100-emulator";
+
+const roll = readRoll("jq774vx6544", readFileSync("jq774vx6544_raw.mid"));
+const punches = perforations(roll);
+const lastRow = Math.max(...punches.map((punch) => punch.rowOff));
+const grid = Grid.overRows(roll.timing, roll.timing.rowAtTick(0), lastRow);
+const ports = aperturePorts(grid, punches);
+
+const rowsOf = (half: Half) => noteOnsets(roll, half).map((tick) => roll.timing.rowAtTick(tick));
+const density = { bass: noteDensity(grid, rowsOf("bass")), treble: noteDensity(grid, rowsOf("treble")) };
+const totalNoteDensity = Float64Array.from(density.bass, (value, index) => value + density.treble[index]!);
+
+// The consensus instrument; { preset: "3309" } is the setting that drew one particular roll.
+const params = instrumentParameters("bass");
+const input = { grid, half: "bass" as const, ports, noteDensity: density.bass, totalNoteDensity };
+const travel = travelBetweenRails(pneumaticModel.run(input, params), params); // 0 open (P.P.), 1 closed (F.F.), per row
+const pedals = runPedals({ grid, ports }); // damper and hammer rail, 0 to 1, per row
+```
+
+A roll that is not a SUPRA scan needs only its punches in scan rows and a `Grid` of seconds,
+which is how linked-rolls drives the emulator from an edition. `geometryInMm` puts a roll of
+another punch diameter on the same grid, and `levelChanges` turns the pedal travel into
+controller messages.
+
+## Layout
 
 | | |
 | --- | --- |
@@ -77,8 +98,7 @@ and a standard MIDI file writer.
 | `src/roll/` | the roll as input: a MIDI reader, the take-up spool that sets the time axis, the expression code, the tracker-bar aperture |
 | `src/model/` | the pneumatic model, the Mezzoforte stop, the pedals, and the instruments playback runs as; `instruments.data.ts` is generated from the fits |
 | `src/midi/` | the pedals as controller messages, and a standard MIDI file writer |
-| `docs/sources.md` | what the sources say, by topic: Hagmann 1984 and Welte's regulation controls, Schmitz 1981, Gottschewski, the patents, `midi2exp` and `pianolatron` |
-| `roll-nuance-tracer/empirics/` | the fitting: traced lines, measurements, the fits and the consensus, the ablation, the reports, the overlay viewer, the Python analysis, the SLURM scripts |
+| `docs/sources.md` | what the sources say, by topic: Hagmann, Schmitz, Gottschewski, the patents, `midi2exp` and `pianolatron` |
 
 ## The model
 
@@ -94,73 +114,99 @@ dx/dt = Σ  g · a · sign(T − x) · |T − x|^α
 one term per open path, with `g` the conductance of its conduit, `a` how far the tracker port
 is open, `T` the position that path pulls towards, and `α` the exponent of the flow law.
 `α = 1` is a laminar throttle and gives an exponential approach, `α = ½` an orifice, `α = 0`
-a constant rate, which is what `midi2exp` and `pianolatron` assume. `α` is fitted rather than
+a constant rate (which is what `midi2exp` and `pianolatron` assume). `α` is fitted rather than
 chosen, so the family contains the prior art as a special case. The fitted values are in
-`src/model/instruments.data.ts`, and in the empirics' `docs/fits-lean/` and `docs/consensus/`
-they come from.
+`src/model/instruments.data.ts`.
 
-Everything below is in the model because a source says so or a measurement demanded it, and
-the empirics' `docs/experiments.md` prices each one by taking it away and refitting. The
-readings that were carried as switches and rejected there, on roll 3309 and then across six
-rolls, are gone from the code; the source that still has them is at tag `full-model`.
+## Observations
 
-**From Hagmann's account of the relay.** Conduit 39 is joined to the bellows permanently and
-the crescendo relay only switches its far end between blower vacuum and atmosphere, so it is
-one path with two targets — which makes `midi2exp`'s separate rule that a slow decrescendo
-always runs simply the state of that conduit when the crescendo latch is off. Conduit 23 is
-wider and belongs to the sforzando. Throttle 96 assists the reopening after a cancel.
+What the measurements and the fitting found that, as far as I can see, no source states.
+Everything below is measured on roll 3309 (Backhaus, Schubert's *Militärmarsch*) unless six
+rolls are named. The empirics' `docs/measurements.md`, `docs/experiments.md` and
+`docs/rolls.md` carry the figures and their caveats.
 
-**Two terms the transits demanded.** The relay valve does not lift in proportion to the whole
-charge above its threshold but over about a sixth of it, `valveBand` at 0.171 and 0.065, so the
-conductance of conduit 23 stops following the tracker port's open area, which takes 25 ms to
-slide across the bore and was the model's whole remaining sluggishness on the set side. And
-with the crescendo relay off, conduit 39 stands open to atmosphere while the sforzando valve
-draws on wind chamber 15, so air runs straight through the bellows without moving it and loads
-the blower: `throughFlowLoad`, 0.153 and 0.112, on 4.6 % and 8.6 % of rows. Together they are
-worth 0.0368 to 0.0302 in the bass and 0.0478 to 0.0393 in the treble against a control fitted
-on the same budget. A band of its own for the cancelling valve and a dry-friction term were
-tried the same way and rejected.
+- **The line records the position of the bellows.** Every attack is followed some 30 to 50 ms
+  later by a small dip in the line, and the dip vanishes on the rows where the bellows is
+  demonstrably pinned at the Mezzoforte hook. A trace of the delivered vacuum would carry the
+  regulator's note-locked corrections there, a trace of the bellows cannot. Schmitz's account
+  of the pens is consistent with this. It is an argument rather than a demonstration.
+- **The flow law can be measured.** In the phase plane of rate against position a constant
+  rate, which `midi2exp` and `pianolatron` assume, is rejected by a factor of four to eleven
+  in every slow state. The slow decrescendo is exponential, as Gottschewski saw by eye. The
+  slow crescendo lies between exponential and orifice flow. The fitted exponent settles near 1
+  on some rolls and near 0.6 on others, and it is nearly degenerate with the release
+  asymptote, so the two should be read as one quantity.
+- **The Mezzoforte stop is a regulated setting, not the printed gridline.** The face the line
+  rests on lies 0.08 and 0.12 of the scale above the printed M.F. line, is steady within one
+  hold to 0.002, and drifts between holds in lockstep with the F rail, so it is the whole
+  traced line drifting against the print. Pinning the stop to the midpoint costs the fit 0.009
+  and 0.020. Across the four rolls with enough arrivals the face spans 0.08 to 0.10 of the
+  scale. That is the clearest evidence in the material that the instruments were set
+  differently from roll to roll, and it rests on counted arrivals rather than on a search.
+- **The stop rebounds, and its two levels are the other way round.** Arrivals at the hook
+  faster than 5 units/s overshoot and swing back once, a damped bounce of period about 32 ms
+  that has settled by 50 ms. The rails show nothing of the kind. Rests arriving from below lie
+  above the rests arriving from above, the opposite of the rigid hook of finite thickness
+  Schmitz draws, and what a stop that yields in the direction it is pushed would give. The
+  rising rests are 13 and 7.
+- **The fall is four times the rise.** The sforzando release runs at about four times the
+  rate of the sforzando closing, on 51 and 81 clean episodes each way. Welte's own control 6c
+  requires the two increments equal, so the instrument that drew this line did not satisfy it.
+  Against the line, `midi2exp`'s 300 ms fast crescendo is of the right order and its 400 ms
+  fast decrescendo is six to seven times too slow.
+- **The crescendo latch speeds the sforzando up.** With the crescendo set, a sforzando closes
+  faster by about 1.1 units/s. Conduit 39 admitting air whenever the crescendo is cancelled
+  predicts about two thirds of that gap, and the rest grows with position. The model carries
+  the remainder as a load the nuancing system puts on its own blower, which is a proposal
+  rather than a reading, and the crescendo-off episodes it rests on are few.
+- **The relay valve has a threshold, a tail and a band.** A fast excursion takes 50 to 110 ms
+  to reach full rate, which is the valve opening. Making the valve shut with its punch costs
+  the fit 0.013 and 0.038, and charging the cancelling valve as fast as the setting valve
+  costs 0.015 in the bass. The setting valve lifts over about a sixth of the charge above its
+  threshold, so its conductance stops following the port's open area, which takes 25 ms to
+  slide across the bore.
+- **The lead of the line differs by code and drifts along the roll.** Gottschewski saw the
+  lines run ahead of their punches. The sforzando-on code sits 6 and 11 ms later than the
+  sforzando-off code, the crescendo codes differ again, and the offset holds better as a
+  distance on the paper than as a time and shrinks along the roll, as two passes through
+  machines whose transport does not quite agree would produce. It is not a registration
+  error: where a punch has removed the paper under the line, the gap sits inside the punch
+  with equal insets at both ends. Across the six rolls the lead spans 66 scan rows.
+- **No roll's constants describe another roll's line.** Each of the six rolls fits about as
+  well as 3309, with held-out errors between 0.017 and 0.053 of the scale, and a foreign
+  roll's constants score two to three times worse than the roll's own. Re-registering the
+  rails and the lead removes about a tenth of the excess. The two Samaroff rolls, adjacent in
+  the catalogue, resemble each other no more than any other pair, and Gottschewski dates the
+  SUPRA copy of 1478 to 1923 against another copy of 1920, so one recording did not mean one
+  drawing. That is why the presets are named by roll rather than by year, and why the
+  consensus is what one instrument can do for all six rolls rather than what any of them did.
+- **Bass sits below treble on all six rolls.** Both the crescendo and the sforzando asymptotes
+  are lower in the bass than in the treble on every roll. Under a sign test that is p = 0.03
+  each, uncorrected, with nine parameters examined, so it is suggestive at most. It points the
+  same way as Hagemann's measurement that the discant dome travels further than the bass dome
+  for the same change of vacuum (*Das Mechanische Musikinstrument* 80, 2001, p. 26).
+- **The roll decides two questions the sources split on.** A latching sforzando, Hagmann's
+  reading by analogy with the crescendo, scores 0.15 and 0.19 against 0.03 and 0.05 for a
+  valve that acts per pulse, and the punching re-triggers the on-line where a latch would
+  already be set in 63 % and 39 % of cases. A sforzando that also set the crescendo would give
+  one fast rate where the line shows two, and the two codes are not paired in the punching
+  above chance.
+- **Neither the note density nor the time axis shows in the line.** A shared blower should
+  slow the closing states under dense playing and leave the opening states alone. The fast
+  crescendo shows no such slope, and the Widerstand is worth nothing measurable. The spool
+  law, SUPRA's tempo map and a constant paper speed differ by 0.0003 on a fit whose refit
+  noise is 0.003, so the line cannot decide the acceleration and the choice of Gottschewski's
+  law rests on provenance.
+- **The pedals travel.** No source gives a travel time. The shortest release-and-retake of the
+  damper pedal on 3309 is 212 ms from the off-punch to the next on-punch, and an editor does
+  not punch a lift the instrument cannot make, so a full fall much beyond 200 ms is hard to
+  defend. With that travel, Hagmann's conjecture of half-pedalling by superimposed commands is
+  possible on this roll and not demonstrated by it.
 
-**From Welte's regulation procedure**, Anhang 12, which is the T-100's own acceptance test.
-A relay valve does not follow its port: air enters its membrane chamber through the port and
-leaves through a bleed, and the valve lifts only once the chamber charges past a threshold.
-That is what lets six short perforations give six steps while six shorter ones give none
-(control 4b), and what makes a short cancel return the bellows only part of the way
-(control 4d). Welte adjusts the two valves at separate bores, 20 and 29, so they have
-separate time constants here.
-
-**From the expression line itself.** The Mezzoforte stop arrests the bellows at two levels a
-thickness apart depending on which side it approached from, and its position is a regulated
-setting rather than the printed gridline. The stop yields in the direction it is pushed, so
-the rising rest is the higher of the two, which is the opposite of what an inelastic barrier
-would give; both faces are set from the levels the line rests at rather than fitted. Every stop is compliant rather than rigid, so the bellows rebounds off it — visible
-in the expression line after a fast collapse. The offset between line and punches differs by code
-and drifts along the roll. The pen swung on an arm, and the arc bends the printed scale, which
-`scaleWarp` carries; the shift of the offset with the line's level that the same arc implies was
-priced across six rolls and found worth nothing, so it is not in the model, nor is the Mezzoforte
-code's own offset or the reading of the cancel as a latch.
-
-The empirics' `src/model/field.ts` is a control rather than a model: it bins the expression
-line by valve state and position and runs the resulting table forward. It assumes no flow law
-at all. It fails — a velocity field estimated along the true trajectory diverges when run
-open-loop — and is kept because that is worth knowing.
-
-## Honest limits
-
-- Bass and treble disagree on several numbers that ought to match if the two halves share a
-  mechanism. Some of that may be the calibration of the printed scale, whose F.F. gridline is
-  shared between the halves, and some may be real. It has not been separated, and correcting
-  the trace mask and the stop's faces did not settle it: across the fourteen constants that
-  describe the mechanism rather than the scale, eight agree better and the mean gap is slightly
-  worse. The Mezzoforte stop is the exception that suggests the rest is search rather than
-  physics — where the pin is in the path the two halves score 0.0299 and 0.0295, and its
-  thickness measured off the roll comes out at 0.050 and 0.041, but a fit free to move the
-  faces pulls them four times further apart than that.
-- The models are fitted on alternating blocks of the same roll and scored on the blocks left
-  out. That guards against a model memorising the roll; it does not make the constants
-  general. Across the six rolls no roll's constants describe another roll's line, and the
-  consensus is what one instrument can do for all of them, not what any of them did.
-- What the expression line physically records is not settled. It behaves like the bellows and not
-  like an editor's smooth intention curve — it piles up sharply at one level whenever the
-  Mezzoforte hook is set, and it overshoots after a sforzando — but that is an argument, not
-  a demonstration.
+Two things remain open. Bass and treble disagree on several numbers that ought to match if the
+two halves share a mechanism, among them the closed rail, the hook face, the lead and the fast
+crescendo's rate. Some of that may be the calibration of the printed scale, whose F.F. gridline
+is shared between the halves, and some may be real, and the two have not been separated. And
+fitting on alternating blocks of a roll and scoring on the blocks left out guards against a
+model memorising the roll, but it does not make the constants general, as the transfer between
+rolls shows.
