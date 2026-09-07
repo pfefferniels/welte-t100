@@ -1,17 +1,11 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
 
-import { CONSENSUS, PRESETS, instrumentParameters, type RollNumber } from "./instruments.ts";
+import { CONSENSUS, PRESETS, instrumentParameters } from "./instruments.ts";
 import { DRAWING_APPARATUS, mezzoforteTravel, playbackParameters, travelBetweenRails } from "./playback.ts";
 import { pneumaticModel } from "./pneumatic.ts";
-import { inTravelUnits } from "./units.ts";
 import type { Half } from "../roll/expression.ts";
-import type { Parameters } from "./types.ts";
 
-const DOCS = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "docs");
 const NAMES = pneumaticModel.spec.map((entry) => entry.name).sort();
 const HALVES: readonly Half[] = ["bass", "treble"];
 
@@ -24,20 +18,6 @@ test("every instrument carries exactly the model's parameters, in travel units, 
       assert.equal(params.forte, 1);
       Object.keys(DRAWING_APPARATUS).forEach((name) => assert.equal(params[name], 0, `${instrument.name} ${half} ${name}`));
       assert.ok(mezzoforteTravel(params) > 0 && mezzoforteTravel(params) < 1, `${instrument.name} ${half} hook`);
-    });
-  });
-});
-
-test("the presets are the rolls' own fits, verbatim, in travel units", () => {
-  (Object.keys(PRESETS) as RollNumber[]).forEach((welte) => {
-    const preset = PRESETS[welte];
-    const fit = JSON.parse(readFileSync(join(DOCS, "fits-lean", `${preset.provenance.druid}.json`), "utf8")) as {
-      results: { half: Half; params: Parameters; test: { rmse: number } }[];
-    };
-    fit.results.forEach(({ half, params, test: held }) => {
-      const expected = { ...pneumaticModel.defaults, ...inTravelUnits(params), ...DRAWING_APPARATUS };
-      NAMES.forEach((name) => assert.equal(preset[half][name], expected[name], `${welte} ${half} ${name} has drifted`));
-      assert.equal(preset.provenance[half].heldOutRmse, held.rmse);
     });
   });
 });

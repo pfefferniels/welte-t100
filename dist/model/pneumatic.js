@@ -45,8 +45,8 @@
  * the cancelling valve's own, a hook that yields as a spring, a floor-only pin,
  * a pin of fitted thickness, and two further offsets of the pen. None earned its
  * place, on roll 3309 and then across six rolls, and they are gone from the code.
- * `docs/experiments.md` records what each cost, and the source that carried
- * them is at tag `full-model`.
+ * `empirics/docs/experiments.md` in roll-nuance-tracer records what each cost,
+ * and the source that carried them is at tag `full-model`.
  *
  * Not modelled: throttle 97, which on a sforzando release dumps air straight into
  * the wind chamber and collapses the output pressure without moving the bellows,
@@ -57,7 +57,7 @@ import { latched, shiftedPortOf } from "./latch.js";
 import { limitAtStop, MF_THICKNESS, newStopState } from "./stop.js";
 import { clamp, simulate } from "./types.js";
 /**
- * Bounds are set a few times wider than what `docs/measurements.md` measures off
+ * Bounds are set a few times wider than what `empirics/docs/measurements.md` measures off
  * this roll, not as wide as the arithmetic allows. Wider than that only enlarges
  * the space the search has to cross without adding any candidate the mechanism
  * could produce, and a fitted value sitting on a bound is reported rather than
@@ -101,7 +101,7 @@ const SPEC = [
  * roll measures and what the Leseregeln of Pfeffer's dissertation states: a
  * crescendo alone reaches a forte "bei dem sich der Balg zwischen mittlerer und
  * vollständig geschlossener Stellung befindet", and only a sforzando governs the
- * range above it. `docs/measurements.md` has the measurements; the
+ * range above it. `empirics/docs/measurements.md` has the measurements; the
  * figures are the average of the two halves, since one set of defaults has to
  * serve both. Fitting moves them, but not far, and this is what the model
  * predicts before any fitting at all.
@@ -214,7 +214,7 @@ function run(input, params) {
         // its open rest. Less vacuum both slows the closing and lowers the level it
         // can reach, so one factor scales the conductance and pulls the target back
         // towards the open end. Reopening runs off atmosphere and the bellows spring,
-        // and is left alone. `docs/measurements.md` §4 motivates the term: additive
+        // and is left alone. `empirics/docs/measurements.md` §4 motivates the term: additive
         // conductance accounts for only about two thirds of the gap between a
         // sforzando with the crescendo set and one without, and the observed gap
         // widens with position faster than the prediction.

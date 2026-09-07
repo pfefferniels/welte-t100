@@ -24,7 +24,7 @@ import type { Parameters } from "./types.ts";
 /**
  * The terms that describe the drawing apparatus rather than the mechanism: the
  * lead of the punches over the drawn line, its variation by code and along the
- * roll, and the bend of the printed scale (`docs/measurements.md` §5). A piano
+ * roll, and the bend of the printed scale (`empirics/docs/measurements.md` §5). A piano
  * reads the punches where they are, so an instrument carries them switched off.
  */
 export declare const DRAWING_APPARATUS: Parameters;

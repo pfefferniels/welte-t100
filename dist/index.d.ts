@@ -1,8 +1,9 @@
 /**
  * What the emulator offers as a library: the take-up spool that sets a roll's
  * time axis, the tracker-bar ports a punched roll opens, the nuancing and pedal
- * mechanisms that read them, and the constants they run on. Reading SUPRA scans,
- * the traced line and the fitting stay behind the command-line tools.
+ * mechanisms that read them, and the instruments they run as. The fitting that
+ * produced those instruments lives in `empirics/` of roll-nuance-tracer and
+ * builds on this surface; what it reaches for beneath the playback names comes last.
  */
 export { circumferenceAt, paperAt, paperSeconds, paperSpeed, WELTE_SPOOL, type Spool } from "./roll/spool.ts";
 export { Grid } from "./roll/grid.ts";
@@ -18,3 +19,11 @@ export { describeTraversals, traversals, type Traversal } from "./model/timings.
 export type { Model, ModelInput, Parameters, ParameterSpec } from "./model/types.ts";
 export { halfPedalling, pedalDefaults, pedalSpec, pedalSpans, runPedals, tiedToRise, type HalfPedalling, type PedalInput, type PedalSpan, type PedalTravel, } from "./model/pedal.ts";
 export { DAMPER_CC, levelChanges, SOFT_CC, type ControllerOptions, type LevelChange, type PedalMode, } from "./midi/pedal.ts";
+export { pixels, pixelsPerInch, readRoll, type AxisChoice, type Roll } from "./roll/timing.ts";
+export { HALVES, noteOnsets, perforations, type Perforation } from "./roll/expression.ts";
+export { binaryPorts } from "./roll/aperture.ts";
+export { clamp, parametersFrom, parameterVector, shiftedByRows, simulate, withFixed, withTied } from "./model/types.ts";
+export { latched, momentary, portOf, TRIP_THRESHOLD } from "./model/latch.ts";
+export { limitAtStop, MF_THICKNESS, newStopState, type StopState } from "./model/stop.ts";
+export { noteOff, noteOn, setTempo, trackName, writeSmf, type MidiTrack } from "./midi/write.ts";
+export { pedalMessages } from "./midi/pedal.ts";

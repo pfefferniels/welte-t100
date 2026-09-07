@@ -45,8 +45,8 @@
  * the cancelling valve's own, a hook that yields as a spring, a floor-only pin,
  * a pin of fitted thickness, and two further offsets of the pen. None earned its
  * place, on roll 3309 and then across six rolls, and they are gone from the code.
- * `docs/experiments.md` records what each cost, and the source that carried
- * them is at tag `full-model`.
+ * `empirics/docs/experiments.md` in roll-nuance-tracer records what each cost,
+ * and the source that carried them is at tag `full-model`.
  *
  * Not modelled: throttle 97, which on a sforzando release dumps air straight into
  * the wind chamber and collapses the output pressure without moving the bellows,
