@@ -103,6 +103,26 @@ const DEFAULTS = {
     fallMs: 120,
     shiftMs: 180,
 };
+/**
+ * The brushing reading of the same mechanism.
+ *
+ * The SUPRA corpus holds 327 runs of four or more latch changes with spans of
+ * at most 250 ms on the sustain pedal. Taken as intentional half-pedals, they
+ * cannot be made to hold the dampers still by any constants under which an
+ * ordinary 300 ms change still arrives: the best such set leaves them swinging
+ * by ±0.25 at the note onsets. What they can be made to do is brush — dip at
+ * every lift and turn back before the dampers have settled, between 0.1 and
+ * 0.5 of the travel — and every set of constants that does so has the fall
+ * taking 260 to 360 ms to the rail, relay included, with the rise free. This
+ * is the point of that plateau under which most of the corpus's ordinary
+ * lifts still damp fully (the empirics' `docs/half-pedalling-intent.json`).
+ *
+ * Its price is stated rather than fitted: lifts shorter than about 265 ms, a
+ * third of the corpus, are brushes under it too. Where the felts meet the
+ * strings is the piano's, and the band of 0.1 to 0.5 is a guess at it; with a
+ * higher contact point the plateau moves to faster falls.
+ */
+const BRUSHING = { ...DEFAULTS, relayLagMs: 60, liftMs: 100, fallMs: 260 };
 const SPEC = [
     { name: "alpha", lower: 0, upper: 2, unit: "1", note: "flow-law exponent, as in the Nuancierbalg" },
     { name: "relayLagMs", lower: 0, upper: 400, unit: "ms", note: "throttle 11 filling chamber 12 to the trip of valve 14; both edges" },
@@ -229,4 +249,4 @@ export function halfPedalling(spans, margin = 0.02) {
         deepestUnfinishedLift: unfinished.reduce((deepest, span) => Math.max(deepest, span.to), 0),
     };
 }
-export { DEFAULTS as pedalDefaults, SPEC as pedalSpec };
+export { BRUSHING as pedalBrushing, DEFAULTS as pedalDefaults, SPEC as pedalSpec };

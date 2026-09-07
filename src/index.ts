@@ -48,6 +48,7 @@ export type { Model, ModelInput, Parameters, ParameterSpec } from "./model/types
 
 export {
   halfPedalling,
+  pedalBrushing,
   pedalDefaults,
   pedalSpec,
   pedalSpans,

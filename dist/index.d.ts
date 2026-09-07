@@ -14,7 +14,7 @@ export { DRAWING_APPARATUS, mezzoforteTravel, playbackParameters, travelBetweenR
 export { CONSENSUS, PRESETS, instrumentOf, instrumentParameters, type HalfProvenance, type Instrument, type InstrumentChoice, type Provenance, type RollNumber, } from "./model/instruments.ts";
 export { inTravelUnits, onPrintedScale } from "./model/units.ts";
 export type { Model, ModelInput, Parameters, ParameterSpec } from "./model/types.ts";
-export { halfPedalling, pedalDefaults, pedalSpec, pedalSpans, runPedals, tiedToRise, type HalfPedalling, type PedalInput, type PedalSpan, type PedalTravel, } from "./model/pedal.ts";
+export { halfPedalling, pedalBrushing, pedalDefaults, pedalSpec, pedalSpans, runPedals, tiedToRise, type HalfPedalling, type PedalInput, type PedalSpan, type PedalTravel, } from "./model/pedal.ts";
 export { DAMPER_CC, levelChanges, SOFT_CC, type ControllerOptions, type LevelChange, type PedalMode, } from "./midi/pedal.ts";
 export { pixels, pixelsPerInch, readRoll, type AxisChoice, type Roll } from "./roll/timing.ts";
 export { HALVES, perforations, type Perforation } from "./roll/expression.ts";

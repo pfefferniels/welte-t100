@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 
 import { Grid } from "../roll/grid.ts";
 import { portKey, type PortKey } from "../roll/aperture.ts";
-import { halfPedalling, pedalDefaults, pedalSpans, runPedals, tiedToRise } from "./pedal.ts";
+import { halfPedalling, pedalBrushing, pedalDefaults, pedalSpans, runPedals, tiedToRise } from "./pedal.ts";
 import type { PedalInput } from "./pedal.ts";
 
 const ROWS_PER_SECOND = 600;
@@ -42,6 +42,22 @@ test("a momentary punch on line 93 holds the dampers up until line 94 is read", 
 
   assert.ok(damper[2000]! > 0.99, "still up long after the setting punch has passed");
   assert.ok(damper[LENGTH - 1]! < 0.01, "and down again after the cancelling punch");
+});
+
+test("under the brushing preset a 150 ms lift brushes the strings and a 300 ms lift damps them", () => {
+  const punch = rowsFor(100);
+  const dipAfter = (liftMs: number): number => {
+    const retake = 3000 + rowsFor(liftMs);
+    const { damper } = runPedals(
+      input({ [DAMPER_ON]: [[600, 600 + punch], [retake, retake + punch]], [DAMPER_OFF]: [[3000, 3000 + punch]] }),
+      pedalBrushing,
+    );
+    return Math.min(...damper.slice(3000, retake + rowsFor(150)));
+  };
+
+  const brush = dipAfter(150);
+  assert.ok(brush >= 0.1 && brush <= 0.5, `a 150 ms lift turned back at ${brush.toFixed(2)}, expected between 0.1 and 0.5`);
+  assert.ok(dipAfter(300) <= 0.1, "a 300 ms lift, the corpus's modal change, still damps");
 });
 
 test("the relay delays both edges by about relayLagMs", () => {

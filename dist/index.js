@@ -13,7 +13,7 @@ export { pneumaticModel } from "./model/pneumatic.js";
 export { DRAWING_APPARATUS, mezzoforteTravel, playbackParameters, travelBetweenRails } from "./model/playback.js";
 export { CONSENSUS, PRESETS, instrumentOf, instrumentParameters, } from "./model/instruments.js";
 export { inTravelUnits, onPrintedScale } from "./model/units.js";
-export { halfPedalling, pedalDefaults, pedalSpec, pedalSpans, runPedals, tiedToRise, } from "./model/pedal.js";
+export { halfPedalling, pedalBrushing, pedalDefaults, pedalSpec, pedalSpans, runPedals, tiedToRise, } from "./model/pedal.js";
 export { DAMPER_CC, levelChanges, SOFT_CC, } from "./midi/pedal.js";
 // Beneath the playback surface: the roll as SUPRA's MIDI records it, the
 // perforations of the code, the transforms a fit applies to a model, the valves

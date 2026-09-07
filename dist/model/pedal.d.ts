@@ -87,6 +87,26 @@ import { type ModelInput, type Parameters, type ParameterSpec } from "./types.ts
  * throttled bleed through 17, and note 50 has 17 set to make the total match.
  */
 declare const DEFAULTS: Parameters;
+/**
+ * The brushing reading of the same mechanism.
+ *
+ * The SUPRA corpus holds 327 runs of four or more latch changes with spans of
+ * at most 250 ms on the sustain pedal. Taken as intentional half-pedals, they
+ * cannot be made to hold the dampers still by any constants under which an
+ * ordinary 300 ms change still arrives: the best such set leaves them swinging
+ * by ±0.25 at the note onsets. What they can be made to do is brush — dip at
+ * every lift and turn back before the dampers have settled, between 0.1 and
+ * 0.5 of the travel — and every set of constants that does so has the fall
+ * taking 260 to 360 ms to the rail, relay included, with the rise free. This
+ * is the point of that plateau under which most of the corpus's ordinary
+ * lifts still damp fully (the empirics' `docs/half-pedalling-intent.json`).
+ *
+ * Its price is stated rather than fitted: lifts shorter than about 265 ms, a
+ * third of the corpus, are brushes under it too. Where the felts meet the
+ * strings is the piano's, and the band of 0.1 to 0.5 is a guess at it; with a
+ * higher contact point the plateau moves to faster falls.
+ */
+declare const BRUSHING: Parameters;
 declare const SPEC: readonly ParameterSpec[];
 /** Only the parts of a model input the pedals can see: they belong to no half. */
 export type PedalInput = Pick<ModelInput, "grid" | "ports">;
@@ -140,4 +160,4 @@ export type HalfPedalling = {
 };
 /** How much of the roll's pedalling the mechanism cannot carry out in full. */
 export declare function halfPedalling(spans: readonly PedalSpan[], margin?: number): HalfPedalling;
-export { DEFAULTS as pedalDefaults, SPEC as pedalSpec };
+export { BRUSHING as pedalBrushing, DEFAULTS as pedalDefaults, SPEC as pedalSpec };

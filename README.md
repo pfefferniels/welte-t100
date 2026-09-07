@@ -89,7 +89,9 @@ const nuance = {
   treble: travelOf("treble"),
 };
 
-// Damper and hammer rail per row, 0 at rest to 1 fully moved.
+// Damper and hammer rail per row, 0 at rest to 1 fully moved. The default has the dampers
+// arrive in 180 ms; `pedalBrushing` slows the fall until the quick runs of the SUPRA corpus
+// dip without damping, the other reading of those runs (see `src/model/pedal.ts`).
 const pedals = runPedals({ grid, ports });
 ```
 
