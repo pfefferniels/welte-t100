@@ -16,16 +16,13 @@ different bore through which the bellows fills and empties, the wind chamber the
 and the Mezzoforte stop that arrests the travel. The conductance of each conduit, the
 thresholds and time constants of the valves, and the weight of every further term were fitted
 by differential evolution with a Nelder–Mead polish against the expression lines of six rolls,
-and scored on the blocks of each roll left out of the fit. The fitting, with the traced lines,
-the measurements and the reports, lives in `empirics/` of
-[roll-nuance-tracer](https://github.com/pfefferniels/roll-nuance-tracer). This repository is
-the library it produces.
+and scored on the blocks of each roll left out of the fit.
 
 This emulator also implements Gottschewski's model of roll acceleration (*Die Interpretation
 als Kunstwerk*, Laaber 1996, pp. 135–137) and makes an assumption about the pedals' travel
 based on the pneumatic description by Peter Hagmann (*Das Welte-Mignon-Klavier, die
-Welte-Philharmonie-Orgel und die Anfänge der Reproduktion von Musik*, Diss. Freiburg i. Ue.
-1984, pp. 106–107).
+Welte-Philharmonie-Orgel und die Anfänge der Reproduktion von Musik*, Diss. Basel, Bern 1984,
+pp. 106–107).
 
 ## Using it as a library
 
@@ -122,8 +119,7 @@ chosen, so the family contains the prior art as a special case. The fitted value
 
 What the measurements and the fitting found that, as far as I can see, no source states.
 Everything below is measured on roll 3309 (Backhaus, Schubert's *Militärmarsch*) unless six
-rolls are named. The empirics' `docs/measurements.md`, `docs/experiments.md` and
-`docs/rolls.md` carry the figures and their caveats.
+rolls are named.
 
 - **The line records the position of the bellows.** Every attack is followed some 30 to 50 ms
   later by a small dip in the line, and the dip vanishes on the rows where the bellows is
