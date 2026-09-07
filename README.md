@@ -1,6 +1,7 @@
 # Welte-Mignon T-100 Emulator
 
-A few red Welte rolls of the late production period carry drawn *expression lines*. According
+A few red Welte rolls of the late production period carry drawn expression lines
+(*Nuancierlinien*). According
 to Hans-W. Schmitz they were drawn onto the finished rolls by two pens coupled to the two
 *Nuancierbälge* while the roll was played back („Welte-Mignon und Hupfeld DEA", *Das
 Mechanische Musikinstrument* 19, 1981, pp. 4–5). Hermann Gottschewski's [proposal at the 3rd
@@ -13,17 +14,19 @@ diminuendos are far from linear. This emulator follows Gottschewski's proposal.
 It derives the travel of the two *Nuancierbälge* from the punched expression code by
 modelling the pneumatics that move them: the valves the code operates, the conduits of
 different bore through which the bellows fills and empties, the wind chamber they draw on,
-and the Mezzoforte stop that arrests the travel. Their constants were fitted by differential
-evolution with a Nelder–Mead polish against the expression lines of six rolls, and scored on
-the blocks of each roll left out of the fit. The library ships the six different instrument
+and the Mezzoforte stop that arrests the travel. Their constants were fitted by
+[differential evolution](https://en.wikipedia.org/wiki/Differential_evolution) with a
+[Nelder–Mead](https://en.wikipedia.org/wiki/Nelder%E2%80%93Mead_method) polish against the
+expression lines of six rolls, and scored on the blocks of each roll left out of the fit. The library ships the six different instrument
 settings as presets, named by Welte number, and beside them a consensus: one instrument fitted
 to all six lines at once. The consensus is the default.
 
-This emulator also implements Gottschewski's model of roll acceleration (*Die Interpretation
-als Kunstwerk*, Laaber 1996, pp. 135–137) and makes an assumption about the pedals' travel
-based on the pneumatic description by Peter Hagmann (*Das Welte-Mignon-Klavier, die
-Welte-Philharmonie-Orgel und die Anfänge der Reproduktion von Musik*, Diss. Basel, Bern 1984,
-pp. 106–107).
+This emulator also implements Gottschewski's model of roll acceleration ([*Die Interpretation
+als Kunstwerk*](http://fusehime.c.u-tokyo.ac.jp/gottschewski/doc/dieinterpretationalskunstwerk/index.htm),
+Laaber 1996, pp. 135–137) and makes an assumption about the pedals' travel based on the
+pneumatic description by Peter Hagmann ([*Das Welte-Mignon-Klavier, die
+Welte-Philharmonie-Orgel und die Anfänge der Reproduktion von
+Musik*](https://freidok.uni-freiburg.de/data/608), Diss. Basel, Bern 1984, pp. 106–107).
 
 ## Using it as a library
 
