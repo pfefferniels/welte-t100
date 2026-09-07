@@ -7,7 +7,6 @@ import { latched, momentary } from "./latch.ts";
 import { limitAtStop, MF_THICKNESS, newStopState } from "./stop.ts";
 import { pneumaticModel } from "./pneumatic.ts";
 import { shiftedByRows, type ModelInput, type Parameters } from "./types.ts";
-import { traversals } from "./timings.ts";
 
 const LENGTH = 4000;
 const ROWS_PER_SECOND = 600;
@@ -147,21 +146,6 @@ test("a long cancel returns the bellows further than a short one", () => {
   const long = fall(220);
   assert.ok(long > short + 0.02, `long cancel ${long.toFixed(3)} should exceed short ${short.toFixed(3)}`);
   assert.ok(short > 0.005, "a short cancel still does something");
-});
-
-test("travel times invert the flow law", () => {
-  const times = traversals({
-    ...pneumaticModel.defaults,
-    alpha: 1,
-    piano: 0,
-    forte: 1,
-    mezzoforte: 0.5,
-    crescendoRate: 1,
-    crescendoTarget: 1,
-  });
-  // exponential approach: t = tau ln((T - a) / (T - b)) = 1 * ln(1 / 0.5)
-  const expected = Math.log(2) * 1000;
-  assert.ok(Math.abs(times["slow crescendo, P to M.F."]!.milliseconds - expected) < 5);
 });
 
 test("the terms added for the transits are inert at their defaults", () => {

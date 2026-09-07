@@ -45,7 +45,6 @@ export {
   type RollNumber,
 } from "./model/instruments.ts";
 export { inTravelUnits, onPrintedScale } from "./model/units.ts";
-export { describeTraversals, traversals, type Traversal } from "./model/timings.ts";
 export type { Model, ModelInput, Parameters, ParameterSpec } from "./model/types.ts";
 
 export {
