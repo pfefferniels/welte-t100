@@ -1,6 +1,6 @@
 {
   "name": "welte-t100-emulator",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "type": "module",
   "description": "The expression mechanism of a Welte-Mignon T-100: the take-up spool, the nuancing bellows and the pedals, fitted against the hand-drawn Nuancierungslinien of six rolls.",
   "repository": {
