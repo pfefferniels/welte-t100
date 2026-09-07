@@ -67,7 +67,7 @@ the library reads a file itself.
 import { readFileSync } from "node:fs";
 import {
   aperturePorts, Grid, instrumentParameters, perforations, pneumaticModel, readRoll,
-  runPedals, travelBetweenRails,
+  runPedals, travelBetweenRails, type Half,
 } from "welte-t100-emulator";
 
 const roll = readRoll("jq774vx6544", readFileSync("jq774vx6544_raw.mid"));
@@ -76,10 +76,13 @@ const lastRow = Math.max(...punches.map((punch) => punch.rowOff));
 const grid = Grid.overRows(roll.timing, roll.timing.rowAtTick(0), lastRow);
 const ports = aperturePorts(grid, punches);
 
-// The consensus instrument; { preset: "3309" } is the setting that drew one particular roll.
-const params = instrumentParameters("bass");
-const closure = pneumaticModel.run({ grid, half: "bass", ports }, params);
-const travel = travelBetweenRails(closure, params); // 0 open (P.P.), 1 closed (F.F.), per row
+// Each half has its own bellows and its own constants: the consensus instrument by default,
+// or { preset: "3309" } for the setting that drew one particular roll.
+const travelOf = (half: Half) => {
+  const params = instrumentParameters(half);
+  return travelBetweenRails(pneumaticModel.run({ grid, half, ports }, params), params);
+};
+const nuance = { bass: travelOf("bass"), treble: travelOf("treble") }; // 0 open (P.P.), 1 closed (F.F.), per row
 const pedals = runPedals({ grid, ports }); // damper and hammer rail, 0 to 1, per row
 ```
 
