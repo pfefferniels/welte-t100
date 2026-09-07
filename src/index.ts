@@ -32,13 +32,19 @@ export { noteDensity } from "./roll/density.ts";
 
 export { pneumaticModel } from "./model/pneumatic.ts";
 export { midi2expModel } from "./model/midi2exp.ts";
+export { DRAWING_APPARATUS, mezzoforteTravel, playbackParameters, travelBetweenRails } from "./model/playback.ts";
 export {
-  DRAWING_APPARATUS,
-  FITTED,
-  mezzoforteTravel,
-  playbackParameters,
-  travelBetweenRails,
-} from "./model/playback.ts";
+  CONSENSUS,
+  PRESETS,
+  instrumentOf,
+  instrumentParameters,
+  type HalfProvenance,
+  type Instrument,
+  type InstrumentChoice,
+  type Provenance,
+  type RollNumber,
+} from "./model/instruments.ts";
+export { inTravelUnits, onPrintedScale } from "./model/units.ts";
 export { describeTraversals, traversals, type Traversal } from "./model/timings.ts";
 export type { Model, ModelInput, Parameters, ParameterSpec } from "./model/types.ts";
 

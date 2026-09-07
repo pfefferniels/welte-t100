@@ -1,19 +1,23 @@
 /**
- * Fitting one model to one keyboard half, scored on blocks it never saw.
+ * Fitting one model to one keyboard half, scored on blocks it never saw, and the
+ * search underneath it, which a pooled fit over several rolls shares.
  */
 
 import { agreement, maskedRobust, type Agreement, type Mask } from "./metrics.ts";
-import { coordinateDescent, differentialEvolution, nelderMead, type Bounds } from "./optimise.ts";
+import { coordinateDescent, differentialEvolution, nelderMead, type Bounds, type Fit } from "./optimise.ts";
 import { parametersFrom, parameterVector, type Model, type ModelInput, type Parameters } from "../model/types.ts";
 import type { TracedCurve } from "../truth/curves.ts";
 
-export type FitOptions = {
+export type SearchOptions = {
   readonly generations?: number;
   readonly seed?: number;
   readonly polish?: boolean;
+  readonly report?: (line: string) => void;
+};
+
+export type FitOptions = SearchOptions & {
   /** Residuals past this are charged linearly. 0 is a plain squared loss. */
   readonly huber?: number;
-  readonly report?: (line: string) => void;
   /** Centre the initial population here instead of on the model's defaults. */
   readonly startFrom?: Parameters;
 };
@@ -46,24 +50,49 @@ export function boundsOf(model: Model): Bounds {
 const CLUSTERED = 0.7;
 const SCALES = [0.01, 0.02, 0.05, 0.1, 0.2, 0.35];
 
-function jitteredSeeds(model: Model, seed: number, startFrom?: Parameters): number[][] {
-  const centre = parameterVector(model.spec, { ...model.defaults, ...startFrom });
-  const size = Math.max(20, 4 * model.spec.length);
+export function jitteredSeeds(centre: readonly number[], bounds: Bounds, seed: number): number[][] {
+  const size = Math.max(20, 4 * centre.length);
   let state = seed >>> 0;
   const random = (): number => {
     state = (state * 1664525 + 1013904223) >>> 0;
     return state / 4294967296 - 0.5;
   };
   return [
-    centre,
+    [...centre],
     ...Array.from({ length: Math.round(size * CLUSTERED) - 1 }, (_, index) => {
       const scale = SCALES[index % SCALES.length]!;
       return centre.map((value, axis) => {
-        const { lower, upper } = model.spec[axis]!;
+        const lower = bounds.lower[axis]!;
+        const upper = bounds.upper[axis]!;
         return Math.min(Math.max(value + scale * (upper - lower) * random() * 2, lower), upper);
       });
     }),
   ];
+}
+
+/** Differential evolution from the seeds, a Nelder–Mead polish, then a coordinate sweep, keeping the best of each. */
+export function searchFrom(
+  objective: (vector: readonly number[]) => number,
+  bounds: Bounds,
+  seeds: readonly (readonly number[])[],
+  options: SearchOptions = {},
+): Fit {
+  const coarse = differentialEvolution(objective, bounds, {
+    generations: options.generations ?? 160,
+    seed: options.seed ?? 1,
+    seeds,
+    onGeneration: (generation, best) => {
+      if (options.report && generation % 20 === 0) {
+        options.report(`gen ${generation}: train rmse ${best.value.toFixed(4)}`);
+      }
+    },
+  });
+  if (options.polish === false) return coarse;
+  const polished = nelderMead(objective, coarse.vector, bounds, { iterations: 120 * bounds.lower.length });
+  const afterSimplex = polished.value <= coarse.value ? polished : coarse;
+  const swept = coordinateDescent(objective, afterSimplex.vector, bounds);
+  const best = swept.value <= afterSimplex.value ? swept : afterSimplex;
+  return { ...best, evaluations: coarse.evaluations + polished.evaluations + swept.evaluations };
 }
 
 export function fitModel(
@@ -78,24 +107,9 @@ export function fitModel(
   const objective = (vector: readonly number[]): number =>
     maskedRobust(model.run(input, parametersFrom(model.spec, vector)), truth.value, masks.train, options.huber ?? 0);
 
-  const coarse = differentialEvolution(objective, boundsOf(model), {
-    generations: options.generations ?? 160,
-    seed: options.seed ?? 1,
-    seeds: jitteredSeeds(model, options.seed ?? 1, options.startFrom),
-    onGeneration: (generation, best) => {
-      if (options.report && generation % 20 === 0) {
-        options.report(`gen ${generation}: train rmse ${best.value.toFixed(4)}`);
-      }
-    },
-  });
-  const polished =
-    options.polish === false
-      ? coarse
-      : nelderMead(objective, coarse.vector, boundsOf(model), { iterations: 120 * model.spec.length });
-  const afterSimplex = polished.value <= coarse.value ? polished : coarse;
-  const swept =
-    options.polish === false ? afterSimplex : coordinateDescent(objective, afterSimplex.vector, boundsOf(model));
-  const best = swept.value <= afterSimplex.value ? swept : afterSimplex;
+  const bounds = boundsOf(model);
+  const centre = parameterVector(model.spec, { ...model.defaults, ...options.startFrom });
+  const best = searchFrom(objective, bounds, jitteredSeeds(centre, bounds, options.seed ?? 1), options);
 
   const params = parametersFrom(model.spec, best.vector);
   const output = model.run(input, params);
@@ -104,7 +118,7 @@ export function fitModel(
     train: agreement(output, truth.value, masks.train),
     test: agreement(output, truth.value, masks.test),
     output,
-    evaluations: coarse.evaluations + polished.evaluations + swept.evaluations,
+    evaluations: best.evaluations,
     seconds: (performance.now() - started) / 1000,
   };
 }

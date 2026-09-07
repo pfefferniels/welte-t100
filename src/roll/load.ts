@@ -31,9 +31,12 @@ export type LoadedRoll = {
   inputOver(half: Half, punches: readonly Perforation[], portModel: PortModel): ModelInput;
 };
 
-export function loadRoll(druid: string, axis: AxisChoice = WELTE_SPOOL): LoadedRoll {
+/** Where the traced curves are looked for: `<traces>/<druid>/curves.csv`, one tracing round per directory. */
+export const DEFAULT_TRACES = join(REPO, "out");
+
+export function loadRoll(druid: string, axis: AxisChoice = WELTE_SPOOL, traces = DEFAULT_TRACES): LoadedRoll {
   const roll = readRoll(druid, readFileSync(join(REPO, "cache", druid, `${druid}_raw.mid`)), axis);
-  const curves = readTracedCurves(join(REPO, "out", druid, "curves.csv"));
+  const curves = readTracedCurves(join(traces, druid, "curves.csv"));
   const punches = perforations(roll);
 
   // The time axis is rebuilt from the spool law rather than taken from the traced

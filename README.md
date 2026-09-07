@@ -32,6 +32,8 @@ node src/cli/fit.ts pneumatic --generations 120 --out docs/fit-pneumatic.json
 node src/cli/experiments.ts --out docs/experiments.json
 node src/cli/residuals.ts --fit docs/fit-pneumatic.json
 node src/cli/polish.ts --fit docs/fit-pneumatic.json    # sweep a fit that predates the sweep
+node src/cli/consensus.ts --rolls A,B,C --fits docs/fits-lean --half bass --seed 1   # one instrument over several rolls
+node src/cli/instruments.ts --fits docs/fits-lean --consensus docs/consensus/*.json    # the presets and the consensus the library ships
 ```
 
 The ablation is the slow part, tens of minutes per variant. `--slice i/n` splits the
@@ -64,12 +66,21 @@ commit, and push a tag `v<version>`, or run the workflow from the Actions tab.
 
 `src/index.ts` is the whole surface: the spool law (`paperSeconds`, `paperAt`, `WELTE_SPOOL`),
 the sample grid and the tracker-bar ports (`Grid`, `aperturePorts`, `geometryInMm`), the two
-mechanisms (`pneumaticModel`, `runPedals`) and the constants for them (`playbackParameters`,
-`pedalDefaults`). `playbackParameters` is the headline fit with the terms that describe the
-drawing apparatus switched off, since a playback instrument reads the punches where they are;
-`travelBetweenRails` puts its output on a 0 to 1 scale between the two rails. Nothing in the
-library reads a file. [linked-rolls](https://github.com/pfefferniels/linked-rolls) runs its
-emulation on it. Rebuild `dist/` whenever `src/` changes, and commit it.
+mechanisms (`pneumaticModel`, `runPedals`), and the instruments the nuancing mechanism can run
+as. A caller chooses one of three things with `instrumentParameters(half, choice)`: the
+consensus, which is one instrument fitted to all six lined rolls at once and the default;
+a preset, the setting that drew one particular roll, named by its Welte number
+(`{ preset: "3309" }`); or explicit parameters over either (`{ parameters: { alpha: 1 } }`).
+`PRESETS` and `CONSENSUS` carry the sets with their provenance: what each was fitted to, how
+well it scores on blocks it never saw, how far two seeds disagree, and what the roll's trace
+could not witness. Every set is in bellows travel, the rails at 0 and 1 and the terms that
+describe the drawing apparatus switched off, since a playback instrument reads the punches
+where they are; `onPrintedScale` puts a set onto a roll whose rails sit elsewhere, and
+`inTravelUnits` brings a fit back. The presets are not keyed by year: across the six rolls no
+constant follows the catalogue number, and the lines were drawn on copies, so one roll's year
+is not its drawing's. Nothing in the library reads a file.
+[linked-rolls](https://github.com/pfefferniels/linked-rolls) runs its emulation on it. Rebuild
+`dist/` whenever `src/` changes, and commit it.
 
 ## What is in here
 
@@ -78,12 +89,13 @@ emulation on it. Rebuild `dist/` whenever `src/` changes, and commit it.
 | `src/index.ts` | the library surface, built into `dist/` |
 | `src/roll/` | the roll as input: a MIDI reader, the take-up spool that sets the time axis, the expression code, the tracker-bar aperture |
 | `src/truth/` | the traced curves, with the flags that say which rows are evidence |
-| `src/model/` | the models, the Mezzoforte stop they share, the pedals, and the constants playback runs on |
+| `src/model/` | the models, the Mezzoforte stop they share, the pedals, and the instruments playback runs on, generated from the fits by `src/cli/instruments.ts` |
 | `src/eval/` | masked metrics, the train/test split, and the fitting |
 | `src/cli/` | evaluate, fit, polish, ablate, and inspect the residuals |
 | `docs/sources.md` | what the sources say, by topic: Hagmann 1984 and Welte's regulation controls, Schmitz 1981, Gottschewski, the patents, `midi2exp` and `pianolatron` |
 | `docs/measurements.md` | what roll 3309 shows, measured without a model |
 | `docs/experiments.md` | the ablation table and what it decides, produced by the model at tag `full-model` |
+| `docs/fits-lean/`, `docs/consensus/` | the six rolls fitted separately and pooled, which the presets and the consensus are built from |
 | `docs/findings.html` | the report, as artifact source; `docs/embed-figures.mjs` inlines its figures |
 | `analysis/` | the Python that produced `docs/measurements.md` and its figures |
 | `view/` | an overlay viewer: expression line, emulated line, punched code, residual |
