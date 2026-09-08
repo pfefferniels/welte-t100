@@ -10,6 +10,13 @@
  * lens where the two circles overlap; a longer perforation is a stadium, and
  * while its straight flank covers the port the area is simply the port's own.
  *
+ * Two slots close enough to reach the bore together open it over the *union* of
+ * their two lenses, which for punches a chain pitch apart is very nearly their
+ * sum. It matters on a green roll, where a held command is a chain of round
+ * holes on a 2.66 mm grid with paper bridges of about a millimetre between them:
+ * at the trough between two punches both neighbours are over the bore at once,
+ * and the greater of the two sees one sliver where the paper offers two.
+ *
  * midi2exp instead keeps the port binary and lengthens every perforation by
  * 0.75 tracker diameters at its tail end, which comes to a similar total open
  * time but places it about 11 ms late; the empirics carry that reading as the
@@ -101,7 +108,7 @@ export function aperturePorts(grid, punches, geometry = DEFAULT_GEOMETRY, gapPx 
         const last = grid.indexOfRow(slot.rowOff + reach);
         Array.from({ length: last - first + 1 }, (_, offset) => first + offset).forEach((index) => {
             const value = openFraction(grid.rowAt(index), slot.rowOn, slot.rowOff, geometry);
-            series[index] = Math.max(series[index], value);
+            series[index] = Math.min(series[index] + value, 1);
         });
     };
     slots(punches, gapPx).forEach(stamp);
