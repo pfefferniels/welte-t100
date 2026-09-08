@@ -30,6 +30,7 @@ export { portKey, portSeries, type PortKey, type PunchAt } from "./core/ports.ts
 export { conductanceFor, drive } from "./core/flow.ts";
 export { heldAbove, heldValve, latched, momentary, TRIP_THRESHOLD, type ValveSpec } from "./core/valve.ts";
 export { limitAtStop, MF_THICKNESS, newStopState, type StopState } from "./core/stop.ts";
+export type { HalfProvenance } from "./core/provenance.ts";
 export {
   mezzoforteTravel,
   runBellows,

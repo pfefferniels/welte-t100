@@ -17,6 +17,7 @@ export { portKey, portSeries, type PortKey, type PunchAt } from "./core/ports.ts
 export { conductanceFor, drive } from "./core/flow.ts";
 export { heldAbove, heldValve, latched, momentary, TRIP_THRESHOLD, type ValveSpec } from "./core/valve.ts";
 export { limitAtStop, MF_THICKNESS, newStopState, type StopState } from "./core/stop.ts";
+export type { HalfProvenance } from "./core/provenance.ts";
 export { mezzoforteTravel, runBellows, travelBetweenRails, type BellowsState, type Drive, } from "./core/nuancing.ts";
 export { unitsOf, type Scaling, type Units } from "./core/units.ts";
 export { clamp, HALVES, parametersFrom, parameterVector, shiftedByDriftingRows, shiftedByRows, simulate, withFixed, withTied, type Half, type Model, type ModelInput, type Parameters, type ParameterSpec, } from "./core/types.ts";

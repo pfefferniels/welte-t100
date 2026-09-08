@@ -17,6 +17,10 @@
     "./t100": {
       "types": "./dist/t100/index.d.ts",
       "default": "./dist/t100/index.js"
+    },
+    "./t98": {
+      "types": "./dist/t98/index.d.ts",
+      "default": "./dist/t98/index.js"
     }
   },
   "files": [

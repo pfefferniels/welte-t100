@@ -85,6 +85,11 @@ function openFraction(row, rowOn, rowOff, geometry) {
  */
 export function slots(punches, gapPx = 0) {
     const byPort = punches.reduce((groups, punch) => {
+        // A punch with no ink is not a hole in the paper. Nothing a scan produces
+        // looks like this, but an edition can carry a symbol of no extent, and it
+        // should read as an absence rather than as a round punch at that place.
+        if (punch.rowOff <= punch.rowOn)
+            return groups;
         return groups.set(punch.key, [...(groups.get(punch.key) ?? []), punch]);
     }, new Map());
     return [...byPort].flatMap(([key, punches]) => punches

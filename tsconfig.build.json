@@ -9,6 +9,7 @@
   "include": [],
   "files": [
     "src/index.ts",
-    "src/t100/index.ts"
+    "src/t100/index.ts",
+    "src/t98/index.ts"
   ]
 }

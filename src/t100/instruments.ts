@@ -21,17 +21,11 @@
  */
 
 import { CONSENSUS_DATA, PRESET_DATA } from "./instruments.data.ts";
+import type { HalfProvenance } from "../core/provenance.ts";
 import type { Half } from "../core/types.ts";
 import type { Parameters } from "../core/types.ts";
 
-export type HalfProvenance = {
-  /** RMSE on the blocks the fit never saw, in units of the printed scale; for the consensus, the mean over its rolls. */
-  readonly heldOutRmse: number;
-  /** Share of the roll's rows the tracer witnessed. */
-  readonly coverage?: number;
-  /** Settled arrivals at the Mezzoforte hook, from which its level was measured; below 20, the level is the fit's. */
-  readonly hookArrivals?: number;
-};
+export type { HalfProvenance };
 
 export type Provenance = {
   readonly druid?: string;
