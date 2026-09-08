@@ -3,7 +3,8 @@ import assert from "node:assert/strict";
 
 import { Grid } from "../core/grid.ts";
 import { portKey, type PortKey } from "./codes.ts";
-import { halfPedalling, pedalBrushing, pedalDefaults, pedalSpans, runPedals, tiedToRise } from "../core/pedal.ts";
+import { runPedals } from "./pedals.ts";
+import { halfPedalling, pedalBrushing, pedalDefaults, pedalSpans, tiedToRise } from "../core/pedal.ts";
 import type { PedalInput } from "../core/pedal.ts";
 
 const ROWS_PER_SECOND = 600;

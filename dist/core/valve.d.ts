@@ -45,3 +45,5 @@ export type ValveSpec = {
  * is also what carries the charge across the paper bridges of a chain punching.
  */
 export declare function heldValve(port: Float64Array, dt: Float64Array, spec: ValveSpec): Float64Array;
+/** 1 while the valve stands open at all. */
+export declare function heldAbove(lift: Float64Array): Uint8Array;

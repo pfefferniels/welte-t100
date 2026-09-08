@@ -41,5 +41,5 @@ export {
   type Provenance,
   type RollNumber,
 } from "./instruments.ts";
-export { runPedals } from "../core/pedal.ts";
+export { runPedals, T100_PEDAL_EDGES, T100_PEDALS } from "./pedals.ts";
 export { pixels, pixelsPerInch, readRoll, RollTiming, type AxisChoice, type Roll } from "./timing.ts";

@@ -89,3 +89,7 @@ export function heldValve(port: Float64Array, dt: Float64Array, spec: ValveSpec)
   );
 }
 
+/** 1 while the valve stands open at all. */
+export function heldAbove(lift: Float64Array): Uint8Array {
+  return Uint8Array.from(lift, (value) => (value > 0 ? 1 : 0));
+}

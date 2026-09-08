@@ -28,7 +28,7 @@ export {
 export { portKey, portSeries, type PortKey, type PunchAt } from "./core/ports.ts";
 
 export { conductanceFor, drive } from "./core/flow.ts";
-export { heldValve, latched, momentary, TRIP_THRESHOLD, type ValveSpec } from "./core/valve.ts";
+export { heldAbove, heldValve, latched, momentary, TRIP_THRESHOLD, type ValveSpec } from "./core/valve.ts";
 export { limitAtStop, MF_THICKNESS, newStopState, type StopState } from "./core/stop.ts";
 export {
   mezzoforteTravel,
@@ -57,14 +57,20 @@ export {
 
 export {
   halfPedalling,
+  heldCommand,
+  latchedCommand,
   pedalBrushing,
   pedalDefaults,
   pedalSpec,
   pedalSpans,
-  runPedals,
+  pedalTravel,
   tiedToRise,
   type HalfPedalling,
+  type PedalCommand,
+  type PedalControl,
+  type PedalEdges,
   type PedalInput,
+  type PedalReading,
   type PedalSpan,
   type PedalTravel,
 } from "./core/pedal.ts";

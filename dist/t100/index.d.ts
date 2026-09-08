@@ -13,5 +13,5 @@ export { t100Relay, type Relay } from "./relay.ts";
 export { DRAWING_APPARATUS, inTravelUnits, onPrintedScale } from "./units.ts";
 export { mezzoforteTravel, playbackParameters, travelBetweenRails } from "./playback.ts";
 export { CONSENSUS, PRESETS, instrumentOf, instrumentParameters, type HalfProvenance, type Instrument, type InstrumentChoice, type Provenance, type RollNumber, } from "./instruments.ts";
-export { runPedals } from "../core/pedal.ts";
+export { runPedals, T100_PEDAL_EDGES, T100_PEDALS } from "./pedals.ts";
 export { pixels, pixelsPerInch, readRoll, RollTiming, type AxisChoice, type Roll } from "./timing.ts";

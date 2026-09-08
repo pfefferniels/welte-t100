@@ -13,5 +13,5 @@ export { t100Relay } from "./relay.js";
 export { DRAWING_APPARATUS, inTravelUnits, onPrintedScale } from "./units.js";
 export { mezzoforteTravel, playbackParameters, travelBetweenRails } from "./playback.js";
 export { CONSENSUS, PRESETS, instrumentOf, instrumentParameters, } from "./instruments.js";
-export { runPedals } from "../core/pedal.js";
+export { runPedals, T100_PEDAL_EDGES, T100_PEDALS } from "./pedals.js";
 export { pixels, pixelsPerInch, readRoll, RollTiming } from "./timing.js";

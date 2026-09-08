@@ -61,3 +61,7 @@ function liftAt(charge, tripThreshold, band) {
 export function heldValve(port, dt, spec) {
     return chargeOf(port, dt, spec.fillMs, spec.tailMs).map((charge) => liftAt(charge, spec.tripThreshold, spec.band));
 }
+/** 1 while the valve stands open at all. */
+export function heldAbove(lift) {
+    return Uint8Array.from(lift, (value) => (value > 0 ? 1 : 0));
+}

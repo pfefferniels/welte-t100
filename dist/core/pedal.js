@@ -1,7 +1,15 @@
 /**
- * The two pedals of a red Welte (T-100), after Hagmann's Anhang 16 (p. 189) and
- * the account on pp. 106–107.
+ * The two pedals, after Hagmann's Anhang 16 (p. 189, T-100), Anhang 17 (p. 190,
+ * T-98) and the account on pp. 106–107.
  *
+ * The mechanism below the command is the same on both scales: "die Unterschiede
+ * zwischen der älteren und der jüngeren Skalenteilung [manifestieren sich] – damit
+ * der Nuancierung entsprechend – nur im Bereich der Vorpneumatik; die Anordnung
+ * der Ventile und Bälge, die zur Ausführung der Bewegungen dienen, ist dagegen in
+ * beiden Systemen dieselbe" (p. 106), and Anhang 17 draws the T-98 pedal action
+ * with the same throttles 11 and 17 on the damper and 20 on the hammer rail. So
+ * only two things belong to a scale: which edge of the paper each pedal is
+ * punched on, and whether the Vorpneumatik latches or holds. Both are arguments.
  *
  * Both pedals are worked by a bellows, and a bellows takes time to fill. So the
  * state here is travel in [0, 1] and not a switch: 0 is the pedal up, 1 is the
@@ -61,7 +69,7 @@
  */
 import { conductanceFor, drive } from "./flow.js";
 import { portKey, portSeries } from "./ports.js";
-import { latched } from "./valve.js";
+import { heldAbove, heldValve, latched } from "./valve.js";
 import { clamp, simulate } from "./types.js";
 /**
  * Fraction of its span chamber 12 has to cross before membrane 13 lifts valve
@@ -133,16 +141,20 @@ const SPEC = [
     { name: "shiftMs", lower: 5, upper: 800, unit: "ms", note: "bellows 19 through throttle 20, both directions" },
 ];
 /**
- * The latch of one pedal. Both sit on the Vorpneumatik and behave as the
- * nuancing relays do, so `latched` does the work; only the ports differ, and
- * they are named by the edge of the paper they are punched on rather than by a
- * keyboard half, since a pedal acts on the whole instrument.
+ * The set/cancel pair of a T-100 pedal. Both sit on the Vorpneumatik and behave
+ * as the nuancing relays do, so `latched` does the work.
  */
-function latchOf(input, control) {
-    const half = control === "sustainPedal" ? "treble" : "bass";
-    const at = (action) => portSeries(input.ports, portKey(half, control, action), input.grid.length);
+export const latchedCommand = (input, control, edges) => {
+    const at = (action) => portSeries(input.ports, portKey(edges[control], control, action), input.grid.length);
     return latched(at("on"), at("off"));
-}
+};
+/**
+ * The single held perforation of a T-98 pedal, read through a relay valve.
+ * Hagmann, p. 106 n. 48: "Sowohl bei der älteren als auch bei der jüngeren
+ * Blockskala funktioniert die Vorpneumatik der Pedal-Einrichtung sinngemäss in
+ * gleicher Weise wie die Ventile in den Relais der Nuancierungseinrichtungen."
+ */
+export const heldCommand = (valve) => (input, control, edges) => heldAbove(heldValve(portSeries(input.ports, portKey(edges[control], control), input.grid.length), input.grid.dt, valve));
 /**
  * A bellows following a latch, with `rate` chosen per direction. The dampers
  * need two conductances because their two directions run through different
@@ -173,19 +185,19 @@ function relayOf(input, latch, alpha, lagMs) {
         return state.chamber >= RELAY_TRIP ? 1 : 0;
     });
 }
-export function runPedals(input, params = DEFAULTS) {
+export function pedalTravel(input, params, reading) {
     const p = { ...DEFAULTS, ...params };
     const alpha = p.alpha;
     const rate = (ms) => conductanceFor(SETTLED, ms, alpha);
-    const damperLatch = latchOf(input, "sustainPedal");
-    const hammerRailLatch = latchOf(input, "hammerRail");
-    const valve = relayOf(input, damperLatch, alpha, p.relayLagMs);
+    const damperCommand = reading.command(input, "sustainPedal", reading.edges);
+    const hammerRailCommand = reading.command(input, "hammerRail", reading.edges);
+    const valve = relayOf(input, damperCommand, alpha, p.relayLagMs);
     const shift = rate(p.shiftMs);
     return {
         damper: travelOf(input, valve, alpha, rate(p.liftMs), rate(p.fallMs)),
-        hammerRail: travelOf(input, hammerRailLatch, alpha, shift, shift),
-        damperLatch,
-        hammerRailLatch,
+        hammerRail: travelOf(input, hammerRailCommand, alpha, shift, shift),
+        damperCommand,
+        hammerRailCommand,
     };
 }
 /**
@@ -202,13 +214,13 @@ export function tiedToRise(params) {
     return { ...params, fallMs: params.liftMs ?? DEFAULTS.liftMs };
 }
 /**
- * The roll's pedalling cut at the latch edges. A span that ends short of its
- * rail is one the mechanism could not finish: the dampers were still on their
- * way when the roll asked for the other direction, which is the only way a red
+ * The roll's pedalling cut at the edges of the command. A span that ends short
+ * of its rail is one the mechanism could not finish: the dampers were still on
+ * their way when the roll asked for the other direction, which is the only way a
  * Welte reaches a position between its two ends.
  */
 export function pedalSpans(travel, grid) {
-    const latch = travel.damperLatch;
+    const latch = travel.damperCommand;
     const edges = [...latch].flatMap((state, index) => (index > 0 && state !== latch[index - 1] ? [index] : []));
     const bounds = [0, ...edges, latch.length - 1];
     return bounds.slice(0, -1).map((start, position) => {
