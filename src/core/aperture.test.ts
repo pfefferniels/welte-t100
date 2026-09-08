@@ -27,6 +27,33 @@ test("two punches under the bore at once open it over the union of their lenses"
   assert.ok(Math.max(...pair) <= 1, "and never more than a fully open port");
 });
 
+test("the union moves towards the merged reading and never past it", () => {
+  // This is what makes the union a correction rather than an arbitrary move, and
+  // it is worth pinning because the T-100's published fits ran on perforations a
+  // detector had split: on roll 3309 alone, 232 of the bass's 1180 pieces lie
+  // closer than a bore to their neighbour. Where two pieces are really one slot,
+  // the truth is the merged reading, and both the max and the union understate
+  // it — but the union understates it by less, at every gap and every row.
+  const merged = (gap: number): Float64Array => aperturePorts(grid(), [punch(400, 520 + gap)]).get(KEY)!;
+  const union = (gap: number): Float64Array =>
+    aperturePorts(grid(), [punch(400, 460), punch(460 + gap, 520 + gap)]).get(KEY)!;
+  const greaterOfTheTwo = (gap: number): Float64Array => {
+    const first = aperturePorts(grid(), [punch(400, 460)]).get(KEY)!;
+    const second = aperturePorts(grid(), [punch(460 + gap, 520 + gap)]).get(KEY)!;
+    return first.map((value, index) => Math.max(value, second[index]!));
+  };
+
+  [1, 2, 4, 8, 12, 16, 20].forEach((gap) => {
+    const both = union(gap);
+    const whole = merged(gap);
+    const max = greaterOfTheTwo(gap);
+    both.forEach((value, index) => {
+      assert.ok(value >= max[index]! - 1e-12, `gap ${gap}, row ${index}: below the greater of the two`);
+      assert.ok(value <= whole[index]! + 1e-12, `gap ${gap}, row ${index}: past the merged reading`);
+    });
+  });
+});
+
 test("punches further apart than the bore are untouched by the union", () => {
   const far = aperturePorts(grid(), [punch(400, 420), punch(500, 520)]).get(KEY)!;
   const first = aperturePorts(grid(), [punch(400, 420)]).get(KEY)!;
