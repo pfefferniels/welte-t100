@@ -132,6 +132,42 @@ a constant rate (which is what `midi2exp` and `pianolatron` assume). `α` is fit
 chosen, so the family contains the prior art as a special case. The fitted values are in
 `src/t100/instruments.data.ts`.
 
+### The two relays
+
+The equation and everything after it are the same on both tracker scales, on Hagmann's
+authority that the nuancing unit is "von geringfügigen Unterschieden abgesehen, für beide
+Blockskalen gleich konstruiert" (p. 96) and because his Anhang 13 and 14 are the same drawing
+of parts 85–101 under two different relays. What differs is which paths are open, and when.
+
+The **T-100** puts a hold chamber above each "on" valve, so a short punch sets a function and
+it stands until its cancel line is read. That is claim 3 of DRP 162 708, whose purpose is
+stated as "daß man im Notenblatt nur kurze Öffnungen vorzusehen braucht, um lang anhaltende
+Wirkungen hervorzubringen". Three paths hang on it: conduit 39 switched between vacuum and
+atmosphere, conduit 23 under the sforzando, throttle 96 under the cancel.
+
+The **T-98** has no hold chamber on any of its four units, so "die Funktion bleibt genau so
+lange ausgeführt, als die entsprechende Perforation im Notenband über die Gleitblock-Oeffnung
+läuft" (pp. 100 f.). Four paths, and the fourth is the difference that matters: bore 100 is a
+*permanently open* bleed to atmosphere, which Welte added because the crescendo's own throttle
+cannot readmit air fast enough (Betriebsanleitung p. 13). It weakens the crescendo, so the
+ceiling a slow crescendo reaches is the balance of the two screws rather than a fitted
+asymptote, and the symmetry Welte requires of the crescendo and its decay falls out of the
+structure instead of having to be imposed. Four conduits stand on one bellows and nothing
+arbitrates between them, so opposed drives add as flows and the bellows goes where they
+balance — neither `midi2exp`'s arithmetic cancellation of constant velocity steps nor PlaySK's
+forte-wins. A long perforation on the bass sforzando-piano line is the rewind, read a second
+time by a sluggish dead-banded integrator on the same valve (Skala-Rolle 98 §10).
+
+Nothing on the T-98 side is fitted. `src/t98/instruments.ts` carries a discriminated union of
+*genuine* instruments, to be fitted to drawn green nuance lines, *derived* ones, to be fitted
+so that a green code reproduces what the T-100 emulator makes of the red copy of the same
+recording, and the *unfitted* starting values that ship in the meantime. The first two are
+empty. The difference between a genuine and a derived instrument, in the printed ordinate both
+scales share, is how far the transfer of a red reading onto the green mechanism succeeded, and
+it is what the two exist for. Welte's own regulation controls run as tests in
+`src/t98/controls.test.ts` and are a gate on any fitted result rather than a term in its
+objective; several of them record what the starting values do against what Welte requires.
+
 ## Observations
 
 - **Differently regulated instruments.** Each of the six rolls fits about as well as 3309,
