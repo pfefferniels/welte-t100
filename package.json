@@ -1,11 +1,11 @@
 {
-  "name": "welte-t100-emulator",
-  "version": "0.4.0",
+  "name": "welte-mignon-emulator",
+  "version": "1.0.0",
   "type": "module",
-  "description": "The expression mechanism of a Welte-Mignon T-100: the take-up spool, the nuancing bellows and the pedals, fitted against the hand-drawn Nuancierungslinien of six rolls.",
+  "description": "The expression mechanism of a Welte-Mignon: the take-up spool, the nuancing bellows and the pedals, with the latching relay of the T-100 and the duration-coded relay of the T-98 in front of them.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pfefferniels/welte-t100.git"
+    "url": "git+https://github.com/pfefferniels/welte-mignon-emulator.git"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -13,6 +13,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./t100": {
+      "types": "./dist/t100/index.d.ts",
+      "default": "./dist/t100/index.js"
     }
   },
   "files": [

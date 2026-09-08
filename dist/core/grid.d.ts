@@ -1,0 +1,23 @@
+/**
+ * The sample grid: one sample per pixel row of the scan.
+ *
+ * That is the grid the drawn curve was traced on, so the emulator runs on it too
+ * and nothing has to be resampled before the two are compared. The rows are
+ * contiguous but not equally spaced in time, because the roll accelerates, so
+ * every step carries its own `dt`.
+ */
+/** Whatever knows when a pixel row of a scan reaches the tracker bar. */
+export type RowTiming = {
+    secondsAtRow(row: number): number;
+};
+export declare class Grid {
+    readonly startRow: number;
+    readonly length: number;
+    readonly seconds: Float64Array;
+    readonly dt: Float64Array;
+    constructor(startRow: number, seconds: Float64Array);
+    static overRows(timing: RowTiming, startRow: number, endRow: number): Grid;
+    rowAt(index: number): number;
+    /** Nearest grid index to a pixel row, clamped to the grid. */
+    indexOfRow(row: number): number;
+}
