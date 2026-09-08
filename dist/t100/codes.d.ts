@@ -9,7 +9,7 @@
  * tracks 3 and 4 of the raw file.
  */
 import type { Roll } from "./timing.ts";
-import { type PortGeometry, type Slot } from "../core/aperture.ts";
+import { type PortGeometry } from "../core/aperture.ts";
 import type { Grid } from "../core/grid.ts";
 import { type Half, type ModelInput } from "../core/types.ts";
 export type { Half } from "../core/types.ts";
@@ -55,6 +55,12 @@ export type Perforation = Punch & {
 /** A T-100 port, named for the stack it belongs to, the function and the edge. */
 export type PortKey = `${Half}:${Control}:${Action}`;
 export declare function portKey(half: Half, control: Control, action: Action): PortKey;
+/** One stretch of the paper over which a T-100 port stands open. */
+export type Slot = {
+    readonly key: PortKey;
+    readonly rowOn: number;
+    readonly rowOff: number;
+};
 /** Perforations of one port that touch or overlap are one slot in the paper. */
 export declare function slots(punches: readonly Punch[]): Slot[];
 /** Continuous open fraction per grid row, keyed by half, control and action. */

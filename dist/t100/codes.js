@@ -8,7 +8,7 @@
  * onto MIDI keys 14..23 (bass) and 104..113 (treble), mirrored, and puts them on
  * tracks 3 and 4 of the raw file.
  */
-import { aperturePorts as portsOf, slots as slotsOf, DEFAULT_GEOMETRY, } from "../core/aperture.js";
+import { aperturePorts as portsOf, slots as slotsOf, DEFAULT_GEOMETRY } from "../core/aperture.js";
 import { portKey as joinKey, portSeries } from "../core/ports.js";
 import { shiftedByDriftingRows } from "../core/types.js";
 export { HALVES } from "../core/types.js";

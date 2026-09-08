@@ -6,7 +6,7 @@
  * package root. The fitting that produced these instruments lives in `empirics/`
  * of roll-nuance-tracer and builds on both surfaces.
  */
-export { aperturePorts, halfLabel, meaningOf, perforations, portKey, portOf, shiftedPortOf, slots, type Action, type CodeMeaning, type Control, type Half, type Perforation, type PortKey, type Punch, } from "./codes.ts";
+export { aperturePorts, halfLabel, meaningOf, perforations, portKey, portOf, shiftedPortOf, slots, type Action, type CodeMeaning, type Control, type Half, type Perforation, type PortKey, type Punch, type Slot, } from "./codes.ts";
 export { HALVES } from "./codes.ts";
 export { pneumaticModel, T100_SCALING } from "./model.ts";
 export { t100Relay, type Relay } from "./relay.ts";

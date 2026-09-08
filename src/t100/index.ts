@@ -23,6 +23,7 @@ export {
   type Perforation,
   type PortKey,
   type Punch,
+  type Slot,
 } from "./codes.ts";
 export { HALVES } from "./codes.ts";
 

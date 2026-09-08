@@ -11,13 +11,7 @@
 
 import type { Roll } from "./timing.ts";
 import type { TrackEvent } from "../core/smf.ts";
-import {
-  aperturePorts as portsOf,
-  slots as slotsOf,
-  DEFAULT_GEOMETRY,
-  type PortGeometry,
-  type Slot,
-} from "../core/aperture.ts";
+import { aperturePorts as portsOf, slots as slotsOf, DEFAULT_GEOMETRY, type PortGeometry } from "../core/aperture.ts";
 import type { Grid } from "../core/grid.ts";
 import { portKey as joinKey, portSeries, type PunchAt } from "../core/ports.ts";
 import { shiftedByDriftingRows, type Half, type ModelInput } from "../core/types.ts";
@@ -136,9 +130,12 @@ const punchAt = (punch: Punch): PunchAt => ({
   rowOff: punch.rowOff,
 });
 
+/** One stretch of the paper over which a T-100 port stands open. */
+export type Slot = { readonly key: PortKey; readonly rowOn: number; readonly rowOff: number };
+
 /** Perforations of one port that touch or overlap are one slot in the paper. */
 export function slots(punches: readonly Punch[]): Slot[] {
-  return slotsOf(punches.map(punchAt));
+  return slotsOf(punches.map(punchAt)) as Slot[];
 }
 
 /** Continuous open fraction per grid row, keyed by half, control and action. */
