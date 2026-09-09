@@ -47,11 +47,19 @@ export type Spool = {
  * p. 139. The initial paper speed is 287.7 cm/min, against the Deutsches
  * Museum's 290 for the type.
  *
- * **At what tempo, no source here says.** Gottschewski states the geometry and
- * not the dial setting, so a comparison between this and `WELTE_T98_SPOOL` —
- * which *is* calibrated, at Tempo 70 from Welte's own scale roll — assumes the
- * two are at the same setting. That assumption is doing work in any green
- * against red argument and nothing states it.
+ * **The tempo is Tempo 70**, which Gottschewski does not say but Welte does.
+ * Hagmann quotes the red scale roll's booklet (Welte 17) on its first control:
+ * „Skala ₁C–g⁴ = 80 Töne im p, Kontrolltöne c³ bei ₁C und e³ bei c¹ ergibt Tempo
+ * 70" (p. 180 f., n. 53). Both scale rolls are therefore calibrated at the same
+ * setting, so comparing this with `WELTE_T98_SPOOL` compares like with like —
+ * which until that quotation was found was an assumption doing silent work.
+ *
+ * The interval it names has been measured on a surviving red technician's roll
+ * (Condon 1367), whose two ruled lines fall on the sweep's ₁C and on c¹ with e³
+ * struck beside it, as the booklet describes. They are 1462.9 mm apart, and this
+ * constant carries the paper between them in **30.24 s** against the nominal 30.
+ * That is the first check of these constants against something other than
+ * Gottschewski's own derivation.
  *
  * A second thing worth knowing before this constant is trusted over a whole
  * roll: it models the speed rising 23.6 % from 139 to 2986 cm of paper, where
