@@ -42,7 +42,23 @@ export type Spool = {
   readonly circumferenceEffect: number;
 };
 
-/** A red Welte playback roll, after Gottschewski pp. 135, 137 and rule 2 on p. 139. */
+/**
+ * A red Welte playback roll, after Gottschewski pp. 135, 137 and rule 2 on
+ * p. 139. The initial paper speed is 287.7 cm/min, against the Deutsches
+ * Museum's 290 for the type.
+ *
+ * **At what tempo, no source here says.** Gottschewski states the geometry and
+ * not the dial setting, so a comparison between this and `WELTE_T98_SPOOL` —
+ * which *is* calibrated, at Tempo 70 from Welte's own scale roll — assumes the
+ * two are at the same setting. That assumption is doing work in any green
+ * against red argument and nothing states it.
+ *
+ * A second thing worth knowing before this constant is trusted over a whole
+ * roll: it models the speed rising 23.6 % from 139 to 2986 cm of paper, where
+ * Stahnke's own red tempo map gives 33.4 %. Gottschewski's check, 30 s over the
+ * first 1.45 m, is reproduced here to 30.03 s — but it constrains the start and
+ * not the acceleration, so the shape of this axis has never been tested.
+ */
 export const WELTE_SPOOL: Spool = {
   circumferenceCm: 22.25,
   layerCm: 0.0075,
