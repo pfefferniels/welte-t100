@@ -99,6 +99,12 @@ export const WELTE_SPOOL: Spool = {
  *
  * `layerCm` is an effective layer, absorbing winding tension and the air
  * between turns, so 1.91 times the red figure is not a claim about caliper.
+ *
+ * Both constants are derived through `ROWS_PER_INCH`, since the cross-lines are
+ * measured in scan rows: the mission reads 300.25 throughout, where Stanford's
+ * own header says 300. That is 0.08 % on the speed, well below the correction
+ * but not below the level at which two numbers should silently be on different
+ * grids.
  */
 export const WELTE_T98_SPOOL: Spool = {
   circumferenceCm: 22.25,
