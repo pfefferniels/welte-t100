@@ -16,7 +16,7 @@
  * sets exist and what each rests on.
  */
 
-import { runBellows } from "../core/nuancing.ts";
+import { RAIL_COMPLIANCE, RAIL_SCALING, runBellows } from "../core/nuancing.ts";
 import { simulate, type Model, type ModelInput, type Parameters, type ParameterSpec } from "../core/types.ts";
 import type { Scaling } from "../core/units.ts";
 import { t98Relay } from "./relay.ts";
@@ -65,6 +65,9 @@ const SPEC: readonly ParameterSpec[] = [
   { name: "dumpDepth", lower: 0, upper: 1, unit: "1", note: "how far throttle 97 collapses the delivered vacuum on a sforzando-piano, downstream of the cone valve; 0 is the default and it must be 0 whenever a drawn line is being fitted" },
   { name: "dumpRiseMs", lower: 1, upper: 500, unit: "ms", note: "how fast it opens" },
   { name: "dumpFallMs", lower: 1, upper: 500, unit: "ms", note: "how fast the wind chamber recovers" },
+  // A property of the bellows rather than of the pen, so it is fitted per
+  // instrument and not per roll. `core/nuancing.ts` says what measures it.
+  ...RAIL_COMPLIANCE,
 ];
 
 /**
@@ -129,6 +132,9 @@ const DEFAULTS: Parameters = {
   dumpDepth: 0,
   dumpRiseMs: 40,
   dumpFallMs: 120,
+  // Measured on the green lines but not yet fitted, so it ships as the identity.
+  railWidth: 0,
+  railDrag: 0,
 };
 
 /** Which of the T-98's constants carry the span between the rails. */
@@ -136,6 +142,7 @@ export const T98_SCALING: Scaling = {
   levels: ["mezzoforte", "crescendoTarget", "releaseTarget", "sforzandoTarget", "blowerThreshold", "blowerHysteresis"],
   conductances: ["crescendoRate", "bleedRate", "sforzandoForteRate", "sforzandoPianoRate"],
   loads: ["throughFlowLoad"],
+  ...RAIL_SCALING,
 };
 
 /**

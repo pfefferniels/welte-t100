@@ -33,6 +33,8 @@ export { limitAtStop, MF_THICKNESS, newStopState, type StopState } from "./core/
 export type { HalfProvenance } from "./core/provenance.ts";
 export {
   mezzoforteTravel,
+  RAIL_COMPLIANCE,
+  RAIL_SCALING,
   runBellows,
   travelBetweenRails,
   type BellowsState,

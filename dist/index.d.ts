@@ -18,7 +18,7 @@ export { conductanceFor, drive } from "./core/flow.ts";
 export { heldAbove, heldValve, latched, momentary, TRIP_THRESHOLD, type ValveSpec } from "./core/valve.ts";
 export { limitAtStop, MF_THICKNESS, newStopState, type StopState } from "./core/stop.ts";
 export type { HalfProvenance } from "./core/provenance.ts";
-export { mezzoforteTravel, runBellows, travelBetweenRails, type BellowsState, type Drive, } from "./core/nuancing.ts";
+export { mezzoforteTravel, RAIL_COMPLIANCE, RAIL_SCALING, runBellows, travelBetweenRails, type BellowsState, type Drive, } from "./core/nuancing.ts";
 export { unitsOf, type Scaling, type Units } from "./core/units.ts";
 export { clamp, HALVES, parametersFrom, parameterVector, shiftedByDriftingRows, shiftedByRows, simulate, withFixed, withTied, type Half, type Model, type ModelInput, type Parameters, type ParameterSpec, } from "./core/types.ts";
 export { halfPedalling, heldCommand, latchedCommand, pedalBrushing, pedalDefaults, pedalSpec, pedalSpans, pedalTravel, tiedToRise, type HalfPedalling, type PedalCommand, type PedalControl, type PedalEdges, type PedalInput, type PedalReading, type PedalSpan, type PedalTravel, } from "./core/pedal.ts";

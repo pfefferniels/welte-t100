@@ -184,10 +184,17 @@ test("a chain of punches reads as the one hold an edition delivers", () => {
 });
 
 test("the two scales convert exactly and mean the same thing on both", () => {
-  const onRoll: Parameters = { ...BASS, piano: 0.03, forte: 0.91, mezzoforte: 0.62, alpha: 1.3, throughFlowLoad: 0.12 };
+  // railWidth is a distance along the scale and not a position, so it carries
+  // the span without the offset; railDrag is a share and carries neither.
+  const onRoll: Parameters = {
+    ...BASS, piano: 0.03, forte: 0.91, mezzoforte: 0.62, alpha: 1.3, throughFlowLoad: 0.12,
+    railWidth: 0.08, railDrag: 0.4,
+  };
   const asTravel = inTravelUnits(onRoll);
   assert.equal(asTravel.piano, 0);
   assert.equal(asTravel.forte, 1);
+  assert.ok(Math.abs(asTravel.railWidth! - 0.08 / 0.88) < 1e-12, "a width scales by the span alone");
+  assert.equal(asTravel.railDrag, 0.4, "and a share not at all");
   const back = onPrintedScale(asTravel, 0.03, 0.91);
   Object.keys(onRoll).forEach((name) => {
     assert.ok(Math.abs(back[name]! - onRoll[name]!) < 1e-12, `${name}: ${back[name]} against ${onRoll[name]}`);

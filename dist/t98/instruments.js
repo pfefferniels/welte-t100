@@ -87,6 +87,8 @@ const STARTING_BASS = {
     dumpDepth: 0,
     dumpRiseMs: 40,
     dumpFallMs: 120,
+    railWidth: 0,
+    railDrag: 0,
 };
 const STARTING_TREBLE = {
     ...STARTING_BASS,

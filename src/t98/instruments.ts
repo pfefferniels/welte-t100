@@ -144,6 +144,8 @@ const STARTING_BASS: Parameters = {
   dumpDepth: 0,
   dumpRiseMs: 40,
   dumpFallMs: 120,
+  railWidth: 0,
+  railDrag: 0,
 };
 
 const STARTING_TREBLE: Parameters = {

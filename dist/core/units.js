@@ -26,6 +26,7 @@ function rescaled(params, scaling, piano, forte, toTravel) {
     const level = (value) => (toTravel ? (value - piano) / span : piano + value * span);
     const conductance = (value) => (toTravel ? value * span ** (alpha - 1) : value * span ** (1 - alpha));
     const load = (value) => (toTravel ? value * span : value / span);
+    const width = (value) => (toTravel ? value / span : value * span);
     const out = { ...params };
     const apply = (names, convert) => {
         names.forEach((name) => {
@@ -36,6 +37,7 @@ function rescaled(params, scaling, piano, forte, toTravel) {
     apply(scaling.levels, level);
     apply(scaling.conductances, conductance);
     apply(scaling.loads, load);
+    apply(scaling.widths, width);
     out.piano = toTravel ? 0 : piano;
     out.forte = toTravel ? 1 : forte;
     return out;

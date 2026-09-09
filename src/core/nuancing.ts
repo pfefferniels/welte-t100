@@ -35,10 +35,63 @@
 
 import type { Grid } from "./grid.ts";
 import { limitAtStop, MF_THICKNESS, newStopState, type StopState } from "./stop.ts";
-import { clamp, simulate, type Parameters } from "./types.ts";
+import { clamp, simulate, type Parameters, type ParameterSpec } from "./types.ts";
+import type { Scaling } from "./units.ts";
 
 /** Below this the contact is a rest rather than an impact, and nothing rebounds. */
 const REBOUND_FLOOR = 0.5;
+
+/**
+ * How much of what the drives ask for survives near a rail.
+ *
+ * This fills a gap in the flow law, and one both scales always had. On green
+ * paper, fitting a line through every bin of stroke speed above the lowest and
+ * extrapolating back, **the lowest bin sits above the trend in every series and
+ * in both directions** — +3.2 mm at 6.6 sigma on Welte 184's bass falls,
+ * +44.8 mm at 9.5 sigma on 942's bass crescendos. A fall approaches the open
+ * rail from above and a crescendo leaves it from below, and both are slow there.
+ *
+ * Nothing already in the model can do that. A drive is a conductance times a gap
+ * to a target fixed outside the rails, so towards the closed rail one direction
+ * is quickening exactly where the other is slowing, whichever way round the
+ * targets sit; and a warp is one monotone factor, which likewise speeds one side
+ * while slowing the other. **Symmetric slowing about one position is a rail.**
+ *
+ * So: the smallest thing that would do it. A short symmetric drag within a
+ * neighbourhood of each rail, one width and one strength, applied to whatever
+ * the drives ask for. **Symmetric by construction, because that is what was
+ * measured** — a one-sided term would be a different claim and is not offered.
+ *
+ * The T-100 shares the gap and never had the evidence to see it. Its own note on
+ * the rebound, below, says the rails "are never approached at more than
+ * 10 units/s against 20 and more at the hook, so the roll cannot say whether
+ * they are compliant", and `docs/sources.md` §9 lists a stop "with extent and
+ * compliance" among what the emulator represents while the rails have neither.
+ * Only a T-98 measures it, because only a T-98 crescendo starts at the rail
+ * every time. The term therefore lives here rather than under `t98/`, and either
+ * scale may declare it: the T-100's shipped instruments do not, and will not
+ * until someone refits them.
+ *
+ * At zero strength or zero width it is the identity.
+ */
+function railDragAt(x: number, piano: number, forte: number, width: number, drag: number): number {
+  if (drag <= 0 || width <= 0) return 1;
+  const toNearestRail = Math.min(Math.abs(x - piano), Math.abs(x - forte));
+  return 1 - drag * Math.max(0, 1 - toNearestRail / width);
+}
+
+/**
+ * The two constants of the rail compliance, for a scale that carries them.
+ * Spliced into a model's own spec rather than assumed, so that a scale without
+ * the evidence for the term simply does not offer it.
+ */
+export const RAIL_COMPLIANCE: readonly ParameterSpec[] = [
+  { name: "railWidth", lower: 0, upper: 0.3, unit: "scale", note: "how far from either rail the drag reaches; 0 switches the term off" },
+  { name: "railDrag", lower: 0, upper: 0.95, unit: "1", note: "share of the drive lost at the rail itself, falling to nothing at railWidth; the same on both sides by construction" },
+];
+
+/** How a `Scaling` has to classify those two: a width and a share. */
+export const RAIL_SCALING: Pick<Scaling, "widths"> = { widths: ["railWidth"] };
 
 export type BellowsState = {
   x: number;
@@ -84,9 +137,12 @@ export function runBellows(
   const restitution = params.stopRestitution ?? 0;
   const steps = grid.dt;
 
+  const railWidth = params.railWidth ?? 0;
+  const railDrag = params.railDrag ?? 0;
+
   const advance = (state: BellowsState, index: number): number => {
     const dt = steps[index]!;
-    const target = drive(state, index, dt);
+    const target = drive(state, index, dt) * railDragAt(state.x, piano, forte, railWidth, railDrag);
     const smoothing = inertiaMs > 0 ? Math.exp((-dt * 1000) / inertiaMs) : 0;
     state.velocity = target + (state.velocity - target) * smoothing;
 

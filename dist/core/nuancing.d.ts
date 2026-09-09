@@ -34,7 +34,16 @@
  */
 import type { Grid } from "./grid.ts";
 import { type StopState } from "./stop.ts";
-import { type Parameters } from "./types.ts";
+import { type Parameters, type ParameterSpec } from "./types.ts";
+import type { Scaling } from "./units.ts";
+/**
+ * The two constants of the rail compliance, for a scale that carries them.
+ * Spliced into a model's own spec rather than assumed, so that a scale without
+ * the evidence for the term simply does not offer it.
+ */
+export declare const RAIL_COMPLIANCE: readonly ParameterSpec[];
+/** How a `Scaling` has to classify those two: a width and a share. */
+export declare const RAIL_SCALING: Pick<Scaling, "widths">;
 export type BellowsState = {
     x: number;
     velocity: number;

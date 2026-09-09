@@ -17,7 +17,7 @@ export { portKey, portSeries } from "./core/ports.js";
 export { conductanceFor, drive } from "./core/flow.js";
 export { heldAbove, heldValve, latched, momentary, TRIP_THRESHOLD } from "./core/valve.js";
 export { limitAtStop, MF_THICKNESS, newStopState } from "./core/stop.js";
-export { mezzoforteTravel, runBellows, travelBetweenRails, } from "./core/nuancing.js";
+export { mezzoforteTravel, RAIL_COMPLIANCE, RAIL_SCALING, runBellows, travelBetweenRails, } from "./core/nuancing.js";
 export { unitsOf } from "./core/units.js";
 export { clamp, HALVES, parametersFrom, parameterVector, shiftedByDriftingRows, shiftedByRows, simulate, withFixed, withTied, } from "./core/types.js";
 export { halfPedalling, heldCommand, latchedCommand, pedalBrushing, pedalDefaults, pedalSpec, pedalSpans, pedalTravel, tiedToRise, } from "./core/pedal.js";

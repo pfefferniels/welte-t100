@@ -27,9 +27,16 @@ import type { Parameters } from "./types.ts";
  * model rather than to this file, and every `Model` states it.
  */
 export type Scaling = {
+    /** A position on the scale, which is affine: both the offset and the span move it. */
     readonly levels: readonly string[];
     readonly conductances: readonly string[];
     readonly loads: readonly string[];
+    /**
+     * A distance along the scale rather than a position, so it carries the span
+     * and not the offset. The width of a neighbourhood of a rail is one of these;
+     * the rail itself is a level.
+     */
+    readonly widths: readonly string[];
 };
 /** The two conversions for one model's parameter vocabulary. */
 export type Units = {

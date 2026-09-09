@@ -105,11 +105,21 @@ const DEFAULTS = {
     scaleWarp: 0,
     stopRestitution: 0.2,
 };
-/** Which of the T-100's constants carry the span between the rails. */
+/**
+ * Which of the T-100's constants carry the span between the rails.
+ *
+ * No widths: the rail compliance of `core/nuancing.ts` is available to this
+ * model and is not declared, because no red roll measures it — the six lined
+ * ones never approach a rail fast enough to say whether it is compliant. A
+ * refit that wants it splices `RAIL_COMPLIANCE` into `SPEC` and `RAIL_SCALING`
+ * into this, and regenerates `instruments.data.ts`; until then the shipped
+ * instruments carry neither constant and the term is the identity for them.
+ */
 export const T100_SCALING = {
     levels: ["mezzoforte", "crescendoTarget", "releaseTarget", "sforzandoTarget"],
     conductances: ["crescendoRate", "releaseRate", "sforzandoRate", "sforzandoAssistRate"],
     loads: ["throughFlowLoad"],
+    widths: [],
 };
 function run(input, params) {
     const relay = t100Relay(input, params);

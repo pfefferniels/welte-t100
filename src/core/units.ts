@@ -29,9 +29,16 @@ import type { Parameters } from "./types.ts";
  * model rather than to this file, and every `Model` states it.
  */
 export type Scaling = {
+  /** A position on the scale, which is affine: both the offset and the span move it. */
   readonly levels: readonly string[];
   readonly conductances: readonly string[];
   readonly loads: readonly string[];
+  /**
+   * A distance along the scale rather than a position, so it carries the span
+   * and not the offset. The width of a neighbourhood of a rail is one of these;
+   * the rail itself is a level.
+   */
+  readonly widths: readonly string[];
 };
 
 function rescaled(params: Parameters, scaling: Scaling, piano: number, forte: number, toTravel: boolean): Parameters {
@@ -40,6 +47,7 @@ function rescaled(params: Parameters, scaling: Scaling, piano: number, forte: nu
   const level = (value: number): number => (toTravel ? (value - piano) / span : piano + value * span);
   const conductance = (value: number): number => (toTravel ? value * span ** (alpha - 1) : value * span ** (1 - alpha));
   const load = (value: number): number => (toTravel ? value * span : value / span);
+  const width = (value: number): number => (toTravel ? value / span : value * span);
   const out: Record<string, number> = { ...params };
   const apply = (names: readonly string[], convert: (value: number) => number): void => {
     names.forEach((name) => {
@@ -49,6 +57,7 @@ function rescaled(params: Parameters, scaling: Scaling, piano: number, forte: nu
   apply(scaling.levels, level);
   apply(scaling.conductances, conductance);
   apply(scaling.loads, load);
+  apply(scaling.widths, width);
   out.piano = toTravel ? 0 : piano;
   out.forte = toTravel ? 1 : forte;
   return out;
