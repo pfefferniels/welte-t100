@@ -51,34 +51,43 @@ export const WELTE_SPOOL: Spool = {
 };
 
 /**
- * A green Welte playback roll. **A proposal, not a measurement.** No source
- * states a T-98 spool geometry. What is known is that the T-98 has a tempo dial
- * with six settings, each with its own throttle screw, and a wind-motor regulator
- * built to hold the tempo constant under forte (Welte, Betriebsanleitung p. 20),
- * so a wind motor turning at a regulated rate drives the take-up at a regulated
- * rate and Gottschewski's law applies with different constants.
+ * A green Welte playback roll, **fitted to Welte's own scale roll**.
  *
- * The red circumference and layer thickness are kept and `revolutionSeconds` is
- * set to make the initial paper speed 220 cm/min, the Deutsches Museum's figure
- * for *Welte grün / T 98*: 22.25 cm ÷ (220/60 cm/s) = 6.068 s. The same
- * construction reproduces the museum's red figure, 22.25 / 4.64 = 287.7 cm/min
- * against its 290, which checks the convention rather than the T-98.
+ * Both constants come from the six tempo cross-lines on the Monteurscala
+ * `gq104tn4658`. Welte's rule is that the roll runs from the first bass "A" of
+ * the chromatic scale to the cross-line bearing the dial's number in half a
+ * minute (Skala-Rolle 98 §1b), and the six lines are the round twenties, so
+ * they give six equations for `v(T) = kT` in two unknowns. Least squares over
+ * them lands on a doubling length of 2748 cm and 34.381 mm/s at Tempo 70, with
+ * an rms residual of 0.65 mm over spans of 302 to 1839 mm, and residuals
+ * mixed in sign. Two independent solves agree to four figures.
  *
- * Two things are certainly wrong with it. Green paper is "not as pliable or as
- * thin as that used for Mignon rolls" (Phillips p. 202), so `layerCm` is probably
- * larger, which would strengthen the acceleration; and the T-98 roll is 42 mm
- * narrower, so the flange spacing and possibly the core differ. Welte's own scale
- * roll would settle it: the roll must run from the first "A" of the chromatic
- * scale to the cross-line bearing the dial's number in half a minute
- * (Skala-Rolle 98 §1b), which one scan turns into `paperSeconds(spool, x) = 30`.
- * Until then the green paper speed is better varied than trusted: it scales every
- * fitted conductance by k and every time constant by 1/k, and touches nothing
- * dimensionless.
+ * That the lines can be fitted at all rests on `v(T) = kT`, which the booklet
+ * does not guarantee, each tempo having its own throttle screw. It holds
+ * because the screws are set until the roll reaches the numbered line in half
+ * a minute: the lines are the calibration target, so a correctly regulated
+ * instrument reproduces them by construction. The circularity is in Welte's
+ * reasoning, not in the measurement.
+ *
+ * The two constants are not equally secure. **`revolutionSeconds` is robust** —
+ * across doubling lengths from 2500 to 5253 cm the fitted speed moves only 2 %,
+ * so the 6 % correction to the museum's 220 cm/min stands almost independently
+ * of the acceleration. **`layerCm` is the weaker of the two**: it is fitted over
+ * 1.8 m of paper and then used over 28, where it predicts the speed rising 41 %
+ * across a roll. Nothing green confirms that yet — the +33 % in the parser's
+ * axis is Stahnke's red 0.22/foot map carried over, not a green measurement,
+ * though green paper being thicker (Phillips p. 202) does put green above red
+ * as the fit has it. The drawn nuance lines are the evidence with the leverage
+ * to settle it, since a shape error in the axis shows up as agreement decaying
+ * along the roll.
+ *
+ * `layerCm` is an effective layer, absorbing winding tension and the air
+ * between turns, so 1.91 times the red figure is not a claim about caliper.
  */
 export const WELTE_T98_SPOOL: Spool = {
   circumferenceCm: 22.25,
-  layerCm: 0.0075,
-  revolutionSeconds: 6.068,
+  layerCm: 0.01433,
+  revolutionSeconds: 6.4715,
   circumferenceEffect: 1,
 };
 
